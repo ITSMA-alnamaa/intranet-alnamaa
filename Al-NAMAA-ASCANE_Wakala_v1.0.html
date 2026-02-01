@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spécifications Fonctionnelles Wakala Investment - AL NAMAA FINANCE</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #2c5f2d;
+    --secondary: #97c05c;
+    --accent: #e8960e;
+    --dark: #1a1a1a;
+    --light: #f5f5f5;
+    --blue: #1e88e5;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+}
+
+.logo img { max-width: 180px; height: auto; margin-bottom: 10px; }
+
+.nav-menu { list-style: none; }
+
+.nav-link {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-link:hover {
+    background: var(--light);
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+.nav-subitem {
+    padding-left: 1.5rem;
+    font-size: 0.8rem;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.header .version { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; }
+
+.section {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--secondary);
+}
+
+h3 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+}
+
+h4 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1rem 0 0.5rem;
+}
+
+h5 {
+    color: #555;
+    font-size: 1rem;
+    margin: 0.8rem 0 0.4rem;
+}
+
+p { margin-bottom: 1rem; }
+ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+li { margin-bottom: 0.5rem; }
+
+.highlight {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+    border-left: 4px solid var(--primary);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.info-box {
+    background: #e3f2fd;
+    border-left: 4px solid var(--blue);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.warning {
+    background: #fff3e0;
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.danger {
+    background: #ffebee;
+    border-left: 4px solid #f44336;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+thead { background: var(--primary); color: white; }
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) { background: #f9f9f9; }
+tbody tr:hover { background: #e8f5e9; }
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-success { background: #c8e6c9; color: #2e7d32; }
+.badge-warning { background: #fff3e0; color: #e65100; }
+.badge-danger { background: #ffcdd2; color: #c62828; }
+.badge-info { background: #e3f2fd; color: #1565c0; }
+
+.flow-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.flow-step {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.flow-arrow { color: var(--accent); font-size: 1.5rem; }
+
+.formula {
+    background: #263238;
+    color: #80cbc4;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+<div class="logo">
+<img src="data:image/png;base64,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" alt="AL NAMAA FINANCE">
+<p style="font-family: 'Amiri', serif; color: #e8960e; font-size: 1rem; font-weight: 600;">الوكالة - Wakala</p>
+</div>
+<ul class="nav-menu">
+<li><a class="nav-link active" href="#intro" onclick="showSection('intro')">📖 1. Introduction</a></li>
+<li><a class="nav-link" href="#objectif" onclick="showSection('objectif')">🎯 2. Objectifs</a></li>
+<li><a class="nav-link" href="#public" onclick="showSection('public')">👥 3. Public Cible</a></li>
+<li><a class="nav-link" href="#charia" onclick="showSection('charia')">☪️ 4. Cadre Charia</a></li>
+<li><a class="nav-link" href="#description" onclick="showSection('description')">📋 5. Description</a></li>
+<li><a class="nav-link" href="#caracteristiques" onclick="showSection('caracteristiques')">💰 6. Caractéristiques</a></li>
+<li><a class="nav-link" href="#cycle" onclick="showSection('cycle')">🔄 7. Cycle Opérationnel</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape1" onclick="showSection('etape1')">→ Étape 1: Admission</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape2" onclick="showSection('etape2')">→ Étape 2: Signature</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape3" onclick="showSection('etape3')">→ Étape 3: Encaissement</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape4" onclick="showSection('etape4')">→ Étape 4: Investissement</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape5" onclick="showSection('etape5')">→ Étape 5: Gestion</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape6" onclick="showSection('etape6')">→ Étape 6: Distribution</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#etape7" onclick="showSection('etape7')">→ Étape 7: Clôture</a></li>
+<li><a class="nav-link" href="#biens" onclick="showSection('biens')">✅ 8. Biens Éligibles</a></li>
+<li><a class="nav-link" href="#comptable" onclick="showSection('comptable')">📊 9. Comptabilisation</a></li>
+<li><a class="nav-link" href="#parametrage" onclick="showSection('parametrage')">💻 10. Paramétrage CBS</a></li>
+<li><a class="nav-link" href="#kpi" onclick="showSection('kpi')">📈 11. KPI</a></li>
+<li><a class="nav-link" href="#avantages" onclick="showSection('avantages')">⭐ 12. Avantages</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="header">
+<h1>📋 Spécifications Fonctionnelles</h1>
+<h2 style="color: white; border: none; margin: 0.5rem 0;">Produit WAKALA INVESTMENT (الوكالة) - Mandat de Gestion Islamique</h2>
+<div class="version">Version 1.1 - décembre 2025</div>
+</div>
+<section class="section active" id="intro">
+<h2>📖 1. INTRODUCTION</h2>
+<p>La <strong>Wakala</strong> (<span style="font-family: 'Amiri', serif; font-size: 1.2rem;">الوكالة</span>) est un contrat de mandat par lequel un investisseur (Muwakkil) confie des fonds à un agent (Wakil) pour les investir dans des activités conformes à la Charia, moyennant une commission (Ujrah).</p>
+<div class="highlight">
+<strong>📌 Wakala Investment :</strong> AL NAMAA FINANCE agit comme mandataire (Wakil) pour investir les fonds des épargnants dans des opérations de financement islamique (Mourabaha, Ijara, Salam, etc.), offrant ainsi une alternative éthique aux placements conventionnels.
+</div>
+<h3>1.1 Définition du Produit</h3>
+<p>Le <strong>Wakala Investment</strong> est un compte d'investissement où le client mandate AL NAMAA FINANCE pour gérer ses fonds et les placer dans des actifs conformes à la Charia. Le client partage les profits générés selon un ratio convenu.</p>
+<table>
+<thead>
+<tr><th>Terme</th><th>Arabe</th><th>Rôle</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Muwakkil</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الموكّل</td><td>Mandant - L'investisseur client</td></tr>
+<tr><td><strong>Wakil</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الوكيل</td><td>Mandataire - AL NAMAA FINANCE</td></tr>
+<tr><td><strong>Ujrah</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الأجرة</td><td>Commission du mandataire</td></tr>
+<tr><td><strong>Ra's al-Mal</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">رأس المال</td><td>Capital investi</td></tr>
+</tbody>
+</table>
+<h3>1.2 Cadre de Conformité</h3>
+<table>
+<thead>
+<tr><th>Référentiel</th><th>Application</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>BCEAO</strong></td><td>Instruction n°024-12-2016 sur la finance islamique</td></tr>
+<tr><td><strong>AAOIFI</strong></td><td>FAS 5 (Disclosure) et Sharia Standard n°23 (Agency)</td></tr>
+<tr><td><strong>Comité Charia</strong></td><td>Validation des contrats et opérations d'investissement</td></tr>
+</tbody>
+</table>
+<h3>1.3 Principes Fondamentaux</h3>
+<ul>
+<li><strong>Mandat clair :</strong> Définition précise du périmètre d'investissement</li>
+<li><strong>Transparence :</strong> Reporting régulier sur les placements et performances</li>
+<li><strong>Conformité Charia :</strong> Investissements exclusivement dans des activités halal</li>
+<li><strong>Partage des profits :</strong> Répartition équitable selon le ratio convenu</li>
+</ul>
+</section>
+<section class="section" id="objectif">
+<h2>🎯 2. OBJECTIFS DU PRODUIT</h2>
+<p>Le produit Wakala Investment vise à mobiliser l'épargne des clients et à la faire fructifier dans le respect des principes islamiques.</p>
+<div class="info-box">
+<strong>💡 Vision :</strong> Offrir aux épargnants maliens une solution de placement éthique et rentable, conforme à leurs valeurs islamiques, tout en finançant le développement économique local.
+</div>
+<h3>Objectifs Stratégiques</h3>
+<table>
+<thead>
+<tr><th>Objectif</th><th>Indicateur</th><th>Cible</th></tr>
+</thead>
+<tbody>
+<tr><td><span class="badge badge-success">Mobilisation épargne</span></td><td>Volume des dépôts Wakala</td><td>2 Mds FCFA Année 1</td></tr>
+<tr><td><span class="badge badge-info">Rendement attractif</span></td><td>Taux de rendement annuel</td><td>8-12% net</td></tr>
+<tr><td><span class="badge badge-warning">Diversification</span></td><td>Portefeuille d'investissement</td><td>Min. 5 classes d'actifs</td></tr>
+<tr><td><span class="badge badge-success">Fidélisation</span></td><td>Taux de renouvellement</td><td>> 80%</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="public">
+<h2>👥 3. PUBLIC CIBLE</h2>
+<div class="highlight"><strong>🎯 Cible principale :</strong> Épargnants recherchant un placement conforme à la Charia avec un rendement attractif et une gestion professionnelle de leurs fonds.</div>
+<p>Le produit Wakala Investment s&#x27;adresse à différents segments de clientèle ayant des besoins spécifiques en matière d&#x27;investissement conforme à la Charia. Chaque segment présente des caractéristiques distinctes en termes de capacité d&#x27;investissement, d&#x27;horizon temporel et d&#x27;objectifs financiers.</p>
+<h3>3.1 Vue d&#x27;Ensemble des Segments</h3>
+<p>Le produit Wakala Investment cible 8 segments de clientèle distincts, chacun présentant des caractéristiques, besoins et capacités d&#x27;investissement spécifiques. Le tableau suivant offre une vision synthétique de ces segments.</p>
+<h4>Tableau Récapitulatif des Segments Cibles</h4>
+<table>
+<thead>
+<tr><th>Segment</th><th>Taille</th><th>Ticket Moyen</th><th>Formule</th><th>Priorité</th></tr>
+</thead>
+<tbody>
+<tr><td>1. Fonctionnaires &amp; Salariés</td><td>Large</td><td>500K-2M</td><td>Standard</td><td>Haute ★★★</td></tr>
+<tr><td>2. Commerçants &amp; Artisans</td><td>Large</td><td>1M-5M</td><td>Premium</td><td>Haute ★★★</td></tr>
+<tr><td>3. Producteurs Agricoles</td><td>Moyenne</td><td>500K-3M</td><td>Standard</td><td>Moyenne ★★</td></tr>
+<tr><td>4. PME &amp; Entreprises</td><td>Moyenne</td><td>5M-20M</td><td>Corporate</td><td>Haute ★★★</td></tr>
+<tr><td>5. Diaspora Malienne</td><td>Très large</td><td>2M-10M</td><td>Premium/Corp</td><td>Haute ★★★</td></tr>
+<tr><td>6. Investisseurs Privés (HNI)</td><td>Petite</td><td>10M-50M</td><td>Corporate</td><td>Moyenne ★★</td></tr>
+<tr><td>7. Associations &amp; ONG</td><td>Petite</td><td>5M-20M</td><td>Corporate</td><td>Faible ★</td></tr>
+<tr><td>8. Investisseurs Institutionnels</td><td>Très petite</td><td>50M-200M</td><td>Corporate+</td><td>Moyenne ★★</td></tr>
+</tbody>
+</table>
+<p>Légende Priorité :</p>
+<p>★★★ Haute : Segments prioritaires pour le lancement (Volume + Accessibilité)</p>
+<p>★★ Moyenne : Segments à développer progressivement</p>
+<p>★ Faible : Segments opportunistes à plus long terme</p>
+<p>Analyse Stratégique :</p>
+<p>Segments Prioritaires (Haute ★★★) :</p>
+<p>Ces 5 segments (Fonctionnaires, Commerçants, PME, Diaspora, HNI sélectionnés) représentent environ 70-80% du potentiel de collecte en Année 1. Ils combinent une taille de marché importante avec une capacité d&#x27;investissement suffisante et une accessibilité commerciale relativement aisée.</p>
+<p>Objectif Année 1 :</p>
+<p>500 millions FCFA mobilisés répartis approximativement comme suit :</p>
+<ul>
+<li>Fonctionnaires &amp; Salariés : 150M FCFA (30%)</li>
+<li>Commerçants &amp; Artisans : 125M FCFA (25%)</li>
+<li>PME &amp; Entreprises : 100M FCFA (20%)</li>
+<li>Diaspora Malienne : 75M FCFA (15%)</li>
+<li>Autres segments : 50M FCFA (10%)</li>
+</ul>
+<h3>3.2 Profils Détaillés par Segment</h3>
+<h4>3.2.1 Particuliers à Capacité d&#x27;Épargne</h4>
+<p>Profil :</p>
+<ul>
+<li>Fonctionnaires de catégorie A et B avec revenus stables et réguliers</li>
+<li>Salariés d&#x27;entreprises privées avec ancienneté supérieure à 2 ans</li>
+<li>Professions libérales (médecins, avocats, consultants, architectes)</li>
+<li>Retraités bénéficiant d&#x27;une pension régulière</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Constitution d&#x27;une épargne projet (construction, mariage, pèlerinage, scolarité enfants)</li>
+<li>Préparation retraite ou complément de revenu</li>
+<li>Rendement supérieur aux comptes d&#x27;épargne classiques tout en respectant principes islamiques</li>
+<li>Sécurité et transparence dans la gestion des fonds</li>
+</ul>
+<p>Formule recommandée : Wakala Standard (6-12 mois) avec montants de 500K à 5M FCFA</p>
+<h4>3.2.2 Diaspora Malienne</h4>
+<p>Profil :</p>
+<ul>
+<li>Maliens résidents en France, Belgique, États-Unis, Canada, pays du Golfe</li>
+<li>Travailleurs expatriés souhaitant investir dans leur pays d&#x27;origine</li>
+<li>Entrepreneurs de la diaspora cherchant opportunités au Mali</li>
+<li>Familles souhaitant préparer leur retour au pays</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Placement sécurisé dans pays d&#x27;origine avec conformité Charia</li>
+<li>Participation au développement économique local du Mali</li>
+<li>Constitution d&#x27;un capital pour projet immobilier ou entrepreneurial au Mali</li>
+<li>Gestion à distance avec reporting régulier et accès digital</li>
+</ul>
+<p>Formule recommandée : Wakala Premium (12-24 mois) avec montants de 1M à 10M FCFA</p>
+<h4>3.2.3 PME et Entreprises Familiales</h4>
+<p>Profil :</p>
+<ul>
+<li>Entreprises commerciales (importation, distribution, commerce de gros)</li>
+<li>Entreprises de services (BTP, transport, hôtellerie, restauration)</li>
+<li>Entreprises familiales générant excédents de trésorerie temporaires</li>
+<li>Entreprises en attente de réalisation d&#x27;investissements planifiés</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Optimisation de la trésorerie excédentaire en période de faible activité</li>
+<li>Génération de revenus conformes à la Charia sur fonds disponibles</li>
+<li>Placement sécurisé avant réalisation de projets d&#x27;expansion ou d&#x27;investissement</li>
+<li>Diversification des sources de revenus de l&#x27;entreprise</li>
+</ul>
+<p>Formule recommandée : Wakala Premium ou Corporate (12-24 mois) avec montants de 5M à 50M FCFA</p>
+<h4>3.2.4 ONG et Associations</h4>
+<p>Profil :</p>
+<ul>
+<li>ONG internationales opérant au Mali avec fonds de projet</li>
+<li>Associations locales de développement communautaire</li>
+<li>Associations professionnelles et syndicales</li>
+<li>Organisations humanitaires et caritatives</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Placement éthique de fonds en attente de décaissement pour projets</li>
+<li>Génération de revenus additionnels pour financer activités opérationnelles</li>
+<li>Conformité aux exigences de gouvernance et transparence des bailleurs</li>
+<li>Traçabilité complète et reporting détaillé pour audits</li>
+</ul>
+<p>Formule recommandée : Wakala Standard ou Premium (6-12 mois) avec montants de 2M à 20M FCFA</p>
+<h4>3.2.5 Coopératives Agricoles et Commerciales</h4>
+<p>Profil :</p>
+<ul>
+<li>Coopératives de producteurs agricoles (coton, riz, mil, maïs, karité)</li>
+<li>Coopératives d&#x27;éleveurs (bovins, ovins, caprins, volaille)</li>
+<li>Coopératives de transformation agroalimentaire</li>
+<li>Groupements de commerçants et artisans</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Placement de recettes de vente en période de commercialisation (post-récolte)</li>
+<li>Constitution d&#x27;un fonds de roulement pour campagne agricole suivante</li>
+<li>Génération de revenus additionnels pour projets communautaires (infrastructures, équipements)</li>
+<li>Gestion collective conforme aux valeurs de solidarité et principes islamiques</li>
+</ul>
+<p>Formule recommandée : Wakala Standard ou Premium (6-12 mois) avec montants de 3M à 30M FCFA</p>
+<h4>3.2.6 Investisseurs Privés</h4>
+<p>Profil :</p>
+<ul>
+<li>Personnes fortunées (High Net Worth Individuals - HNWI)</li>
+<li>Entrepreneurs à succès et chefs d&#x27;entreprise</li>
+<li>Investisseurs immobiliers et promoteurs</li>
+<li>Familles fortunées cherchant diversification de patrimoine</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Diversification de portefeuille avec actifs conformes à la Charia</li>
+<li>Rendements attractifs sur montants importants</li>
+<li>Service personnalisé et gestion de relation privilégiée</li>
+<li>Possibilité d&#x27;investissements structurés sur mesure</li>
+</ul>
+<p>Formule recommandée : Wakala Corporate (12-24 mois) avec montants de 10M à 100M+ FCFA</p>
+<h4>3.2.7 Fonds Caritatifs</h4>
+<p>Profil :</p>
+<ul>
+<li>Fonds Wakf (biens de mainmorte islamiques)</li>
+<li>Caisses de Zakat et Sadaqat (aumône obligatoire et volontaire)</li>
+<li>Fondations religieuses et mosquées</li>
+<li>Organisations caritatives islamiques</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Préservation et fructification du capital conformément à la Charia</li>
+<li>Génération de revenus pour financer œuvres caritatives et sociales</li>
+<li>Certification Charia rigoureuse et supervision par Comité Charia</li>
+<li>Traçabilité totale pour conformité aux règles de gestion Wakf et Zakat</li>
+</ul>
+<p>Formule recommandée : Wakala Premium ou Corporate (12-24 mois) avec montants de 5M à 50M FCFA</p>
+<h4>3.2.8 Institutions Souhaitant Placer des Excédents</h4>
+<p>Profil :</p>
+<ul>
+<li>Grandes entreprises privées avec excédents de trésorerie</li>
+<li>Établissements publics et semi-publics</li>
+<li>Institutions financières islamiques (Takaful, fonds d&#x27;investissement)</li>
+<li>Caisses de retraite et de prévoyance</li>
+</ul>
+<p>Besoins spécifiques :</p>
+<ul>
+<li>Gestion optimale de trésorerie importante avec rendement compétitif</li>
+<li>Conformité aux politiques internes de placement et gouvernance</li>
+<li>Respect des principes de finance islamique pour institutions adhérant à ces valeurs</li>
+<li>Service dédié avec interlocuteur privilégié et reporting personnalisé</li>
+</ul>
+<p>Formule recommandée : Wakala Corporate (12-24 mois) avec montants de 20M à 200M+ FCFA</p>
+<h3>3.3 Stratégie de Ciblage et Approche Commerciale</h3>
+<h4>3.3.1 Segments Prioritaires (Phase 1 - Année 1)</h4>
+<ul>
+<li>Particuliers à capacité d&#x27;épargne : Base de clientèle large et accessible, montants moyens, rotation régulière</li>
+<li>Diaspora malienne : Fort potentiel de mobilisation, montants élevés, fidélisation long terme</li>
+<li>PME et entreprises familiales : Volumes importants, relations commerciales existantes à valoriser</li>
+</ul>
+<h4>3.3.2 Segments Secondaires (Phase 2 - Année 2)</h4>
+<ul>
+<li>ONG et associations : Développement de partenariats institutionnels</li>
+<li>Coopératives : Approche saisonnière adaptée aux cycles agricoles</li>
+<li>Fonds caritatifs : Certification Charia renforcée et communication ciblée</li>
+</ul>
+<h4>3.3.3 Segments Premium (Phase 3 - Année 3)</h4>
+<ul>
+<li>Investisseurs privés : Service Private Banking, offres sur mesure</li>
+<li>Institutions : Gestion de grands comptes, solutions structurées</li>
+</ul>
+<p>Objectif global : Mobiliser 500M FCFA en Année 1, avec une croissance de 50% annuelle sur 3 ans pour atteindre 1,5 milliard FCFA de fonds Wakala sous gestion.</p>
+<table>
+<thead>
+<tr><th>Segment</th><th>Profil Type</th><th>Montant Indicatif</th></tr>
+</thead>
+<tbody>
+<tr><td>Particuliers</td><td>Fonctionnaires, salariés, professions libérales</td><td>500K - 5M FCFA</td></tr>
+<tr><td>Diaspora</td><td>Maliens résidents à l&#x27;étranger</td><td>1M - 10M FCFA</td></tr>
+<tr><td>PME</td><td>Entreprises familiales, commerces</td><td>5M - 50M FCFA</td></tr>
+<tr><td>ONG/Associations</td><td>Organisations à but non lucratif</td><td>2M - 20M FCFA</td></tr>
+<tr><td>Coopératives</td><td>Coopératives agricoles et commerciales</td><td>3M - 30M FCFA</td></tr>
+<tr><td>Investisseurs privés</td><td>Personnes fortunées (HNWI)</td><td>10M - 100M+ FCFA</td></tr>
+<tr><td>Fonds caritatifs</td><td>Wakf, Zakat, fondations religieuses</td><td>5M - 50M FCFA</td></tr>
+<tr><td>Institutions</td><td>Entreprises, établissements publics</td><td>20M - 200M+ FCFA</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="charia">
+<h2>☪️ 4. CADRE CHARIA & RÉGLEMENTAIRE</h2>
+<p>Le contrat Wakala est un contrat de mandat reconnu par la Charia, permettant à une personne d'agir au nom d'une autre dans des transactions licites.</p>
+<div class="highlight">
+<strong>☪️ Fondement :</strong> La Wakala (<span style="font-family: 'Amiri', serif;">الوكالة</span>) est un contrat par lequel le mandant (Muwakkil) autorise le mandataire (Wakil) à accomplir des actes en son nom, dans un cadre défini et conforme à la Charia.
+</div>
+
+<h3>4.1 Références BCEAO</h3>
+<ul>
+<li>Instruction n°024-12-2016 relative aux opérations de finance islamique</li>
+<li>Réglementation prudentielle applicable aux SFD</li>
+<li>Exigences de reporting et de transparence</li>
+</ul>
+
+<h3>4.2 Références AAOIFI</h3>
+<ul>
+<li><strong>FAS 5 :</strong> Disclosure of Bases for Profit Allocation</li>
+<li><strong>Sharia Standard n°23 :</strong> Agency and the Act of an Uncommissioned Agent</li>
+<li><strong>Sharia Standard n°40 :</strong> Distribution of Profit in Mudarabah-based Investment Accounts</li>
+</ul>
+
+<h3>4.3 Sources Islamiques | <span style="font-family: 'Amiri', serif; color: #2c5f2d;">الأدلة الشرعية</span></h3>
+
+<div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; border-right: 5px solid #2c5f2d;">
+<p style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.8rem; color: #2c5f2d; line-height: 2.2; direction: rtl; text-align: center; margin-bottom: 0.5rem;">
+﴿ وَابْعَثُوا أَحَدَكُم بِوَرِقِكُمْ هَٰذِهِ إِلَى الْمَدِينَةِ فَلْيَنظُرْ أَيُّهَا أَزْكَىٰ طَعَامًا فَلْيَأْتِكُم بِرِزْقٍ مِّنْهُ ﴾
+</p>
+<p style="font-family: 'Amiri', serif; font-size: 1rem; color: #666; text-align: center; direction: rtl;">سورة الكهف - الآية ١٩</p>
+<p style="text-align: center; font-style: italic; color: #555; margin-top: 0.5rem;">« Envoyez l'un de vous avec cet argent à la ville, qu'il regarde quel aliment est le plus pur et qu'il vous en apporte provision »</p>
+</div>
+
+<div style="background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; border-right: 5px solid #f39c12;">
+<h5 style="color: #f39c12; margin-top: 0; font-family: 'Amiri', serif; text-align: center;">📜 حديث نبوي | Hadith</h5>
+<p style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.3rem; text-align: center; color: #2c5f2d; line-height: 2; direction: rtl;">
+« وَكَّلَ النَّبِيُّ ﷺ عُرْوَةَ بْنَ الجَعْدِ فِي شِرَاءِ شَاةٍ »
+</p>
+<p style="text-align: center; font-style: italic; color: #555;">« Le Prophète ﷺ a mandaté Urwa ibn al-Ja'd pour l'achat d'une brebis »</p>
+<p style="text-align: center; font-size: 0.9rem; color: #888;">Rapporté par Al-Bukhari</p>
+</div>
+
+<h3>4.4 Principes Fondamentaux du Contrat Wakala</h3>
+<table>
+<thead>
+<tr><th>Principe</th><th>Arabe</th><th>Application</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Mandat défini</strong></td><td style="font-family:'Amiri',serif;">التوكيل المحدد</td><td>Périmètre d'investissement clairement établi</td></tr>
+<tr><td><strong>Commission fixe</strong></td><td style="font-family:'Amiri',serif;">الأجرة الثابتة</td><td>Ujrah définie à l'avance (% ou montant)</td></tr>
+<tr><td><strong>Transparence</strong></td><td style="font-family:'Amiri',serif;">الشفافية</td><td>Reporting régulier sur les investissements</td></tr>
+<tr><td><strong>Diligence</strong></td><td style="font-family:'Amiri',serif;">العناية</td><td>Gestion prudente des fonds confiés</td></tr>
+</tbody>
+</table>
+
+<h3>4.5 Responsabilité du Wakil</h3>
+<div class="warning">
+<strong>⚠️ Règle importante :</strong> Le Wakil (AL NAMAA) n'est pas responsable des pertes sauf en cas de négligence, faute ou violation du mandat. Les pertes normales d'investissement sont supportées par le Muwakkil (investisseur).
+</div>
+</section>
+<section class="section" id="description">
+<h2>📋 5. DESCRIPTION DU PRODUIT – WAKALA INVESTMENT</h2>
+<div class="info-box"><strong>📋 Nature du produit :</strong> Compte d'investissement où le client mandate AL NAMAA pour placer ses fonds dans des opérations de financement islamique (Mourabaha, Ijara, Salam, Moucharaka).</div>
+<p>Le Wakala Investment est un produit d&#x27;investissement islamique structuré permettant aux clients de confier leurs fonds à AL NAMAA FINANCE pour une gestion professionnelle dans des opportunités d&#x27;investissement conformes à la Charia.</p>
+<h3>5.1 Nature du Produit</h3>
+<h4>5.1.1 Mécanisme de Fonctionnement</h4>
+<p>Étape 1 : Placement initial</p>
+<ul>
+<li>Le client place un montant auprès d&#x27;AL NAMAA FINANCE selon la formule choisie (Standard, Premium ou Corporate)</li>
+<li>Signature d&#x27;un contrat Wakala définissant le mandat d&#x27;investissement, la durée, et les conditions de rémunération</li>
+<li>Émission d&#x27;un certificat Wakala attestant de l&#x27;investissement et de ses conditions</li>
+</ul>
+<p>Étape 2 : Mandat d&#x27;investissement</p>
+<p>AL NAMAA FINANCE investit ce montant selon un mandat convenu, dans un portefeuille diversifié d&#x27;activités licites comprenant notamment :</p>
+<ul>
+<li>Financements Mourabaha : Vente à tempérament de biens avec marge bénéficiaire (commerce, équipements, véhicules, immobilier)</li>
+<li>Financements Ijara : Location de biens mobiliers et immobiliers (équipements agricoles, véhicules de transport, locaux commerciaux)</li>
+<li>Opérations agricoles licites : Financement de campagnes agricoles (cultures de coton, riz, mil, maïs, maraîchage), financement d&#x27;élevage</li>
+<li>Participations Mudaraba : Financement de projets entrepreneuriaux avec partage de profits (PME, commerce, services)</li>
+<li>Participations Musharaka : Partenariats capitalistiques dans des projets conformes (immobilier, industrie, services)</li>
+<li>Investissements halal à faible risque : Sukuk (obligations islamiques), placements dans des institutions financières islamiques, investissements dans le secteur réel</li>
+</ul>
+<p>Étape 3 : Gestion et suivi</p>
+<ul>
+<li>AL NAMAA FINANCE gère activement le portefeuille d&#x27;investissements en appliquant les principes de diversification et de gestion des risques</li>
+<li>Suivi mensuel des performances de chaque investissement</li>
+<li>Réallocation opportuniste en fonction des conditions de marché et des opportunités identifiées</li>
+<li>Conformité Charia vérifiée trimestriellement par le Comité Charia</li>
+</ul>
+<h4>5.1.2 Allocation Type des Fonds Wakala</h4>
+<p>AL NAMAA FINANCE applique une stratégie d&#x27;allocation diversifiée selon les paramètres suivants (allocations indicatives pouvant varier selon les conditions de marché) :</p>
+<table>
+<thead>
+<tr><th>Catégorie d&#x27;Actifs</th><th>Allocation</th><th>Objectif</th></tr>
+</thead>
+<tbody>
+<tr><td>Mourabaha</td><td>50% - 65%</td><td>Revenus stables et prévisibles</td></tr>
+<tr><td>Ijara</td><td>20% - 30%</td><td>Revenus locatifs récurrents</td></tr>
+<tr><td>Mudaraba / Musharaka</td><td>10% - 20%</td><td>Rendements potentiellement élevés</td></tr>
+<tr><td>Liquidité / Réserves</td><td>5% - 10%</td><td>Gestion des retraits anticipés</td></tr>
+</tbody>
+</table>
+<h3>5.2 Rendements</h3>
+<h4>5.2.1 Taux de Rendement Attendu (Expected Profit Rate – EPR)</h4>
+<ul>
+<li>Taux attendu (Expected Profit Rate – EPR) communiqué au client</li>
+</ul>
+<p>AL NAMAA FINANCE communique au client un taux de rendement attendu (EPR) basé sur les performances historiques et les projections d&#x27;investissement. Cet EPR sert d&#x27;indicateur pour aider le client à prendre sa décision d&#x27;investissement, mais ne constitue en aucun cas une garantie contractuelle.</p>
+<p>Taux EPR indicatifs par formule :</p>
+<table>
+<thead>
+<tr><th>Formule Wakala</th><th>EPR Indicatif</th><th>Fourchette Client</th></tr>
+</thead>
+<tbody>
+<tr><td>Wakala Standard (6 mois)</td><td>6% annuel</td><td>5% - 7%</td></tr>
+<tr><td>Wakala Premium (12 mois)</td><td>7% annuel</td><td>6% - 8%</td></tr>
+<tr><td>Wakala Corporate (24 mois)</td><td>8% annuel</td><td>7% - 9%</td></tr>
+</tbody>
+</table>
+<h4>5.2.2 Caractère Non Garanti</h4>
+<ul>
+<li>Non garanti</li>
+</ul>
+<p>Le rendement effectif peut être supérieur ou inférieur à l&#x27;EPR communiqué, selon les performances réelles des investissements. En conformité avec les principes de la finance islamique, aucun rendement ne peut être garanti à l&#x27;avance. Le client partage les risques et les profits réels générés par les activités d&#x27;investissement.</p>
+<h4>5.2.3 Partage des Pertes</h4>
+<ul>
+<li>Les pertes éventuelles sont supportées par le client (sauf faute du Wakil)</li>
+</ul>
+<p>En cas de pertes sur les investissements résultant de facteurs commerciaux normaux (conditions de marché défavorables, défaillance d&#x27;emprunteurs, etc.), ces pertes sont supportées par le client investisseur proportionnellement à son capital investi. Ce principe fondamental de partage des risques distingue la finance islamique de la finance conventionnelle.</p>
+<p>Exception : Le client ne supporte aucune perte en cas de négligence, faute intentionnelle, violation du mandat, ou manquement aux obligations fiduciaires de la part d&#x27;AL NAMAA FINANCE. Dans ces cas, l&#x27;institution est pleinement responsable et doit indemniser le client.</p>
+<h4>5.2.4 Mécanismes de Lissage des Rendements</h4>
+<p>Pour offrir une certaine stabilité aux rendements, AL NAMAA FINANCE utilise les mécanismes suivants conformes aux normes AAOIFI :</p>
+<ul>
+<li>Profit Equalization Reserve (PER) : Réserve constituée en prélevant une partie des profits en périodes favorables pour compenser les périodes moins performantes</li>
+<li>Investment Risk Reserve (IRR) : Réserve destinée à absorber les pertes éventuelles et protéger le capital des investisseurs</li>
+</ul>
+<h3>5.3 Commission du Wakil (Ujrah)</h3>
+<p>La rémunération d&#x27;AL NAMAA FINANCE en tant que Wakil (mandataire) est définie clairement dans le contrat Wakala avant sa conclusion. Cette commission, appelée Ujrah, rémunère les services de gestion, d&#x27;analyse, de suivi et de reporting fournis par l&#x27;institution.</p>
+<h4>5.3.1 Modalités de Commission</h4>
+<p>La commission du Wakil peut être structurée de deux manières différentes, selon ce qui est convenu dans le contrat :</p>
+<p>Option 1 : Commission fixe (montant absolu)</p>
+<ul>
+<li>Montant fixe prédéterminé payé par le client pour les services de gestion</li>
+<li>Indépendant des performances d&#x27;investissement</li>
+<li>Exemple : 50 000 FCFA par an pour un investissement de 5M FCFA</li>
+<li>Avantage : Coût prévisible pour le client, quel que soit le résultat</li>
+<li>Inconvénient : Commission due même si les investissements génèrent peu ou pas de profits</li>
+</ul>
+<p>Option 2 : Commission proportionnelle (pourcentage)</p>
+<p>A. Pourcentage du montant géré</p>
+<ul>
+<li>Pourcentage appliqué sur le capital investi</li>
+<li>Exemple : 1% annuel du montant investi</li>
+<li>Pour un investissement de 10M FCFA → Commission de 100 000 FCFA par an</li>
+</ul>
+<p>B. Pourcentage des profits générés (Modèle retenu par AL NAMAA)</p>
+<ul>
+<li>Pourcentage appliqué sur les profits nets réalisés</li>
+<li>Aligne les intérêts du Wakil et du Muwakkil</li>
+<li>Avantage : Le client ne paie que si des profits sont réalisés, partage équitable du succès</li>
+</ul>
+<h4>5.3.2 Structure Tarifaire d&#x27;AL NAMAA FINANCE</h4>
+<p>AL NAMAA FINANCE a opté pour le modèle de commission proportionnelle aux profits, qui incarne parfaitement les principes de partage équitable de la finance islamique :</p>
+<table>
+<thead>
+<tr><th>Formule Wakala</th><th>Part Client</th><th>Part Wakil (Ujrah)</th></tr>
+</thead>
+<tbody>
+<tr><td>Wakala Standard</td><td>85%</td><td>15%</td></tr>
+<tr><td>Wakala Premium</td><td>88%</td><td>12%</td></tr>
+<tr><td>Wakala Corporate</td><td>90%</td><td>10%</td></tr>
+</tbody>
+</table>
+<p>Formule de calcul :</p>
+<p>Profit Net Distribuable = Revenus d&#x27;Investissement - Coûts Opérationnels - Provisions (PER/IRR)</p>
+<ul>
+<li>Part Client = Profit Net Distribuable × Ratio Client (85%, 88% ou 90%)</li>
+<li>Part Wakil (Ujrah) = Profit Net Distribuable × Ratio Wakil (15%, 12% ou 10%)</li>
+</ul>
+<h4>5.3.3 Transparence et Définition Contractuelle</h4>
+<ul>
+<li>Définie dans le contrat : La modalité et le taux de commission sont clairement spécifiés dans le contrat Wakala signé par les deux parties</li>
+<li>Connue à l&#x27;avance : Le client connaît parfaitement les conditions de rémunération du Wakil avant de s&#x27;engager</li>
+<li>Immuable pendant la durée : Le ratio de partage ne peut être modifié unilatéralement pendant la durée du contrat</li>
+<li>Aucuns frais cachés : Aucune commission additionnelle ne peut être prélevée sans accord préalable du client</li>
+<li>Reporting détaillé : Le client reçoit un relevé trimestriel détaillant les revenus générés, les coûts, les provisions, et la répartition des profits</li>
+</ul>
+</section>
+<section class="section" id="caracteristiques">
+<h2>💰 6. CARACTÉRISTIQUES FINANCIÈRES</h2>
+<div class="info-box"><strong>💰 Rendement attendu :</strong> 8-12% annuel net, avec distribution semestrielle des profits. Commission Wakil (Ujrah) de 20-30% des profits générés.</div>
+<p>Cette section définit les paramètres financiers du produit Wakala Investment, incluant les montants acceptés, les durées d&#x27;investissement, la politique de rendement et le régime de garanties conformément aux principes de la finance islamique.</p>
+<h3>6.1 Montants</h3>
+<h4>6.1.1 Montant Minimum</h4>
+<ul>
+<li>Minimum : 100 000 FCFA</li>
+</ul>
+<p>Le montant minimum d&#x27;investissement est fixé à 100 000 FCFA pour permettre l&#x27;accessibilité du produit à un large éventail de clients tout en maintenant une viabilité économique pour l&#x27;institution. Ce seuil permet de couvrir les coûts administratifs et opérationnels liés à la gestion du compte Wakala.</p>
+<p>Justification du minimum :</p>
+<ul>
+<li>Accessibilité : Permet aux particuliers à revenus modestes d&#x27;accéder au produit</li>
+<li>Viabilité opérationnelle : Couvre les frais de gestion, d&#x27;analyse et de reporting</li>
+<li>Conformité BCEAO : Respecte les exigences minimales pour les dépôts à terme</li>
+</ul>
+<h4>6.1.2 Montant Maximum</h4>
+<ul>
+<li>Maximum : illimité (selon validation DG &amp; risque)</li>
+</ul>
+<p>Aucune limite supérieure stricte n&#x27;est fixée pour les investissements Wakala. Cependant, tout investissement dépassant certains seuils doit faire l&#x27;objet d&#x27;une validation spécifique par la Direction Générale et le Département Gestion des Risques pour s&#x27;assurer de la capacité d&#x27;AL NAMAA FINANCE à gérer efficacement ces fonds et à respecter les ratios prudentiels.</p>
+<p>Processus de validation pour montants élevés :</p>
+<table>
+<thead>
+<tr><th>Montant</th><th>Processus de Validation</th></tr>
+</thead>
+<tbody>
+<tr><td>&lt; 50M FCFA</td><td>Validation automatique - Responsable Produits Wakala</td></tr>
+<tr><td>50M - 200M FCFA</td><td>Validation Directeur Financier + Analyse risque de concentration</td></tr>
+<tr><td>&gt; 200M FCFA</td><td>Validation Direction Générale + Comité ALM + Plan d&#x27;allocation dédié</td></tr>
+</tbody>
+</table>
+<p>Critères d&#x27;analyse pour montants élevés :</p>
+<ul>
+<li>Impact sur le ratio de liquidité global de l&#x27;institution</li>
+<li>Capacité à identifier des opportunités d&#x27;investissement suffisantes et conformes</li>
+<li>Risque de concentration (un seul client ne doit pas représenter &gt;15% des fonds Wakala)</li>
+<li>Conformité avec les limites réglementaires BCEAO sur les dépôts à terme</li>
+</ul>
+<h3>6.2 Durée</h3>
+<p>Les investissements Wakala sont proposés avec différentes durées pour répondre aux besoins variés des clients et permettre une gestion optimale des échéances par AL NAMAA FINANCE.</p>
+<h4>6.2.1 Court Terme</h4>
+<ul>
+<li>Court terme : 3 – 12 mois</li>
+</ul>
+<p>Destiné aux clients recherchant une liquidité relativement rapide avec un rendement supérieur aux comptes d&#x27;épargne classiques. Ces durées correspondent généralement aux cycles de financement Mourabaha commerciaux et aux financements agricoles de campagne.</p>
+<p>Caractéristiques :</p>
+<ul>
+<li>Idéal pour : Particuliers, PME avec besoins de trésorerie prévisibles</li>
+<li>Allocation typique : 60-70% Mourabaha, 20-25% Ijara, 10-15% liquidité</li>
+<li>Rendement attendu : 5-7% annuel</li>
+<li>Renouvellement : Possibilité de renouvellement automatique tacite</li>
+</ul>
+<h4>6.2.2 Moyen Terme</h4>
+<ul>
+<li>Moyen terme : 12 – 36 mois</li>
+</ul>
+<p>Permet à AL NAMAA FINANCE d&#x27;investir dans des projets plus structurés avec des rendements potentiellement plus élevés. Cette durée est adaptée aux financements immobiliers Ijara, aux participations Musharaka et aux projets entrepreneuriaux Mudaraba.</p>
+<p>Caractéristiques :</p>
+<ul>
+<li>Idéal pour : Diaspora, investisseurs institutionnels, fonds caritatifs</li>
+<li>Allocation typique : 50-60% Mourabaha, 25-30% Ijara, 15-20% Mudaraba/Musharaka</li>
+<li>Rendement attendu : 6-8% annuel</li>
+<li>Liquidité : Retrait anticipé possible avec pénalité après 75% de la durée écoulée</li>
+</ul>
+<h4>6.2.3 Long Terme</h4>
+<ul>
+<li>Long terme : &gt; 36 mois (avec projets spécifiques)</li>
+</ul>
+<p>Investissements dédiés à des projets spécifiques de grande envergure nécessitant une visibilité à long terme. Ces investissements sont structurés sur mesure en fonction des opportunités identifiées et des besoins du client.</p>
+<p>Caractéristiques :</p>
+<ul>
+<li>Idéal pour : Investisseurs privés HNWI, grandes institutions, fonds de pension</li>
+<li>Projets éligibles : Immobilier de rapport, infrastructures, grandes participations Musharaka</li>
+<li>Rendement attendu : 7-9% annuel ou partage de profits selon projet</li>
+<li>Structuration : Contrat Wakala sur mesure avec reporting trimestriel détaillé</li>
+<li>Validation : Obligatoirement approuvé par Direction Générale et Comité Charia</li>
+</ul>
+<h3>6.3 Politique de Rendement</h3>
+<h4>6.3.1 Base de Calcul</h4>
+<ul>
+<li>Basée sur les revenus des financements financés par Wakala</li>
+</ul>
+<p>Les rendements distribués aux investisseurs Wakala proviennent exclusivement des revenus générés par les activités d&#x27;investissement financées avec les fonds Wakala. Il existe une traçabilité directe entre les fonds collectés et les revenus générés, conformément aux principes de transparence de la finance islamique.</p>
+<p>Formule de calcul du profit distribuable :</p>
+<p>Revenus Bruts Wakala = Marges Mourabaha + Loyers Ijara + Profits Mudaraba/Musharaka + Revenus Sukuk</p>
+<p>Coûts Directs = Frais administratifs + Coûts de gestion + Provisions pour créances douteuses</p>
+<p>Provisions Réglementaires = PER (Profit Equalization Reserve) + IRR (Investment Risk Reserve)</p>
+<p>Profit Net Distribuable = Revenus Bruts - Coûts Directs - Provisions Réglementaires</p>
+<p>Répartition du profit net :</p>
+<ul>
+<li>Part Investisseurs : 85-90% selon la formule Wakala choisie</li>
+<li>Part AL NAMAA (Ujrah) : 10-15% en rémunération des services de gestion</li>
+</ul>
+<h4>6.3.2 Révision Périodique</h4>
+<ul>
+<li>Peut être révisée périodiquement avec préavis</li>
+</ul>
+<p>Les taux de rendement attendus (EPR) communiqués aux clients peuvent être ajustés périodiquement pour refléter les conditions réelles de marché, les performances effectives des investissements et l&#x27;évolution du contexte économique. Toute révision est effectuée avec un préavis minimum et une communication transparente.</p>
+<p>Modalités de révision :</p>
+<ul>
+<li>Fréquence : Révision trimestrielle ou semestrielle selon les conditions de marché</li>
+<li>Préavis : Minimum 30 jours avant application pour les nouveaux investissements</li>
+<li>Communication : Notification écrite à tous les investisseurs actuels et potentiels</li>
+<li>Non-rétroactivité : Les contrats en cours conservent les conditions initiales jusqu&#x27;à échéance</li>
+<li>Justification : Toute révision doit être justifiée par des données objectives (performances, marché, BCEAO)</li>
+</ul>
+<h4>6.3.3 Transparence Obligatoire</h4>
+<ul>
+<li>Transparence obligatoire vis-à-vis des investisseurs</li>
+</ul>
+<p>Conformément aux normes AAOIFI et aux exigences BCEAO, AL NAMAA FINANCE s&#x27;engage à fournir une information complète, claire et régulière à tous les investisseurs Wakala sur la gestion de leurs fonds et les performances réalisées.</p>
+<p>Obligations de transparence :</p>
+<ul>
+<li>Reporting trimestriel : Relevé détaillé des investissements, revenus générés, coûts et profit net</li>
+<li>État annuel : Rapport complet audité avec certification Comité Charia</li>
+<li>Accès en ligne : Espace client digital avec historique des transactions et performances en temps réel</li>
+<li>Communication proactive : Information immédiate en cas d&#x27;événement significatif affectant les investissements</li>
+<li>Réunions annuelles : Présentation des résultats et stratégie d&#x27;investissement pour investisseurs Corporate</li>
+</ul>
+<h3>6.4 Garanties</h3>
+<h4>6.4.1 Absence de Garantie</h4>
+<ul>
+<li>Aucune garantie sur capital ou rendement</li>
+</ul>
+<p>Conformément aux principes fondamentaux de la finance islamique, AL NAMAA FINANCE ne peut offrir aucune garantie ni sur le capital investi ni sur les rendements. Cette absence de garantie distingue le Wakala Investment des produits d&#x27;épargne conventionnels et reflète le principe de partage équitable des risques et des profits (risk-sharing) qui est au cœur de la Charia.</p>
+<p>CLAUSE CRITIQUE : Le capital investi et les rendements sont soumis aux performances réelles des investissements. En cas de pertes résultant de conditions de marché normales, l&#x27;investisseur supporte ces pertes proportionnellement à son capital investi. Cette caractéristique est expliquée clairement au client avant la conclusion du contrat, et sa compréhension est vérifiée et documentée.</p>
+<h4>6.4.2 Responsabilité Limitée du Wakil</h4>
+<p>La responsabilité d&#x27;AL NAMAA FINANCE en tant que Wakil (mandataire) est limitée aux situations spécifiques suivantes :</p>
+<ul>
+<li>Responsabilité du Wakil uniquement en cas de :</li>
+</ul>
+<p>✔ Faute</p>
+<p>Erreur intentionnelle ou grossière dans la gestion des fonds. Exemples : Investissement dans des secteurs interdits malgré connaissance de leur statut haram, non-respect délibéré des instructions du contrat Wakala, détournement ou utilisation personnelle des fonds, falsification des rapports de performance.</p>
+<p>✔ Négligence</p>
+<p>Manque de diligence raisonnable dans la gestion des investissements. Exemples : Absence d&#x27;analyse de risque appropriée avant investissement, défaut de diversification entraînant concentration excessive, non-suivi des investissements réalisés, manquement aux obligations de reporting et de surveillance.</p>
+<p>✔ Violation du mandat</p>
+<p>Dépassement ou non-respect des limites fixées dans le contrat Wakala. Exemples : Investissement dans des secteurs non autorisés par le mandat, dépassement des limites d&#x27;allocation convenues (ex: &gt;70% dans Mourabaha alors que limite est 65%), modification unilatérale de la stratégie d&#x27;investissement sans accord du client, utilisation des fonds à des fins autres que celles stipulées au contrat.</p>
+<h4>6.4.3 Mécanismes de Protection des Investisseurs</h4>
+<p>Bien qu&#x27;aucune garantie ne soit offerte, AL NAMAA FINANCE a mis en place plusieurs mécanismes pour protéger les intérêts des investisseurs :</p>
+<ul>
+<li>Diversification obligatoire : Aucun investissement unique ne peut représenter plus de 10% du portefeuille Wakala</li>
+<li>Réserves prudentielles : Constitution de PER (15-20%) et IRR (5-10%) pour absorber les chocs</li>
+<li>Analyse rigoureuse : Due diligence complète sur chaque opportunité d&#x27;investissement</li>
+<li>Supervision Charia : Revue trimestrielle par le Comité Charia indépendant</li>
+<li>Audit externe : Commissaire aux comptes certifie annuellement les comptes Wakala</li>
+<li>Assurance professionnelle : Couverture en responsabilité civile professionnelle pour faute/négligence</li>
+</ul>
+<h4>6.4.4 Clause de Non-Responsabilité pour Risques Commerciaux</h4>
+<p>AL NAMAA FINANCE ne peut être tenue responsable des pertes résultant de :</p>
+<ul>
+<li>Conditions économiques défavorables (récession, inflation, dévaluation)</li>
+<li>Défaillance d&#x27;emprunteurs malgré analyse de crédit appropriée</li>
+<li>Changements réglementaires imprévisibles affectant les investissements</li>
+<li>Force majeure (catastrophes naturelles, troubles politiques, pandémies)</li>
+<li>Fluctuations normales des marchés et performances des actifs sous-jacents</li>
+</ul>
+<p>Ces risques commerciaux sont inhérents à tout investissement et sont partagés équitablement entre l&#x27;institution et les investisseurs conformément aux principes de la finance islamique.</p>
+</section>
+<section class="section" id="cycle">
+<h2>🔄 7. CYCLE OPÉRATIONNEL – WAKALA INVESTMENT</h2>
+<p>Le cycle de gestion du produit Wakala Investment comprend <strong>sept étapes</strong> clés, de l'admission du client jusqu'à la clôture du compte.</p>
+<div class="info-box">
+<strong>⏱️ Délais indicatifs :</strong> Ouverture de compte en 2-3 jours, puis gestion continue avec reporting trimestriel et distribution semestrielle des profits.
+</div>
+<div class="flow-diagram">
+<span class="flow-step">ADMISSION</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">SIGNATURE</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">ENCAISSEMENT</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">INVESTISSEMENT</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">GESTION</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">DISTRIBUTION</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">CLÔTURE</span>
+</div>
+<h3>7.0 Vue d'Ensemble du Cycle</h3>
+<table>
+<thead>
+<tr><th>Étape</th><th>Durée</th><th>Acteurs</th><th>Livrables</th></tr>
+</thead>
+<tbody>
+<tr><td><span class="badge badge-info">1. Admission</span></td><td>1-2 jours</td><td>Commercial, Client</td><td>Dossier validé</td></tr>
+<tr><td><span class="badge badge-info">2. Signature</span></td><td>1 jour</td><td>Client, Juridique</td><td>Contrat signé</td></tr>
+<tr><td><span class="badge badge-success">3. Encaissement</span></td><td>Immédiat</td><td>Caisse</td><td>Fonds reçus</td></tr>
+<tr><td><span class="badge badge-warning">4. Investissement</span></td><td>Continu</td><td>Comité Invest.</td><td>Placements réalisés</td></tr>
+<tr><td><span class="badge badge-warning">5. Gestion</span></td><td>Durée contrat</td><td>Gestion, Risques</td><td>Reporting trimestriel</td></tr>
+<tr><td><span class="badge badge-success">6. Distribution</span></td><td>Semestriel</td><td>Comptabilité</td><td>Profits distribués</td></tr>
+<tr><td><span class="badge badge-info">7. Clôture</span></td><td>3-5 jours</td><td>Client, Opérations</td><td>Capital restitué</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="etape1">
+<h2>🔄 Étape 1 – Admission &amp; Analyse</h2>
+<p>Cette étape initiale vise à identifier le client, évaluer son profil d&#x27;investisseur et vérifier sa conformité aux exigences réglementaires et Charia.</p>
+<h4>1.1 Identification Client (KYC – Know Your Customer)</h4>
+<ul>
+<li>Identification client (KYC)</li>
+</ul>
+<p>Collecte et vérification des documents d&#x27;identité et justificatifs selon les exigences BCEAO et les standards internationaux de lutte contre le blanchiment d&#x27;argent.</p>
+<p>Documents requis :</p>
+<ul>
+<li>Personnes physiques : CNI ou Passeport valide, Justificatif de domicile (&lt; 3 mois), Bulletin de salaire ou preuve de revenus</li>
+<li>Personnes morales : Registre de commerce, Statuts et PV de nomination, Identité des bénéficiaires effectifs, États financiers récents</li>
+</ul>
+<h4>1.2 Détermination du Profil Investisseur</h4>
+<ul>
+<li>Détermination du profil investisseur</li>
+</ul>
+<p>Évaluation des objectifs financiers, de l&#x27;horizon d&#x27;investissement, de la tolérance au risque et de la capacité financière du client.</p>
+<p>Questionnaire de profilage :</p>
+<ul>
+<li>Objectif d&#x27;investissement : Épargne projet, préparation retraite, revenus complémentaires, placement long terme</li>
+<li>Horizon temporel : Court terme (&lt; 1 an), Moyen terme (1-3 ans), Long terme (&gt; 3 ans)</li>
+<li>Tolérance au risque : Conservateur (priorité capital), Équilibré, Dynamique (accepte volatilité)</li>
+<li>Capacité financière : Revenus mensuels, Épargne disponible, Engagements financiers existants</li>
+</ul>
+<h4>1.3 Vérification Conformité (Charia, AML/CFT)</h4>
+<ul>
+<li>Vérification conformité (charia, AML/CFT)</li>
+</ul>
+<p>Contrôles de conformité réglementaire et Charia avant acceptation du client.</p>
+<p>Contrôles effectués :</p>
+<ul>
+<li>Conformité Charia : Vérification que les sources de revenus du client sont licites (halal), Absence d&#x27;activités dans secteurs interdits</li>
+<li>AML/CFT (Anti-Money Laundering / Combating Financing of Terrorism) : Vérification listes sanctions internationales (OFAC, ONU), Screening contre listes PEP (Politically Exposed Persons), Analyse de la cohérence entre revenus déclarés et montant investi</li>
+<li>Décision : Acceptation, Refus motivé, ou Demande d&#x27;informations complémentaires</li>
+</ul>
+</section>
+<section class="section" id="etape2">
+<h2>🔄 Étape 2 – Signature du Contrat Wakala</h2>
+<p>Contrat BCEAO adapté</p>
+<p>Le contrat Wakala est basé sur le modèle standardisé de la BCEAO, adapté aux spécificités d&#x27;AL NAMAA FINANCE et certifié par le Comité Charia. Ce contrat définit de manière claire et exhaustive les droits et obligations de chaque partie.</p>
+<h4>2.1 Éléments Essentiels du Contrat</h4>
+<p>Le contrat contient obligatoirement les éléments suivants :</p>
+<ul>
+<li>Montant</li>
+</ul>
+<p>Montant exact investi en FCFA, avec indication du montant en lettres et en chiffres pour éviter toute ambiguïté.</p>
+<ul>
+<li>Durée</li>
+</ul>
+<p>Durée précise du contrat (en mois), Date de début (date de réception des fonds), Date d&#x27;échéance, Conditions de renouvellement automatique ou non.</p>
+<ul>
+<li>Secteurs d&#x27;investissement</li>
+</ul>
+<p>Liste détaillée des catégories d&#x27;actifs autorisées : Mourabaha (commerce, équipements), Ijara (immobilier, équipements), Mudaraba/Musharaka (participations), Sukuks et placements conformes. Pourcentages d&#x27;allocation indicatifs par catégorie avec fourchettes autorisées.</p>
+<ul>
+<li>Taux de rendement attendu (non garanti)</li>
+</ul>
+<p>Taux de rendement indicatif (Expected Profit Rate - EPR) exprimé en pourcentage annuel. Mention explicite du caractère non garanti, avec clause indiquant que le rendement effectif peut être supérieur ou inférieur à l&#x27;EPR.</p>
+<ul>
+<li>Commission du Wakil (Ujrah)</li>
+</ul>
+<p>Pourcentage exact de la commission prélevée sur les profits (10%, 12% ou 15% selon formule), Nature de la commission (frais de gestion des investissements), Moment du prélèvement (au moment de la distribution des profits).</p>
+<ul>
+<li>Méthode de partage des profits</li>
+</ul>
+<p>Formule de calcul détaillée du profit net distribuable, Ratio de partage entre Client et Wakil (ex: 88% / 12%), Fréquence de calcul et de distribution (trimestrielle), Mécanisme de constitution des réserves (PER/IRR).</p>
+<ul>
+<li>Modalité de sortie / clôture</li>
+</ul>
+<p>Sortie normale à échéance : remboursement capital + profits, Retrait anticipé : conditions et pénalités applicables, Force majeure : cas d&#x27;exonération des pénalités (décès, maladie grave, perte emploi), Procédure de clôture : délais et modalités pratiques.</p>
+<h4>2.2 Processus de Signature</h4>
+<ul>
+<li>Remise et explication du contrat au client</li>
+<li>Vérification de la compréhension par le client (questions-réponses)</li>
+<li>Signature manuscrite ou électronique (selon préférence client)</li>
+<li>Remise d&#x27;un exemplaire original au client</li>
+<li>Conservation d&#x27;un exemplaire dans le dossier client (archivage 10 ans minimum)</li>
+</ul>
+</section>
+<section class="section" id="etape3">
+<h2>🔄 Étape 3 – Encaissement des Fonds</h2>
+<h4>3.1 Dépôt sur Compte Wakala</h4>
+<ul>
+<li>Dépôt sur compte Wakala</li>
+</ul>
+<p>Modalités de versement acceptées :</p>
+<ul>
+<li>Virement bancaire depuis compte client</li>
+<li>Espèces (jusqu&#x27;à limite BCEAO de 5M FCFA par transaction)</li>
+<li>Chèque certifié</li>
+<li>Mobile money (pour montants &lt; 1M FCFA)</li>
+<li>Virement international (pour clients diaspora)</li>
+</ul>
+<h4>3.2 Enregistrement Comptable</h4>
+<ul>
+<li>Enregistrement comptable</li>
+</ul>
+<p>Comptabilisation immédiate du dépôt selon normes AAOIFI et plan comptable BCEAO.</p>
+<p>Écritures comptables :</p>
+<p>Débit : Compte 57 - Caisse ou Banque (selon modalité)</p>
+<p>Crédit : Compte 272 - Comptes d&#x27;investissement Wakala</p>
+<h4>3.3 Affectation au Portefeuille d&#x27;Investissement</h4>
+<ul>
+<li>Affectation au portefeuille d&#x27;investissement</li>
+</ul>
+<p>Les fonds sont alloués au pool d&#x27;investissements Wakala géré par AL NAMAA FINANCE, distinct des fonds propres de l&#x27;institution.</p>
+<ul>
+<li>Création d&#x27;un identifiant unique pour le compte Wakala du client</li>
+<li>Émission d&#x27;un certificat Wakala attestant de l&#x27;investissement</li>
+<li>Notification au client de la réception des fonds et activation du contrat</li>
+</ul>
+</section>
+<section class="section" id="etape4">
+<h2>🔄 Étape 4 – Investissement des Fonds</h2>
+<p>AL NAMAA investit les fonds dans les produits islamiques autorisés selon mandat</p>
+<p>AL NAMAA FINANCE procède à l&#x27;allocation des fonds dans un portefeuille diversifié d&#x27;investissements conformes à la Charia et au mandat défini dans le contrat.</p>
+<h4>4.1 Processus d&#x27;Investissement</h4>
+<ul>
+<li>Analyse des opportunités : Identification quotidienne des demandes de financement conformes</li>
+<li>Due diligence : Analyse de crédit, vérification conformité Charia, évaluation garanties</li>
+<li>Allocation selon stratégie : Respect des pourcentages d&#x27;allocation définis au contrat</li>
+<li>Diversification : Aucun investissement unique &gt; 10% du portefeuille</li>
+<li>Documentation : Contrats Mourabaha, Ijara, Mudaraba, etc. signés avec bénéficiaires</li>
+</ul>
+<h4>4.2 Délais d&#x27;Investissement</h4>
+<ul>
+<li>J+0 à J+2 : Constitution de la réserve de liquidité (5-10% du montant)</li>
+<li>J+3 à J+10 : Allocation progressive dans opportunités identifiées</li>
+<li>J+10 : 100% des fonds investis ou en réserve de liquidité</li>
+</ul>
+<h4>4.3 Traçabilité</h4>
+<ul>
+<li>Chaque investissement est enregistré dans le système avec lien au compte Wakala</li>
+<li>Possibilité pour le client de consulter en ligne les investissements financés</li>
+<li>Audit trail complet pour conformité BCEAO et Comité Charia</li>
+</ul>
+</section>
+<section class="section" id="etape5">
+<h2>🔄 Étape 5 – Gestion &amp; Reporting</h2>
+<p>Pendant toute la durée du contrat, AL NAMAA FINANCE assure une gestion active des investissements et fournit un reporting régulier aux investisseurs.</p>
+<h4>5.1 Gestion Active du Portefeuille</h4>
+<ul>
+<li>Suivi quotidien des remboursements et revenus générés</li>
+<li>Réallocation opportuniste des fonds récupérés dans nouveaux investissements</li>
+<li>Surveillance des risques de défaut et provisions si nécessaire</li>
+<li>Ajustement de la stratégie selon conditions de marché</li>
+</ul>
+<h4>5.2 Reporting Régulier</h4>
+<ul>
+<li>Rapport trimestriel ou semestriel</li>
+</ul>
+<p>Contenu du rapport :</p>
+<ul>
+<li>État des investissements</li>
+</ul>
+<p>Liste détaillée des investissements en cours : type (Mourabaha, Ijara, etc.), montant, échéance, statut (actif, remboursé, en difficulté). Répartition par catégorie d&#x27;actifs (graphique). Évolution du portefeuille depuis dernier rapport.</p>
+<ul>
+<li>Résultats réalisés</li>
+</ul>
+<p>Revenus bruts générés pendant la période. Coûts opérationnels et provisions constituées. Profit net distribuable. Calcul de la part du client selon ratio contractuel. Rendement effectif réalisé (en pourcentage annualisé).</p>
+<ul>
+<li>Projections de rendement</li>
+</ul>
+<p>Estimation des revenus attendus pour période suivante. Mise à jour de l&#x27;EPR si nécessaire. Explications sur facteurs influençant les performances. Perspectives de marché et stratégie d&#x27;allocation pour prochaine période.</p>
+<h4>5.3 Canaux de Communication</h4>
+<ul>
+<li>Rapport écrit : Envoyé par email ou courrier postal</li>
+<li>Espace client en ligne : Consultation 24/7 des performances et historique</li>
+<li>Application mobile : Notifications push pour événements importants</li>
+<li>Rendez-vous : Sur demande pour investisseurs Corporate</li>
+</ul>
+</section>
+<section class="section" id="etape6">
+<h2>🔄 Étape 6 – Distribution des Profits</h2>
+<p>Les profits générés sont distribués périodiquement aux investisseurs selon les modalités définies au contrat.</p>
+<h4>6.1 Calcul selon Performance Réelle</h4>
+<ul>
+<li>Calcul selon performance réelle</li>
+</ul>
+<p>Processus de calcul :</p>
+<ul>
+<li>Consolidation de tous les revenus générés pendant la période</li>
+<li>Déduction des coûts opérationnels directs</li>
+<li>Constitution des provisions réglementaires (PER/IRR)</li>
+<li>Obtention du profit net distribuable</li>
+<li>Validation par Direction Financière et Audit Interne</li>
+</ul>
+<h4>6.2 Déduction Commission du Wakil</h4>
+<ul>
+<li>Déduction commission du Wakil (Ujrah)</li>
+</ul>
+<p>Application du ratio contractuel (10%, 12% ou 15% selon formule) sur le profit net distribuable.</p>
+<p>Exemple de calcul :</p>
+<p>Profit Net Distribuable : 10 000 000 FCFA</p>
+<p>Commission Wakil (12%) : 1 200 000 FCFA</p>
+<p>Part Client (88%) : 8 800 000 FCFA</p>
+<h4>6.3 Versement au Client selon Échéance</h4>
+<ul>
+<li>Versement au client selon échéance</li>
+</ul>
+<p>Modalités de versement :</p>
+<ul>
+<li>Fréquence : Trimestrielle (tous les 3 mois)</li>
+<li>Mode de distribution : Virement sur compte courant du client ou Capitalisation (réinvestissement automatique)</li>
+<li>Délai : Maximum 5 jours ouvrés après clôture trimestrielle</li>
+<li>Documentation : Relevé détaillé accompagnant chaque distribution</li>
+<li>Notification : SMS et email confirmant le versement</li>
+</ul>
+</section>
+<section class="section" id="etape7">
+<h2>🔄 Étape 7 – Clôture / Sortie</h2>
+<p>À l&#x27;échéance du contrat ou en cas de sortie anticipée, AL NAMAA FINANCE procède à la clôture du compte Wakala et à la restitution des fonds au client.</p>
+<h4>7.1 Remboursement du Capital Investi</h4>
+<ul>
+<li>Remboursement du capital investi</li>
+</ul>
+<p>Restitution intégrale du montant initialement investi (sauf pertes éventuelles résultant de la performance des investissements).</p>
+<p>Calcul du capital à restituer :</p>
+<ul>
+<li>Cas normal : Capital initial intégral</li>
+<li>Cas de pertes : Capital initial - Pertes subies proportionnellement</li>
+<li>Cas de faute/négligence Wakil : Capital initial intégral + indemnisation</li>
+</ul>
+<h4>7.2 Versement des Profits Finaux</h4>
+<ul>
+<li>Versement des profits finaux</li>
+</ul>
+<p>Distribution de la dernière période de profits calculée jusqu&#x27;à la date de clôture.</p>
+<ul>
+<li>Calcul prorata temporis si sortie en cours de période</li>
+<li>Application des pénalités si retrait anticipé (50% des profits accumulés)</li>
+<li>Exonération de pénalités pour cas de force majeure documentés</li>
+</ul>
+<h4>7.3 Rapport de Clôture</h4>
+<ul>
+<li>Rapport de clôture</li>
+</ul>
+<p>Le rapport de clôture comprend :</p>
+<ul>
+<li>Récapitulatif complet de l&#x27;investissement : montant initial, durée effective, dates</li>
+<li>Historique détaillé de tous les investissements réalisés avec les fonds</li>
+<li>Synthèse des revenus générés période par période</li>
+<li>Détail des profits distribués au client (montants et dates)</li>
+<li>Commission totale prélevée par AL NAMAA (Ujrah cumulée)</li>
+<li>Calcul du rendement effectif final (TRI - Taux de Rendement Interne)</li>
+<li>Comparaison avec l&#x27;EPR initial communiqué</li>
+<li>Certificat de conformité Charia émis par le Comité Charia</li>
+</ul>
+<h4>7.4 Renouvellement ou Clôture Définitive</h4>
+<p>Options à l&#x27;échéance :</p>
+<ul>
+<li>Renouvellement automatique : Si prévu au contrat, le capital + profits peuvent être automatiquement réinvestis pour nouvelle période aux conditions en vigueur</li>
+<li>Renouvellement avec ajustement : Le client peut modifier le montant, la durée ou la formule</li>
+<li>Clôture définitive : Récupération totale des fonds et fermeture du compte Wakala</li>
+<li>Transfert partiel : Récupération d&#x27;une partie et réinvestissement du solde</li>
+</ul>
+<p>Le cycle complet est conçu pour assurer transparence, conformité et satisfaction client tout au long de l&#x27;expérience d&#x27;investissement Wakala chez AL NAMAA FINANCE.</p>
+</section>
+<section class="section" id="biens">
+<h2>✅ 8. BIENS &amp; ACTIVITÉS ÉLIGIBLES</h2>
+<div class="highlight"><strong>✅ Conformité :</strong> Seuls les investissements dans des activités halal sont autorisés. Le Comité Charia valide chaque classe d'actifs éligible.</div>
+<p>Cette section définit de manière exhaustive les secteurs, biens et activités dans lesquels AL NAMAA FINANCE peut investir les fonds Wakala, ainsi que les activités strictement interdites conformément aux principes de la Charia et aux règles de gouvernance d&#x27;AL NAMAA FINANCE.</p>
+<p>PRINCIPE FONDAMENTAL : Tout investissement doit être conforme aux principes de la finance islamique, licite (halal), et contribuer au développement économique réel. Les activités interdites (haram) sont exclues sans exception.</p>
+<h3>8.0 Tableau Récapitulatif</h3>
+<table>
+<thead>
+<tr><th>✓ AUTORISÉ (Halal)</th><th>✗ INTERDIT (Haram)</th></tr>
+</thead>
+<tbody>
+<tr><td>• Commerce licite
+• Agriculture
+• Agro-industrie
+• Commerce général halal
+• Achats-reventes halal
+• Transport/logistique
+• Financement PME
+• Financements immobiliers
+  non spéculatifs</td><td>• Alcool, tabac
+• Jeux / paris
+• Riba (intérêt usuraire)
+• Vente à terme non conforme
+• Opérations spéculatives</td></tr>
+</tbody>
+</table>
+<h3>8.1 Biens &amp; Activités AUTORISÉS (Halal)</h3>
+<p>Les fonds Wakala peuvent être investis dans les secteurs et activités suivants, conformes aux principes de la Charia et validés par le Comité Charia d&#x27;AL NAMAA FINANCE.</p>
+<h4>8.1.1 Commerce Licite</h4>
+<ul>
+<li>Commerce licite</li>
+</ul>
+<p>Toute activité commerciale portant sur des biens et services licites, excluant les produits et services interdits.</p>
+<p>Activités couvertes :</p>
+<ul>
+<li>Commerce de détail : Alimentaire halal, textile et habillement, électronique et électroménager, quincaillerie et matériaux de construction</li>
+<li>Commerce de gros : Importation de produits halal, distribution en gros, négoce de produits agricoles</li>
+<li>Services commerciaux : Conseil, formation, informatique et technologies, maintenance et réparation</li>
+</ul>
+<h4>8.1.2 Agriculture</h4>
+<ul>
+<li>Agriculture</li>
+</ul>
+<p>Activités de production agricole, d&#x27;élevage et de pêche contribuant à la sécurité alimentaire et au développement rural.</p>
+<p>Sous-secteurs éligibles :</p>
+<ul>
+<li>Cultures : Céréales (riz, mil, maïs, sorgho), Coton et cultures de rente, Cultures maraîchères, Cultures fruitières</li>
+<li>Élevage : Bovins, ovins, caprins (selon méthodes halal), Aviculture, Pisciculture</li>
+<li>Intrants agricoles : Semences certifiées, Engrais et fertilisants, Équipements agricoles</li>
+</ul>
+<h4>8.1.3 Agro-industrie</h4>
+<ul>
+<li>Agro-industrie</li>
+</ul>
+<p>Transformation et valorisation des produits agricoles dans le respect des normes halal.</p>
+<ul>
+<li>Transformation alimentaire : Décorticage et transformation de céréales, Production d&#x27;huiles végétales, Transformation fruits et légumes, Abattage et transformation de viande (selon normes halal)</li>
+<li>Transformation non-alimentaire : Égrenage du coton, Production de fibres textiles, Tannerie (selon méthodes conformes)</li>
+</ul>
+<h4>8.1.4 Commerce Général Halal</h4>
+<ul>
+<li>Commerce général halal</li>
+</ul>
+<p>Activités commerciales générales portant exclusivement sur des produits et services licites.</p>
+<ul>
+<li>Produits pharmaceutiques et parapharmaceutiques licites</li>
+<li>Matériel médical et équipements de santé</li>
+<li>Fournitures de bureau et scolaires</li>
+<li>Cosmétiques et produits d&#x27;hygiène halal</li>
+<li>Mobilier et équipements professionnels</li>
+</ul>
+<h4>8.1.5 Achats-reventes Halal (Mourabaha)</h4>
+<ul>
+<li>Achats-reventes halal</li>
+</ul>
+<p>Transactions Mourabaha où AL NAMAA achète un bien identifié puis le revend avec marge au client, avec paiement différé.</p>
+<ul>
+<li>Conditions de validité : Bien clairement identifié et existant, AL NAMAA prend possession avant revente, Marge bénéficiaire fixe et connue d&#x27;avance, Pas de pénalités de retard sur échéances</li>
+<li>Biens éligibles : Véhicules, équipements professionnels, stocks de marchandises, matières premières</li>
+</ul>
+<h4>8.1.6 Transport / Logistique</h4>
+<ul>
+<li>Transport/logistique</li>
+</ul>
+<p>Services de transport de personnes et de marchandises licites, entreposage et logistique.</p>
+<ul>
+<li>Transport de marchandises : Camions et véhicules utilitaires, Transport de produits agricoles, Logistique et distribution</li>
+<li>Transport de personnes : Taxis et VTC, Transport interurbain, Transport scolaire</li>
+<li>Condition : Exclusion du transport de marchandises interdites (alcool, tabac, etc.)</li>
+</ul>
+<h4>8.1.7 Financement PME</h4>
+<ul>
+<li>Financement PME</li>
+</ul>
+<p>Investissements dans des petites et moyennes entreprises exerçant des activités conformes à la Charia.</p>
+<ul>
+<li>Modes de financement : Mudaraba (apport de capital, partage de profits), Musharaka (partenariat capitalistique), Mourabaha (financement d&#x27;équipements), Ijara (location d&#x27;actifs)</li>
+<li>Secteurs prioritaires : Artisanat, commerce, services, industrie légère, technologies</li>
+</ul>
+<h4>8.1.8 Financements Immobiliers Non Spéculatifs</h4>
+<ul>
+<li>Financements immobiliers non spéculatifs</li>
+</ul>
+<p>Investissements immobiliers à finalité productive ou d&#x27;habitation, excluant toute dimension spéculative.</p>
+<ul>
+<li>Immobilier résidentiel : Acquisition de logements pour habitation personnelle (Mourabaha), Construction de résidence principale, Logements sociaux</li>
+<li>Immobilier commercial : Locaux commerciaux pour location (Ijara), Entrepôts et plateformes logistiques, Immobilier professionnel (bureaux, ateliers)</li>
+<li>Exclusions : Achats-reventes rapides à but spéculatif, Projets sans utilisation productive réelle, Immobilier de luxe sans justification économique</li>
+</ul>
+<h3>8.2 Biens &amp; Activités INTERDITS (Haram)</h3>
+<p>RÈGLE ABSOLUE : Aucun investissement Wakala ne peut être réalisé dans les secteurs et activités suivants, sous aucune circonstance. Toute violation entraînerait l&#x27;annulation de la conformité Charia du produit et l&#x27;obligation de purifier les revenus générés.</p>
+<h4>8.2.1 Alcool, Tabac</h4>
+<ul>
+<li>Alcool, tabac</li>
+</ul>
+<p>Toute activité liée à la production, transformation, distribution ou commercialisation de boissons alcoolisées, de tabac et de substances intoxicantes.</p>
+<ul>
+<li>Strictement interdit : Brasseries et distilleries, Bars, discothèques, boîtes de nuit, Fabrication et vente de cigarettes, Production et commerce de stupéfiants, Commerce incluant alcool même partiellement</li>
+</ul>
+<h4>8.2.2 Jeux / Paris</h4>
+<ul>
+<li>Jeux / paris</li>
+</ul>
+<p>Toute forme de jeux de hasard, paris, loteries et activités basées sur l&#x27;aléa (maysir).</p>
+<ul>
+<li>Strictement interdit : Casinos et salles de jeux, Paris sportifs et hippiques, Loteries et jeux de grattage, Plateformes de jeux en ligne, Toute activité basée sur le hasard avec gains financiers</li>
+</ul>
+<h4>8.2.3 Riba (Intérêt Usuraire)</h4>
+<ul>
+<li>Riba (intérêt usuraire)</li>
+</ul>
+<p>Toute transaction impliquant l&#x27;intérêt (riba), qu&#x27;il s&#x27;agisse de riba al-nasiah (intérêt sur délai) ou riba al-fadl (intérêt sur excédent).</p>
+<ul>
+<li>Strictement interdit : Banques conventionnelles et leurs opérations, Prêts avec intérêt, Obligations conventionnelles (bonds), Instruments financiers à taux d&#x27;intérêt, Crédit-bail conventionnel</li>
+</ul>
+<h4>8.2.4 Vente à Terme Non Conforme</h4>
+<ul>
+<li>Vente à terme non conforme</li>
+</ul>
+<p>Ventes impliquant gharar (incertitude excessive) ou bay&#x27; al-ma&#x27;dum (vente de biens inexistants).</p>
+<ul>
+<li>Strictement interdit : Vente de biens non possédés ou inexistants, Contrats avec incertitude excessive sur l&#x27;objet, Ventes avec conditions ambiguës, Bay&#x27; al-urboun (arrhes non conformes), Ventes à découvert (short selling)</li>
+</ul>
+<h4>8.2.5 Opérations Spéculatives</h4>
+<ul>
+<li>Opérations spéculatives</li>
+</ul>
+<p>Investissements à finalité purement spéculative, sans contribution à l&#x27;économie réelle.</p>
+<ul>
+<li>Strictement interdit : Trading haute fréquence (HFT), Produits dérivés non conformes (options, futures conventionnels), Forex spéculatif, Investissements purement spéculatifs sans actif sous-jacent réel, Manipulation de marché et délits d&#x27;initiés</li>
+</ul>
+<h4>8.2.6 Autres Activités Interdites</h4>
+<p>Liste complémentaire des activités haram :</p>
+<ul>
+<li>Pornographie et divertissement illicite : Production et distribution de contenus pornographiques, Maisons closes et services sexuels, Divertissements contraires à la morale islamique</li>
+<li>Viande non halal : Élevage et abattage de porcs, Viande non abattue selon rites islamiques, Commerce de viande non certifiée halal</li>
+<li>Armement et activités militaires : Fabrication et commerce d&#x27;armes, Industries de défense (sauf cas particuliers validés par Comité Charia), Mercenariat et sociétés militaires privées</li>
+<li>Autres secteurs interdits : Élevage intensif non conforme au bien-être animal, Clonage humain et recherches contraires à l&#x27;éthique islamique, Activités portant atteinte à l&#x27;environnement de manière excessive, Exploitation abusive de la main-d&#x27;œuvre</li>
+</ul>
+<h3>8.3 Processus de Vérification de Conformité</h3>
+<p>Chaque investissement potentiel fait l&#x27;objet d&#x27;un processus rigoureux de vérification avant allocation des fonds Wakala.</p>
+<h4>8.3.1 Étapes de Vérification</h4>
+<ul>
+<li>Étape 1 : Identification du secteur d&#x27;activité du demandeur de financement</li>
+<li>Étape 2 : Vérification de la conformité du secteur avec la liste autorisée</li>
+<li>Étape 3 : Analyse détaillée de l&#x27;activité spécifique (produits, services, clients)</li>
+<li>Étape 4 : Vérification de l&#x27;absence de revenus mixtes non conformes</li>
+<li>Étape 5 : Validation par le Responsable Conformité Charia</li>
+<li>Étape 6 : En cas de doute, saisine du Comité Charia pour avis (fatwa)</li>
+</ul>
+<h4>8.3.2 Documentation Requise</h4>
+<ul>
+<li>Registre de commerce et statuts de l&#x27;entreprise</li>
+<li>Description détaillée de l&#x27;activité et des produits/services</li>
+<li>Comptes annuels montrant la répartition des revenus par activité</li>
+<li>Déclaration sur l&#x27;honneur de conformité Charia signée par le dirigeant</li>
+<li>Certificat Charia si l&#x27;entreprise opère dans un secteur sensible</li>
+</ul>
+<h4>8.3.3 Suivi Post-Investissement</h4>
+<ul>
+<li>Revue annuelle de la conformité Charia des investissements</li>
+<li>Obligation pour le client de notifier tout changement d&#x27;activité</li>
+<li>Désinvestissement immédiat en cas de dérive vers activités interdites</li>
+<li>Purification des revenus si contamination accidentelle par revenus non conformes</li>
+</ul>
+<p>Ces critères d&#x27;éligibilité garantissent que les fonds Wakala contribuent au développement économique réel dans le respect des principes islamiques et de l&#x27;éthique d&#x27;AL NAMAA FINANCE.</p>
+</section>
+<section class="section" id="comptable">
+<h2>📊 9. COMPTABILISATION (AAOIFI + BCEAO)</h2>
+<div class="info-box"><strong>📊 Référentiel :</strong> Comptabilisation selon les normes AAOIFI (FAS 5) et les instructions BCEAO, avec séparation des fonds Wakala des fonds propres.</div>
+<p>Cette section décrit le traitement comptable du produit Wakala Investment conformément aux normes AAOIFI (Accounting and Auditing Organization for Islamic Financial Institutions) et aux exigences du plan comptable BCEAO pour les institutions de microfinance.</p>
+<p>PRINCIPE COMPTABLE FONDAMENTAL : Les fonds Wakala sont comptabilisés hors bilan ou dans un compte de passif distinct. Ils ne constituent pas des dépôts conventionnels mais des comptes d&#x27;investissement où les clients partagent les risques et les profits.</p>
+<h3>9.0 Référentiels Comptables</h3>
+<p>Normes applicables :</p>
+<ul>
+<li>AAOIFI FAS 11 : Provisions and Reserves in Islamic Banks (traitement des réserves PER et IRR)</li>
+<li>AAOIFI FAS 27 : Investment Accounts (comptabilisation des comptes d&#x27;investissement)</li>
+<li>Plan Comptable BCEAO : Instruction 002-03-2018 relative aux établissements de microfinance</li>
+<li>Instruction BCEAO : Contrat-type Wakala et exigences de reporting</li>
+</ul>
+<h3>9.1 Entrée des Fonds</h3>
+<p>Lors de la réception des fonds du client investisseur, AL NAMAA FINANCE enregistre l&#x27;entrée des fonds dans un compte de passif dédié aux investissements Wakala.</p>
+<h4>9.1.1 Écriture Comptable</h4>
+<table>
+<thead>
+<tr><th>Compte</th><th>Débit</th><th>Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>Banque</td><td>X FCFA</td><td>-</td></tr>
+<tr><td>Compte Wakala – Fonds confiés</td><td>-</td><td>X FCFA</td></tr>
+</tbody>
+</table>
+<p>Écritures simplifiées :</p>
+<ul>
+<li>Débit : Banque</li>
+<li>Crédit : Compte Wakala – Fonds confiés</li>
+</ul>
+<h4>9.1.2 Comptes BCEAO Utilisés</h4>
+<ul>
+<li>Débit : Compte 57 - Banque (ou 571 Caisse selon modalité de versement)</li>
+<li>Crédit : Compte 272 - Comptes d&#x27;investissement Wakala (Passif - Ressources à terme)</li>
+</ul>
+<h4>9.1.3 Exemple Pratique</h4>
+<p>Client investit 5 000 000 FCFA en Wakala Premium (12 mois)</p>
+<p>Débit : 571 Banque → 5 000 000 FCFA</p>
+<p>Crédit : 272 Wakala Investment → 5 000 000 FCFA</p>
+<h3>9.2 Investissement des Fonds</h3>
+<p>Lorsque AL NAMAA FINANCE investit les fonds reçus dans des opérations conformes (Mourabaha, Ijara, Mudaraba, etc.), elle enregistre le transfert des fonds du compte Wakala vers le portefeuille d&#x27;investissements.</p>
+<h4>9.2.1 Écriture Comptable</h4>
+<table>
+<thead>
+<tr><th>Compte</th><th>Débit</th><th>Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>Portefeuille investissement</td><td>X FCFA</td><td>-</td></tr>
+<tr><td>Compte Wakala</td><td>-</td><td>X FCFA</td></tr>
+</tbody>
+</table>
+<p>Écritures simplifiées :</p>
+<ul>
+<li>Débit : Portefeuille investissement</li>
+<li>Crédit : Compte Wakala</li>
+</ul>
+<h4>9.2.2 Comptes BCEAO Utilisés</h4>
+<p>Selon le type d&#x27;investissement :</p>
+<ul>
+<li>Débit : Compte 271 - Financements Mourabaha (pour achats-reventes)</li>
+<li>Débit : Compte 273 - Financements Ijara (pour locations)</li>
+<li>Débit : Compte 274 - Participations Mudaraba/Musharaka (pour partenariats)</li>
+<li>Crédit : Compte 272 - Comptes d&#x27;investissement Wakala</li>
+</ul>
+<h4>9.2.3 Exemple Pratique</h4>
+<p>Allocation de 3 000 000 FCFA en financement Mourabaha</p>
+<p>Débit : 271 Financements Mourabaha → 3 000 000 FCFA</p>
+<p>Crédit : 272 Wakala Investment → 3 000 000 FCFA</p>
+<h3>9.3 Constatation et Distribution des Profits</h3>
+<p>Lorsque les investissements génèrent des revenus (marges Mourabaha, loyers Ijara, profits Mudaraba), AL NAMAA FINANCE constate ces revenus puis les répartit entre les clients investisseurs et l&#x27;institution selon les ratios contractuels.</p>
+<h4>9.3.1 Écriture Comptable</h4>
+<table>
+<thead>
+<tr><th>Compte</th><th>Débit</th><th>Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>Revenus d&#x27;investissement</td><td>X FCFA</td><td>-</td></tr>
+<tr><td>Profits client</td><td>-</td><td>Y FCFA</td></tr>
+<tr><td>Commission Wakil</td><td>-</td><td>Z FCFA</td></tr>
+</tbody>
+</table>
+<p>Écritures simplifiées :</p>
+<ul>
+<li>Débit : Revenus d&#x27;investissement</li>
+<li>Crédit : Profits client + Commission Wakil</li>
+</ul>
+<h4>9.3.2 Comptes BCEAO Utilisés</h4>
+<ul>
+<li>Débit : Compte 707 - Revenus Wakala Investment (Produits)</li>
+<li>Crédit : Compte 272.1 - Profits dus aux investisseurs (85-90% selon formule)</li>
+<li>Crédit : Compte 706 - Commissions et frais de gestion (10-15% - Ujrah du Wakil)</li>
+</ul>
+<h4>9.3.3 Exemple Pratique</h4>
+<p>Revenus trimestriels générés : 400 000 FCFA (formule Premium 88/12)</p>
+<p>Débit : 707 Revenus Wakala → 400 000 FCFA</p>
+<p>Crédit : 272.1 Profits clients (88%) → 352 000 FCFA</p>
+<p>Crédit : 706 Commission Wakil (12%) → 48 000 FCFA</p>
+<h3>9.4 Sortie et Remboursement</h3>
+<p>À l&#x27;échéance du contrat Wakala ou en cas de sortie anticipée, AL NAMAA FINANCE rembourse le capital investi au client. Les profits sont versés séparément ou en même temps selon les modalités contractuelles.</p>
+<h4>9.4.1 Écriture Comptable</h4>
+<table>
+<thead>
+<tr><th>Compte</th><th>Débit</th><th>Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>Compte Wakala</td><td>X FCFA</td><td>-</td></tr>
+<tr><td>Banque (remboursement client)</td><td>-</td><td>X FCFA</td></tr>
+</tbody>
+</table>
+<p>Écritures simplifiées :</p>
+<ul>
+<li>Débit : Compte Wakala</li>
+<li>Crédit : Banque (remboursement client)</li>
+</ul>
+<h4>9.4.2 Comptes BCEAO Utilisés</h4>
+<ul>
+<li>Débit : Compte 272 - Comptes d&#x27;investissement Wakala (extinction de la dette envers le client)</li>
+<li>Crédit : Compte 571 - Banque (virement au client)</li>
+</ul>
+<h4>9.4.3 Exemple Pratique</h4>
+<p>Remboursement capital à échéance : 5 000 000 FCFA</p>
+<p>Débit : 272 Wakala Investment → 5 000 000 FCFA</p>
+<p>Crédit : 571 Banque → 5 000 000 FCFA</p>
+<p>Note : Les profits dus (compte 272.1) sont versés simultanément ou selon modalités contractuelles.</p>
+<h3>9.5 Écritures Complémentaires</h3>
+<h4>9.5.1 Constitution des Réserves (PER / IRR)</h4>
+<p>Conformément aux normes AAOIFI, AL NAMAA FINANCE constitue deux types de réserves :</p>
+<ul>
+<li>PER (Profit Equalization Reserve) : Lissage des rendements entre périodes</li>
+<li>IRR (Investment Risk Reserve) : Absorption des pertes potentielles</li>
+</ul>
+<p>Écriture de constitution :</p>
+<p>Débit : 707 Revenus Wakala Investment</p>
+<p>Crédit : 139 Réserves PER/IRR (15-25% des profits bruts)</p>
+<h4>9.5.2 Pertes sur Investissements</h4>
+<p>En cas de pertes sur investissements (défaut emprunteur, dépréciation actifs) :</p>
+<p>Débit : 272 Wakala Investment (réduction capital client)</p>
+<p>ou Débit : 139 Réserve IRR (si suffisante)</p>
+<p>Crédit : 271/273/274 Financements (dépréciation)</p>
+<h4>9.5.3 Pertes dues à Faute du Wakil</h4>
+<p>Si pertes résultent d&#x27;une faute, négligence ou violation du mandat par AL NAMAA :</p>
+<p>Débit : 659 Charges exceptionnelles (AL NAMAA assume la perte)</p>
+<p>Crédit : 272 Wakala Investment (reconstitution capital client)</p>
+<h3>9.6 Tableau Récapitulatif des Écritures</h3>
+<table>
+<thead>
+<tr><th>Opération</th><th>Débit</th><th>Crédit</th><th>Nature</th></tr>
+</thead>
+<tbody>
+<tr><td>Entrée fonds</td><td>571 Banque</td><td>272 Wakala</td><td>Ressource</td></tr>
+<tr><td>Investissement</td><td>271/273/274</td><td>272 Wakala</td><td>Emploi</td></tr>
+<tr><td>Profit</td><td>707 Revenus</td><td>272.1 + 706</td><td>Répartition</td></tr>
+<tr><td>Sortie</td><td>272 Wakala</td><td>571 Banque</td><td>Remboursement</td></tr>
+</tbody>
+</table>
+<p>Ces écritures comptables garantissent une traçabilité complète et une conformité aux normes AAOIFI et BCEAO pour la gestion des comptes d&#x27;investissement Wakala.</p>
+</section>
+<section class="section" id="parametrage">
+<h2>💻 10. PARAMÉTRAGE CBS</h2>
+<div class="info-box"><strong>💻 Intégration CBS :</strong> Module dédié pour la gestion des comptes Wakala, le suivi des investissements et le calcul automatique des profits à distribuer.</div>
+<p>Cette section décrit la configuration technique nécessaire dans le système d&#x27;information (Core Banking System - CBS) pour la gestion opérationnelle complète du produit Wakala Investment. Le paramétrage couvre les modules fonctionnels, les automatisations et les tableaux de bord nécessaires.</p>
+<p>OBJECTIF : Automatiser au maximum les processus opérationnels pour garantir l&#x27;efficacité, la traçabilité, la conformité réglementaire et la satisfaction client, tout en minimisant les erreurs manuelles.</p>
+<h3>10.0 Architecture Système</h3>
+<p>Le produit Wakala Investment s&#x27;intègre dans l&#x27;architecture système d&#x27;AL NAMAA FINANCE composée de :</p>
+<ul>
+<li>ERP: Gestion commerciale, CRM, comptabilité générale, reporting</li>
+<li>Core Banking System (CBS) : Gestion des comptes, transactions, produits financiers</li>
+<li>Modules spécialisés : Finance islamique, conformité Charia, gestion risques</li>
+<li>Interfaces externes : Portail web client, application mobile, canaux de paiement</li>
+</ul>
+<h3>10.1 Modules Requis</h3>
+<p>Les modules suivants doivent être installés, configurés et intégrés pour la gestion complète du produit Wakala Investment.</p>
+<h4>10.1.1 Module Comptes d&#x27;Investissement</h4>
+<ul>
+<li>Comptes d&#x27;investissement</li>
+</ul>
+<p>Module de gestion des comptes d&#x27;investissement Wakala, distinct des comptes d&#x27;épargne et de crédit conventionnels.</p>
+<p>Fonctionnalités :</p>
+<ul>
+<li>Création et gestion de comptes Wakala par client</li>
+<li>Paramétrage par formule (Standard, Premium, Corporate)</li>
+<li>Gestion des montants minimum/maximum selon profil</li>
+<li>Historique complet des transactions (versements, retraits, profits)</li>
+<li>Calcul automatique des soldes et positions</li>
+<li>Multi-comptes : un client peut avoir plusieurs contrats Wakala simultanés</li>
+</ul>
+<h4>10.1.2 Module Wakala Mandate (Mandat)</h4>
+<ul>
+<li>Wakala Mandate</li>
+</ul>
+<p>Module de gestion des mandats d&#x27;investissement définissant les paramètres et contraintes de chaque contrat Wakala.</p>
+<p>Fonctionnalités :</p>
+<ul>
+<li>Définition des secteurs d&#x27;investissement autorisés par mandat</li>
+<li>Limites d&#x27;allocation par catégorie d&#x27;actifs (Mourabaha, Ijara, Mudaraba, etc.)</li>
+<li>Ratios de partage des profits configurables par formule</li>
+<li>Expected Profit Rate (EPR) par formule et durée</li>
+<li>Règles de sortie anticipée et pénalités</li>
+<li>Conditions de renouvellement automatique</li>
+<li>Validation workflow : contrôle que chaque investissement respecte le mandat</li>
+</ul>
+<h4>10.1.3 Module Suivi Portefeuille</h4>
+<ul>
+<li>Suivi portefeuille</li>
+</ul>
+<p>Module de suivi en temps réel des investissements réalisés avec les fonds Wakala.</p>
+<p>Fonctionnalités :</p>
+<ul>
+<li>Vue consolidée du portefeuille global Wakala</li>
+<li>Détail par client : investissements financés avec ses fonds</li>
+<li>Suivi des encours par catégorie (Mourabaha, Ijara, Mudaraba, etc.)</li>
+<li>Tracking des revenus générés par investissement</li>
+<li>Alertes de concentration : dépassement de limites d&#x27;allocation</li>
+<li>Suivi des remboursements et échéances</li>
+<li>Gestion des provisions pour créances douteuses</li>
+</ul>
+<h4>10.1.4 Module Reporting Performance</h4>
+<ul>
+<li>Reporting performance</li>
+</ul>
+<p>Module de génération automatique des rapports de performance pour investisseurs et régulateurs.</p>
+<p>Fonctionnalités :</p>
+<ul>
+<li>Relevés trimestriels automatiques par client</li>
+<li>Calcul automatique des rendements effectifs (TRI)</li>
+<li>Comparaison performance vs EPR communiqué</li>
+<li>Rapports réglementaires BCEAO (format standardisé)</li>
+<li>Rapports pour Comité Charia (certification conformité)</li>
+<li>Tableaux de bord Direction : synthèse performances globales</li>
+<li>Export multi-formats : PDF, Excel, CSV</li>
+</ul>
+<h4>10.1.5 Module Charia Compliance (Conformité Charia)</h4>
+<ul>
+<li>Module Charia compliance</li>
+</ul>
+<p>Module de contrôle automatique de la conformité Charia de tous les investissements.</p>
+<p>Fonctionnalités :</p>
+<ul>
+<li>Base de données secteurs autorisés/interdits</li>
+<li>Screening automatique des contreparties (vérification secteur d&#x27;activité)</li>
+<li>Blocage des investissements non conformes avant exécution</li>
+<li>Alertes en cas de dérive de conformité</li>
+<li>Workflow de validation Comité Charia pour cas ambigus</li>
+<li>Audit trail complet : traçabilité de toutes les décisions de conformité</li>
+<li>Calcul automatique des montants à purifier en cas de contamination</li>
+<li>Rapports de conformité périodiques pour Comité Charia</li>
+</ul>
+<h4>10.1.6 Module Commissions</h4>
+<ul>
+<li>Module commissions</li>
+</ul>
+<p>Module de calcul et gestion automatique des commissions Wakil (Ujrah).</p>
+<p>Fonctionnalités :</p>
+<ul>
+<li>Grilles de commission par formule Wakala (10%, 12%, 15%)</li>
+<li>Calcul automatique de la part AL NAMAA vs part client</li>
+<li>Application des ratios de partage selon contrat</li>
+<li>Comptabilisation automatique des commissions perçues</li>
+<li>Historique des commissions par client et par période</li>
+<li>Reporting commissions pour Direction Financière</li>
+<li>Intégration avec module de paie (si commissions commerciales)</li>
+</ul>
+<h3>10.2 Automatisations</h3>
+<p>Les automatisations suivantes permettent de réduire les interventions manuelles, d&#x27;accélérer les processus et de garantir la cohérence des traitements.</p>
+<h4>10.2.1 Génération du Contrat Wakala</h4>
+<ul>
+<li>Génération du contrat Wakala</li>
+</ul>
+<p>Génération automatique du contrat Wakala au format PDF à partir d&#x27;un template prédéfini.</p>
+<p>Processus :</p>
+<ul>
+<li>Template Word/PDF pré-approuvé par Comité Charia et service juridique</li>
+<li>Champs dynamiques : nom client, montant, durée, EPR, ratio, etc.</li>
+<li>Génération PDF automatique lors de la création du compte Wakala</li>
+<li>Signature électronique intégrée (ou impression pour signature manuscrite)</li>
+<li>Envoi automatique par email au client</li>
+<li>Archivage dans GED (Gestion Électronique des Documents)</li>
+<li>Numérotation unique et séquentielle des contrats</li>
+</ul>
+<h4>10.2.2 Gestion Échéances Profit</h4>
+<ul>
+<li>Gestion échéances profit</li>
+</ul>
+<p>Calcul et distribution automatique des profits selon la périodicité définie (trimestriel).</p>
+<p>Processus :</p>
+<ul>
+<li>Calendrier automatique des échéances par compte</li>
+<li>Batch trimestriel : calcul des profits dus à chaque investisseur</li>
+<li>Application automatique des ratios de partage (85/15, 88/12, 90/10)</li>
+<li>Déduction automatique de la commission Wakil</li>
+<li>Comptabilisation automatique (écritures 707 → 272.1 + 706)</li>
+<li>Virement automatique sur compte courant client ou capitalisation selon choix</li>
+<li>Notification SMS/Email au client confirmant la distribution</li>
+</ul>
+<h4>10.2.3 Rapport Investissement</h4>
+<ul>
+<li>Rapport investissement</li>
+</ul>
+<p>Génération automatique des rapports périodiques d&#x27;investissement pour chaque client.</p>
+<p>Processus :</p>
+<ul>
+<li>Batch trimestriel/semestriel selon formule</li>
+<li>Génération automatique du rapport PDF personnalisé</li>
+<li>Contenu : état investissements, revenus générés, profits distribués, projections</li>
+<li>Graphiques et visualisations : évolution portefeuille, répartition actifs</li>
+<li>Envoi automatique par email</li>
+<li>Mise à disposition dans espace client en ligne</li>
+<li>Archivage avec horodatage pour audit</li>
+</ul>
+<h4>10.2.4 Alertes Risques</h4>
+<ul>
+<li>Alertes risques</li>
+</ul>
+<p>Système d&#x27;alertes automatiques pour détecter et notifier les situations à risque.</p>
+<p>Types d&#x27;alertes :</p>
+<ul>
+<li>Concentration : Dépassement des limites d&#x27;allocation par catégorie</li>
+<li>Conformité Charia : Tentative d&#x27;investissement dans secteur interdit</li>
+<li>Liquidité : Ratio de liquidité sous seuil (&lt; 5%)</li>
+<li>Défaut : Retard de remboursement sur financement &gt; 30 jours</li>
+<li>Performance : Écart significatif rendement vs EPR (&gt;2%)</li>
+<li>Échéance : Contrat arrivant à échéance dans 30 jours</li>
+<li>Client : Un client représente &gt;15% du portefeuille global</li>
+</ul>
+<p>Destinataires des alertes :</p>
+<ul>
+<li>Responsable Produits Wakala (toutes alertes)</li>
+<li>Risk Manager (concentration, défaut, liquidité)</li>
+<li>Responsable Conformité Charia (conformité)</li>
+<li>Direction Générale (alertes critiques)</li>
+</ul>
+<h4>10.2.5 Journal Comptable Dédié</h4>
+<ul>
+<li>Journal comptable dédié</li>
+</ul>
+<p>Journal comptable spécialisé pour enregistrer toutes les opérations Wakala.</p>
+<p>Caractéristiques :</p>
+<ul>
+<li>Code journal dédié : JWK (Journal Wakala)</li>
+<li>Séquence de numérotation distincte</li>
+<li>Comptabilisation automatique de toutes les transactions :</li>
+<li>Entrées de fonds (571 → 272)</li>
+<li>Investissements (271/273/274 → 272)</li>
+<li>Profits (707 → 272.1 + 706)</li>
+<li>Sorties (272 → 571)</li>
+<li>Rapprochement automatique avec transactions bancaires</li>
+<li>Audit trail : traçabilité complète utilisateur + timestamp</li>
+</ul>
+<h3>10.3 Tableau de Bord Investisseurs</h3>
+<ul>
+<li>Tableau de bord investisseurs</li>
+</ul>
+<p>Interface web/mobile permettant aux investisseurs de consulter en temps réel l&#x27;état de leurs investissements Wakala.</p>
+<h4>10.3.1 Accès et Sécurité</h4>
+<ul>
+<li>Portail web responsive accessible 24/7</li>
+<li>Application mobile iOS et Android</li>
+<li>Authentification sécurisée : login/mot de passe + OTP SMS</li>
+<li>Chiffrement SSL/TLS pour toutes les communications</li>
+<li>Session timeout automatique après inactivité</li>
+</ul>
+<h4>10.3.2 Informations Affichées</h4>
+<p>Vue d&#x27;ensemble :</p>
+<ul>
+<li>Capital total investi (tous contrats Wakala)</li>
+<li>Profits cumulés depuis début</li>
+<li>Rendement effectif moyen (TRI global)</li>
+<li>Graphique d&#x27;évolution de la valeur du portefeuille</li>
+</ul>
+<p>Détail par contrat :</p>
+<ul>
+<li>Numéro et type de contrat (Standard/Premium/Corporate)</li>
+<li>Date de souscription et date d&#x27;échéance</li>
+<li>Montant investi et solde actuel</li>
+<li>EPR communiqué vs rendement effectif à date</li>
+<li>Dernière distribution de profit (date et montant)</li>
+<li>Prochaine échéance de profit</li>
+</ul>
+<p>Investissements sous-jacents :</p>
+<ul>
+<li>Répartition du portefeuille par catégorie (graphique camembert)</li>
+<li>% Mourabaha, % Ijara, % Mudaraba/Musharaka, % Liquidité</li>
+<li>Liste des principaux investissements (anonymisés pour confidentialité)</li>
+<li>Secteurs d&#x27;activité financés</li>
+</ul>
+<h4>10.3.3 Fonctionnalités Interactives</h4>
+<ul>
+<li>Téléchargement des rapports trimestriels (PDF)</li>
+<li>Téléchargement du contrat Wakala signé</li>
+<li>Historique complet des transactions</li>
+<li>Simulateur de nouveaux investissements</li>
+<li>Demande de rendez-vous avec conseiller</li>
+<li>Messagerie sécurisée avec AL NAMAA</li>
+<li>Notifications push (profits distribués, échéances, alertes)</li>
+<li>Demande de retrait anticipé en ligne</li>
+<li>Renouvellement automatique : activation/désactivation</li>
+</ul>
+<h3>10.4 Tableau Récapitulatif du Paramétrage</h3>
+<table>
+<thead>
+<tr><th>Catégorie</th><th>Éléments</th></tr>
+</thead>
+<tbody>
+<tr><td>Modules Requis</td><td>• Comptes d&#x27;investissement
+• Wakala Mandate
+• Suivi portefeuille
+• Reporting performance
+• Module Charia compliance
+• Module commissions</td></tr>
+<tr><td>Automatisations</td><td>• Génération du contrat Wakala
+• Gestion échéances profit
+• Rapport investissement
+• Alertes risques
+• Journal comptable dédié</td></tr>
+<tr><td>Interface Client</td><td>• Tableau de bord investisseurs
+• Portail web responsive 24/7
+• Application mobile iOS/Android
+• Authentification sécurisée OTP
+• Vue temps réel des investissements
+• Téléchargement rapports et contrats</td></tr>
+</tbody>
+</table>
+<p>Ce paramétrage complet garantit une gestion opérationnelle efficace, automatisée et conforme du produit Wakala Investment, tout en offrant une expérience client optimale.</p>
+</section>
+<section class="section" id="kpi">
+<h2>📈 11. INDICATEURS DE PERFORMANCE (KPI)</h2>
+<div class="highlight"><strong>📈 Pilotage :</strong> Tableau de bord dédié avec indicateurs de collecte, rendement, diversification et satisfaction client.</div>
+<p>Cette section définit les indicateurs clés de performance (Key Performance Indicators - KPI) permettant de mesurer le succès et la santé du produit Wakala Investment. Ces KPI sont suivis mensuellement par la Direction et font l&#x27;objet de rapports trimestriels au Conseil d&#x27;Administration.</p>
+<p>OBJECTIF : Disposer d&#x27;indicateurs quantitatifs et qualitatifs pour piloter efficacement le produit, identifier les axes d&#x27;amélioration et démontrer la valeur créée pour AL NAMAA FINANCE et ses clients investisseurs.</p>
+<h3>11.0 Tableau Récapitulatif des KPI</h3>
+<table>
+<thead>
+<tr><th>Indicateur</th><th>Objectif An 1</th><th>Fréquence</th></tr>
+</thead>
+<tbody>
+<tr><td>Total fonds mobilisés</td><td>500M FCFA</td><td>Mensuel</td></tr>
+<tr><td>Rendement moyen réalisé</td><td>6-7%</td><td>Trimestriel</td></tr>
+<tr><td>Fidélité des investisseurs</td><td>&gt;80%</td><td>Trimestriel</td></tr>
+<tr><td>Taux de renouvellement</td><td>&gt;70%</td><td>Mensuel</td></tr>
+<tr><td>Taux de conformité Charia</td><td>100%</td><td>Continu</td></tr>
+<tr><td>Diversification investissements</td><td>60/25/15</td><td>Mensuel</td></tr>
+<tr><td>Performance portefeuille</td><td>&lt;5% NPL</td><td>Mensuel</td></tr>
+</tbody>
+</table>
+<h3>11.1 Total Fonds Mobilisés</h3>
+<ul>
+<li>Total fonds mobilisés</li>
+</ul>
+<p>Montant cumulé des fonds collectés auprès des investisseurs à travers le produit Wakala Investment.</p>
+<h4>11.1.1 Formule de Calcul</h4>
+<p>Total Fonds Mobilisés = Σ Soldes de tous les comptes Wakala actifs</p>
+<h4>11.1.2 Objectifs</h4>
+<ul>
+<li>Année 1 : 500 millions FCFA</li>
+<li>Année 2 : 750 millions FCFA (+50%)</li>
+<li>Année 3 : 1,5 milliard FCFA (+100%)</li>
+</ul>
+<h4>11.1.3 Sous-Indicateurs</h4>
+<ul>
+<li>Par formule : Standard / Premium / Corporate</li>
+<li>Par segment : Particuliers / PME / Diaspora / Institutionnels</li>
+<li>Par durée : Court terme / Moyen terme / Long terme</li>
+<li>Croissance mensuelle : Nouveaux investissements vs retraits</li>
+</ul>
+<h4>11.1.4 Utilisation</h4>
+<ul>
+<li>Pilotage commercial : ajustement de la stratégie d&#x27;acquisition</li>
+<li>Gestion ALM : planification de l&#x27;allocation des fonds</li>
+<li>Reporting réglementaire : BCEAO (ressources à terme)</li>
+</ul>
+<h3>11.2 Rendement Moyen Réalisé</h3>
+<ul>
+<li>Rendement moyen réalisé</li>
+</ul>
+<p>Taux de rendement effectif moyen distribué aux investisseurs sur une période donnée.</p>
+<h4>11.2.1 Formule de Calcul</h4>
+<p>Rendement Moyen = (Σ Profits distribués / Σ Capital moyen investi) × 100</p>
+<p>Calculé sur base annualisée pour comparabilité</p>
+<h4>11.2.2 Objectifs</h4>
+<ul>
+<li>Wakala Standard : 6-7% annuel</li>
+<li>Wakala Premium : 7-8% annuel</li>
+<li>Wakala Corporate : 8-9% annuel</li>
+</ul>
+<h4>11.2.3 Sous-Indicateurs</h4>
+<ul>
+<li>Écart vs EPR : (Rendement réalisé - EPR communiqué)</li>
+<li>Volatilité : Écart-type des rendements trimestriels</li>
+<li>Minimum/Maximum : Fourchette des rendements distribués</li>
+<li>Par catégorie d&#x27;actifs : Contribution Mourabaha / Ijara / Mudaraba</li>
+</ul>
+<h4>11.2.4 Utilisation</h4>
+<ul>
+<li>Benchmark compétitif : comparaison avec taux marché</li>
+<li>Ajustement EPR : révision des taux communiqués</li>
+<li>Satisfaction client : respect des engagements indicatifs</li>
+</ul>
+<h3>11.3 Fidélité des Investisseurs</h3>
+<ul>
+<li>Fidélité des investisseurs</li>
+</ul>
+<p>Pourcentage d&#x27;investisseurs ayant maintenu leur investissement sur une période de 12 mois.</p>
+<h4>11.3.1 Formule de Calcul</h4>
+<p>Fidélité = (Nombre d&#x27;investisseurs actifs à T+12 mois / Nombre d&#x27;investisseurs à T) × 100</p>
+<h4>11.3.2 Objectif</h4>
+<ul>
+<li>Cible : &gt; 80% de fidélité à 12 mois</li>
+</ul>
+<h4>11.3.3 Sous-Indicateurs</h4>
+<ul>
+<li>Taux d&#x27;attrition : 100% - Taux de fidélité</li>
+<li>Motifs de sortie : Analyse des raisons (rendement insatisfaisant, besoin liquidité, etc.)</li>
+<li>Durée moyenne de détention : Nombre de mois moyen avant sortie</li>
+</ul>
+<h4>11.3.4 Utilisation</h4>
+<ul>
+<li>Satisfaction produit : indicateur de qualité perçue</li>
+<li>Programme de rétention : actions ciblées vers investisseurs à risque</li>
+<li>Amélioration continue : ajustements produit selon feedback</li>
+</ul>
+<h3>11.4 Taux de Renouvellement</h3>
+<ul>
+<li>Taux de renouvellement</li>
+</ul>
+<p>Pourcentage de contrats Wakala arrivés à échéance qui sont renouvelés par les clients.</p>
+<h4>11.4.1 Formule de Calcul</h4>
+<p>Taux Renouvellement = (Nombre de contrats renouvelés / Nombre de contrats échus) × 100</p>
+<h4>11.4.2 Objectif</h4>
+<ul>
+<li>Cible : &gt; 70% de renouvellement</li>
+</ul>
+<h4>11.4.3 Sous-Indicateurs</h4>
+<ul>
+<li>Par formule : Taux de renouvellement Standard vs Premium vs Corporate</li>
+<li>Avec ajustement : % qui renouvellent en changeant de formule</li>
+<li>Avec augmentation : % qui renouvellent en augmentant le montant</li>
+</ul>
+<h4>11.4.4 Utilisation</h4>
+<ul>
+<li>Prévisibilité des ressources : anticipation des fonds disponibles</li>
+<li>Campagnes de renouvellement : relance 60 jours avant échéance</li>
+<li>Offres d&#x27;upgrade : incitations vers formules supérieures</li>
+</ul>
+<h3>11.5 Taux de Conformité Charia</h3>
+<ul>
+<li>Taux de conformité Charia</li>
+</ul>
+<p>Pourcentage des investissements réalisés qui sont conformes aux principes de la Charia, validés par le Comité Charia.</p>
+<h4>11.5.1 Formule de Calcul</h4>
+<p>Conformité Charia = (Montant investissements conformes / Montant total investi) × 100</p>
+<h4>11.5.2 Objectif</h4>
+<ul>
+<li>Cible impérative : 100% de conformité</li>
+</ul>
+<p>Aucune tolérance : tout écart doit être immédiatement corrigé</p>
+<h4>11.5.3 Sous-Indicateurs</h4>
+<ul>
+<li>Nombre d&#x27;incidents : Investissements non conformes détectés (objectif : 0)</li>
+<li>Délai de détection : Temps entre investissement et détection d&#x27;un problème</li>
+<li>Délai de correction : Temps entre détection et désinvestissement</li>
+<li>Montants à purifier : Revenus contaminés reversés à des œuvres caritatives</li>
+</ul>
+<h4>11.5.4 Utilisation</h4>
+<ul>
+<li>Certification Charia : preuve de conformité pour Comité</li>
+<li>Crédibilité produit : confiance des investisseurs</li>
+<li>Amélioration processus : renforcement des contrôles préventifs</li>
+</ul>
+<h3>11.6 Diversification des Investissements</h3>
+<ul>
+<li>Diversification des investissements</li>
+</ul>
+<p>Répartition des fonds Wakala entre les différentes catégories d&#x27;actifs conformes.</p>
+<h4>11.6.1 Allocation Cible</h4>
+<p>Répartition indicative :</p>
+<ul>
+<li>Mourabaha : 50-65% (revenus stables et prévisibles)</li>
+<li>Ijara : 20-30% (revenus locatifs récurrents)</li>
+<li>Mudaraba / Musharaka : 10-20% (rendements potentiellement élevés)</li>
+<li>Liquidité / Réserves : 5-10% (gestion des retraits anticipés)</li>
+</ul>
+<h4>11.6.2 Objectif</h4>
+<ul>
+<li>Cible principale : Respecter les fourchettes 60/25/15 (±5%)</li>
+</ul>
+<h4>11.6.3 Sous-Indicateurs</h4>
+<ul>
+<li>Concentration sectorielle : Aucun secteur &gt; 30% du portefeuille</li>
+<li>Concentration géographique : Répartition par région du Mali</li>
+<li>Concentration client : Aucun emprunteur &gt; 10% du portefeuille</li>
+<li>Indice de Herfindahl : Mesure de concentration (&lt; 0.25 souhaitable)</li>
+</ul>
+<h4>11.6.4 Utilisation</h4>
+<ul>
+<li>Gestion des risques : réduction de la volatilité</li>
+<li>Optimisation rendement/risque : équilibre du portefeuille</li>
+<li>Conformité réglementaire : limites prudentielles BCEAO</li>
+</ul>
+<h3>11.7 Performance du Portefeuille Financé</h3>
+<ul>
+<li>Performance portefeuille financé</li>
+</ul>
+<p>Qualité du portefeuille d&#x27;investissements réalisés avec les fonds Wakala, mesurée par le taux de créances en souffrance.</p>
+<h4>11.7.1 Formule de Calcul</h4>
+<p>NPL Ratio = (Encours impayés &gt;30 jours / Encours total portefeuille) × 100</p>
+<p>NPL = Non-Performing Loans (Créances douteuses)</p>
+<h4>11.7.2 Objectif</h4>
+<ul>
+<li>Cible : NPL &lt; 5% (standard microfinance)</li>
+<li>Excellence : NPL &lt; 3%</li>
+</ul>
+<h4>11.7.3 Sous-Indicateurs</h4>
+<ul>
+<li>PAR 30 : Portfolio at Risk &gt;30 jours</li>
+<li>PAR 90 : Portfolio at Risk &gt;90 jours (créances compromises)</li>
+<li>Write-off ratio : Taux de passage en pertes</li>
+<li>Taux de recouvrement : % récupéré sur créances douteuses</li>
+<li>ROA du portefeuille : Return on Assets = Revenus nets / Actifs moyens</li>
+<li>Par catégorie : NPL Mourabaha vs Ijara vs Mudaraba</li>
+</ul>
+<h4>11.7.4 Utilisation</h4>
+<ul>
+<li>Qualité des investissements : sélection rigoureuse des opportunités</li>
+<li>Protection du capital client : minimisation des pertes</li>
+<li>Provisionnement : calcul des réserves IRR nécessaires</li>
+<li>Ajustement stratégie : réallocation vers actifs plus sûrs si dégradation</li>
+</ul>
+<h3>11.8 Tableau de Bord KPI Consolidé</h3>
+<p>Exemple de tableau de bord trimestriel présenté à la Direction :</p>
+<table>
+<thead>
+<tr><th>KPI</th><th>Objectif</th><th>Réalisé</th><th>Écart</th><th>Statut</th></tr>
+</thead>
+<tbody>
+<tr><td>Fonds mobilisés</td><td>500M</td><td>485M</td><td>-3%</td><td>⚠</td></tr>
+<tr><td>Rendement moyen</td><td>6.5%</td><td>6.8%</td><td>+0.3%</td><td>✓</td></tr>
+<tr><td>Fidélité</td><td>80%</td><td>83%</td><td>+3%</td><td>✓</td></tr>
+<tr><td>Renouvellement</td><td>70%</td><td>75%</td><td>+5%</td><td>✓</td></tr>
+<tr><td>Conformité Charia</td><td>100%</td><td>100%</td><td>0%</td><td>✓</td></tr>
+<tr><td>Diversification</td><td>60/25/15</td><td>58/27/15</td><td>-2/+2/0</td><td>✓</td></tr>
+<tr><td>NPL Ratio</td><td>&lt;5%</td><td>3.2%</td><td>-1.8%</td><td>✓</td></tr>
+</tbody>
+</table>
+<p>Légende :</p>
+<p>✓ Objectif atteint (vert) | ⚠ Attention requise (jaune) | ✗ Objectif non atteint (rouge)</p>
+<p>Ces KPI permettent un pilotage rigoureux et transparent du produit Wakala Investment, garantissant l&#x27;atteinte des objectifs commerciaux tout en préservant la qualité, la conformité et la satisfaction des investisseurs.</p>
+</section>
+<section class="section" id="avantages">
+<h2>⭐ 12. AVANTAGES POUR AL NAMAA FINANCE</h2>
+<div class="highlight"><strong>⭐ Valeur ajoutée :</strong> Source de financement stable, diversification des ressources, fidélisation clients et renforcement du positionnement islamique.</div>
+<p>Cette section présente la proposition de valeur du produit Wakala Investment pour AL NAMAA FINANCE et ses clients investisseurs. Le produit crée de la valeur à deux niveaux : stratégique pour l&#x27;institution et financier pour les clients.</p>
+<h3>12.0 Synthèse de la Proposition de Valeur</h3>
+<table>
+<thead>
+<tr><th>Pour AL NAMAA FINANCE</th><th>Pour les Clients</th></tr>
+</thead>
+<tbody>
+<tr><td>Avantages Stratégiques :
+• Source stable de liquidité
+• Financement interne halal
+• Produit diaspora/investisseurs
+• Gamme complète finance islamique</td><td>Avantages Clients :
+• Investissement éthique Charia
+• Rendements attractifs 6-8%
+• Transparence totale
+• Suivi régulier portefeuille
+• Diversification halal</td></tr>
+</tbody>
+</table>
+<h3>12.1 Avantages Stratégiques pour AL NAMAA FINANCE</h3>
+<p>Le produit Wakala Investment offre des avantages stratégiques majeurs qui renforcent le positionnement concurrentiel et la pérennité d&#x27;AL NAMAA FINANCE.</p>
+<h4>12.1.1 Source Stable de Liquidité</h4>
+<ul>
+<li>Source stable de liquidité</li>
+</ul>
+<p>Contrairement aux lignes de crédit externes soumises aux fluctuations du marché et aux décisions des bailleurs, les fonds Wakala constituent une source de financement stable, prévisible et renouvelable.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Prévisibilité : Engagements à moyen/long terme (6-24 mois) permettent planification ALM</li>
+<li>Renouvellement : Taux de renouvellement cible &gt;70% assure continuité des ressources</li>
+<li>Réduction dépendance : Diversification sources de financement (moins de dépendance bailleurs externes)</li>
+<li>Adéquation emplois/ressources : Fonds Wakala financent Mourabaha/Ijara avec maturités alignées</li>
+</ul>
+<p>Impact financier :</p>
+<p>Objectif An 1 : 500M FCFA mobilisés = financement stable de 50-60% du portefeuille de financements islamiques</p>
+<h4>12.1.2 Financement Interne Halal</h4>
+<ul>
+<li>Financement interne halal</li>
+</ul>
+<p>Le Wakala Investment permet à AL NAMAA de financer ses opérations avec des ressources 100% conformes à la Charia, éliminant tout risque de contamination par des sources de financement conventionnelles à intérêt.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Pureté Charia : Ressources conformes financent actifs conformes = chaîne 100% halal</li>
+<li>Crédibilité institutionnelle : Renforce position comme référence finance islamique au Mali</li>
+<li>Alternative au Riba : Remplace progressivement lignes crédit conventionnelles à intérêt</li>
+<li>Conformité renforcée : Facilite certification Comité Charia et audits AAOIFI</li>
+<li>Argument commercial : &quot;Financé par des musulmans pour des musulmans&quot; renforce attractivité</li>
+</ul>
+<h4>12.1.3 Produit Attractif pour Diaspora et Investisseurs Privés</h4>
+<ul>
+<li>Produit attractif pour diaspora et investisseurs privés</li>
+</ul>
+<p>Le Wakala Investment répond spécifiquement aux besoins de la diaspora malienne et des investisseurs privés (HNI, PME) cherchant un placement rentable, éthique et contribuant au développement économique du pays.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Captation diaspora : Placements depuis l&#x27;étranger via virement international (formule Corporate 24 mois)</li>
+<li>Alternative dépôts : Meilleurs rendements (6-8%) vs comptes épargne classiques (2-4%)</li>
+<li>Impact développement : Fonds financent PME locales, agriculture, commerce = contribution tangible</li>
+<li>Transparence : Rapports trimestriels montrent où et comment les fonds sont investis</li>
+<li>Accès digital : Tableau de bord en ligne 24/7 + application mobile pour suivi à distance</li>
+</ul>
+<p>Potentiel marché :</p>
+<p>Diaspora malienne estimée à 3-4 millions de personnes. Objectif : capter 1% de cette population avec investissement moyen 2M FCFA = 60-80Mds FCFA de potentiel</p>
+<h4>12.1.4 Complète la Gamme de Produits (Mourabaha, Ijara, Mudaraba)</h4>
+<ul>
+<li>Complète la gamme (Mourabaha, Ijara, Mudaraba)</li>
+</ul>
+<p>Le Wakala Investment est la pièce manquante qui transforme AL NAMAA d&#x27;une institution de financement en une institution financière islamique complète offrant produits de financement ET d&#x27;investissement.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Offre 360° : Financement (Mourabaha, Ijara, Mudaraba) + Investissement (Wakala) = gamme complète</li>
+<li>Synergie commerciale : Client emprunteur aujourd&#x27;hui devient investisseur demain (cycle de vie client)</li>
+<li>Positionnement unique : Seule institution au Mali proposant investissement islamique structuré conforme AAOIFI</li>
+<li>Équilibrage bilan : Passif (Wakala) finance Actif (Mourabaha/Ijara) = équilibre ressources/emplois</li>
+<li>Benchmark régional : Modèle exportable vers autres pays UEMOA (Sénégal, Côte d&#x27;Ivoire, etc.)</li>
+</ul>
+<p>Gamme complète AL NAMAA FINANCE :</p>
+<table>
+<thead>
+<tr><th>Catégorie</th><th>Produits</th><th>Public</th></tr>
+</thead>
+<tbody>
+<tr><td>Financement</td><td>Mourabaha, Ijara, Mudaraba, Musharaka</td><td>PME, commerçants, agriculteurs</td></tr>
+<tr><td>Investissement</td><td>Wakala Investment (Standard, Premium, Corporate)</td><td>Particuliers, HNI, diaspora, PME</td></tr>
+</tbody>
+</table>
+<h3>12.2 Avantages pour le Client Investisseur</h3>
+<p>Le produit Wakala Investment offre une proposition de valeur attractive pour les clients cherchant un placement conforme à leurs convictions religieuses tout en générant des revenus compétitifs.</p>
+<h4>12.2.1 Investissement Éthique Conforme à la Charia</h4>
+<ul>
+<li>Investissement éthique</li>
+</ul>
+<p>Le client investit son argent dans des activités 100% halal, certifiées par le Comité Charia, sans compromis sur ses valeurs religieuses et éthiques.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Conformité garantie : Tous investissements validés par Comité Charia avant exécution</li>
+<li>Secteurs exclus : Aucun financement alcool, tabac, jeux, riba, pornographie, armement</li>
+<li>Impact positif : Fonds financent PME, agriculture, commerce = contribution développement économique halal</li>
+<li>Partage équitable : Profits partagés selon ratio juste (85-90% client), pas d&#x27;intérêt prédéterminé</li>
+<li>Purification automatique : Si contamination détectée, revenus impurs reversés à œuvres caritatives</li>
+</ul>
+<h4>12.2.2 Rendements Attractifs et Compétitifs</h4>
+<ul>
+<li>Rendements attractifs</li>
+</ul>
+<p>Le Wakala Investment offre des rendements indicatifs de 6-8% annuels, significativement supérieurs aux placements classiques, tout en étant conformes à la Charia.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Comparaison marché :</li>
+<li>Compte épargne classique : 2-3% (avec intérêt haram)</li>
+<li>Dépôt à terme conventionnel : 4-5% (avec intérêt haram)</li>
+<li>Wakala Investment : 6-8% (100% halal)</li>
+<li>Performance réelle : Rendement basé sur profits effectifs générés (non garanti mais transparent)</li>
+<li>Lissage : Réserves PER/IRR permettent stabiliser rendements entre périodes</li>
+<li>Capitalisation : Option de réinvestir profits pour effet cumulé sur long terme</li>
+</ul>
+<h4>12.2.3 Transparence Totale</h4>
+<ul>
+<li>Transparence</li>
+</ul>
+<p>Contrairement aux produits conventionnels opaques, le Wakala Investment offre une transparence complète sur l&#x27;utilisation des fonds et les revenus générés.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Visibilité investissements : Client voit dans quel secteur/activité ses fonds sont investis</li>
+<li>Répartition claire : Pourcentages exacts Mourabaha/Ijara/Mudaraba communiqués</li>
+<li>Calcul détaillé : Formule profits = Revenus bruts - Coûts - Commission Wakil (détail fourni)</li>
+<li>Certification Charia : Chaque rapport trimestriel certifié par Comité Charia</li>
+<li>Audit externe : États financiers audités annuellement par cabinet independent</li>
+</ul>
+<h4>12.2.4 Suivi Régulier du Portefeuille</h4>
+<ul>
+<li>Suivi régulier</li>
+</ul>
+<p>Le client reçoit des rapports périodiques détaillés et a accès en temps réel à l&#x27;état de son investissement via tableau de bord digital.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Rapports trimestriels : Envoi automatique PDF détaillant performance, investissements, projections</li>
+<li>Tableau de bord 24/7 : Accès web/mobile pour consulter solde, rendement, historique à tout moment</li>
+<li>Notifications : SMS/Email lors distribution profits, échéances, événements importants</li>
+<li>Conseiller dédié : Pour formule Corporate, gestionnaire attitré disponible pour rendez-vous</li>
+<li>Graphiques évolution : Visualisation croissance capital + profits sur durée contrat</li>
+</ul>
+<h4>12.2.5 Diversification sans Violation de la Charia</h4>
+<ul>
+<li>Diversification sans violation de la Charia</li>
+</ul>
+<p>Le client bénéficie d&#x27;une diversification automatique de son investissement à travers plusieurs secteurs et instruments conformes, réduisant ainsi le risque global.</p>
+<p>Avantages concrets :</p>
+<ul>
+<li>Multi-instruments : Exposition Mourabaha (50-65%) + Ijara (20-30%) + Mudaraba/Musharaka (10-20%)</li>
+<li>Multi-secteurs : Commerce, agriculture, services, industrie, immobilier = risque dilué</li>
+<li>Limites concentration : Aucun investissement &gt;10% du portefeuille (protection client)</li>
+<li>Gestion professionnelle : Équipe AL NAMAA diversifie activement selon opportunités halal</li>
+<li>Accès impossible individuel : Client seul ne pourrait diversifier avec 500K-2M FCFA, Wakala le permet</li>
+</ul>
+<h3>12.3 Comparaison avec Alternatives de Placement</h3>
+<table>
+<thead>
+<tr><th>Critère</th><th>Wakala</th><th>Épargne</th><th>DAT</th><th>Fonds</th></tr>
+</thead>
+<tbody>
+<tr><td>Conformité Charia</td><td>✓ 100%</td><td>✗ Non</td><td>✗ Non</td><td>± Mixte</td></tr>
+<tr><td>Rendement</td><td>6-8%</td><td>2-3%</td><td>4-5%</td><td>5-10%</td></tr>
+<tr><td>Transparence</td><td>Totale</td><td>Faible</td><td>Faible</td><td>Moyenne</td></tr>
+<tr><td>Montant minimum</td><td>100K</td><td>0</td><td>500K</td><td>1M+</td></tr>
+<tr><td>Liquidité</td><td>Moyenne</td><td>Totale</td><td>Faible</td><td>Variable</td></tr>
+<tr><td>Suivi digital</td><td>Oui 24/7</td><td>Oui</td><td>Non</td><td>Oui</td></tr>
+</tbody>
+</table>
+<p>Le produit Wakala Investment combine le meilleur des deux mondes : conformité Charia absolue + rendements compétitifs + transparence totale, offrant ainsi une proposition de valeur unique pour AL NAMAA FINANCE et ses clients.</p>
+<h3>12.4 Conclusion : Une Proposition Gagnant-Gagnant</h3>
+<p>Le produit Wakala Investment crée de la valeur pour toutes les parties prenantes :</p>
+<p>Pour AL NAMAA FINANCE :</p>
+<ul>
+<li>Source stable et prévisible de financement halal</li>
+<li>Positionnement unique comme leader finance islamique au Mali</li>
+<li>Captation de nouveaux segments (diaspora, HNI, investisseurs éthiques)</li>
+<li>Gamme complète financement + investissement islamique</li>
+</ul>
+<p>Pour les Clients :</p>
+<ul>
+<li>Placement conforme Charia avec impact développement positif</li>
+<li>Rendements attractifs 6-8% (supérieurs aux alternatives)</li>
+<li>Transparence totale sur utilisation fonds et calcul profits</li>
+<li>Diversification automatique sans compromis éthique</li>
+<li>Suivi digital 24/7 et rapports réguliers</li>
+</ul>
+<p>★★★ FIN DU DOCUMENT ★★★</p>
+<p>Spécifications Fonctionnelles Complètes</p>
+<p>PRODUIT WAKALA INVESTMENT</p>
+<p>AL NAMAA FINANCE</p>
+<p>Bamako, Mali</p>
+<p>Direction Produits &amp; Innovation</p>
+<p>AL NAMAA FINANCE</p>
+<p>Bamako, Mali</p>
+<table>
+<thead>
+<tr><th>Paramètre</th><th>Paramètre</th><th>Valeur / Configuration</th><th>Valeur / Configuration</th></tr>
+</thead>
+<tbody>
+<tr><td>Code Produit</td><td>Code Produit</td><td>WAKALA-STD / WAKALA-PREM / WAKALA-CORP</td><td>WAKALA-STD / WAKALA-PREM / WAKALA-CORP</td></tr>
+<tr><td>Montant Minimum</td><td>Montant Minimum</td><td>500K / 2M / 10M FCFA</td><td>500K / 2M / 10M FCFA</td></tr>
+<tr><td>Durée</td><td>Durée</td><td>6 / 12 / 24 mois</td><td>6 / 12 / 24 mois</td></tr>
+<tr><td>Ratio Partage</td><td>Ratio Partage</td><td>85/15 - 88/12 - 90/10 (Client/Institution)</td><td>85/15 - 88/12 - 90/10 (Client/Institution)</td></tr>
+<tr><td>Pénalité Retrait</td><td>Pénalité Retrait</td><td>50% profits si retrait avant 3 mois de échéance</td><td>50% profits si retrait avant 3 mois de échéance</td></tr>
+<tr><td>Renouvellement</td><td>Renouvellement</td><td>Automatique sauf instruction contraire (tacite reconduction)</td><td>Automatique sauf instruction contraire (tacite reconduction)</td></tr>
+<tr><td>Indicateur</td><td>Formule</td><td>Formule</td><td>Cible</td></tr>
+<tr><td>Volume Total Wakala</td><td>Σ Dépôts actifs</td><td>Σ Dépôts actifs</td><td>500M FCFA</td></tr>
+<tr><td>Nombre de Comptes</td><td>Nb comptes</td><td>Nb comptes</td><td>250 comptes</td></tr>
+<tr><td>Taux Croissance Mensuel</td><td>(Vol N-Vol N-1)/N-1</td><td>(Vol N-Vol N-1)/N-1</td><td>10% mensuel</td></tr>
+<tr><td>Indicateur</td><td>Formule</td><td>Formule</td><td>Cible</td></tr>
+<tr><td>Rendement Annuel (RAR)</td><td>Profits/Capital moyen</td><td>Profits/Capital moyen</td><td>6-8%</td></tr>
+<tr><td>Marge Nette Institution</td><td>Ajr/Revenus totaux</td><td>Ajr/Revenus totaux</td><td>12-15%</td></tr>
+<tr><td>ROA (Return on Assets)</td><td>Résultat net/Actifs</td><td>Résultat net/Actifs</td><td>≥ 2%</td></tr>
+<tr><td>Indicateur</td><td>Formule</td><td>Formule</td><td>Cible</td></tr>
+<tr><td>Ratio de Liquidité</td><td>Actifs liq/Dépôts</td><td>Actifs liq/Dépôts</td><td>≥ 20%</td></tr>
+<tr><td>Taux Provisionnement PER</td><td>Réserve PER/Profits</td><td>Réserve PER/Profits</td><td>15-20%</td></tr>
+<tr><td>Taux de Renouvellement</td><td>Renouvelés/Échéances</td><td>Renouvelés/Échéances</td><td>≥ 70%</td></tr>
+<tr><td>Élément</td><td>Élément</td><td>Montant (FCFA)</td><td>Montant (FCFA)</td></tr>
+<tr><td>Fonds Wakala mobilisés</td><td>Fonds Wakala mobilisés</td><td>500 000 000</td><td>500 000 000</td></tr>
+<tr><td>Revenus investissements (ROI 8%)</td><td>Revenus investissements (ROI 8%)</td><td>40 000 000</td><td>40 000 000</td></tr>
+<tr><td>Coûts opérationnels (2%)</td><td>Coûts opérationnels (2%)</td><td>(10 000 000)</td><td>(10 000 000)</td></tr>
+<tr><td>Provisions PER/IRR (15%)</td><td>Provisions PER/IRR (15%)</td><td>(6 000 000)</td><td>(6 000 000)</td></tr>
+<tr><td>Profit Net Distribuable</td><td>Profit Net Distribuable</td><td>24 000 000</td><td>24 000 000</td></tr>
+<tr><td>Part Clients (87%)</td><td>Part Clients (87%)</td><td>20 880 000</td><td>20 880 000</td></tr>
+<tr><td>Revenus AL NAMAA (13%)</td><td>Revenus AL NAMAA (13%)</td><td>3 120 000</td><td>3 120 000</td></tr>
+</tbody>
+</table>
+</section>
+</main>
+</div>
+<script>
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spécifications Mourabaha Sociale - AL NAMAA FINANCE</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2c5f2d;
+            --secondary: #97c05c;
+            --accent: #e8960e;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .logo p {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.7rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .nav-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f9f9f9 0%, white 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h4 {
+            margin-top: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: var(--primary);
+            color: white;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tbody tr:hover {
+            background: var(--light);
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            background: var(--light);
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .kpi {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .kpi-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="data:image/png;base64,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" alt="AL NAMAA FINANCE" style="max-width: 180px; height: auto; margin-bottom: 10px;">
+                <p style="font-family: 'Amiri', serif; color: #e8960e; font-size: 1rem; font-weight: 600;">المرابحة الاجتماعية - Mourabaha Sociale</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#vue" class="nav-link active">🏠 Vue d'ensemble</a></li>
+                <li><a href="#contexte" class="nav-link">📋 Contexte</a></li>
+                <li><a href="#public" class="nav-link">👥 Public Cible</a></li>
+                <li><a href="#principes" class="nav-link">☪️ Principes Charia</a></li>
+                <li><a href="#objectifs" class="nav-link">🎯 Objectifs</a></li>
+                <li><a href="#comparatif" class="nav-link">⚖️ Comparatif</a></li>
+                <li><a href="#caracteristiques" class="nav-link">📊 Caractéristiques</a></li>
+                <li><a href="#cycle" class="nav-link">🔄 Cycle Opérationnel</a></li>
+                <li><a href="#CBS" class="nav-link">⚙️ Paramétrage CBS</a></li>
+                <li><a href="#comptabilite" class="nav-link">💰 Comptabilisation</a></li>
+                <li><a href="#kpi" class="nav-link">📈 KPI</a></li>
+                <li><a href="#avantages" class="nav-link">✨ Avantages</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div class="header">
+                <h1>📄 SPÉCIFICATIONS FONCTIONNELLES</h1>
+                <h2 style="color: white; border: none; margin: 0.5rem 0;">PRODUIT MOURABAHA SOCIALE</h2>
+                <p>Version 1.0 | Décembre 2025</p>
+            </div>
+
+            <!-- Vue d'ensemble -->
+            <section id="vue" class="section active">
+                <h2>🏠 Vue d'ensemble</h2>
+                
+                <div class="highlight">
+                    <h3>Qu'est-ce que la Mourabaha Sociale ?</h3>
+                    <p>Un produit de financement islamique innovant permettant aux <strong>ONG, programmes humanitaires</strong> et <strong>ménages à revenus modestes</strong> de financer l'acquisition de biens via un mécanisme d'achat-revente transparent, sans intérêt, avec une marge socialement adaptée.</p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Marge ONG</div>
+                        <div class="kpi-value">3-8%</div>
+                        <div class="kpi-label">annuel</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Marge Ménages</div>
+                        <div class="kpi-value">12-15%</div>
+                        <div class="kpi-label">annuel</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Délai</div>
+                        <div class="kpi-value">5-7j</div>
+                        <div class="kpi-label">traitement</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Objectif An 1</div>
+                        <div class="kpi-value">50</div>
+                        <div class="kpi-label">ONG financées</div>
+                    </div>
+                </div>
+
+                <h3>🎯 Deux volets complémentaires</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🏢 Volet A : ONG</h4>
+                        <p><strong>Montant :</strong> 500K à 50M FCFA</p>
+                        <p><strong>Durée :</strong> 12 à 60 mois</p>
+                        <p><strong>Marge :</strong> 3-8% annuel</p>
+                        <p><strong>Garanties :</strong> Lettre d'engagement + Aval bailleur</p>
+                    </div>
+                    <div class="card">
+                        <h4>🏠 Volet B : Ménages</h4>
+                        <p><strong>Montant :</strong> 100K à 3M FCFA</p>
+                        <p><strong>Durée :</strong> 12 à 36 mois</p>
+                        <p><strong>Marge :</strong> 12-15% annuel</p>
+                        <p><strong>Garanties :</strong> Domiciliation salaire + Cautions</p>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ Principe fondamental - Conformité Charia</h4>
+                    <p><strong>Aucune pénalité génératrice de revenus :</strong> Toute pénalité éventuellement collectée est reversée à 100% au fonds caritatif <strong>HumaniWAQF</strong> pour le financement de projets sociaux.</p>
+                </div>
+
+                <h3>📊 Triple cadre de conformité</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>⚖️ Réglementaire</h4>
+                        <p>Loi PARMEC et instructions BCEAO</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Charia</h4>
+                        <p>Principes de finance islamique</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Éthique</h4>
+                        <p>Responsabilité sociale et inclusion financière</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contexte -->
+            <section id="contexte" class="section">
+                <h2>📋 Contexte & Finalité</h2>
+                
+                <h3>1.1 Contexte institutionnel</h3>
+                <p>AL NAMAA FINANCE opère en tant qu'institution de microfinance islamique sous la supervision de la BCEAO et du Ministère des Finances de la République du Mali.</p>
+                
+                <h3>1.2 Finalité du produit</h3>
+                <div class="highlight">
+                    <p>Permettre aux ONG et populations à faibles revenus de financer l'acquisition de biens via un mécanisme islamique transparent, sans intérêt, avec une marge socialement adaptée.</p>
+                </div>
+
+                <h4>Double objectif :</h4>
+                <ol>
+                    <li><strong>Faciliter et accélérer</strong> la mise en œuvre des projets humanitaires</li>
+                    <li><strong>Alléger la pression financière</strong> sur les organisations et ménages vulnérables</li>
+                </ol>
+
+                <h3>🎯 Trois piliers fondamentaux</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🌍 Inclusion financière</h4>
+                        <p>Accès aux financements pour ONG et populations à faibles revenus</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Impact social</h4>
+                        <p>Amélioration des conditions de vie des communautés vulnérables</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Conformité Charia</h4>
+                        <p>Alternative halal aux crédits conventionnels</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Public Cible -->
+            <section id="public" class="section">
+                <h2>👥 Public Cible</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('ong-public')">
+                        <h4 style="margin: 0;">🏢 Volet A : ONG</h4>
+                    </div>
+                    <div class="tab" onclick="switchTab('menages-public')">
+                        <h4 style="margin: 0;">🏠 Volet B : Ménages</h4>
+                    </div>
+                </div>
+
+                <div id="ong-public" class="tab-content active">
+                    <h3>ONG et Organisations Humanitaires</h3>
+                    
+                    <div class="highlight">
+                        <h4>Organisations éligibles :</h4>
+                        <ul>
+                            <li>✓ ONG nationales et internationales</li>
+                            <li>✓ Associations de développement communautaire</li>
+                            <li>✓ Coopératives à vocation sociale</li>
+                            <li>✓ Programmes humanitaires</li>
+                            <li>✓ Projets financés par bailleurs internationaux</li>
+                        </ul>
+                    </div>
+
+                    <h4>📋 Documents requis</h4>
+                    <ul>
+                        <li>Enregistrement officiel</li>
+                        <li>Statuts et règlement intérieur</li>
+                        <li>Liste du bureau exécutif</li>
+                        <li>Convention avec bailleur (si applicable)</li>
+                        <li>Budget du projet et devis</li>
+                    </ul>
+
+                    <h4>✅ Conditions d'éligibilité</h4>
+                    <ul>
+                        <li>Ancienneté minimale : 2 ans</li>
+                        <li>Bonne réputation</li>
+                        <li>Justification d'utilisation pour projet social</li>
+                        <li>Engagement écrit ou aval bailleur</li>
+                    </ul>
+                </div>
+
+                <div id="menages-public" class="tab-content">
+                    <h3>Ménages à Revenus Modestes</h3>
+                    
+                    <h4>Segments prioritaires :</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Segment</th>
+                                <th>Caractéristiques</th>
+                                <th>Besoins</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fonctionnaires</td>
+                                <td>Revenus stables</td>
+                                <td>Électroménager, mobilier</td>
+                            </tr>
+                            <tr>
+                                <td>Commerçants</td>
+                                <td>Revenus variables</td>
+                                <td>Équipements professionnels</td>
+                            </tr>
+                            <tr>
+                                <td>Artisans</td>
+                                <td>Métiers techniques</td>
+                                <td>Outils de travail</td>
+                            </tr>
+                            <tr>
+                                <td>Salariés privés</td>
+                                <td>Contrats formels</td>
+                                <td>Amélioration habitat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>✅ Critères d'éligibilité</h4>
+                    <ul>
+                        <li>Revenus : 50 000 à 300 000 FCFA/mois</li>
+                        <li>Ancienneté : 6 mois (salariés), 12 mois (indépendants)</li>
+                        <li>Absence d'impayés (vérification BIC)</li>
+                        <li>Taux d'endettement max : 40%</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Principes Charia -->
+            <section id="principes" class="section">
+                <h2>☪️ Principes Charia & Réglementaires</h2>
+                
+                <h3>3.1 Fondements de la Mourabaha</h3>
+                <div class="highlight">
+                    <p>La Mourabaha est un contrat de vente à marge bénéficiaire connue et convenue (Bay' al-Mourabaha).</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🏢 Propriété effective</h4>
+                        <p>L'institution doit acquérir et posséder le bien avant revente</p>
+                    </div>
+                    <div class="card">
+                        <h4>💎 Transparence</h4>
+                        <p>Prix d'achat et marge clairement communiqués</p>
+                    </div>
+                    <div class="card">
+                        <h4>✅ Bien licite</h4>
+                        <p>Seuls les biens halal sont financés</p>
+                    </div>
+                    <div class="card">
+                        <h4>🚫 Absence de Riba</h4>
+                        <p>Aucun intérêt - rémunération par marge commerciale</p>
+                    </div>
+                </div>
+
+                <h3>3.2 Conformité réglementaire BCEAO</h3>
+                <div class="highlight">
+                    <h4>Textes réglementaires applicables :</h4>
+                    <ul>
+                        <li>Instruction BCEAO 004-05-2018 – Mourabaha</li>
+                        <li>Instruction BCEAO 002-03-2018 – Finance islamique</li>
+                        <li>Guide de gouvernance Charia BCEAO</li>
+                    </ul>
+                </div>
+
+                <h3>💚 Mécanisme HumaniWAQF</h3>
+                <div class="warning">
+                    <p><strong>Conformément aux principes de la finance islamique</strong>, AL NAMAA FINANCE ne peut tirer profit des retards de paiement. Toute somme collectée au titre de pénalités est automatiquement versée au fonds <strong>HumaniWAQF</strong>, dédié au financement de projets sociaux.</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Principe Charia</th>
+                            <th>Application pratique</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Transparence totale</td>
+                            <td>Prix et marge communiqués clairement</td>
+                        </tr>
+                        <tr>
+                            <td>Propriété réelle</td>
+                            <td>Facture d'achat au nom d'AL NAMAA</td>
+                        </tr>
+                        <tr>
+                            <td>Interdiction Riba</td>
+                            <td>Marge commerciale fixe, pas d'intérêt</td>
+                        </tr>
+                        <tr>
+                            <td>Interdiction pénalités-revenus</td>
+                            <td>100% reversé à HumaniWAQF</td>
+                        </tr>
+                        <tr>
+                            <td>Bien licite</td>
+                            <td>Exclusion : alcool, porc, armements</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Objectifs -->
+            <section id="objectifs" class="section">
+                <h2>🎯 Objectifs Fonctionnels</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('ong-obj')">
+                        <h4 style="margin: 0;">🏢 Biens ONG</h4>
+                    </div>
+                    <div class="tab" onclick="switchTab('menages-obj')">
+                        <h4 style="margin: 0;">🏠 Biens Ménages</h4>
+                    </div>
+                </div>
+
+                <div id="ong-obj" class="tab-content active">
+                    <h3>Biens financés pour ONG</h3>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>🚗 Véhicules</h4>
+                            <p>4x4, pick-up, ambulances, motos</p>
+                        </div>
+                        <div class="card">
+                            <h4>🏥 Matériel médical</h4>
+                            <p>Équipements de santé, diagnostic</p>
+                        </div>
+                        <div class="card">
+                            <h4>📚 Kits éducatifs</h4>
+                            <p>Fournitures, mobilier de classe</p>
+                        </div>
+                        <div class="card">
+                            <h4>💧 Eau potable</h4>
+                            <p>Pompes, forages, assainissement</p>
+                        </div>
+                        <div class="card">
+                            <h4>🌾 Agriculture</h4>
+                            <p>Outils, semences, irrigation</p>
+                        </div>
+                        <div class="card">
+                            <h4>☀️ Énergie solaire</h4>
+                            <p>Panneaux, batteries, éclairage</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Mécanisme :</strong> Achat-revente avec marge sociale réduite (3% à 8% annuel)</p>
+                    </div>
+                </div>
+
+                <div id="menages-obj" class="tab-content">
+                    <h3>Biens financés pour ménages</h3>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>🏠 Électroménager</h4>
+                            <p>Réfrigérateurs, machines à laver, cuisinières</p>
+                        </div>
+                        <div class="card">
+                            <h4>🛋️ Mobilier</h4>
+                            <p>Salons, chambres, tables</p>
+                        </div>
+                        <div class="card">
+                            <h4>⚙️ Équipements pro</h4>
+                            <p>Machines à coudre, coiffure</p>
+                        </div>
+                        <div class="card">
+                            <h4>🏍️ Véhicules</h4>
+                            <p>Motos, tricycles</p>
+                        </div>
+                        <div class="card">
+                            <h4>🏗️ Construction</h4>
+                            <p>Tôles, ciment, portes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Mécanisme :</strong> Achat-revente avec marge adaptée (12% à 15% annuel)</p>
+                    </div>
+                </div>
+
+                <h3>📊 Objectifs stratégiques (3 ans)</h3>
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Volume An 1</div>
+                        <div class="kpi-value">50</div>
+                        <div class="kpi-label">ONG + 2000 ménages</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Volume An 3</div>
+                        <div class="kpi-value">100</div>
+                        <div class="kpi-label">ONG + 5000 ménages</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Encours An 3</div>
+                        <div class="kpi-value">2 Mds</div>
+                        <div class="kpi-label">FCFA</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Qualité</div>
+                        <div class="kpi-value">&lt; 3%</div>
+                        <div class="kpi-label">PAR30</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparatif -->
+            <section id="comparatif" class="section">
+                <h2>⚖️ Comparatif Mourabaha</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Classique</th>
+                            <th>Sociale - ONG</th>
+                            <th>Sociale - Ménages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Montant</strong></td>
+                            <td>5M à 100M FCFA</td>
+                            <td>500K à 50M FCFA</td>
+                            <td>100K à 3M FCFA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clientèle</strong></td>
+                            <td>Entreprises</td>
+                            <td>ONG, associations</td>
+                            <td>Ménages modestes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Finalité</strong></td>
+                            <td>Investissement</td>
+                            <td>Projets sociaux</td>
+                            <td>Consommation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marge</strong></td>
+                            <td>8-12% annuel</td>
+                            <td style="background: #e8f5e9;"><strong>3-8% annuel</strong></td>
+                            <td>12-15% annuel</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Garanties</strong></td>
+                            <td>Hypothèques</td>
+                            <td>Engagement ONG</td>
+                            <td>Domiciliation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pénalités</strong></td>
+                            <td>Appliquées</td>
+                            <td colspan="2" style="background: #fff3e0;"><strong>Reversées à HumaniWAQF</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <h4>☪️ Point clé sur les pénalités</h4>
+                    <p>La Mourabaha Sociale n'applique aucune pénalité génératrice de revenus. Toute somme collectée est automatiquement reversée à 100% au fonds caritatif <strong>HumaniWAQF</strong>.</p>
+                </div>
+            </section>
+
+            <!-- Caractéristiques -->
+            <section id="caracteristiques" class="section">
+                <h2>📊 Caractéristiques Produit</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('ong-carac')">
+                        <h4 style="margin: 0;">🏢 Volet ONG</h4>
+                    </div>
+                    <div class="tab" onclick="switchTab('menages-carac')">
+                        <h4 style="margin: 0;">🏠 Volet Ménages</h4>
+                    </div>
+                </div>
+
+                <div id="ong-carac" class="tab-content active">
+                    <h3>Caractéristiques ONG</h3>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>💰 Montant</h4>
+                            <p><strong>Min :</strong> 500 000 FCFA</p>
+                            <p><strong>Max :</strong> 50 000 000 FCFA</p>
+                        </div>
+                        <div class="card">
+                            <h4>📅 Durée</h4>
+                            <p><strong>12 à 60 mois</strong></p>
+                            <p>Alignée sur projets bailleurs</p>
+                        </div>
+                        <div class="card">
+                            <h4>📈 Marge</h4>
+                            <p><strong>3% à 8% annuel</strong></p>
+                            <p>Selon profil et bailleur</p>
+                        </div>
+                        <div class="card">
+                            <h4>🛡️ Garanties</h4>
+                            <p>Lettre d'engagement</p>
+                            <p>Aval bailleur</p>
+                            <p><strong>Pas de dépôt physique</strong></p>
+                        </div>
+                    </div>
+
+                    <h4>📊 Grille de marge</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Profil ONG</th>
+                                <th>Bailleur</th>
+                                <th>Marge annuelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ONG internationale</td>
+                                <td>1er rang</td>
+                                <td style="background: #e8f5e9;"><strong>3-4%</strong></td>
+                            </tr>
+                            <tr>
+                                <td>ONG internationale</td>
+                                <td>Local/régional</td>
+                                <td>4-5%</td>
+                            </tr>
+                            <tr>
+                                <td>ONG nationale</td>
+                                <td>1er rang</td>
+                                <td>5-6%</td>
+                            </tr>
+                            <tr>
+                                <td>ONG nationale</td>
+                                <td>Sans bailleur</td>
+                                <td>6-8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>💵 Frais</h4>
+                    <ul>
+                        <li><strong>Dossier :</strong> 10 000 FCFA forfaitaire</li>
+                        <li><strong>Visite terrain :</strong> Inclus</li>
+                        <li><strong>Suivi :</strong> Inclus dans marge</li>
+                        <li><strong>Pénalités :</strong> INTERDITES (reversées à HumaniWAQF)</li>
+                    </ul>
+                </div>
+
+                <div id="menages-carac" class="tab-content">
+                    <h3>Caractéristiques Ménages</h3>
+                    
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><strong>Montant minimum</strong></td>
+                                <td>100 000 FCFA</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Montant maximum</strong></td>
+                                <td>3 000 000 FCFA</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Durée minimale</strong></td>
+                                <td>12 mois</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Durée maximale</strong></td>
+                                <td>36 mois</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Marge annuelle</strong></td>
+                                <td>12% à 15%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Frais de dossier</strong></td>
+                                <td>1% (min 2 500, max 15 000 FCFA)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Remboursement anticipé</strong></td>
+                                <td>Autorisé sans pénalité</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pénalités</strong></td>
+                                <td style="background: #fff3e0;"><strong>Reversées à HumaniWAQF</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>🛡️ Garanties acceptées</h4>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>💳 Nantissement salaire</h4>
+                            <p>Pour fonctionnaires et salariés formels</p>
+                        </div>
+                        <div class="card">
+                            <h4>👥 Caution solidaire</h4>
+                            <p>2 cautions solvables (revenus ≥ 1,5x mensualité)</p>
+                        </div>
+                        <div class="card">
+                            <h4>📄 Gage sur bien</h4>
+                            <p>Conservation titre jusqu'au paiement</p>
+                        </div>
+                        <div class="card">
+                            <h4>💰 Épargne nantie</h4>
+                            <p>Blocage dépôt (20% montant)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cycle -->
+            <section id="cycle" class="section">
+                <h2>🔄 Cycle Opérationnel</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('ong-cycle')">
+                        <h4 style="margin: 0;">🏢 Cycle ONG</h4>
+                    </div>
+                    <div class="tab" onclick="switchTab('menages-cycle')">
+                        <h4 style="margin: 0;">🏠 Cycle Ménages</h4>
+                    </div>
+                </div>
+
+                <div id="ong-cycle" class="tab-content active">
+                    <h3>Cycle ONG (5-7 jours)</h3>
+                    
+                    <div class="card">
+                        <h4>📝 Étape 1 – Demande</h4>
+                        <p><strong>Documents :</strong> Lettre officielle, devis, enregistrement ONG, accord bailleur, budget projet, statuts</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>✅ Étape 2 – Étude & Validation (5-7j)</h4>
+                        <ol>
+                            <li>Analyse de crédibilité</li>
+                            <li>Analyse du projet</li>
+                            <li>Comité Risque Social</li>
+                            <li>Validation Charia (CCI)</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h4>📄 Étape 3 – Signature WAAD</h4>
+                        <p>Promesse Unilatérale d'Achat : engagement ONG à acquérir le bien une fois acheté par AL NAMAA</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>🛒 Étape 4 – Acquisition</h4>
+                        <p>AL NAMAA achète le bien, facture à son nom, réception et assurance</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>✍️ Étape 5 – Contrat Mourabaha</h4>
+                        <p>Signature avec clauses sociales : usage projet, reversement pénalités, reporting trimestriel</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>🚚 Étape 6 – Livraison</h4>
+                        <p>PV de livraison, transfert propriété, début échéancier</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>📊 Étape 7 – Suivi</h4>
+                        <p>Paiements mensuels, reporting trimestriel, évaluation impact, visites terrain (>10M)</p>
+                    </div>
+                </div>
+
+                <div id="menages-cycle" class="tab-content">
+                    <h3>Cycle Ménages (5 jours)</h3>
+                    
+                    <div class="card">
+                        <h4>📝 J0 : Demande</h4>
+                        <p>Identification bien, devis, demande financement, documents (CNI, revenus, devis)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>✅ J1-J3 : Analyse crédit</h4>
+                        <p>Vérification éligibilité, capacité remboursement, garanties, décision (auto si <500K), notification client</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>📄 J4 : Promesse d'achat</h4>
+                        <p>Signature Wa'd, engagement acquisition, précision prix/marge, constitution garanties</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>🛒 J5 : Acquisition AL NAMAA</h4>
+                        <p>Achat comptant, facture AL NAMAA, prise possession, assurance</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>💰 J5 : Revente client</h4>
+                        <p>Contrat Mourabaha, prix = achat + marge, modalités différé, transfert propriété, livraison</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>💳 J30+ : Recouvrement</h4>
+                        <p>Prélèvement automatique, relances (J+3, J+7, J+15), activation garanties, reprise (dernier recours)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CBS -->
+            <section id="CBS" class="section">
+                <h2>⚙️ Paramétrage CBS</h2>
+                
+                <h3>8.1 Modules spécifiques</h3>
+                
+                <h4>🏢 Modules ONG :</h4>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Module ONG</h4>
+                        <p>Gestion profils organisations</p>
+                    </div>
+                    <div class="card">
+                        <h4>Cycle Mourabaha Sociale</h4>
+                        <p>Workflow adapté avec validations CCI</p>
+                    </div>
+                    <div class="card">
+                        <h4>Suivi projets bailleurs</h4>
+                        <p>Tracking décaissements, reporting</p>
+                    </div>
+                    <div class="card">
+                        <h4>Dashboard HumaniWAQF</h4>
+                        <p>Impact social, bénéficiaires, zones</p>
+                    </div>
+                </div>
+
+                <h4>🔧 Modules communs :</h4>
+                <ul>
+                    <li><strong>Gestion pénalités Charia :</strong> Reversement 100% vers HumaniWAQF</li>
+                    <li><strong>Reporting BCEAO :</strong> Déclarations finance islamique</li>
+                    <li><strong>Validation Comité Charia :</strong> Circuit approbation CCI</li>
+                </ul>
+
+                <h3>8.2 Configuration produit</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Paramètre</th>
+                            <th>Volet ONG</th>
+                            <th>Volet Ménages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Code produit</td>
+                            <td>MOUR-SOC-ONG</td>
+                            <td>MOUR-SOC-MEN</td>
+                        </tr>
+                        <tr>
+                            <td>Montant</td>
+                            <td>500K - 50M FCFA</td>
+                            <td>100K - 3M FCFA</td>
+                        </tr>
+                        <tr>
+                            <td>Durée</td>
+                            <td>12 - 60 mois</td>
+                            <td>12 - 36 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Marge annuelle</td>
+                            <td>3% - 8%</td>
+                            <td>12% - 15%</td>
+                        </tr>
+                        <tr>
+                            <td>Frais dossier</td>
+                            <td>10 000 FCFA</td>
+                            <td>1% (2 500 - 15 000)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>8.3 Workflows automatisés</h3>
+                
+                <div class="highlight">
+                    <h4>Workflows ONG :</h4>
+                    <ul>
+                        <li><strong>Validation multi-niveaux :</strong> Agent → Chef → Comité Social → CCI</li>
+                        <li><strong>Notification bailleur :</strong> Email auto décaissement</li>
+                        <li><strong>PV automatique :</strong> Génération pré-remplie</li>
+                        <li><strong>Suivi HumaniWAQF :</strong> Transfert auto pénalités</li>
+                    </ul>
+                </div>
+
+                <div class="highlight">
+                    <h4>Workflows communs :</h4>
+                    <ul>
+                        <li><strong>Scoring auto :</strong> Approbation si score ≥700 ET ≤500K</li>
+                        <li><strong>Génération contrats :</strong> Templates Wa'd et Mourabaha</li>
+                        <li><strong>Prélèvement :</strong> Auto à chaque échéance</li>
+                        <li><strong>Relances :</strong> Auto J+3, J+7, J+15</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Comptabilité -->
+            <section id="comptabilite" class="section">
+                <h2>💰 Comptabilisation</h2>
+                
+                <p>Comptabilisation selon normes <strong>AAOIFI</strong> et instructions BCEAO.</p>
+
+                <h3>9.1 Principes</h3>
+                <ol>
+                    <li><strong>Enregistrement en stock :</strong> Bien comptabilisé en stock Mourabaha</li>
+                    <li><strong>Reconnaissance marge :</strong> Au moment de la signature (pas d'étalement)</li>
+                    <li><strong>Créance Mourabaha :</strong> Prix d'achat + marge totale</li>
+                    <li><strong>Encaissements :</strong> Réduction directe de la créance</li>
+                    <li><strong>Pénalités :</strong> 100% vers HumaniWAQF (aucun revenu AL NAMAA)</li>
+                </ol>
+
+                <h3>9.2 Schéma comptable</h3>
+                
+                <div class="card">
+                    <h4>📊 Phase 1 : Achat (ex: 800 000 FCFA)</h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>32 - Stocks Mourabaha</td>
+                                <td>800 000</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>52 - Banque</td>
+                                <td>-</td>
+                                <td>800 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h4>💰 Phase 2 : Revente (ex: 920 000 FCFA)</h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>27 - Créances Mourabaha</td>
+                                <td>920 000</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>32 - Stocks Mourabaha</td>
+                                <td>-</td>
+                                <td>800 000</td>
+                            </tr>
+                            <tr>
+                                <td>70 - Produits Mourabaha</td>
+                                <td>-</td>
+                                <td>120 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h4>💳 Phase 3 : Encaissement (ex: 51 111 FCFA)</h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>52 - Banque/Caisse</td>
+                                <td>51 111</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>27 - Créances Mourabaha</td>
+                                <td>-</td>
+                                <td>51 111</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ Phase 4 : Pénalités (ex: 5 000 FCFA)</h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>52 - Banque (collecte)</td>
+                                <td>5 000</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>47 - HumaniWAQF – Dons</td>
+                                <td>-</td>
+                                <td>5 000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>IMPORTANT :</strong> Aucun produit pour AL NAMAA. Compte de passage vers projets sociaux.</p>
+                </div>
+
+                <h3>9.3 Provisionnement BCEAO</h3>
+                <ul>
+                    <li><strong>1-30 jours :</strong> Créance saine, provision 1%</li>
+                    <li><strong>31-90 jours :</strong> À surveiller, provision 10%</li>
+                    <li><strong>91-180 jours :</strong> Douteuse, provision 50%</li>
+                    <li><strong>> 180 jours :</strong> Compromise, provision 100%</li>
+                </ul>
+            </section>
+
+            <!-- KPI -->
+            <section id="kpi" class="section">
+                <h2>📈 Indicateurs de Performance</h2>
+                
+                <h3>10.1 KPI Impact Social</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>An 1</th>
+                            <th>An 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Satisfaction ONG</td>
+                            <td>≥ 85%</td>
+                            <td>≥ 90%</td>
+                        </tr>
+                        <tr>
+                            <td>Temps approbation</td>
+                            <td>≤ 7 jours</td>
+                            <td>≤ 5 jours</td>
+                        </tr>
+                        <tr>
+                            <td>Réduction coût ONG</td>
+                            <td>15-20%</td>
+                            <td>20-25%</td>
+                        </tr>
+                        <tr>
+                            <td>Bénéficiaires indirects</td>
+                            <td>50 000</td>
+                            <td>200 000</td>
+                        </tr>
+                        <tr>
+                            <td>Volume social (FCFA)</td>
+                            <td>400 M</td>
+                            <td>1 200 M</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.2 KPI Production</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>An 1</th>
+                            <th>An 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Financements ONG</td>
+                            <td>50</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>Financements Ménages</td>
+                            <td>2 000</td>
+                            <td>5 000</td>
+                        </tr>
+                        <tr>
+                            <td>Encours total</td>
+                            <td>800 M</td>
+                            <td>2 400 M</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.3 KPI Qualité</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Seuil max</th>
+                            <th>Alerte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PAR 30</td>
+                            <td>&lt; 3%</td>
+                            <td>&gt; 2%</td>
+                        </tr>
+                        <tr>
+                            <td>PAR 90</td>
+                            <td>&lt; 1,5%</td>
+                            <td>&gt; 1%</td>
+                        </tr>
+                        <tr>
+                            <td>Provisionnement</td>
+                            <td>&lt; 5%</td>
+                            <td>&gt; 4%</td>
+                        </tr>
+                        <tr>
+                            <td>Recouvrement mensuel</td>
+                            <td>&gt; 95%</td>
+                            <td>&lt; 90%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.4 KPI Rentabilité</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>An 1</th>
+                            <th>An 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Marge nette</td>
+                            <td>10%</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>ROE</td>
+                            <td>8%</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>Coût du risque</td>
+                            <td>&lt; 2%</td>
+                            <td>&lt; 1,5%</td>
+                        </tr>
+                        <tr>
+                            <td>Productivité agent</td>
+                            <td>25/mois</td>
+                            <td>40/mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Avantages -->
+            <section id="avantages" class="section">
+                <h2>✨ Avantages Compétitifs</h2>
+                
+                <h3>11.1 Avantages pour ONG</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>💰 Marge basse 3-8%</h4>
+                        <p>Jusqu'à 50% moins cher qu'un crédit classique</p>
+                    </div>
+                    <div class="card">
+                        <h4>📄 Garantie simple</h4>
+                        <p>Pas de gage, hypothèque ou dépôt</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚡ Processus rapide</h4>
+                        <p>Décision 5-7 jours, adapté urgences</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Conformité Charia</h4>
+                        <p>Accepté par bailleurs musulmans</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔄 Flexibilité</h4>
+                        <p>Aligné sur cycles bailleurs</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Pas de pénalités</h4>
+                        <p>Reversées à œuvres caritatives</p>
+                    </div>
+                </div>
+
+                <h3>11.2 Avantages pour AL NAMAA</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🌟 Image sociale</h4>
+                        <p>Acteur clé financement humanitaire Mali</p>
+                    </div>
+                    <div class="card">
+                        <h4>🤝 Partenariats</h4>
+                        <p>Collaboration ONG, bailleurs internationaux</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Volume stabilisé</h4>
+                        <p>Portefeuille prévisible, risque faible</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Différenciation</h4>
+                        <p>Seule offre islamique ONG au Mali</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚖️ Diversification</h4>
+                        <p>Équilibre profil de risque global</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Impact HumaniWAQF</h4>
+                        <p>Cercle vertueux projets sociaux</p>
+                    </div>
+                </div>
+
+                <h3>11.3 Avantages pour bénéficiaires</h3>
+                <ul>
+                    <li>Accès facilité aux biens essentiels (ambulances, eau, matériel)</li>
+                    <li>Accélération projets locaux (démarrage immédiat)</li>
+                    <li>Amélioration services de base (santé, éducation, agriculture)</li>
+                    <li>Impact durable (équipements restent après projets)</li>
+                    <li>Emplois indirects (fournisseurs, techniciens)</li>
+                </ul>
+
+                <h3>11.4 Avantages pour ménages</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>☪️ Conformité religieuse</h4>
+                        <p>Alternative halal aux crédits à intérêt</p>
+                    </div>
+                    <div class="card">
+                        <h4>💎 Transparence</h4>
+                        <p>Prix et marge clairement affichés</p>
+                    </div>
+                    <div class="card">
+                        <h4>🌍 Accessibilité</h4>
+                        <p>Montants 100K-3M, critères souples</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚡ Rapidité</h4>
+                        <p>Traitement 5 jours maximum</p>
+                    </div>
+                </div>
+
+                <h3>11.5 Positionnement concurrentiel</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>AL NAMAA</th>
+                            <th>Banques</th>
+                            <th>Microfinance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conformité Charia</td>
+                            <td style="background: #e8f5e9;"><strong>Oui</strong></td>
+                            <td>Non</td>
+                            <td>Non</td>
+                        </tr>
+                        <tr>
+                            <td>Taux effectif</td>
+                            <td>12-15%</td>
+                            <td>18-24%</td>
+                            <td>20-30%</td>
+                        </tr>
+                        <tr>
+                            <td>Délai traitement</td>
+                            <td style="background: #e8f5e9;"><strong>≤ 5 jours</strong></td>
+                            <td>15-30 jours</td>
+                            <td>7-10 jours</td>
+                        </tr>
+                        <tr>
+                            <td>Garanties</td>
+                            <td>Souples</td>
+                            <td>Lourdes</td>
+                            <td>Moyennes</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight" style="margin-top: 2rem;">
+                    <h3>📋 Document approuvé</h3>
+                    <p>Approuvé par le Comité Charia et validé par la Direction Générale d'AL NAMAA FINANCE.</p>
+                    <p><strong>AL NAMAA FINANCE - Bamako, Mali</strong></p>
+                    <p><em>Version 1.0 - Décembre 2025</em></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+                document.querySelector('.content').scrollTop = 0;
+            });
+        });
+
+        // Tab switching
+        function switchTab(tabId) {
+            const section = event.target.closest('section');
+            section.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.closest('.tab').classList.add('active');
+            section.querySelector('#' + tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

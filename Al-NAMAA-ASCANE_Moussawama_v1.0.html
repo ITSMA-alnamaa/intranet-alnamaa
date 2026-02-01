@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spécifications Fonctionnelles Moussawama - AL NAMAA FINANCE</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2c5f2d;
+            --secondary: #97c05c;
+            --accent: #e8960e;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --blue: #1e88e5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .logo p {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.7rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .nav-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-subitem {
+            padding-left: 2rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .header .version {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f9f9f9 0%, white 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h4 {
+            margin-top: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .danger {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: var(--primary);
+            color: white;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tbody tr:hover {
+            background: #e8f5e9;
+        }
+        
+        .phase-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .step-box {
+            background: #f9f9f9;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .step-box h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge-success { background: #c8e6c9; color: #2e7d32; }
+        .badge-warning { background: #fff3e0; color: #e65100; }
+        .badge-danger { background: #ffcdd2; color: #c62828; }
+        .badge-info { background: #e3f2fd; color: #1565c0; }
+        
+        .icon-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+        
+        .icon-box .icon {
+            font-size: 1.5rem;
+        }
+        
+        .formula {
+            background: #263238;
+            color: #80cbc4;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        .flow-step {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        
+        .flow-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="data:image/jpeg;base64,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" alt="AL NAMAA FINANCES" style="max-width: 100%; height: auto;">
+                <p>مساومة - Moussawama</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#intro" class="nav-link active">📖 Introduction</a></li>
+                <li><a href="#objectif" class="nav-link">🎯 Objectif du Produit</a></li>
+                <li><a href="#population" class="nav-link">👥 Population Cible</a></li>
+                <li><a href="#description" class="nav-link">📋 Description Fonctionnelle</a></li>
+                <li><a href="#cycle" class="nav-link">🔄 Cycle Opérationnel</a></li>
+                <li class="nav-subitem"><a href="#phase1" class="nav-link">→ Phase 1: Demande</a></li>
+                <li class="nav-subitem"><a href="#phase2" class="nav-link">→ Phase 2: Décision</a></li>
+                <li class="nav-subitem"><a href="#phase3" class="nav-link">→ Phase 3: Acquisition</a></li>
+                <li class="nav-subitem"><a href="#phase4" class="nav-link">→ Phase 4: Contrat</a></li>
+                <li class="nav-subitem"><a href="#phase5" class="nav-link">→ Phase 5: Déblocage</a></li>
+                <li class="nav-subitem"><a href="#phase6" class="nav-link">→ Phase 6: Suivi</a></li>
+                <li><a href="#caracteristiques" class="nav-link">💰 Caractéristiques Financières</a></li>
+                <li><a href="#charia" class="nav-link">☪️ Conformité Charia</a></li>
+                <li><a href="#technique" class="nav-link">⚙️ Exigences Techniques</a></li>
+                <li><a href="#comptabilisation" class="nav-link">📊 Comptabilisation</a></li>
+                <li><a href="#reporting" class="nav-link">📈 Reporting & KPI</a></li>
+                <li><a href="#avantages" class="nav-link">✨ Avantages</a></li>
+                <li><a href="#annexes" class="nav-link">📎 Annexes</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <header class="header">
+                <h1>📋 Spécifications Fonctionnelles</h1>
+                <h2 style="color: white; border: none; margin: 0.5rem 0;">Produit MOUSSAWAMA - مساومة</h2>
+                <p class="version">Version 1.0 | Décembre 2025</p>
+            </header>
+
+            <!-- Section Introduction -->
+            <section id="intro" class="section active">
+                <h2>📖 1. Introduction</h2>
+                
+                <h3>1.1 Contexte</h3>
+                <p>AL NAMAA FINANCE, institution de microfinance islamique agréée par le Ministère de l'Économie et des Finances du Mali et supervisée par la BCEAO, développe son portefeuille de produits conformes à la Charia.</p>
+                
+                <div class="highlight">
+                    <h4>📖 Définition de la Moussawama</h4>
+                    <p>La <strong>Moussawama (مساومة)</strong> représente un contrat de vente avec négociation où le vendeur (AL NAMAA) <strong>n'est pas tenu de divulguer son prix d'achat initial</strong>. Ce produit se distingue de la Mourabaha par sa flexibilité tarifaire et l'absence d'obligation de transparence sur le coût d'acquisition.</p>
+                </div>
+
+                <h3>1.2 Cadre Réglementaire</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📜 Réglementation BCEAO</h4>
+                        <p>Instruction n°01-2017/RB relative aux SFD</p>
+                    </div>
+                    <div class="card">
+                        <h4>📚 Standards AAOIFI</h4>
+                        <p>FAS 2 (Murabaha and Other Deferred Payment Sales)</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Supervision Charia</h4>
+                        <p>Validation du Comité Charia d'AL NAMAA FINANCE</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Cadre comptable</h4>
+                        <p>SYSCOHADA et normes AAOIFI</p>
+                    </div>
+                </div>
+
+                <h3>1.3 Définition du Produit</h3>
+                <p>La Moussawama est un contrat de vente à prix négocié où :</p>
+                <ul>
+                    <li>L'institution <strong>acquiert un bien tangible</strong> à la demande du client</li>
+                    <li>Le prix de vente final est <strong>librement négocié</strong> entre les parties</li>
+                    <li>L'institution <strong>n'est pas obligée de révéler</strong> sa marge bénéficiaire</li>
+                    <li>Le paiement s'effectue de manière <strong>différée</strong> selon des échéances convenues</li>
+                </ul>
+
+                <h3>1.4 Différence clé avec Mourabaha</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Mourabaha</th>
+                            <th>Moussawama</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Divulgation coût</strong></td>
+                            <td>Obligatoire</td>
+                            <td>Non obligatoire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Divulgation marge</strong></td>
+                            <td>Obligatoire</td>
+                            <td>Non obligatoire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fixation du prix</strong></td>
+                            <td>Coût + Marge connue</td>
+                            <td>Prix négocié librement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transparence</strong></td>
+                            <td>Coût, marge et prix final</td>
+                            <td>Prix final uniquement</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Objectif -->
+            <section id="objectif" class="section">
+                <h2>🎯 2. Objectif du Produit</h2>
+                
+                <h3>2.1 Objectifs Stratégiques</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🎯 Diversification</h4>
+                        <p>Élargir la gamme de produits islamiques au-delà de la Mourabaha</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔄 Flexibilité commerciale</h4>
+                        <p>Offrir plus de souplesse dans la négociation tarifaire</p>
+                    </div>
+                    <div class="card">
+                        <h4>📈 Compétitivité</h4>
+                        <p>S'adapter aux conditions du marché sans divulguer systématiquement les marges</p>
+                    </div>
+                    <div class="card">
+                        <h4>🚀 Croissance</h4>
+                        <p>Capter une clientèle sensible aux produits islamiques alternatifs</p>
+                    </div>
+                </div>
+
+                <h3>2.2 Objectifs Opérationnels</h3>
+                <ul>
+                    <li>Financer l'acquisition de <strong>biens corporels et licites</strong> (Halal)</li>
+                    <li>Proposer des solutions de financement à <strong>court et moyen terme</strong> (3 à 36 mois)</li>
+                    <li>Maintenir un <strong>taux de conformité Charia de 100%</strong></li>
+                    <li>Atteindre un <strong>portefeuille Moussawama de 15%</strong> du total actif à 36 mois</li>
+                </ul>
+
+                <h3>2.3 Objectifs Financiers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Cible</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Taux de marge cible</strong></td>
+                            <td>18% - 28% annuel</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taux de recouvrement</strong></td>
+                            <td>≥ 95%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coût du risque</strong></td>
+                            <td>≤ 3%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROE produit</strong></td>
+                            <td>≥ 22%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Population Cible -->
+            <section id="population" class="section">
+                <h2>👥 3. Population Cible</h2>
+                
+                <h3>3.1 Segmentation Clientèle</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>👤 Segment A : Micro-entrepreneurs</h4>
+                        <ul>
+                            <li><strong>Profil:</strong> Commerçants, artisans, agriculteurs</li>
+                            <li><strong>Besoins:</strong> Équipements, marchandises, matériel agricole</li>
+                            <li><strong>Montant:</strong> 200 000 à 2 000 000 FCFA</li>
+                            <li><strong>Durée:</strong> 3 à 18 mois</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🏢 Segment B : Petites entreprises</h4>
+                        <ul>
+                            <li><strong>Profil:</strong> TPE immatriculées, commerçants établis</li>
+                            <li><strong>Besoins:</strong> Stocks, véhicules utilitaires, équipements</li>
+                            <li><strong>Montant:</strong> 2 000 000 à 10 000 000 FCFA</li>
+                            <li><strong>Durée:</strong> 12 à 36 mois</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💼 Segment C : Salariés et professionnels</h4>
+                        <ul>
+                            <li><strong>Profil:</strong> Fonctionnaires, employés, professions libérales</li>
+                            <li><strong>Besoins:</strong> Mobilier, électroménager, motos</li>
+                            <li><strong>Montant:</strong> 500 000 à 5 000 000 FCFA</li>
+                            <li><strong>Durée:</strong> 6 à 24 mois</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>3.2 Critères d'Éligibilité</h3>
+                <div class="highlight">
+                    <h4>✅ Critères généraux</h4>
+                    <ul>
+                        <li>Être majeur (≥ 18 ans) et résider au Mali</li>
+                        <li>Justifier d'une activité génératrice de revenus stable (≥ 6 mois)</li>
+                        <li>Ne pas être inscrit sur liste noire BCEAO/CIP-SFD</li>
+                        <li>Présenter un ratio d'endettement global < 40%</li>
+                        <li>Accepter les principes de la finance islamique</li>
+                    </ul>
+                </div>
+
+                <h4>📄 Documents requis</h4>
+                <ul>
+                    <li>Pièce d'identité valide (CNI, passeport, carte consulaire)</li>
+                    <li>Justificatif de domicile (< 3 mois)</li>
+                    <li>Justificatifs de revenus (3 derniers mois minimum)</li>
+                    <li>Photos d'identité récentes</li>
+                    <li>Références personnelles et professionnelles</li>
+                </ul>
+
+                <h3>3.3 Biens Éligibles au Financement</h3>
+                <div class="card-grid">
+                    <div class="card" style="border-color: var(--primary);">
+                        <h4>✅ Biens autorisés (Halal)</h4>
+                        <ul>
+                            <li>Équipements professionnels et commerciaux</li>
+                            <li>Matériel agricole et d'élevage</li>
+                            <li>Véhicules utilitaires et motos</li>
+                            <li>Mobilier et électroménager</li>
+                            <li>Matériel informatique et téléphonie</li>
+                            <li>Stocks de marchandises licites</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border-color: #f44336;">
+                        <h4>❌ Biens exclus (Haram)</h4>
+                        <ul>
+                            <li>Alcool et produits dérivés</li>
+                            <li>Viande de porc et dérivés</li>
+                            <li>Produits financiers conventionnels</li>
+                            <li>Armement (sauf autorisation légale)</li>
+                            <li>Produits pornographiques ou immoraux</li>
+                            <li>Tabac (selon politique interne)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Description Fonctionnelle -->
+            <section id="description" class="section">
+                <h2>📋 4. Description Fonctionnelle</h2>
+                
+                <h3>4.1 Principe de Fonctionnement</h3>
+                <div class="highlight">
+                    <h4>⚙️ Mécanisme contractuel</h4>
+                    <ol>
+                        <li>Le client identifie un bien qu'il souhaite acquérir</li>
+                        <li>AL NAMAA évalue la demande et approuve le principe de financement</li>
+                        <li>AL NAMAA <strong>achète le bien au fournisseur</strong> (propriété effective)</li>
+                        <li>AL NAMAA et le client <strong>négocient le prix de vente final</strong> (sans obligation de divulguer le coût d'achat)</li>
+                        <li>Signature du contrat Moussawama avec prix et échéancier convenus</li>
+                        <li>Transfert de propriété au client après signature</li>
+                        <li>Paiement différé selon l'échéancier contractuel</li>
+                    </ol>
+                </div>
+
+                <h3>4.2 Types de Moussawama Proposés</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📋 Type 1 : Moussawama Simple</h4>
+                        <ul>
+                            <li>Négociation directe du prix final</li>
+                            <li>Paiement échelonné mensuel fixe</li>
+                            <li>Durée : 3 à 36 mois</li>
+                            <li><span class="badge badge-info">80% des dossiers</span></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>⏸️ Type 2 : Avec Différé de Paiement</h4>
+                        <ul>
+                            <li>Période de grâce : 1 à 3 mois</li>
+                            <li>Utile pour activités saisonnières</li>
+                            <li>Application : Agriculteurs, saisonniers</li>
+                            <li><span class="badge badge-warning">15% des dossiers</span></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📉 Type 3 : Remboursement Dégressif</h4>
+                        <ul>
+                            <li>Échéances décroissantes</li>
+                            <li>Capital remboursé prioritairement</li>
+                            <li>Cas spécifiques</li>
+                            <li><span class="badge badge-success">5% des dossiers</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>4.3 Garanties Acceptées</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Garanties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Garanties personnelles</strong></td>
+                            <td>Caution solidaire (1-3), Domiciliation de salaire, Aval bancaire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Garanties réelles</strong></td>
+                            <td>Hypothèque, Gage (véhicules, équipements), Nantissement, Dépôt de garantie (10-30%)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Assurances obligatoires</strong></td>
+                            <td>Assurance décès-invalidité Takaful, Assurance du bien financé</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Cycle Opérationnel - Aperçu -->
+            <section id="cycle" class="section">
+                <h2>🔄 5. Cycle Opérationnel</h2>
+                
+                <div class="highlight">
+                    <h3>Vue d'Ensemble</h3>
+                    <p>Le cycle opérationnel de la Moussawama chez AL NAMAA FINANCE suit un processus rigoureux en <strong>6 phases</strong>, conforme aux standards BCEAO et aux principes de la Charia. Ce processus garantit la <strong>transparence</strong>, la <strong>conformité réglementaire</strong> et la <strong>maîtrise des risques</strong>.</p>
+                </div>
+
+                <div class="flow-diagram">
+                    <span class="flow-step">Phase 1: Demande</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">Phase 2: Décision</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">Phase 3: Acquisition</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">Phase 4: Contrat</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">Phase 5: Déblocage</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">Phase 6: Suivi</span>
+                </div>
+
+                <h3>Processus Complet</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Description</th>
+                            <th>Acteur Principal</th>
+                            <th>Délai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-success">1</span></td>
+                            <td>Demande et Instruction (accueil, dossier, visite, scoring)</td>
+                            <td>Chargé Clientèle / Analyste</td>
+                            <td>J0 → J+5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">2</span></td>
+                            <td>Décision de Crédit (Comité selon montant)</td>
+                            <td>Comité de Crédit</td>
+                            <td>J+5 → J+7</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">3</span></td>
+                            <td>Acquisition du bien (propriété effective AL NAMAA)</td>
+                            <td>Service Achats</td>
+                            <td>J+7 → J+12</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">4</span></td>
+                            <td>Contractualisation (signature contrat Moussawama)</td>
+                            <td>Service Juridique</td>
+                            <td>J+12 → J+13</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">5</span></td>
+                            <td>Déblocage et Livraison (transfert propriété au client)</td>
+                            <td>Back Office</td>
+                            <td>J+13 → J+14</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">6</span></td>
+                            <td>Suivi et Recouvrement (encaissement échéances)</td>
+                            <td>Recouvrement</td>
+                            <td>Continu</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <h4>⏰ Durée totale du processus</h4>
+                    <p>De la demande initiale à la livraison du bien : <strong>8 à 14 jours ouvrables</strong></p>
+                    <p>Ensuite : Suivi continu pendant toute la durée du financement (3-36 mois)</p>
+                </div>
+
+                <div class="warning">
+                    <h4>📌 Navigation</h4>
+                    <p>Utilisez le menu latéral pour accéder au détail de chaque phase (Phases 1 à 6)</p>
+                </div>
+            </section>
+
+            <!-- Phase 1 : Demande et Instruction -->
+            <section id="phase1" class="section">
+                <h2>📋 Phase 1 : Demande et Instruction</h2>
+                <p class="subtitle">Durée : 3-5 jours ouvrés</p>
+                
+                <div class="step-box">
+                    <h4>❶ ÉTAPE 1 : Accueil et Analyse Préliminaire</h4>
+                    <p><strong>Acteur:</strong> Chargé de Clientèle (CC) | <strong>Lieu:</strong> Agence | <strong>Durée:</strong> 30-45 min</p>
+                    <ul>
+                        <li>Accueillir avec courtoisie et professionnalisme</li>
+                        <li>Identifier le besoin (Quel bien ? Fournisseur ? Budget ? Délai ?)</li>
+                        <li>Présenter le produit Moussawama</li>
+                        <li>Vérifier l'éligibilité préliminaire</li>
+                        <li>Remettre les documents et fixer RDV dépôt dossier</li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <h4>❷ ÉTAPE 2 : Constitution du Dossier</h4>
+                    <p><strong>Durée:</strong> 45 min - 1 heure | <strong>Système:</strong> CBS CRM + GED</p>
+                    <ul>
+                        <li>Vérifier documents d'identité, domicile, revenus</li>
+                        <li>Consultation bases de données (CIP-SFD OBLIGATOIRE)</li>
+                        <li>Checklist conformité Charia</li>
+                        <li>Numérisation et archivage (PDF 300 dpi)</li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <h4>❸ ÉTAPE 3 : Visite Terrain et Évaluation</h4>
+                    <p><strong>Acteurs:</strong> CC + Agent de Crédit | <strong>Durée:</strong> 1h30 - 2h30</p>
+                    <ul>
+                        <li>Visite domicile (vérification adresse, niveau de vie)</li>
+                        <li>Visite lieu d'activité (stock, clientèle, équipements)</li>
+                        <li>Évaluation fournisseur (existence légale, conformité Charia)</li>
+                        <li>Vérification des références (2-3 personnes)</li>
+                        <li>Photos géolocalisées (min. 10)</li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <h4>❹ ÉTAPE 4 : Analyse Financière et Scoring</h4>
+                    <p><strong>Acteur:</strong> Analyste Crédit | <strong>Durée:</strong> 2-3 heures</p>
+                    
+                    <div class="formula">
+                        Capacité = Revenus nets - Charges fixes - Reste à vivre minimum
+                    </div>
+                    <div class="formula">
+                        Taux d'endettement = (Remboursements / Revenus) × 100 ⚠️ Maximum: 40%
+                    </div>
+
+                    <h4>Scoring Crédit AL NAMAA (100 points)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Critère</th>
+                                <th>Points Max</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Stabilité Revenus</td><td>25 pts</td></tr>
+                            <tr><td>Historique Crédit</td><td>20 pts</td></tr>
+                            <tr><td>Ancienneté Activité</td><td>15 pts</td></tr>
+                            <tr><td>Garanties</td><td>20 pts</td></tr>
+                            <tr><td>Références</td><td>10 pts</td></tr>
+                            <tr><td>Profil Socio-éco</td><td>10 pts</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Score minimum requis : 60/100</strong></p>
+                </div>
+            </section>
+
+            <!-- Phase 2 : Décision de Crédit -->
+            <section id="phase2" class="section">
+                <h2>✅ Phase 2 : Décision de Crédit</h2>
+                <p class="subtitle">Durée : 1-2 jours ouvrés</p>
+                
+                <div class="step-box">
+                    <h4>👥 Comité de Crédit</h4>
+                    <p>La décision de crédit est prise selon le montant demandé :</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Montant</th>
+                                <th>Instance</th>
+                                <th>Membres</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>< 1M FCFA</td><td>Resp. Crédit</td><td>1</td></tr>
+                            <tr><td>1-3M FCFA</td><td>Comité restreint</td><td>3</td></tr>
+                            <tr><td>3-5M FCFA</td><td>Comité standard</td><td>4</td></tr>
+                            <tr><td>> 5M FCFA</td><td>Comité élargi</td><td>5</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box">
+                    <h4>📄 Décisions possibles</h4>
+                    <ul>
+                        <li><span class="badge badge-success">Accord</span> Montant approuvé conforme à la demande</li>
+                        <li><span class="badge badge-warning">Accord conditionné</span> Sous réserve de garanties supplémentaires</li>
+                        <li><span class="badge badge-info">Ajournement</span> Demande de compléments d'information</li>
+                        <li><span class="badge badge-danger">Refus</span> Non-conformité aux critères d'éligibilité</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Phase 3 : Acquisition du Bien -->
+            <section id="phase3" class="section">
+                <h2>🛒 Phase 3 : Acquisition du Bien</h2>
+                <p class="subtitle">Durée : 2-5 jours ouvrés</p>
+                
+                <div class="danger">
+                    <h4>⚠️ RÈGLE CHARIA FONDAMENTALE</h4>
+                    <p>AL NAMAA doit acquérir la <strong>PROPRIÉTÉ EFFECTIVE</strong> du bien <strong>AVANT</strong> de le revendre au client.</p>
+                    <p>La facture d'achat <strong>DOIT</strong> être établie au nom d'AL NAMAA FINANCE.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>📦 Processus d'acquisition</h4>
+                    <ol>
+                        <li>Commande ferme auprès du fournisseur</li>
+                        <li>Paiement intégral par AL NAMAA</li>
+                        <li>Réception de la facture au nom d'AL NAMAA</li>
+                        <li>Transfert de propriété à AL NAMAA (bien en stock)</li>
+                        <li>Vérification de conformité du bien</li>
+                    </ol>
+                </div>
+
+                <div class="warning">
+                    <h4>⚡ Points de contrôle</h4>
+                    <ul>
+                        <li>Vérification de l'authenticité du fournisseur</li>
+                        <li>Conformité du bien aux spécifications convenues</li>
+                        <li>Documentation complète (facture, bon de livraison)</li>
+                        <li>Conformité Charia du bien (licéité - Halal)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Phase 4 : Contractualisation -->
+            <section id="phase4" class="section">
+                <h2>📝 Phase 4 : Contractualisation</h2>
+                <p class="subtitle">Durée : 1 jour ouvré</p>
+                
+                <div class="highlight">
+                    <h4>📜 Clauses Obligatoires du Contrat Moussawama</h4>
+                    <ul>
+                        <li>Identification des parties (AL NAMAA + Client)</li>
+                        <li>Description précise du bien (désignation, marque, modèle, n° série)</li>
+                        <li>Prix de vente Moussawama (en chiffres et en lettres)</li>
+                        <li>Échéancier de remboursement</li>
+                        <li>Garanties constituées</li>
+                        <li>Pénalités de retard → <strong>HumaniWAQF</strong></li>
+                        <li>Clause de conformité Charia</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>☪️ Spécificité Moussawama</h4>
+                    <p>Contrairement à la Mourabaha, le contrat Moussawama <strong>ne mentionne pas obligatoirement</strong> le prix d'achat initial ni la marge d'AL NAMAA. Seul le prix de vente final négocié est indiqué.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>📋 Documents contractuels</h4>
+                    <ul>
+                        <li>Contrat Moussawama (original + copie client)</li>
+                        <li>Tableau d'amortissement signé</li>
+                        <li>Actes de garantie (caution, nantissement, etc.)</li>
+                        <li>Attestation d'assurance Takaful</li>
+                        <li>Procès-verbal de transfert de propriété</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Phase 5 : Déblocage et Livraison -->
+            <section id="phase5" class="section">
+                <h2>🚀 Phase 5 : Déblocage et Livraison</h2>
+                <p class="subtitle">Durée : 1 jour ouvré</p>
+                
+                <div class="highlight">
+                    <h4>✅ Checklist pré-déblocage</h4>
+                    <ul class="checklist">
+                        <li>Contrat Moussawama signé par toutes les parties</li>
+                        <li>Échéancier signé par le client</li>
+                        <li>Garanties enregistrées (gage RCCM, cautions légalisées)</li>
+                        <li>Assurance Takaful souscrite et active</li>
+                        <li>Dépôt de garantie encaissé</li>
+                        <li>Frais de dossier encaissés</li>
+                        <li>Bien disponible en stock AL NAMAA</li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <h4>📦 Processus de livraison</h4>
+                    <ol>
+                        <li>Validation finale par le Responsable Crédit</li>
+                        <li>Génération du PV de transfert de propriété</li>
+                        <li>Remise du bien au client</li>
+                        <li>Signature du PV de livraison</li>
+                        <li>Activation de l'échéancier dans le CBS</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Phase 6 : Suivi et Recouvrement -->
+            <section id="phase6" class="section">
+                <h2>📈 Phase 6 : Suivi et Recouvrement</h2>
+                <p class="subtitle">Durée : 3-36 mois (selon contrat)</p>
+                
+                <h3>6.1 Procédure de Relance</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Délai</th>
+                            <th>Action</th>
+                            <th>Canal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>J+1</td><td>SMS rappel automatique</td><td>SMS</td></tr>
+                        <tr><td>J+3</td><td>Appel de courtoisie</td><td>Téléphone</td></tr>
+                        <tr><td>J+7</td><td>2ème appel + SMS formel</td><td>Tel + SMS</td></tr>
+                        <tr><td>J+15</td><td>Visite terrain CC</td><td>Physique</td></tr>
+                        <tr><td>J+30</td><td>Mise en demeure</td><td>RAR</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <h4>💰 Pénalités de Retard</h4>
+                    <ul>
+                        <li>Taux : 0,5% par semaine de retard</li>
+                        <li>Plafond : 10% maximum du montant de l'échéance</li>
+                        <li><strong>100% des pénalités sont versées au HumaniWAQF (charité)</strong></li>
+                        <li>Elles ne constituent PAS un revenu pour AL NAMAA</li>
+                    </ul>
+                </div>
+
+                <h3>6.2 Indicateurs de suivi</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📊 PAR 30</h4>
+                        <p>Portfolio at Risk > 30 jours</p>
+                        <p><strong>Cible : ≤ 3%</strong></p>
+                    </div>
+                    <div class="card">
+                        <h4>📉 Taux de défaut</h4>
+                        <p>Créances irrécouvrables</p>
+                        <p><strong>Cible : ≤ 1%</strong></p>
+                    </div>
+                    <div class="card">
+                        <h4>⏱️ Délai moyen</h4>
+                        <p>Recouvrement des impayés</p>
+                        <p><strong>Cible : ≤ 15 jours</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Caractéristiques Financières -->
+            <section id="caracteristiques" class="section">
+                <h2>💰 6. Caractéristiques Financières</h2>
+                
+                <h3>6.1 Montants et Durées de Financement</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Segment</th>
+                            <th>Montant Min</th>
+                            <th>Montant Max</th>
+                            <th>Durée Min</th>
+                            <th>Durée Max</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Micro-entrepreneurs</td>
+                            <td>200 000 FCFA</td>
+                            <td>2 000 000 FCFA</td>
+                            <td>3 mois</td>
+                            <td>18 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Petites entreprises</td>
+                            <td>2 000 000 FCFA</td>
+                            <td>10 000 000 FCFA</td>
+                            <td>12 mois</td>
+                            <td>36 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Salariés</td>
+                            <td>500 000 FCFA</td>
+                            <td>5 000 000 FCFA</td>
+                            <td>6 mois</td>
+                            <td>24 mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 Structure Tarifaire</h3>
+                
+                <div class="info-box">
+                    <h4>☪️ Principe Charia</h4>
+                    <p>Dans le contrat Moussawama, AL NAMAA <strong>n'est pas tenue de divulguer sa marge</strong> au client. Le prix de vente est librement négocié entre les parties.</p>
+                </div>
+
+                <h4>Grille des Marges selon le Scoring</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Score Crédit</th>
+                            <th>Catégorie</th>
+                            <th>Marge Min</th>
+                            <th>Marge Max</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>85 - 100</td>
+                            <td><span class="badge badge-success">Excellent</span></td>
+                            <td>18%</td>
+                            <td>22%</td>
+                        </tr>
+                        <tr>
+                            <td>70 - 84</td>
+                            <td><span class="badge badge-info">Bon</span></td>
+                            <td>20%</td>
+                            <td>25%</td>
+                        </tr>
+                        <tr>
+                            <td>60 - 69</td>
+                            <td><span class="badge badge-warning">Acceptable</span></td>
+                            <td>24%</td>
+                            <td>28%</td>
+                        </tr>
+                        <tr>
+                            <td>< 60</td>
+                            <td><span class="badge badge-danger">Insuffisant</span></td>
+                            <td colspan="2">Refus</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Calcul du Prix de Vente</h4>
+                <div class="formula">
+                    Prix de Vente Moussawama = Prix d'Achat × (1 + Marge%)
+                </div>
+
+                <div class="highlight">
+                    <h4>📝 Exemple de calcul</h4>
+                    <table>
+                        <tbody>
+                            <tr><td>Prix d'achat du bien</td><td><strong>2 000 000 FCFA</strong></td></tr>
+                            <tr><td>Marge appliquée</td><td>22%</td></tr>
+                            <tr><td>Montant de la marge</td><td>440 000 FCFA</td></tr>
+                            <tr><td>Prix de vente Moussawama</td><td><strong>2 440 000 FCFA</strong></td></tr>
+                            <tr><td>Durée</td><td>18 mois</td></tr>
+                            <tr><td>Mensualité</td><td><strong>135 556 FCFA</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>6.3 Frais de Dossier</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Élément</th>
+                            <th>Taux/Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Taux standard</td><td>2% du montant financé</td></tr>
+                        <tr><td>Minimum</td><td>10 000 FCFA</td></tr>
+                        <tr><td>Maximum</td><td>100 000 FCFA</td></tr>
+                        <tr><td>Moment de paiement</td><td>À la signature</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>6.4 Dépôt de Garantie</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Score Crédit</th>
+                            <th>Montant < 2M</th>
+                            <th>Montant 2M-5M</th>
+                            <th>Montant > 5M</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Excellent (85-100)</td><td>0% - 10%</td><td>10% - 15%</td><td>15% - 20%</td></tr>
+                        <tr><td>Bon (70-84)</td><td>10% - 15%</td><td>15% - 20%</td><td>20% - 25%</td></tr>
+                        <tr><td>Acceptable (60-69)</td><td>15% - 20%</td><td>20% - 25%</td><td>25% - 30%</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>6.5 Échéancier et Remboursement</h3>
+                <div class="formula">
+                    Mensualité = Prix de Vente Moussawama / Nombre de Mois
+                </div>
+            </section>
+
+            <!-- Section Conformité Charia -->
+            <section id="charia" class="section">
+                <h2>☪️ 7. Règles de Conformité Charia</h2>
+                
+                <h3>7.1 Fondements Islamiques</h3>
+                
+                <div class="highlight">
+                    <h4>📖 Définition linguistique</h4>
+                    <p>Le terme « <strong>Moussawama</strong> » (مساومة) dérive de la racine arabe « س و م » (sawama) qui signifie « négocier », « marchander ». Il désigne une transaction commerciale où le prix est librement négocié entre les parties.</p>
+                </div>
+
+                <h4>Sources Juridiques (Adilla)</h4>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📕 Le Coran (القرآن)</h4>
+                        <ul>
+                            <li>« Allah a rendu licite le commerce et a interdit l'usure » (Al-Baqara, 2:275)</li>
+                            <li>« Ô vous qui croyez ! Ne mangez pas vos biens entre vous de manière illicite, sauf s'il s'agit d'un commerce par consentement mutuel » (An-Nisa, 4:29)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📗 La Sunna (السنة)</h4>
+                        <ul>
+                            <li>« Le vendeur et l'acheteur ont le choix tant qu'ils ne se sont pas séparés » (Bukhari et Muslim)</li>
+                            <li>Le Prophète ﷺ pratiquait lui-même le commerce et encourageait les transactions honnêtes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>7.2 Les Interdictions Majeures (المحرمات)</h3>
+                
+                <div class="danger">
+                    <h4>🚫 A. Interdiction du Riba (الربا) - L'usure</h4>
+                    <p><strong>Définition:</strong> Tout surplus contractuel sans contrepartie réelle dans un échange de biens fongibles ou tout surplus dans un prêt.</p>
+                    <p><strong>Comment la Moussawama évite le Riba:</strong></p>
+                    <ul>
+                        <li>Transaction commerciale réelle (vente) et non prêt d'argent</li>
+                        <li>AL NAMAA acquiert la propriété effective du bien avant revente</li>
+                        <li>Le profit provient de la plus-value commerciale, pas de l'intérêt sur un capital</li>
+                        <li>Le prix est fixé une fois pour toutes à la signature</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ B. Interdiction du Gharar (الغرر) - L'incertitude excessive</h4>
+                    <p>Toute transaction comportant une incertitude majeure sur l'objet, le prix, ou les conditions.</p>
+                </div>
+
+                <div class="warning">
+                    <h4>🎰 C. Interdiction du Maysir (الميسر) - Les jeux de hasard</h4>
+                    <p>Toute transaction où le gain de l'un dépend de la perte de l'autre par le seul effet du hasard.</p>
+                </div>
+
+                <h3>7.3 Règles Spécifiques au Produit</h3>
+                
+                <div class="danger">
+                    <h4>🏠 Règle de la Propriété Effective (الملكية الفعلية)</h4>
+                    <p><strong>RÈGLE FONDAMENTALE:</strong> AL NAMAA FINANCE doit acquérir la propriété réelle et effective du bien AVANT de le revendre au client.</p>
+                    
+                    <h4>❌ Ce qui est INTERDIT:</h4>
+                    <ul>
+                        <li>Vendre un bien qu'AL NAMAA ne possède pas encore</li>
+                        <li>Établir la facture fournisseur directement au nom du client</li>
+                        <li>Faire livrer directement du fournisseur au client sans prise de possession</li>
+                        <li>Signer le contrat de vente avant d'avoir acquis le bien</li>
+                    </ul>
+                    
+                    <h4>✅ Ce qui est AUTORISÉ:</h4>
+                    <ul>
+                        <li>Promesse d'achat du client (Wa'd) avant acquisition</li>
+                        <li>Mandat au client pour réceptionner le bien (Wakala)</li>
+                        <li>Livraison rapide après acquisition (même jour)</li>
+                    </ul>
+                </div>
+
+                <h3>7.4 Le Comité Charia</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fonction</th>
+                            <th>Profil</th>
+                            <th>Mandat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Président</td><td>Savant (Alim) en Fiqh Al-Mu'amalat</td><td>3 ans renouvelable</td></tr>
+                        <tr><td>Membres</td><td>Savants en jurisprudence islamique</td><td>3 ans renouvelable</td></tr>
+                        <tr><td>Expert finance</td><td>Spécialiste finance islamique</td><td>3 ans</td></tr>
+                        <tr><td>Secrétaire</td><td>Juriste AL NAMAA</td><td>Permanent</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>7.5 Le Fonds HumaniWAQF</h3>
+                <div class="info-box">
+                    <h4>💚 Fonctionnement du Fonds HumaniWAQF</h4>
+                    <ul>
+                        <li>Compte bancaire séparé dédié aux pénalités collectées</li>
+                        <li>Aucun mélange avec les fonds propres d'AL NAMAA</li>
+                        <li>Rapport trimestriel au Comité Charia</li>
+                        <li>Allocation aux bénéficiaires sur décision du Comité Charia</li>
+                        <li><strong>Bénéficiaires possibles:</strong> orphelins, veuves, clients en difficulté, mosquées, écoles coraniques</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section Technique -->
+            <section id="technique" class="section">
+                <h2>⚙️ 8. Exigences Techniques</h2>
+                
+                <h3>8.1 Architecture Technique</h3>
+                <div class="highlight">
+                    <p>AL NAMAA FINANCE utilise <strong>CBS</strong> comme système d'information central (Core Banking System adapté à la microfinance islamique).</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🖥️ Couche Présentation</h4>
+                        <ul>
+                            <li>Interface Web CBS (Chrome, Firefox, Edge)</li>
+                            <li>Application Mobile</li>
+                            <li>API REST pour intégrations</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>⚙️ Couche Application</h4>
+                        <ul>
+                            <li>Serveur CBS (Python/Werkzeug)</li>
+                            <li>Modules standards + personnalisés</li>
+                            <li>Moteur de workflow</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💾 Couche Données</h4>
+                        <ul>
+                            <li>PostgreSQL (base principale)</li>
+                            <li>Redis (cache et sessions)</li>
+                            <li>Stockage fichiers (GED)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>8.2 Module Personnalisé : AL NAMAA Islamic Finance</h3>
+                <p><strong>Nom technique:</strong> al_namaa_islamic_finance</p>
+                <ul>
+                    <li>Gestion du cycle de vie des financements Moussawama</li>
+                    <li>Calcul automatique des prix de vente et marges</li>
+                    <li>Génération des échéanciers</li>
+                    <li>Suivi des remboursements et impayés</li>
+                    <li>Gestion du scoring crédit</li>
+                    <li>Workflow de validation des dossiers</li>
+                    <li>Conformité Charia (checklists, alertes)</li>
+                    <li>Gestion du HumaniWAQF</li>
+                </ul>
+
+                <h3>8.3 Intégrations Externes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Système</th>
+                            <th>Type</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>CIP-SFD (BCEAO)</td><td>API REST</td><td>Consultation incidents de paiement</td></tr>
+                        <tr><td>Orange Money / Moov Money</td><td>API</td><td>Encaissements Mobile Money</td></tr>
+                        <tr><td>SMS Gateway</td><td>HTTP/REST</td><td>Notifications clients</td></tr>
+                        <tr><td>Banques</td><td>MT940/CAMT</td><td>Réconciliation bancaire</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>8.4 Sécurité</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Exigence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Longueur mot de passe</td><td>12 caractères minimum</td></tr>
+                        <tr><td>Complexité</td><td>Majuscules + minuscules + chiffres + spéciaux</td></tr>
+                        <tr><td>Expiration</td><td>90 jours</td></tr>
+                        <tr><td>RTO</td><td>4 heures maximum</td></tr>
+                        <tr><td>RPO</td><td>1 heure maximum</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Comptabilisation -->
+            <section id="comptabilisation" class="section">
+                <h2>📊 9. Comptabilisation</h2>
+                
+                <h3>9.1 Cadre Comptable Applicable</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📊 SYSCOHADA révisé</h4>
+                        <p>Comptabilité générale obligatoire (Acte Uniforme OHADA 2017)</p>
+                    </div>
+                    <div class="card">
+                        <h4>🏦 Plan comptable SFD BCEAO</h4>
+                        <p>Spécificités microfinance</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Normes AAOIFI</h4>
+                        <p>Finance islamique (FAS 1, FAS 2, FAS 28)</p>
+                    </div>
+                </div>
+
+                <h3>9.2 Plan de Comptes Moussawama</h3>
+                
+                <h4>Comptes de Bilan - Actif</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Intitulé</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>271</td><td>Créances Moussawama</td></tr>
+                        <tr><td>2711</td><td>Créances Moussawama - Saines</td></tr>
+                        <tr><td>2712</td><td>Créances Moussawama - Sensibles</td></tr>
+                        <tr><td>2713</td><td>Créances Moussawama - En souffrance</td></tr>
+                        <tr><td>279</td><td>Provisions créances Moussawama</td></tr>
+                        <tr><td>311</td><td>Stocks biens Moussawama</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Comptes de Produits</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Intitulé</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>7061</td><td>Produits Moussawama - Marge</td></tr>
+                        <tr><td>7062</td><td>Frais de dossier Moussawama</td></tr>
+                        <tr><td>7063</td><td>Autres produits Moussawama</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>9.3 Schémas Comptables</h3>
+                
+                <div class="step-box">
+                    <h4>📦 Achat du bien au fournisseur</h4>
+                    <table>
+                        <thead>
+                            <tr><th>Compte</th><th>Libellé</th><th>Débit</th><th>Crédit</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>311</td><td>Stocks biens Moussawama</td><td>5 000 000</td><td></td></tr>
+                            <tr><td>401</td><td>Fournisseur Moussawama</td><td></td><td>5 000 000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="step-box">
+                    <h4>💰 Vente Moussawama au client</h4>
+                    <p>Prix achat: 5M, Marge: 22% = 1,1M, Prix vente: 6,1M</p>
+                    <table>
+                        <thead>
+                            <tr><th>Compte</th><th>Libellé</th><th>Débit</th><th>Crédit</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>27111</td><td>Créances Moussawama - Capital</td><td>5 000 000</td><td></td></tr>
+                            <tr><td>311</td><td>Stocks biens Moussawama</td><td></td><td>5 000 000</td></tr>
+                            <tr><td>27112</td><td>Créances Moussawama - Marge différée</td><td>1 100 000</td><td></td></tr>
+                            <tr><td>4721</td><td>Marge Moussawama différée (PCA)</td><td></td><td>1 100 000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>9.4 Provisionnement</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Retard</th>
+                            <th>Taux Provision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Saine</td><td>0 jour</td><td>0%</td></tr>
+                        <tr><td>Sensible</td><td>1-30 jours</td><td>0%</td></tr>
+                        <tr><td>En souffrance</td><td>31-90 jours</td><td>25%</td></tr>
+                        <tr><td>Douteuse</td><td>91-180 jours</td><td>50%</td></tr>
+                        <tr><td>Contentieuse</td><td>> 180 jours</td><td>100%</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Reporting -->
+            <section id="reporting" class="section">
+                <h2>📈 10. Reporting & KPI</h2>
+                
+                <h3>10.1 KPI Commerciaux</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Cible</th>
+                            <th>Seuil Alerte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Volume de production mensuel</td><td>200M FCFA</td><td>< 150M</td></tr>
+                        <tr><td>Nombre de contrats</td><td>50/mois</td><td>< 35</td></tr>
+                        <tr><td>Ticket moyen</td><td>4M FCFA</td><td>< 2.5M</td></tr>
+                        <tr><td>Taux de transformation</td><td>≥ 60%</td><td>< 45%</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>10.2 KPI de Risque (PAR)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Cible</th>
+                            <th>Seuil Alerte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>PAR 1 jour</td><td>≤ 8%</td><td>> 12%</td></tr>
+                        <tr><td>PAR 7 jours</td><td>≤ 5%</td><td>> 8%</td></tr>
+                        <tr><td>PAR 30 jours</td><td>≤ 3%</td><td>> 5%</td></tr>
+                        <tr><td>PAR 90 jours</td><td>≤ 1%</td><td>> 2%</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>10.3 KPI de Conformité Charia</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Cible</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Taux conformité dossiers</td><td><strong>100%</strong></td></tr>
+                        <tr><td>Pénalités → HumaniWAQF</td><td><strong>100%</strong></td></tr>
+                        <tr><td>Propriété effective</td><td><strong>100%</strong></td></tr>
+                        <tr><td>Délai détention stock</td><td>≤ 7 jours</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>10.4 Comités de Suivi</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📅 Comité de Direction</h4>
+                        <p>Hebdomadaire (lundi) - 2h</p>
+                    </div>
+                    <div class="card">
+                        <h4>💳 Comité de Crédit</h4>
+                        <p>2x/semaine (mardi/jeudi)</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚠️ Comité des Risques</h4>
+                        <p>Mensuel (1er vendredi)</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Comité Charia</h4>
+                        <p>Trimestriel</p>
+                    </div>
+                </div>
+
+                <h3>10.5 Reporting BCEAO</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rapport</th>
+                            <th>Fréquence</th>
+                            <th>Délai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Situation comptable</td><td>Mensuel</td><td>J+15</td></tr>
+                        <tr><td>État du portefeuille</td><td>Mensuel</td><td>J+15</td></tr>
+                        <tr><td>Ratios prudentiels</td><td>Trimestriel</td><td>J+30</td></tr>
+                        <tr><td>États financiers</td><td>Annuel</td><td>J+90</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Avantages -->
+            <section id="avantages" class="section">
+                <h2>✨ 11. Avantages</h2>
+                
+                <h3>11.1 Pour AL NAMAA FINANCE</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📈 Diversification</h4>
+                        <p>Nouvelle source de revenus, réduction de la dépendance à un seul produit</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Positionnement</h4>
+                        <p>Leader finance islamique au Mali, différenciation concurrentielle</p>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Rentabilité élevée</h4>
+                        <p>ROE ≥ 22%, marges attractives (18-28%)</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔄 Flexibilité</h4>
+                        <p>Prix négociable sans divulgation de marge, adaptation au profil client</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Simplicité</h4>
+                        <p>Moins de litiges sur le coût, processus simplifié vs Mourabaha</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Impact Social</h4>
+                        <p>Contribution via HumaniWAQF aux projets caritatifs</p>
+                    </div>
+                </div>
+
+                <h3>11.2 Pour les Clients</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>☪️ Conformité Religieuse</h4>
+                        <p>Financement 100% Halal, validé par le Comité Charia</p>
+                    </div>
+                    <div class="card">
+                        <h4>💎 Transparence</h4>
+                        <p>Prix fixe connu dès le départ, pas de surprises</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Accessibilité</h4>
+                        <p>Montants adaptés (200K à 10M), durées flexibles</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚡ Rapidité</h4>
+                        <p>Traitement en 8-14 jours, décision rapide</p>
+                    </div>
+                    <div class="card">
+                        <h4>🛡️ Protection</h4>
+                        <p>Assurance Takaful comprise</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Éthique</h4>
+                        <p>Pénalités reversées à des œuvres caritatives</p>
+                    </div>
+                </div>
+
+                <h3>11.3 Projections Financières (5 ans)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>An 1</th>
+                            <th>An 2</th>
+                            <th>An 3</th>
+                            <th>An 4</th>
+                            <th>An 5</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Production annuelle</td>
+                            <td>1,5 Mds</td>
+                            <td>2,0 Mds</td>
+                            <td>3,0 Mds</td>
+                            <td>4,0 Mds</td>
+                            <td>5,0 Mds</td>
+                        </tr>
+                        <tr>
+                            <td>Clients actifs</td>
+                            <td>600</td>
+                            <td>1 000</td>
+                            <td>1 500</td>
+                            <td>2 100</td>
+                            <td>2 800</td>
+                        </tr>
+                        <tr>
+                            <td>Résultat net (M FCFA)</td>
+                            <td>141</td>
+                            <td>263</td>
+                            <td>412</td>
+                            <td>587</td>
+                            <td>742</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>📊 Synthèse de la Valeur Créée</h4>
+                    <table>
+                        <tbody>
+                            <tr><td>Résultat net cumulé (5 ans)</td><td><strong>2 145 M FCFA</strong></td></tr>
+                            <tr><td>Taux de Rentabilité Interne (TRI)</td><td><strong>89%</strong></td></tr>
+                            <tr><td>Payback period</td><td><strong>13 mois</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section Annexes -->
+            <section id="annexes" class="section">
+                <h2>📎 12. Annexes</h2>
+                
+                <h3>Table des Annexes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Titre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>12.1</td><td>Lexique Français - Arabe de la Finance Islamique</td></tr>
+                        <tr><td>12.2</td><td>Glossaire des Termes Techniques</td></tr>
+                        <tr><td>12.3</td><td>Checklist de Conformité Charia</td></tr>
+                        <tr><td>12.4</td><td>Modèle de Contrat Moussawama</td></tr>
+                        <tr><td>12.5</td><td>Modèle d'Échéancier de Remboursement</td></tr>
+                        <tr><td>12.6</td><td>Formulaire de Demande de Financement</td></tr>
+                        <tr><td>12.7</td><td>Fiche d'Évaluation Terrain</td></tr>
+                        <tr><td>12.8</td><td>Grille de Scoring Crédit</td></tr>
+                        <tr><td>12.9</td><td>Modèle de Note de Crédit</td></tr>
+                        <tr><td>12.10</td><td>PV Type du Comité de Crédit</td></tr>
+                        <tr><td>12.11</td><td>Modèle de Mise en Demeure</td></tr>
+                        <tr><td>12.12</td><td>Attestation de Bonne Fin</td></tr>
+                        <tr><td>12.13</td><td>Textes Réglementaires de Référence</td></tr>
+                        <tr><td>12.14</td><td>Coordonnées et Contacts Utiles</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>12.1 Lexique Français - Arabe</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Terme Français</th>
+                            <th>Terme Arabe</th>
+                            <th>Translittération</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Vente négociée</td><td>مساومة</td><td>Moussawama</td></tr>
+                        <tr><td>Vente avec marge</td><td>مرابحة</td><td>Mourabaha</td></tr>
+                        <tr><td>Location-vente</td><td>إجارة</td><td>Ijara</td></tr>
+                        <tr><td>Usure/Intérêt</td><td>ربا</td><td>Riba</td></tr>
+                        <tr><td>Incertitude excessive</td><td>غرر</td><td>Gharar</td></tr>
+                        <tr><td>Jeu de hasard</td><td>ميسر</td><td>Maysir</td></tr>
+                        <tr><td>Licite</td><td>حلال</td><td>Halal</td></tr>
+                        <tr><td>Illicite</td><td>حرام</td><td>Haram</td></tr>
+                        <tr><td>Charité</td><td>صدقة</td><td>Sadaqah</td></tr>
+                        <tr><td>Assurance islamique</td><td>تكافل</td><td>Takaful</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>12.3 Checklist de Conformité Charia</h3>
+                <div class="highlight">
+                    <h4>Vérification du Bien</h4>
+                    <ul class="checklist">
+                        <li>Le bien est tangible et identifiable</li>
+                        <li>Le bien existe physiquement au moment de la vente</li>
+                        <li>Le bien est licite (Halal) selon la Charia</li>
+                        <li>Le bien n'est pas lié à l'alcool</li>
+                        <li>Le bien n'est pas lié au porc</li>
+                        <li>Le bien n'est pas destiné aux jeux de hasard</li>
+                    </ul>
+                    
+                    <h4>Vérification de la Propriété</h4>
+                    <ul class="checklist">
+                        <li>AL NAMAA a acquis le bien AVANT la vente au client</li>
+                        <li>La facture fournisseur est au nom d'AL NAMAA FINANCE</li>
+                        <li>AL NAMAA a payé le fournisseur</li>
+                        <li>Le bien est entré en stock AL NAMAA (même brièvement)</li>
+                    </ul>
+                    
+                    <h4>Vérification du Contrat</h4>
+                    <ul class="checklist">
+                        <li>Le prix de vente est fixé et déterminé</li>
+                        <li>Le prix ne peut pas être révisé après signature</li>
+                        <li>L'échéancier est clair et annexé au contrat</li>
+                        <li>Les pénalités sont destinées au HumaniWAQF</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <h3>🎉 Conclusion</h3>
+                    <p>La <strong>Moussawama d'AL NAMAA FINANCE</strong> représente une solution gagnant-gagnant :</p>
+                    <ul>
+                        <li><strong>Pour la banque :</strong> Diversification, rentabilité élevée (ROE 22%+), positionnement leader</li>
+                        <li><strong>Pour les clients :</strong> Conformité Charia 100%, transparence, accessibilité</li>
+                        <li><strong>Pour la communauté :</strong> Impact social via HumaniWAQF, inclusion financière</li>
+                    </ul>
+                    <p style="margin-top: 1rem; text-align: center; font-size: 1.2rem;"><strong>بسم الله الرحمن الرحيم</strong></p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+                document.querySelector('.content').scrollTop = 0;
+            });
+        });
+    </script>
+</body>
+</html>

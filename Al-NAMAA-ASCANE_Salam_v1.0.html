@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spécifications Fonctionnelles Salam - AL NAMAA FINANCE</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2c5f2d;
+            --secondary: #97c05c;
+            --accent: #e8960e;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --blue: #1e88e5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .logo p {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.7rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .nav-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-subitem {
+            padding-left: 2rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .header .version {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f9f9f9 0%, white 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h4 {
+            margin-top: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .danger {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: var(--primary);
+            color: white;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tbody tr:hover {
+            background: #e8f5e9;
+        }
+        
+        .phase-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .step-box {
+            background: #f9f9f9;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .step-box h4 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge-success { background: #c8e6c9; color: #2e7d32; }
+        .badge-warning { background: #fff3e0; color: #e65100; }
+        .badge-danger { background: #ffcdd2; color: #c62828; }
+        .badge-info { background: #e3f2fd; color: #1565c0; }
+        
+        .icon-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+        
+        .icon-box .icon {
+            font-size: 1.5rem;
+        }
+        
+        .formula {
+            background: #263238;
+            color: #80cbc4;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        .flow-step {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        
+        .flow-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="data:image/jpeg;base64,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" alt="AL NAMAA FINANCES" style="max-width: 100%; height: auto;">
+                <p>سلم - Salam</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#intro" class="nav-link active" onclick="showSection('intro')">📖 1. Introduction</a></li>
+                <li><a href="#objectif" class="nav-link" onclick="showSection('objectif')">🎯 2. Objectif du Produit</a></li>
+                <li><a href="#population" class="nav-link" onclick="showSection('population')">👥 3. Population Cible</a></li>
+                <li><a href="#description" class="nav-link" onclick="showSection('description')">📋 4. Description Fonctionnelle</a></li>
+                <li><a href="#cycle" class="nav-link" onclick="showSection('cycle')">🔄 5. Cycle Opérationnel</a></li>
+                <li class="nav-subitem"><a href="#etape1" class="nav-link" onclick="showSection('etape1')">→ Étape 1: Prospection</a></li>
+                <li class="nav-subitem"><a href="#etape2" class="nav-link" onclick="showSection('etape2')">→ Étape 2: Réception</a></li>
+                <li class="nav-subitem"><a href="#etape3" class="nav-link" onclick="showSection('etape3')">→ Étape 3: Analyse</a></li>
+                <li class="nav-subitem"><a href="#etape4" class="nav-link" onclick="showSection('etape4')">→ Étape 4: Visite</a></li>
+                <li class="nav-subitem"><a href="#etape5" class="nav-link" onclick="showSection('etape5')">→ Étape 5: Décision</a></li>
+                <li class="nav-subitem"><a href="#etape6" class="nav-link" onclick="showSection('etape6')">→ Étape 6: Contrat</a></li>
+                <li class="nav-subitem"><a href="#etape7" class="nav-link" onclick="showSection('etape7')">→ Étape 7: Suivi</a></li>
+                <li class="nav-subitem"><a href="#etape8" class="nav-link" onclick="showSection('etape8')">→ Étape 8: Réception</a></li>
+                <li class="nav-subitem"><a href="#etape9" class="nav-link" onclick="showSection('etape9')">→ Étape 9: Clôture</a></li>
+                <li><a href="#caracteristiques" class="nav-link" onclick="showSection('caracteristiques')">💰 6. Caractéristiques Financières</a></li>
+                <li><a href="#charia" class="nav-link" onclick="showSection('charia')">☪️ 7. Conformité Charia</a></li>
+                <li><a href="#technique" class="nav-link" onclick="showSection('technique')">⚙️ 8. Exigences Techniques</a></li>
+                <li><a href="#comptabilisation" class="nav-link" onclick="showSection('comptabilisation')">📊 9. Comptabilisation</a></li>
+                <li><a href="#reporting" class="nav-link" onclick="showSection('reporting')">📈 10. Reporting & KPI</a></li>
+                <li><a href="#avantages" class="nav-link" onclick="showSection('avantages')">✨ 11. Avantages</a></li>
+                <li><a href="#annexes" class="nav-link" onclick="showSection('annexes')">📎 12. Annexes</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <header class="header">
+                <h1>🌾 Spécification Fonctionnelle </h1>
+                <h2 style="color: white; border: none; margin: 0.5rem 0;">Produit SALAM</h2>
+                <p class="subtitle">Financement de la Production Agricole - Finance Islamique</p>
+                <p class="version">Version 1.0 - Décembre 2025</p>
+            </header>
+
+            <!-- Section Introduction -->
+            <section id="intro" class="section active">
+                <h2>📖 1. Introduction</h2>
+                <p>Le <strong>Salam</strong> est un contrat de vente à terme conforme à la Charia, dans lequel le paiement est effectué intégralement au comptant lors de la conclusion du contrat, tandis que la livraison de la marchandise (<em>Moslam Fihi</em>) est différée à une date future déterminée.</p>
+                
+                <div class="highlight">
+                    <strong>📌 Contexte malien :</strong> L'agriculture représente environ <strong>40% du PIB</strong> et emploie plus de <strong>80% de la population active</strong>. Le Salam constitue un instrument financier particulièrement adapté pour accompagner les producteurs agricoles, les éleveurs et les petits transformateurs agroalimentaires.
+                </div>
+
+                <h3>1.1 Définition juridique et religieuse</h3>
+                <p>Le terme « Salam » dérive de l'arabe « <em>Salafa</em> » signifiant « avancer ». Selon les normes AAOIFI, le Salam est défini comme « un contrat de vente d'un bien décrit avec précision, dont la livraison est différée, contre un prix payé intégralement lors de la conclusion du contrat ».</p>
+                
+                <div class="info-box">
+                    <strong>📜 Hadith fondateur (Ibn Abbas - RA) :</strong><br>
+                    « Le Prophète (PSL) est arrivé à Médine alors que les gens pratiquaient le Salam sur les fruits pour un, deux ou trois ans. Il a dit : <em>Celui qui fait le Salam, qu'il le fasse pour une quantité connue, un poids connu et un délai connu</em> » (Bukhari et Muslim).
+                </div>
+
+                <h3>1.2 Cadre réglementaire applicable</h3>
+                <p>AL NAMAA FINANCE exerce dans un cadre réglementaire dual :</p>
+                <ul>
+                    <li><strong>Réglementation BCEAO :</strong> Instruction n°010-08/2010/RB relative aux règles prudentielles applicables aux SFD de l'UMOA</li>
+                    <li><strong>Normes AAOIFI :</strong> Norme Charia n°10 sur le Salam et Salam Parallèle</li>
+                    <li><strong>Loi malienne :</strong> Loi n°2017-049 du 31 août 2017 portant réglementation des SFD au Mali</li>
+                    <li><strong>Supervision du Comité Charia :</strong> Validation préalable de tout produit et suivi périodique</li>
+                </ul>
+            </section>
+
+            <!-- Section Objectif -->
+            <section id="objectif" class="section">
+                <h2>🎯 2. Objectif du Produit</h2>
+                <p>Le produit Salam d'AL NAMAA FINANCE poursuit plusieurs objectifs stratégiques alignés sur la mission sociale et économique de l'institution.</p>
+
+                <h3>2.1 Objectifs économiques</h3>
+                <ul class="checklist">
+                    <li>Financer les besoins en fonds de roulement des producteurs agricoles (semences, engrais, main-d'œuvre)</li>
+                    <li>Permettre aux producteurs de sécuriser un prix de vente avant la récolte</li>
+                    <li>Faciliter l'accès au financement pour les populations rurales exclues du système bancaire</li>
+                    <li>Contribuer à la structuration des filières agricoles par des engagements d'achat fermes</li>
+                </ul>
+
+                <h3>2.2 Objectifs sociaux</h3>
+                <ul class="checklist">
+                    <li>Promouvoir l'inclusion financière des populations rurales dans le respect de leurs convictions religieuses</li>
+                    <li>Renforcer la résilience économique des ménages agricoles face aux aléas climatiques</li>
+                    <li>Soutenir l'autonomisation économique des femmes rurales</li>
+                    <li>Encourager le développement de pratiques agricoles durables</li>
+                </ul>
+
+                <h3>2.3 Objectifs institutionnels</h3>
+                <ul class="checklist">
+                    <li>Diversifier le portefeuille de produits d'AL NAMAA FINANCE</li>
+                    <li>Développer l'expertise dans le financement des filières agricoles</li>
+                    <li>Renforcer le positionnement comme acteur de référence de la finance islamique au Mali</li>
+                </ul>
+            </section>
+
+            <!-- Section Population Cible -->
+            <section id="population" class="section">
+                <h2>👥 3. Population Cible</h2>
+                <p>Le produit Salam s'adresse à plusieurs segments de clientèle caractérisés par leur activité productive et leur capacité à livrer des biens fongibles et quantifiables.</p>
+
+                <h3>3.1 Segments primaires</h3>
+                
+                <h4>🌾 Producteurs agricoles</h4>
+                <ul>
+                    <li><strong>Céréaliculteurs :</strong> producteurs de mil, sorgho, maïs, riz (zones Office du Niger, Ségou, Sikasso)</li>
+                    <li><strong>Cotonculteurs :</strong> producteurs de coton-graine dans les zones CMDT</li>
+                    <li><strong>Maraîchers :</strong> producteurs de légumes en zone périurbaine et périmètres irrigués</li>
+                    <li><strong>Arboriculteurs :</strong> producteurs de mangues, agrumes, karité (Sikasso, Koulikoro)</li>
+                </ul>
+
+                <h4>🐄 Éleveurs</h4>
+                <ul>
+                    <li>Éleveurs de bovins pour l'embouche</li>
+                    <li>Éleveurs de petits ruminants (ovins, caprins)</li>
+                    <li>Aviculteurs : poulets de chair et œufs</li>
+                    <li>Producteurs laitiers en zone périurbaine</li>
+                </ul>
+
+                <h3>3.2 Segments secondaires</h3>
+                
+                <h4>🏭 Transformateurs agroalimentaires</h4>
+                <ul>
+                    <li>Unités de décorticage et transformation de céréales</li>
+                    <li>Productrices de beurre de karité</li>
+                    <li>Fabricants de produits dérivés (couscous, farine enrichie)</li>
+                    <li>Sécheurs et conditionneurs de fruits et légumes</li>
+                </ul>
+
+                <h3>3.3 Critères d'éligibilité</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Exigence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Statut juridique</td>
+                            <td>Personne physique majeure ou groupement/coopérative</td>
+                        </tr>
+                        <tr>
+                            <td>Nationalité/Résidence</td>
+                            <td>Résident malien ou ressortissant UEMOA avec domicile fixe</td>
+                        </tr>
+                        <tr>
+                            <td>Ancienneté activité</td>
+                            <td>Minimum 2 campagnes agricoles ou 2 ans d'expérience</td>
+                        </tr>
+                        <tr>
+                            <td>Capacité de production</td>
+                            <td>Documentation de la capacité à produire la quantité engagée</td>
+                        </tr>
+                        <tr>
+                            <td>Historique crédit</td>
+                            <td>Pas d'impayés en cours auprès d'une institution financière</td>
+                        </tr>
+                        <tr>
+                            <td>Moralité</td>
+                            <td>Bonne réputation (attestation chef de village)</td>
+                        </tr>
+                        <tr>
+                            <td>Engagement Charia</td>
+                            <td>Acceptation des conditions du contrat Salam</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Description Fonctionnelle -->
+            <section id="description" class="section">
+                <h2>📋 4. Description Fonctionnelle du Produit</h2>
+
+                <h3>4.1 Mécanisme général</h3>
+                <p>Le Salam fonctionne selon un mécanisme <strong>inversé</strong> par rapport à une vente classique. AL NAMAA FINANCE (<em>Rab al-Salam</em> ou acheteur) verse l'intégralité du prix au producteur (<em>Mouslim Ilayhi</em> ou vendeur) dès la signature du contrat, en échange de l'engagement de livrer une quantité déterminée de marchandise à une date future.</p>
+
+                <div class="flow-diagram">
+                    <span class="flow-step">J0 : Signature + Paiement</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step">J+n : Livraison marchandise</span>
+                </div>
+
+                <h3>4.2 Éléments constitutifs du contrat</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Élément</th>
+                            <th>Définition</th>
+                            <th>Exemple pratique</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ra's al-Mal</strong> (Capital)</td>
+                            <td>Prix payé comptant par AL NAMAA</td>
+                            <td>500 000 FCFA versés à la signature</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Moslam Fihi</strong> (Objet)</td>
+                            <td>Bien à livrer, décrit avec précision</td>
+                            <td>1 tonne de riz paddy, variété Gambiaka</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mouslim Ilayhi</strong></td>
+                            <td>Vendeur/producteur</td>
+                            <td>Agriculteur de l'Office du Niger</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rab al-Salam</strong></td>
+                            <td>Acheteur (AL NAMAA FINANCE)</td>
+                            <td>Institution finançant la production</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ajal</strong> (Délai)</td>
+                            <td>Date de livraison convenue</td>
+                            <td>31 décembre 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>4.3 Types de Salam proposés</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📦 Salam Simple</h4>
+                        <p>AL NAMAA achète la production et la revend ensuite sur le marché après livraison.</p>
+                        <ul>
+                            <li>Exposition au risque de marché</li>
+                            <li>Marges potentiellement plus élevées</li>
+                            <li>Nécessite capacité de stockage</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🔗 Salam Parallèle (Muwazi)</h4>
+                        <p>AL NAMAA conclut simultanément un contrat d'achat avec le producteur et un contrat de vente avec un acheteur final.</p>
+                        <ul>
+                            <li>Risque de marché sécurisé</li>
+                            <li>Marge garantie à l'avance</li>
+                            <li>Deux contrats indépendants</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>4.4 Biens éligibles au Salam</h3>
+                <div class="warning">
+                    <strong>⚠️ Critères Charia obligatoires :</strong>
+                    <ul>
+                        <li><strong>Fongibilité :</strong> Biens interchangeables</li>
+                        <li><strong>Quantifiabilité :</strong> Mesurables en poids, volume ou unités standards</li>
+                        <li><strong>Disponibilité probable :</strong> Existence raisonnablement certaine à la date de livraison</li>
+                        <li><strong>Licéité Charia :</strong> Biens halal uniquement</li>
+                    </ul>
+                </div>
+
+                <h4>Liste indicative des produits éligibles</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Produits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Céréales et légumineuses</td>
+                            <td>Riz paddy, mil, sorgho, maïs, fonio, niébé, arachide</td>
+                        </tr>
+                        <tr>
+                            <td>Produits d'élevage</td>
+                            <td>Bovins sur pied, ovins, caprins, volailles, œufs, lait</td>
+                        </tr>
+                        <tr>
+                            <td>Produits maraîchers</td>
+                            <td>Oignon, pomme de terre, tomate, échalote, piment</td>
+                        </tr>
+                        <tr>
+                            <td>Produits de cueillette</td>
+                            <td>Noix de karité, gomme arabique, miel</td>
+                        </tr>
+                        <tr>
+                            <td>Produits transformés</td>
+                            <td>Beurre de karité, huile d'arachide, couscous, farine</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Cycle Opérationnel -->
+            <section id="cycle" class="section">
+                <h2>🔄 5. Cycle Opérationnel</h2>
+                <p>Le processus de financement Salam suit un cycle rigoureux en <strong>neuf étapes</strong>, de la demande initiale jusqu'au dénouement final du contrat.</p>
+
+                <div class="info-box">
+                    <strong>⏱️ Délai total indicatif :</strong> 7 à 14 jours ouvrables (étapes 1-6), puis 3-12 mois de suivi jusqu'à clôture.
+                </div>
+
+                <h3>Vue d'ensemble du cycle</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Étape</th>
+                            <th>Durée</th>
+                            <th>Responsable</th>
+                            <th>Livrable clé</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-info">1</span></td>
+                            <td>Prospection et sensibilisation</td>
+                            <td>Continue</td>
+                            <td>Agent de terrain</td>
+                            <td>Liste de prospects qualifiés</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">2</span></td>
+                            <td>Réception de la demande</td>
+                            <td>1 jour</td>
+                            <td>Agent d'accueil</td>
+                            <td>Dossier complet enregistré</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">3</span></td>
+                            <td>Étude et analyse</td>
+                            <td>3-5 jours</td>
+                            <td>Analyste crédit</td>
+                            <td>Note d'analyse avec scoring</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">4</span></td>
+                            <td>Visite de terrain</td>
+                            <td>1-2 jours</td>
+                            <td>Agent terrain + Technicien</td>
+                            <td>Rapport de visite</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">5</span></td>
+                            <td>Décision comité crédit</td>
+                            <td>1-3 jours</td>
+                            <td>Comité de crédit</td>
+                            <td>PV de décision</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">6</span></td>
+                            <td>Contractualisation et décaissement</td>
+                            <td>1-2 jours</td>
+                            <td>Chargé clientèle + Juridique</td>
+                            <td>Contrat signé + Ordre paiement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">7</span></td>
+                            <td>Suivi de production</td>
+                            <td>3-12 mois</td>
+                            <td>Agent terrain</td>
+                            <td>Fiches de suivi périodiques</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">8</span></td>
+                            <td>Réception et contrôle</td>
+                            <td>1-3 jours</td>
+                            <td>Magasinier + Contrôleur</td>
+                            <td>PV de réception</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">9</span></td>
+                            <td>Revente et clôture</td>
+                            <td>1-30 jours</td>
+                            <td>Service commercial</td>
+                            <td>Facture vente + Fiche clôture</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Étapes détaillées -->
+            <section id="etape1" class="section">
+                <h2>🔄 Étape 1 : Prospection et Sensibilisation</h2>
+                <p><span class="badge badge-info">Durée : Activité continue</span></p>
+
+                <h3>Objectif</h3>
+                <p>Identifier et informer les producteurs potentiels sur le produit Salam, ses avantages et ses conditions.</p>
+
+                <h3>Fiche de responsabilités</h3>
+                <table>
+                    <thead>
+                        <tr><th>Élément</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Responsable principal</td><td>Agent de terrain / Chargé de clientèle rurale</td></tr>
+                        <tr><td>Contributeurs</td><td>Responsable Conformité Charia, Service Marketing</td></tr>
+                        <tr><td>Superviseur</td><td>Chef d'agence / Responsable commercial</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Activités</h3>
+                <ul>
+                    <li>Organisation de séances de sensibilisation dans les villages</li>
+                    <li>Collaboration avec les organisations paysannes et coopératives</li>
+                    <li>Distribution de supports d'information</li>
+                    <li>Participation aux foires et marchés agricoles</li>
+                </ul>
+            </section>
+
+            <section id="etape2" class="section">
+                <h2>🔄 Étape 2 : Réception et Enregistrement de la Demande</h2>
+                <p><span class="badge badge-info">Durée : 1 jour ouvrable</span></p>
+
+                <h3>Documents requis</h3>
+                <table>
+                    <thead><tr><th>Document</th><th>Type</th><th>Observations</th></tr></thead>
+                    <tbody>
+                        <tr><td>Formulaire de demande Salam</td><td><span class="badge badge-danger">Obligatoire</span></td><td>Formulaire AL NAMAA complet et signé</td></tr>
+                        <tr><td>Pièce d'identité valide</td><td><span class="badge badge-danger">Obligatoire</span></td><td>NINA, CNI ou passeport (copie)</td></tr>
+                        <tr><td>Photo d'identité récente</td><td><span class="badge badge-danger">Obligatoire</span></td><td>2 photos format passeport</td></tr>
+                        <tr><td>Justificatif de domicile</td><td><span class="badge badge-danger">Obligatoire</span></td><td>Facture, attestation chef village</td></tr>
+                        <tr><td>Justificatif foncier</td><td><span class="badge badge-danger">Obligatoire</span></td><td>Titre, bail ou attestation</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="etape3" class="section">
+                <h2>🔄 Étape 3 : Étude et Analyse du Dossier</h2>
+                <p><span class="badge badge-info">Durée : 3 à 5 jours ouvrables</span></p>
+
+                <h3>Grille de scoring Salam</h3>
+                <table>
+                    <thead><tr><th>Critère</th><th>Pondération</th><th>Score max</th></tr></thead>
+                    <tbody>
+                        <tr><td>Capacité de production démontrée</td><td>25%</td><td>25 points</td></tr>
+                        <tr><td>Historique de remboursement / livraison</td><td>20%</td><td>20 points</td></tr>
+                        <tr><td>Qualité des garanties</td><td>20%</td><td>20 points</td></tr>
+                        <tr><td>Risque climatique et agronomique</td><td>15%</td><td>15 points</td></tr>
+                        <tr><td>Autres critères</td><td>20%</td><td>20 points</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="etape4" class="section">
+                <h2>🔄 Étape 4 : Visite de Terrain et Due Diligence</h2>
+                <p><span class="badge badge-info">Durée : 1 à 2 jours</span></p>
+
+                <h3>Points de contrôle</h3>
+                <table>
+                    <thead><tr><th>Élément à vérifier</th><th>Méthode de vérification</th></tr></thead>
+                    <tbody>
+                        <tr><td>Localisation exacte</td><td>GPS (coordonnées à enregistrer)</td></tr>
+                        <tr><td>Superficie réelle</td><td>Mesure GPS ou estimation visuelle</td></tr>
+                        <tr><td>Qualité des sols</td><td>Observation visuelle, discussion avec le producteur</td></tr>
+                        <tr><td>Accès à l'eau</td><td>Vérification des sources (puits, fleuve, irrigation)</td></tr>
+                        <tr><td>Équipements disponibles</td><td>Inventaire visuel</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="etape5" class="section">
+                <h2>🔄 Étape 5 : Décision du Comité de Crédit</h2>
+                <p><span class="badge badge-warning">Durée : 1 à 3 jours</span></p>
+
+                <h3>Structure des comités et délégations</h3>
+                <table>
+                    <thead><tr><th>Niveau de décision</th><th>Montant maximum</th><th>Composition</th></tr></thead>
+                    <tbody>
+                        <tr><td>Comité d'agence</td><td>≤ 2 000 000 FCFA</td><td>Chef d'agence, Analyste crédit, Agent terrain</td></tr>
+                        <tr><td>Comité régional</td><td>2 000 001 - 5 000 000 FCFA</td><td>Responsable régional, Chef d'agence, Analyste senior</td></tr>
+                        <tr><td>Comité central</td><td>> 5 000 000 FCFA</td><td>DG ou DAF, Resp. crédit, Resp. risques, Rep. Comité Charia</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="etape6" class="section">
+                <h2>🔄 Étape 6 : Contractualisation et Décaissement</h2>
+                <p><span class="badge badge-success">Durée : 1 à 2 jours</span></p>
+
+                <h3>Clauses obligatoires du contrat Salam</h3>
+                <ul class="checklist">
+                    <li>Identification complète des parties (Rab al-Salam et Mouslim Ilayhi)</li>
+                    <li>Description précise du bien (nature, qualité, quantité, unité de mesure)</li>
+                    <li>Prix Salam (Ra's al-Mal) payé intégralement au comptant</li>
+                    <li>Date et lieu de livraison</li>
+                    <li>Modalités de contrôle qualité à la réception</li>
+                    <li>Cas de force majeure et résolution des litiges</li>
+                    <li>Clause de conformité Charia</li>
+                </ul>
+
+                <h3>Modes de décaissement</h3>
+                <table>
+                    <thead><tr><th>Mode</th><th>Utilisation</th></tr></thead>
+                    <tbody>
+                        <tr><td>Virement bancaire</td><td>Montants > 500 000 FCFA, client bancarisé</td></tr>
+                        <tr><td>Mobile Money</td><td>Montants ≤ 2 000 000 FCFA, zones rurales</td></tr>
+                        <tr><td>Espèces</td><td>Montants ≤ 500 000 FCFA, remise en agence</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="etape7" class="section">
+                <h2>🔄 Étape 7 : Suivi de Production</h2>
+                <p><span class="badge badge-info">Durée : 3 à 12 mois</span></p>
+
+                <h3>Calendrier de suivi</h3>
+                <table>
+                    <thead><tr><th>Période</th><th>Type de suivi</th><th>Objectif</th></tr></thead>
+                    <tbody>
+                        <tr><td>J+15 après décaissement</td><td>Visite de démarrage</td><td>Vérifier utilisation du capital</td></tr>
+                        <tr><td>Mi-cycle (mensuel)</td><td>Suivi de croissance</td><td>État des cultures/élevage</td></tr>
+                        <tr><td>J-30 avant livraison</td><td>Visite pré-récolte</td><td>Estimer la production finale</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Système d'alertes</h3>
+                <div class="warning">
+                    <strong>🚨 Alertes automatiques :</strong>
+                    <ul>
+                        <li><strong>Alerte verte :</strong> Dossier conforme, aucune action</li>
+                        <li><strong>Alerte orange :</strong> Retard de suivi ou anomalie mineure → Visite sous 7 jours</li>
+                        <li><strong>Alerte rouge :</strong> Risque élevé de non-livraison → Escalade immédiate</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="etape8" class="section">
+                <h2>🔄 Étape 8 : Réception et Contrôle de la Livraison</h2>
+                <p><span class="badge badge-info">Durée : 1 à 3 jours</span></p>
+
+                <h3>Contrôle qualitatif par type de produit</h3>
+                <table>
+                    <thead><tr><th>Produit</th><th>Critères de qualité</th></tr></thead>
+                    <tbody>
+                        <tr><td>Céréales</td><td>Taux d'humidité ≤14%, impuretés ≤2%, absence moisissures</td></tr>
+                        <tr><td>Oignon</td><td>Calibre homogène, absence pourriture, feuilles sèches</td></tr>
+                        <tr><td>Bétail</td><td>Poids minimum, état sanitaire, certificat vétérinaire</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="etape9" class="section">
+                <h2>🔄 Étape 9 : Revente et Clôture du Contrat</h2>
+                <p><span class="badge badge-success">Durée : 1 à 30 jours</span></p>
+
+                <h3>Stratégies de revente</h3>
+                <table>
+                    <thead><tr><th>Stratégie</th><th>Description</th><th>Avantages</th></tr></thead>
+                    <tbody>
+                        <tr><td>Salam Parallèle</td><td>Vente pré-arrangée à acheteur identifié</td><td>Marge sécurisée, pas de stockage</td></tr>
+                        <tr><td>Vente sur marché</td><td>Commercialisation directe après livraison</td><td>Flexibilité, marge potentielle plus élevée</td></tr>
+                        <tr><td>Vente institutionnelle</td><td>Cession à OPAM, PAM, ONG</td><td>Prix stable, volumes importants</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Processus de clôture administrative</h3>
+                <ul class="checklist">
+                    <li>Émission de la facture de vente</li>
+                    <li>Encaissement du prix de revente</li>
+                    <li>Calcul et comptabilisation de la marge</li>
+                    <li>Mise à jour du dossier client</li>
+                    <li>Archivage du contrat</li>
+                </ul>
+            </section>
+
+            <!-- Section Caractéristiques Financières -->
+            <section id="caracteristiques" class="section">
+                <h2>💰 6. Caractéristiques Financières</h2>
+
+                <h3>6.1 Paramètres du financement</h3>
+                <table>
+                    <thead><tr><th>Paramètre</th><th>Valeur</th></tr></thead>
+                    <tbody>
+                        <tr><td>Montant minimum</td><td>100 000 FCFA</td></tr>
+                        <tr><td>Montant maximum</td><td>10 000 000 FCFA</td></tr>
+                        <tr><td>Durée minimum</td><td>3 mois</td></tr>
+                        <tr><td>Durée maximum</td><td>12 mois</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 Structure de la marge</h3>
+                <p>La marge dans le Salam se réalise par la différence entre le prix d'achat au producteur (prix Salam) et le prix de revente.</p>
+
+                <div class="formula">
+                    Marge Brute = Prix de Revente − Prix d'Achat Salam
+                </div>
+                <div class="formula">
+                    Prix Salam = Prix de Marché Anticipé × (1 − Taux de Décote)
+                </div>
+
+                <h3>6.3 Système de garanties</h3>
+                <table>
+                    <thead><tr><th>Montant</th><th>Garanties requises</th></tr></thead>
+                    <tbody>
+                        <tr><td>≤ 500 000 FCFA</td><td>Caution solidaire (1 personne)</td></tr>
+                        <tr><td>500 001 - 2 000 000 FCFA</td><td>Caution solidaire (2 personnes) + Nantissement récolte</td></tr>
+                        <tr><td>> 2 000 000 FCFA</td><td>Garantie réelle (foncier, équipement) + Caution</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Conformité Charia -->
+            <section id="charia" class="section">
+                <h2>☪️ 7. Conformité Charia</h2>
+
+                <h3>7.1 Fondements juridiques islamiques</h3>
+                <p>Le Salam est l'un des rares contrats où la Charia autorise la vente d'un bien non encore existant, en raison du besoin économique des producteurs agricoles.</p>
+
+                <div class="highlight">
+                    <strong>📜 Conditions de validité selon la Charia :</strong>
+                    <ul>
+                        <li><strong>Paiement intégral au comptant</strong> - Le prix doit être versé entièrement lors de la signature</li>
+                        <li><strong>Bien décrit avec précision</strong> - Genre, espèce, qualité, quantité, unité de mesure</li>
+                        <li><strong>Délai de livraison déterminé</strong> - Date précise ou délai minimum convenu</li>
+                        <li><strong>Lieu de livraison spécifié</strong> - Si les frais de transport sont significatifs</li>
+                        <li><strong>Bien disponible habituellement</strong> - À la date de livraison prévue</li>
+                    </ul>
+                </div>
+
+                <h3>7.2 Prohibitions (Muharramat)</h3>
+                <div class="danger">
+                    <strong>⛔ Interdictions absolues :</strong>
+                    <ul>
+                        <li><strong>Riba (intérêt) :</strong> Aucune majoration liée au temps en cas de retard</li>
+                        <li><strong>Gharar excessif :</strong> Le bien doit être suffisamment décrit</li>
+                        <li><strong>Vente avant livraison :</strong> Interdiction de revendre le même bien avant réception</li>
+                        <li><strong>Produits haram :</strong> Alcool, porc, tabac exclus</li>
+                    </ul>
+                </div>
+
+                <h3>7.3 Traitement des pénalités</h3>
+                <div class="info-box">
+                    <strong>💝 Pénalités et HumaniWAQF :</strong><br>
+                    En cas de retard de livraison imputable au producteur, des pénalités peuvent être appliquées. Conformément à la Charia, ces pénalités ne reviennent pas à AL NAMAA mais sont versées au fonds <strong>HumaniWAQF</strong> pour des œuvres caritatives.
+                </div>
+            </section>
+
+            <!-- Section Exigences Techniques -->
+            <section id="technique" class="section">
+                <h2>⚙️ 8. Exigences Techniques</h2>
+
+                <h3>8.1 Modules Core Banking requis</h3>
+                <ul>
+                    <li>Module Gestion des contrats Salam</li>
+                    <li>Module Gestion des stocks et inventaires</li>
+                    <li>Module Workflow et automates de traitement</li>
+                    <li>Module Intégration comptabilité</li>
+                    <li>Module Reporting et tableaux de bord</li>
+                </ul>
+
+                <h3>8.2 États du workflow Salam</h3>
+                <table>
+                    <thead><tr><th>Code</th><th>État</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>DRAFT</td><td>Brouillon</td><td>Demande en cours de saisie</td></tr>
+                        <tr><td>SUBMITTED</td><td>Soumis</td><td>Dossier complet soumis pour analyse</td></tr>
+                        <tr><td>ANALYSIS</td><td>En analyse</td><td>Étude en cours par l'analyste</td></tr>
+                        <tr><td>COMMITTEE</td><td>En comité</td><td>En attente de décision</td></tr>
+                        <tr><td>APPROVED</td><td>Approuvé</td><td>Décision favorable</td></tr>
+                        <tr><td>DISBURSED</td><td>Décaissé</td><td>Fonds versés au producteur</td></tr>
+                        <tr><td>MONITORING</td><td>En suivi</td><td>Production en cours</td></tr>
+                        <tr><td>DELIVERED</td><td>Livré</td><td>Marchandise réceptionnée</td></tr>
+                        <tr><td>SOLD</td><td>Revendu</td><td>Marchandise commercialisée</td></tr>
+                        <tr><td>CLOSED</td><td>Clôturé</td><td>Contrat terminé</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Comptabilisation -->
+            <section id="comptabilisation" class="section">
+                <h2>📊 9. Comptabilisation</h2>
+                <p>Référence : Normes AAOIFI FAS 7 & Directives BCEAO</p>
+
+                <h3>9.1 Plan comptable Salam</h3>
+                <table>
+                    <thead><tr><th>Compte</th><th>Libellé</th><th>Nature</th></tr></thead>
+                    <tbody>
+                        <tr><td>371</td><td>Financement Salam en cours</td><td>Actif</td></tr>
+                        <tr><td>372</td><td>Stock Salam (marchandises reçues)</td><td>Actif</td></tr>
+                        <tr><td>379</td><td>Provisions sur Salam</td><td>Actif (déducteur)</td></tr>
+                        <tr><td>411</td><td>Avances reçues Salam Parallèle</td><td>Passif</td></tr>
+                        <tr><td>706</td><td>Marge sur opérations Salam</td><td>Produit</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>9.2 Écritures comptables - Salam Simple</h3>
+                
+                <h4>À la signature et décaissement</h4>
+                <div class="formula">
+                    Débit : 371 - Financement Salam en cours ..... 500 000<br>
+                    Crédit : 512 - Banque / Caisse ................. 500 000
+                </div>
+
+                <h4>À la réception de la marchandise</h4>
+                <div class="formula">
+                    Débit : 372 - Stock Salam ..................... 500 000<br>
+                    Crédit : 371 - Financement Salam en cours ..... 500 000
+                </div>
+
+                <h4>À la revente</h4>
+                <div class="formula">
+                    Débit : 512 - Banque .......................... 600 000<br>
+                    Crédit : 372 - Stock Salam .................... 500 000<br>
+                    Crédit : 706 - Marge sur opérations Salam ..... 100 000
+                </div>
+
+                <h3>9.3 Provisionnement</h3>
+                <table>
+                    <thead><tr><th>Classification</th><th>Critère</th><th>Taux provision</th></tr></thead>
+                    <tbody>
+                        <tr><td>Sain</td><td>Production conforme aux prévisions</td><td>1%</td></tr>
+                        <tr><td>Sensible</td><td>Retard de production ou aléa mineur</td><td>5%</td></tr>
+                        <tr><td>Douteux</td><td>Risque significatif de non-livraison</td><td>25%</td></tr>
+                        <tr><td>Compromis</td><td>Non-livraison quasi certaine</td><td>100%</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Reporting -->
+            <section id="reporting" class="section">
+                <h2>📈 10. Reporting & Indicateurs</h2>
+
+                <h3>10.1 KPI de volume et activité</h3>
+                <table>
+                    <thead><tr><th>Indicateur</th><th>Formule</th><th>Cible</th></tr></thead>
+                    <tbody>
+                        <tr><td>Nombre de contrats Salam actifs</td><td>Comptage des contrats en cours</td><td>Croissance +20%/an</td></tr>
+                        <tr><td>Encours total Salam</td><td>Σ Montants décaissés non clôturés</td><td>Selon budget</td></tr>
+                        <tr><td>Ticket moyen</td><td>Encours / Nombre de contrats</td><td>500 000 - 1 500 000 FCFA</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>10.2 KPI de qualité et risque</h3>
+                <table>
+                    <thead><tr><th>Indicateur</th><th>Formule</th><th>Cible</th></tr></thead>
+                    <tbody>
+                        <tr><td>Taux de livraison complète</td><td>Contrats livrés 100% / Total contrats</td><td>> 85%</td></tr>
+                        <tr><td>Taux de non-livraison</td><td>Contrats non livrés / Total contrats</td><td>< 5%</td></tr>
+                        <tr><td>Taux de provisionnement</td><td>Provisions / Encours brut</td><td>< 3%</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>10.3 KPI de rentabilité</h3>
+                <table>
+                    <thead><tr><th>Indicateur</th><th>Formule</th><th>Cible</th></tr></thead>
+                    <tbody>
+                        <tr><td>Marge brute moyenne</td><td>Σ Marges / Nombre de contrats clôturés</td><td>15-25%</td></tr>
+                        <tr><td>Rendement annualisé</td><td>(Marge nette / Capital) × (365 / Durée)</td><td>> 20%</td></tr>
+                        <tr><td>ROE produit Salam</td><td>Résultat net Salam / Fonds propres alloués</td><td>> 15%</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Avantages -->
+            <section id="avantages" class="section">
+                <h2>✨ 11. Avantages du Produit Salam</h2>
+
+                <h3>11.1 Avantages pour AL NAMAA</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📈 Avantages stratégiques</h4>
+                        <ul>
+                            <li>Positionnement unique sur le marché agricole</li>
+                            <li>Diversification du portefeuille</li>
+                            <li>Accès à de nouveaux segments de clientèle</li>
+                            <li>Partenariats avec acteurs agricoles</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Avantages financiers</h4>
+                        <ul>
+                            <li>Marges attractives (15-25%)</li>
+                            <li>Sécurisation avec Salam Parallèle</li>
+                            <li>Revenus récurrents</li>
+                            <li>Fidélisation de la clientèle</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>11.2 Avantages pour le producteur</h3>
+                <div class="highlight">
+                    <ul>
+                        <li><strong>Financement immédiat :</strong> Capital disponible au moment des besoins</li>
+                        <li><strong>Prix garanti :</strong> Protection contre la volatilité des prix à la récolte</li>
+                        <li><strong>Conformité religieuse :</strong> Financement halal respectant les convictions</li>
+                        <li><strong>Accompagnement technique :</strong> Suivi de production par AL NAMAA</li>
+                        <li><strong>Pas d'intérêts :</strong> Marge commerciale transparente</li>
+                    </ul>
+                </div>
+
+                <h3>11.3 Impact social</h3>
+                <table>
+                    <thead><tr><th>Dimension</th><th>Impact attendu</th></tr></thead>
+                    <tbody>
+                        <tr><td>Sécurité alimentaire</td><td>Augmentation de la production agricole locale</td></tr>
+                        <tr><td>Inclusion financière</td><td>Accès au financement pour les ruraux exclus</td></tr>
+                        <tr><td>Autonomisation des femmes</td><td>Financement des activités féminines</td></tr>
+                        <tr><td>Création d'emplois</td><td>Main-d'œuvre agricole et transformation</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Annexes -->
+            <section id="annexes" class="section">
+                <h2>📎 12. Annexes</h2>
+                
+                <h3>Liste des annexes disponibles</h3>
+                <table>
+                    <thead><tr><th>N°</th><th>Titre</th><th>Contenu</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>Glossaire Arabe-Français</td><td>Termes clés du Salam et de la finance islamique</td></tr>
+                        <tr><td>2</td><td>Références réglementaires</td><td>Normes AAOIFI, BCEAO, législation malienne</td></tr>
+                        <tr><td>3</td><td>Modèle de Contrat Salam Simple</td><td>Contrat type avec toutes les clauses obligatoires</td></tr>
+                        <tr><td>4</td><td>Modèle de Contrat Salam Parallèle</td><td>Contrats achat et vente séparés</td></tr>
+                        <tr><td>5</td><td>Formulaire de demande</td><td>Document de demande de financement</td></tr>
+                        <tr><td>6</td><td>Fiche de visite terrain</td><td>Modèle de rapport de visite</td></tr>
+                        <tr><td>7</td><td>PV de réception des marchandises</td><td>Modèle de procès-verbal</td></tr>
+                        <tr><td>8</td><td>Grille de scoring Salam</td><td>Critères et pondérations détaillés</td></tr>
+                        <tr><td>9</td><td>Checklist de conformité Charia</td><td>Points de contrôle obligatoires</td></tr>
+                        <tr><td>10</td><td>Barèmes et grilles tarifaires</td><td>Prix de référence par produit</td></tr>
+                        <tr><td>11</td><td>Calendrier cultural du Mali</td><td>Cycles de production par région</td></tr>
+                        <tr><td>12</td><td>Matrice RACI</td><td>Responsabilités par étape du processus</td></tr>
+                        <tr><td>13</td><td>Contacts et ressources</td><td>Annuaire des partenaires</td></tr>
+                        <tr><td>14</td><td>Page d'approbations</td><td>Signatures et validations</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>📝 Note :</strong> Les annexes complètes sont disponibles dans le document de spécifications détaillées (version Word/PDF).
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
