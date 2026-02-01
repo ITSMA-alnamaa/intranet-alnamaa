@@ -1,0 +1,3311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spécifications Mourabaha - AL NAMAA FINANCE</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #2c5f2d;
+            --secondary: #97c05c;
+            --accent: #e8960e;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --blue: #1e88e5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .logo p {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.7rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .nav-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-subitem {
+            padding-left: 2rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #f9f9f9 0%, white 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h4 {
+            margin-top: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: var(--primary);
+            color: white;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tbody tr:hover {
+            background: var(--light);
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--secondary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .kpi {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .kpi-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+        
+        .badge-success {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .badge-info {
+            background: #2196f3;
+            color: white;
+        }
+        
+        .badge-warning {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .comparison-table {
+            margin: 2rem 0;
+        }
+        
+        .comparison-table td:first-child {
+            font-weight: bold;
+            background: #f5f5f5;
+        }
+        
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>AL NAMAA FINANCE</h1>
+                <p>Mourabaha v1.0</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#intro" class="nav-link active">📖 Introduction</a></li>
+                <li><a href="#objectifs" class="nav-link">🎯 Objectifs</a></li>
+                <li><a href="#population" class="nav-link">👥 Population Cible</a></li>
+                <li><a href="#description" class="nav-link">📋 Description Produit</a></li>
+                <li><a href="#cycle" class="nav-link">🔄 Cycle Opérationnel</a></li>
+                <li class="nav-subitem"><a href="#etape1" class="nav-link">→ Étape 1: Demande</a></li>
+                <li class="nav-subitem"><a href="#etape2" class="nav-link">→ Étape 2: Validation</a></li>
+                <li class="nav-subitem"><a href="#etape3" class="nav-link">→ Étape 3: Wa'ad</a></li>
+                <li class="nav-subitem"><a href="#etape4" class="nav-link">→ Étape 4: Wakala</a></li>
+                <li class="nav-subitem"><a href="#etape5" class="nav-link">→ Étape 5: Acquisition</a></li>
+                <li class="nav-subitem"><a href="#etape6" class="nav-link">→ Étape 6: Contrat</a></li>
+                <li class="nav-subitem"><a href="#etape7" class="nav-link">→ Étape 7: Livraison</a></li>
+                <li class="nav-subitem"><a href="#etape8" class="nav-link">→ Étape 8: Suivi</a></li>
+                <li><a href="#financieres" class="nav-link">💰 Caractéristiques Financières</a></li>
+                <li><a href="#charia" class="nav-link">☪️ Règles Charia</a></li>
+                <li><a href="#technique" class="nav-link">⚙️ Exigences Techniques</a></li>
+                <li><a href="#comptabilite" class="nav-link">📊 Comptabilisation</a></li>
+                <li class="nav-subitem"><a href="#cadre-comptable" class="nav-link">→ Cadre Comptable</a></li>
+                <li class="nav-subitem"><a href="#phase-acquisition" class="nav-link">→ Phase 1 : Acquisition</a></li>
+                <li class="nav-subitem"><a href="#phase-revente" class="nav-link">→ Phase 2 : Revente</a></li>
+                <li class="nav-subitem"><a href="#phase-remboursement" class="nav-link">→ Phase 3 : Remboursement</a></li>
+                <li class="nav-subitem"><a href="#cas-particuliers" class="nav-link">→ Cas Particuliers</a></li>
+                <li><a href="#reporting" class="nav-link">📈 Reporting & KPI</a></li>
+                <li class="nav-subitem"><a href="#reporting-interne" class="nav-link">→ Reporting Interne</a></li>
+                <li class="nav-subitem"><a href="#reporting-bceao" class="nav-link">→ Reporting BCEAO</a></li>
+                <li class="nav-subitem"><a href="#controle-charia" class="nav-link">→ Contrôle Charia</a></li>
+                <li class="nav-subitem"><a href="#dashboard" class="nav-link">→ Dashboard DG</a></li>
+                <li><a href="#avantages" class="nav-link">✨ Avantages</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div class="header">
+                <h1>📄 SPÉCIFICATIONS FONCTIONNELLES</h1>
+                <h2 style="color: white; border: none; margin: 0.5rem 0;">PRODUIT MOURABAHA</h2>
+                <p>AL NAMAA FINANCE | Version 1.0 | Décembre 2025</p>
+            </div>
+
+            <!-- Introduction -->
+            <section id="intro" class="section active">
+                <h2>📖 Introduction</h2>
+                
+                <h3>1.1 Contexte</h3>
+                <div class="highlight">
+                    <p>La Mourabaha est l'un des <strong>produits phares de la finance islamique</strong>, représentant une part significative des financements dans les institutions financières islamiques au niveau mondial. Dans le contexte malien, ce produit répond aux besoins de financement des particuliers et des entreprises tout en respectant les principes de la Charia.</p>
+                </div>
+
+                <h3>1.2 Définition</h3>
+                <div class="info-box">
+                    <h4>☪️ Qu'est-ce que la Mourabaha ?</h4>
+                    <p>La Mourabaha est un <strong>contrat de vente avec marge bénéficiaire convenue</strong> entre la banque et le client. La banque acquiert un bien identifié par le client auprès d'un fournisseur, puis le revend au client à un prix incluant une marge connue et acceptée par les deux parties. Le paiement peut être différé selon un échéancier convenu.</p>
+                </div>
+
+                <h3>1.3 Cadre Réglementaire</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🏦 BCEAO</h4>
+                        <p>Réglementation applicable aux établissements de crédit</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 AAOIFI</h4>
+                        <p>Normes comptables et Sharia Standard n°8 sur Mourabaha</p>
+                    </div>
+                    <div class="card">
+                        <h4>🕌 CSIM</h4>
+                        <p>Directives du Conseil Supérieur Islamique du Mali</p>
+                    </div>
+                    <div class="card">
+                        <h4>📜 Fenêtres Islamiques</h4>
+                        <p>Instruction BCEAO spécifique</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Objectifs -->
+            <section id="objectifs" class="section">
+                <h2>🎯 Objectifs du Produit</h2>
+                
+                <h3>2.1 Objectifs Stratégiques</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>☪️ Alternative Charia</h4>
+                        <p>Offrir une alternative conforme à la Charia au crédit conventionnel</p>
+                    </div>
+                    <div class="card">
+                        <h4>📈 Développement</h4>
+                        <p>Développer le portefeuille de financement islamique</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Répondre aux besoins</h4>
+                        <p>Financement d'équipements, véhicules, stocks et matières premières</p>
+                    </div>
+                    <div class="card">
+                        <h4>💪 Positionnement</h4>
+                        <p>Renforcer la position sur le marché de la finance islamique</p>
+                    </div>
+                    <div class="card">
+                        <h4>🌍 Inclusion</h4>
+                        <p>Contribuer à l'inclusion financière des populations attachées aux principes islamiques</p>
+                    </div>
+                </div>
+
+                <h3>2.2 Objectifs Commerciaux</h3>
+                <ul>
+                    <li><strong>Capter</strong> une clientèle attachée aux principes de la finance islamique</li>
+                    <li><strong>Diversifier</strong> les sources de revenus de la banque</li>
+                    <li><strong>Développer</strong> une clientèle fidèle par un produit éthique et transparent</li>
+                </ul>
+            </section>
+
+            <!-- Population Cible -->
+            <section id="population" class="section">
+                <h2>👥 Population Cible</h2>
+                
+                <h3>3.1 Segment Particuliers</h3>
+                
+                <h4>3.1.1 Profil Démographique</h4>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>👤 Âge</h4>
+                        <p><strong>25-60 ans</strong></p>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Revenus</h4>
+                        <p>Minimum <strong>150 000 FCFA/mois</strong></p>
+                    </div>
+                    <div class="card">
+                        <h4>💼 Statut</h4>
+                        <p>Salariés, fonctionnaires, commerçants, professions libérales</p>
+                    </div>
+                    <div class="card">
+                        <h4>📍 Zone</h4>
+                        <p>Bamako et principales villes (Kayes, Sikasso, Ségou, Mopti)</p>
+                    </div>
+                </div>
+
+                <h4>3.1.2 Besoins Typiques</h4>
+                <div class="highlight">
+                    <ul>
+                        <li>🚗 Acquisition de véhicules personnels</li>
+                        <li>🏠 Achat d'équipements électroménagers</li>
+                        <li>💻 Acquisition de matériel informatique et bureautique</li>
+                        <li>📦 Financement de stocks pour petits commerçants</li>
+                    </ul>
+                </div>
+
+                <h4>3.1.3 Critères d'Éligibilité</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Exigence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nationalité</td>
+                            <td>Malienne ou résident avec titre de séjour valide</td>
+                        </tr>
+                        <tr>
+                            <td>Ancienneté pro</td>
+                            <td>2 ans (salariés) / 3 ans (indépendants)</td>
+                        </tr>
+                        <tr>
+                            <td>Capacité remboursement</td>
+                            <td>Taux d'endettement ≤ 40%</td>
+                        </tr>
+                        <tr>
+                            <td>Apport personnel</td>
+                            <td>Minimum 20% du montant total</td>
+                        </tr>
+                        <tr>
+                            <td>Historique</td>
+                            <td>Absence d'incidents de paiement (24 mois)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Description -->
+            <section id="description" class="section">
+                <h2>📋 Description Fonctionnelle</h2>
+                
+                <h3>4.1 Principe Fondamental</h3>
+                <div class="info-box">
+                    <p>La Mourabaha repose sur un <strong>double contrat</strong> :</p>
+                    <ol>
+                        <li><strong>Contrat d'acquisition :</strong> La banque achète le bien auprès du fournisseur</li>
+                        <li><strong>Contrat de revente :</strong> La banque revend le bien au client avec une marge bénéficiaire</li>
+                    </ol>
+                </div>
+
+                <div class="highlight">
+                    <h4>☪️ Éléments essentiels conformes à la Charia :</h4>
+                    <ul>
+                        <li>✓ Le bien doit être <strong>licite (Halal)</strong> et exister au moment du contrat</li>
+                        <li>✓ La <strong>marge bénéficiaire</strong> doit être connue et acceptée par les deux parties</li>
+                        <li>✓ La <strong>propriété du bien</strong> doit transiter effectivement par la banque</li>
+                        <li>✓ Le <strong>prix de vente est fixe</strong> et ne peut être modifié après signature</li>
+                    </ul>
+                </div>
+
+                <h3>4.2 Types de Mourabaha Proposés</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📦 Mourabaha Simple (Directe)</h4>
+                        <p>La banque achète directement le bien auprès du fournisseur choisi par le client</p>
+                        <p><strong>Processus distinct</strong> : acquisition puis revente</p>
+                        <p><span class="badge badge-info">Durée: 12-60 mois</span></p>
+                    </div>
+                    <div class="card">
+                        <h4>📋 Mourabaha sur Commande</h4>
+                        <p>Le client identifie le bien et le fournisseur</p>
+                        <p>La banque passe commande et prend livraison</p>
+                        <p>Transfert après apport</p>
+                        <p><span class="badge badge-info">Durée: 12-84 mois</span></p>
+                    </div>
+                </div>
+
+                <h3>4.3 Montants et Durées</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type de Client</th>
+                            <th>Montant Min - Max</th>
+                            <th>Apport Min</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Particuliers</strong></td>
+                            <td>500 000 - 25 M FCFA</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Micro-entreprises</strong></td>
+                            <td>1 M - 50 M FCFA</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PME</strong></td>
+                            <td>5 M - 200 M FCFA</td>
+                            <td>15%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Durées selon type de bien</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type de Bien</th>
+                            <th>Durée Min</th>
+                            <th>Durée Max</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Électroménager, mobilier</td>
+                            <td>12 mois</td>
+                            <td>36 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Motos, tricycles</td>
+                            <td>12 mois</td>
+                            <td>48 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Véhicules légers (occasion)</td>
+                            <td>12 mois</td>
+                            <td>60 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Véhicules neufs</td>
+                            <td>12 mois</td>
+                            <td>84 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Équipements professionnels</td>
+                            <td>12 mois</td>
+                            <td>72 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Engins, camions</td>
+                            <td>24 mois</td>
+                            <td>84 mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Cycle Opérationnel -->
+            <section id="cycle" class="section">
+                <h2>🔄 Cycle Opérationnel Mourabaha</h2>
+                
+                <div class="highlight">
+                    <h3>Vue d'Ensemble</h3>
+                    <p>Le cycle opérationnel de la Mourabaha chez AL NAMAA FINANCE suit un processus rigoureux en <strong>8 étapes</strong>, conforme aux standards BCEAO et aux principes de la Charia. Ce processus garantit la <strong>transparence</strong>, la <strong>conformité réglementaire</strong> et la <strong>maîtrise des risques</strong>.</p>
+                </div>
+
+                <h3>Processus Complet</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Étape</th>
+                            <th>Description</th>
+                            <th>Acteur Principal</th>
+                            <th>Délai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-success">1</span></td>
+                            <td>Dépôt demande et analyse préliminaire</td>
+                            <td>Chargé Clientèle</td>
+                            <td>J0</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">2</span></td>
+                            <td>Analyse et validation (Risque + Charia)</td>
+                            <td>Analyste Crédit / CCI</td>
+                            <td>J+2</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">3</span></td>
+                            <td>Signature du Wa'ad (Promesse d'achat)</td>
+                            <td>Service Juridique</td>
+                            <td>J+3</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">4</span></td>
+                            <td>Signature éventuelle du Mandat Wakala</td>
+                            <td>Service Juridique</td>
+                            <td>J+3</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">5</span></td>
+                            <td>Acquisition du bien par AL NAMAA</td>
+                            <td>Service Achats</td>
+                            <td>J+5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">6</span></td>
+                            <td>Signature du contrat Mourabaha final</td>
+                            <td>Service Juridique</td>
+                            <td>J+6</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">7</span></td>
+                            <td>Livraison et transfert de propriété</td>
+                            <td>Back Office</td>
+                            <td>J+7</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">8</span></td>
+                            <td>Suivi et encaissement mensualités</td>
+                            <td>Recouvrement</td>
+                            <td>Continu</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box" style="margin-top: 2rem;">
+                    <h4>⏱️ Durée totale du processus</h4>
+                    <p>De la demande initiale à la livraison du bien : <strong>7 jours ouvrables</strong></p>
+                    <p>Ensuite : Suivi continu pendant toute la durée du financement (12-84 mois)</p>
+                </div>
+
+                <div class="warning">
+                    <h4>📌 Navigation</h4>
+                    <p>Utilisez le menu latéral pour accéder au détail de chaque étape (Étapes 1 à 8)</p>
+                </div>
+            </section>
+
+            <!-- Étape 1 -->
+            <section id="etape1" class="section">
+                <h2>📝 ÉTAPE 1 – Dépôt de la Demande</h2>
+                
+                <div class="info-box">
+                    <h4>🎯 Objectif</h4>
+                    <p>Recueillir la demande du client et effectuer une analyse préliminaire de conformité Charia et de faisabilité.</p>
+                </div>
+
+                <h3>Documents Requis</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📋 A) Documents KYC</h4>
+                        <ul>
+                            <li>Formulaire de demande Mourabaha</li>
+                            <li>CNI ou passeport valide</li>
+                            <li>Justificatif domicile (< 3 mois)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💰 B) Documents Financiers</h4>
+                        <ul>
+                            <li>3 derniers bulletins salaire (particuliers)</li>
+                            <li>Bilans 2 derniers exercices (entreprises)</li>
+                            <li>Relevé bancaire 6 mois</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📄 C) Proforma Fournisseur</h4>
+                        <ul>
+                            <li>Proforma détaillée (description, prix, délai)</li>
+                            <li>Coordonnées fournisseur (RCCM, téléphone)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Actions Principales</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Accueil et présentation</h4>
+                        <p>Accueil client et présentation complète du produit Mourabaha</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Vérification éligibilité</h4>
+                        <p>Vérification éligibilité préliminaire (âge, revenus, statut)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Conformité Charia</h4>
+                        <p>Analyse préliminaire conformité Charia du bien demandé</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Création dossier</h4>
+                        <p>Création dossier Odoo (statut: 'Demande Initiée')</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Récépissé</h4>
+                        <p>Récépissé de dépôt remis au client avec numéro de suivi</p>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 1</div>
+                        <div class="kpi-value">1 jour</div>
+                        <div class="kpi-label">J0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 2 -->
+            <section id="etape2" class="section">
+                <h2>✅ ÉTAPE 2 – Analyse et Validation</h2>
+                
+                <h3>Étude de Solvabilité et Scoring</h3>
+                
+                <div class="highlight">
+                    <h4>📊 Analyse financière complète</h4>
+                    <ul>
+                        <li>Calcul capacité de remboursement (taux endettement ≤ 40%)</li>
+                        <li>Consultation Centrale des Risques BCEAO</li>
+                        <li>Vérification absence incidents paiement (24 mois)</li>
+                        <li>Scoring interne sur 100 points</li>
+                    </ul>
+                </div>
+
+                <h4>Grille de Scoring</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère Scoring</th>
+                            <th>Points</th>
+                            <th>Poids</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Capacité remboursement</td>
+                            <td>30</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td>Historique bancaire</td>
+                            <td>25</td>
+                            <td>25%</td>
+                        </tr>
+                        <tr>
+                            <td>Stabilité professionnelle</td>
+                            <td>20</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td>Apport personnel</td>
+                            <td>15</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td>Qualité garanties</td>
+                            <td>10</td>
+                            <td>10%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>Interprétation Score</h4>
+                    <ul>
+                        <li><strong>≥ 70 :</strong> Excellent - Approbation recommandée</li>
+                        <li><strong>60-69 :</strong> Bon - Sous conditions</li>
+                        <li><strong>50-59 :</strong> Moyen - Garanties renforcées</li>
+                        <li><strong>< 50 :</strong> Faible - Rejet</li>
+                    </ul>
+                </div>
+
+                <h3>Validation Charia (CCI)</h3>
+                <div class="highlight">
+                    <h4>☪️ Points de contrôle obligatoires</h4>
+                    <ol>
+                        <li><strong>Licéité du bien :</strong> Pas Haram (alcool, porc, jeux hasard)</li>
+                        <li><strong>Usage licite :</strong> Utilisation conforme Charia</li>
+                        <li><strong>Existence bien :</strong> Pas de vente à découvert</li>
+                        <li><strong>Propriété effective :</strong> AL NAMAA possédera réellement le bien</li>
+                        <li><strong>Transparence marge :</strong> Prix achat + marge = prix vente</li>
+                        <li><strong>Absence Riba :</strong> Prix fixe, pas d'intérêt variable</li>
+                    </ol>
+                    <p><strong>Décision CCI :</strong> Approuvé / Sous conditions / Rejeté</p>
+                </div>
+
+                <h3>Délégation de Pouvoir</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Montant</th>
+                            <th>Décideur</th>
+                            <th>Délai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>< 5 M FCFA</td>
+                            <td>Directeur Agence</td>
+                            <td>24h</td>
+                        </tr>
+                        <tr>
+                            <td>5-20 M FCFA</td>
+                            <td>Directeur Régional</td>
+                            <td>48h</td>
+                        </tr>
+                        <tr>
+                            <td>20-50 M FCFA</td>
+                            <td>Directeur Engagements</td>
+                            <td>72h</td>
+                        </tr>
+                        <tr>
+                            <td>> 50 M FCFA</td>
+                            <td>Comité Direction</td>
+                            <td>1 semaine</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 2</div>
+                        <div class="kpi-value">2 jours</div>
+                        <div class="kpi-label">J+1 à J+2</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 3 -->
+            <section id="etape3" class="section">
+                <h2>📄 ÉTAPE 3 – Signature du Wa'ad</h2>
+                
+                <div class="info-box">
+                    <h4>☪️ Principe du Wa'ad</h4>
+                    <p>Le client s'engage formellement à acheter le bien une fois qu'il aura été acquis par AL NAMAA FINANCE. Cette <strong>promesse unilatérale</strong> est essentielle pour la conformité Charia.</p>
+                </div>
+
+                <h3>Contenu du Contrat</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📋 Identification</h4>
+                        <ul>
+                            <li>Identité complète du client (promettant)</li>
+                            <li>Description précise du bien (marque, modèle)</li>
+                            <li>Fournisseur désigné et coordonnées</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Conditions financières</h4>
+                        <ul>
+                            <li>Prix maximum d'achat par AL NAMAA</li>
+                            <li>Montant apport personnel (Urboun)</li>
+                            <li>Engagement ferme d'acquérir le bien</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📅 Durée</h4>
+                        <p>Durée de validité : <strong>30 jours</strong></p>
+                    </div>
+                </div>
+
+                <h3>Versement Apport (Urboun)</h3>
+                <div class="highlight">
+                    <ul>
+                        <li><strong>Montant :</strong> 20% prix bien (15% PME)</li>
+                        <li><strong>Nature :</strong> Non remboursable si désistement volontaire</li>
+                        <li><strong>Mode :</strong> Virement, chèque certifié ou espèces (<1M)</li>
+                    </ul>
+                </div>
+
+                <h3>Actions Système</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Upload contrat</h4>
+                        <p>Upload contrat Wa'ad signé (PDF)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Enregistrement apport</h4>
+                        <p>Enregistrement versement apport</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Écriture comptable</h4>
+                        <p>Débit Banque / Crédit Acompte</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Mise à jour statut</h4>
+                        <p>Statut Odoo : 'Wa'ad Signé'</p>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 3</div>
+                        <div class="kpi-value">1 jour</div>
+                        <div class="kpi-label">J+3</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 4 -->
+            <section id="etape4" class="section">
+                <h2>🤝 ÉTAPE 4 – Mandat Wakala (optionnel)</h2>
+                
+                <div class="info-box">
+                    <h4>☪️ Principe du Wakala</h4>
+                    <p>Dans certains cas, le client peut être mandaté pour acheter le bien au nom d'AL NAMAA FINANCE. Cette procédure simplifie l'acquisition tout en préservant la conformité Charia.</p>
+                </div>
+
+                <h3>Cas d'Application</h3>
+                <div class="highlight">
+                    <ul>
+                        <li>🚨 Biens urgents (disponibilité limitée)</li>
+                        <li>📍 Fournisseurs éloignés géographiquement</li>
+                        <li>🔧 Biens nécessitant expertise technique du client</li>
+                        <li>🤝 Relations commerciales établies client-fournisseur</li>
+                    </ul>
+                </div>
+
+                <h3>Obligations du Mandataire (Client)</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>✅ Obligations</h4>
+                        <ul>
+                            <li>Acheter au nom d'AL NAMAA</li>
+                            <li>Respecter le prix maximum autorisé</li>
+                            <li>Vérifier conformité du bien</li>
+                            <li>Remettre facture et documents</li>
+                            <li>Rendre compte de l'exécution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Procédure</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>1. Signature contrat Wakala</h4>
+                        <p>Utilisation du modèle BCEAO</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2. Virement fonds</h4>
+                        <p>Virement des fonds au client (montant achat)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>3. Achat par client</h4>
+                        <p>Client achète le bien (facture AL NAMAA)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>4. Remise documents</h4>
+                        <p>Remise facture et justificatifs</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5. Validation</h4>
+                        <p>Validation acquisition par AL NAMAA</p>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ IMPORTANT CHARIA</h4>
+                    <p>La facture DOIT être au nom d'<strong>AL NAMAA</strong>, pas au nom du client. Le bien devient propriété de la banque.</p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 4</div>
+                        <div class="kpi-value">1 jour</div>
+                        <div class="kpi-label">J+3 (parallèle)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 5 -->
+            <section id="etape5" class="section">
+                <h2>🛒 ÉTAPE 5 – Acquisition du Bien</h2>
+                
+                <div class="warning">
+                    <h4>☪️ CRITIQUE CHARIA</h4>
+                    <p>AL NAMAA FINANCE doit acquérir et posséder <strong>RÉELLEMENT</strong> le bien avant de le revendre au client. C'est un pilier de la validité de la Mourabaha.</p>
+                </div>
+
+                <h3>Procédure d'Acquisition</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>5.1 - Bon de Commande</h4>
+                        <ul>
+                            <li>Émission bon de commande au nom d'AL NAMAA</li>
+                            <li>Description précise du bien commandé</li>
+                            <li>Prix convenu, conditions livraison, délais</li>
+                            <li>Signature Service Achats AL NAMAA</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5.2 - Paiement Fournisseur</h4>
+                        <ul>
+                            <li>Vérification identité fournisseur (RCCM)</li>
+                            <li>Virement depuis compte AL NAMAA</li>
+                            <li>Conservation preuve de paiement</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5.3 - Facture d'Achat</h4>
+                        <ul>
+                            <li><strong>Facture OBLIGATOIREMENT au nom d'AL NAMAA FINANCE</strong></li>
+                            <li>Description détaillée du bien</li>
+                            <li>Prix HT, TVA, montant TTC</li>
+                            <li>Date émission, numéro facture</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5.4 - Prise de Possession</h4>
+                        <ul>
+                            <li>Réception physique du bien par AL NAMAA</li>
+                            <li>Bon de livraison signé</li>
+                            <li>Vérification conformité (état, caractéristiques)</li>
+                            <li>Pour véhicule : carte grise provisoire AL NAMAA</li>
+                            <li>Photos du bien (archivage dossier)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Comptabilisation</h3>
+                <div class="info-box">
+                    <h4>📊 Écriture comptable</h4>
+                    <p><strong>Débit</strong> 241 - Stock Mourabaha Véhicules : 10 000 000 FCFA</p>
+                    <p><strong>Crédit</strong> 521 - Banque : 10 000 000 FCFA</p>
+                    <p>Le bien figure à l'actif d'AL NAMAA jusqu'à sa revente au client (Étape 6).</p>
+                </div>
+
+                <h3>Risques Assumés par AL NAMAA</h3>
+                <div class="warning">
+                    <p>Entre l'achat et la revente, AL NAMAA assume les risques :</p>
+                    <ul>
+                        <li>Destruction ou perte du bien → AL NAMAA</li>
+                        <li>Défaut caché du bien → AL NAMAA</li>
+                        <li>Vol du bien → AL NAMAA (si assuré)</li>
+                    </ul>
+                    <p><strong>Protection :</strong> Assurance tous risques souscrite par AL NAMAA jusqu'à livraison client.</p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 5</div>
+                        <div class="kpi-value">2 jours</div>
+                        <div class="kpi-label">J+4 à J+5</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 6 -->
+            <section id="etape6" class="section">
+                <h2>✍️ ÉTAPE 6 – Contrat Mourabaha Final</h2>
+                
+                <div class="info-box">
+                    <h4>📄 Contrat de Vente Mourabaha</h4>
+                    <p>Une fois le bien acquis et possédé par la banque, le <strong>contrat de vente Mourabaha définitif</strong> est signé entre AL NAMAA (vendeur) et le client (acheteur).</p>
+                </div>
+
+                <h3>Éléments essentiels du contrat</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🏷️ Prix d'achat</h4>
+                        <p>Montant payé par AL NAMAA au fournisseur (avec justificatif)</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Marge bancaire</h4>
+                        <p>Montant ou pourcentage de la marge, clairement identifié</p>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Prix de vente</h4>
+                        <p>Prix d'achat + Marge = Prix de vente total</p>
+                    </div>
+                    <div class="card">
+                        <h4>📅 Modalités paiement</h4>
+                        <p>Échéancier détaillé avec dates et montants</p>
+                    </div>
+                </div>
+
+                <h3>Exemple de calcul</h3>
+                <table class="comparison-table">
+                    <tbody>
+                        <tr>
+                            <td>Prix d'acquisition AL NAMAA</td>
+                            <td style="text-align: right;">10 000 000 FCFA</td>
+                        </tr>
+                        <tr>
+                            <td>+ Marge AL NAMAA (10% sur 48 mois)</td>
+                            <td style="text-align: right;">2 000 000 FCFA</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>= PRIX DE VENTE TOTAL</strong></td>
+                            <td style="text-align: right;"><strong>12 000 000 FCFA</strong></td>
+                        </tr>
+                        <tr>
+                            <td>- Apport personnel déjà versé</td>
+                            <td style="text-align: right;">2 400 000 FCFA</td>
+                        </tr>
+                        <tr style="background: #fff3e0;">
+                            <td><strong>= MONTANT FINANCÉ</strong></td>
+                            <td style="text-align: right;"><strong>9 600 000 FCFA</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>☪️ Conformité Charia</h4>
+                    <ul>
+                        <li>✓ Le prix de vente est <strong>fixe et irrévocable</strong></li>
+                        <li>✓ Aucune modification possible après signature</li>
+                        <li>✓ Transparence totale sur la composition du prix</li>
+                        <li>✓ Pas de pénalités de retard assimilables à du Riba</li>
+                    </ul>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 6</div>
+                        <div class="kpi-value">1 jour</div>
+                        <div class="kpi-label">J+6</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 7 -->
+            <section id="etape7" class="section">
+                <h2>🚚 ÉTAPE 7 – Livraison et Transfert</h2>
+                
+                <h3>Processus de livraison</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>1. Organisation livraison</h4>
+                        <p>Coordination avec le client et le fournisseur pour date/heure</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2. Livraison physique</h4>
+                        <p>Remise du bien au client en présence d'un représentant AL NAMAA</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>3. Vérification</h4>
+                        <p>Inspection conjointe du bien (conformité, état, fonctionnement)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>4. PV de livraison</h4>
+                        <p>Procès-verbal signé par client, fournisseur et AL NAMAA</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5. Transfert propriété</h4>
+                        <p>La propriété passe officiellement au client</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>6. Documents</h4>
+                        <p>Remise facture définitive, carte grise, manuels, garanties</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>📋 Procès-Verbal de Livraison</h4>
+                    <p>Le PV de livraison atteste officiellement que :</p>
+                    <ul>
+                        <li>Le bien a été livré conformément au contrat</li>
+                        <li>Le client l'accepte sans réserve</li>
+                        <li>Le transfert de propriété est effectif</li>
+                        <li>L'échéancier de paiement commence à courir</li>
+                    </ul>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 7</div>
+                        <div class="kpi-value">1 jour</div>
+                        <div class="kpi-label">J+7</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Étape 8 -->
+            <section id="etape8" class="section">
+                <h2>📊 ÉTAPE 8 – Suivi et Recouvrement</h2>
+                
+                <div class="highlight">
+                    <h4>📅 Suivi continu</h4>
+                    <p>Le suivi commence dès la livraison du bien et se poursuit jusqu'au remboursement complet du financement (12 à 84 mois selon contrat).</p>
+                </div>
+
+                <h3>Actions de suivi</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>💳 Encaissement mensualités</h4>
+                        <p>Prélèvement automatique ou paiement manuel selon modalités convenues</p>
+                    </div>
+                    <div class="card">
+                        <h4>📧 Communication client</h4>
+                        <p>Rappels pré-échéance (SMS, email)</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Tableau de bord</h4>
+                        <p>Suivi temps réel dans Odoo</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚠️ Gestion impayés</h4>
+                        <p>Relances amiables puis procédures recouvrement</p>
+                    </div>
+                </div>
+
+                <h3>Procédure en cas d'impayé</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>J+3 : Premier rappel</h4>
+                        <p>SMS/appel téléphonique au client</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+7 : Relance formelle</h4>
+                        <p>Lettre de relance amiable</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+15 : Visite client</h4>
+                        <p>Entretien pour comprendre la situation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+30 : Mise en demeure</h4>
+                        <p>Lettre recommandée avec mise en demeure</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+60 : Actions contentieuses</h4>
+                        <p>Activation des garanties, procédures judiciaires</p>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h4>☪️ Principe Charia sur les pénalités</h4>
+                    <p>Conformément aux principes de la finance islamique, <strong>les pénalités de retard ne peuvent générer de revenus pour la banque</strong>. Toute pénalité collectée doit être reversée à des œuvres caritatives (HumaniWAQF).</p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Étape 8</div>
+                        <div class="kpi-value">12-84</div>
+                        <div class="kpi-label">mois (continu)</div>
+                    </div>
+                </div>
+
+                <div class="highlight" style="margin-top: 2rem;">
+                    <h3>✅ Fin du cycle</h3>
+                    <p>Le cycle se termine lorsque :</p>
+                    <ul>
+                        <li>Toutes les mensualités ont été payées</li>
+                        <li>Le client est quitte de toute obligation</li>
+                        <li>Une attestation de solde de tout compte est délivrée</li>
+                        <li>Le dossier est archivé selon procédures BCEAO</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section Caractéristiques Financières -->
+            <section id="financieres" class="section">
+                <h2>💰 Caractéristiques Financières</h2>
+                
+                <h3>6.1 Marges Mourabaha</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type Client</th>
+                            <th>Durée</th>
+                            <th>Marge Annuelle</th>
+                            <th>Marge Totale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Salariés premium</td>
+                            <td>12-48 mois</td>
+                            <td>8-10%</td>
+                            <td>8-40%</td>
+                        </tr>
+                        <tr>
+                            <td>Salariés standard</td>
+                            <td>12-60 mois</td>
+                            <td>10-12%</td>
+                            <td>10-60%</td>
+                        </tr>
+                        <tr>
+                            <td>Indépendants</td>
+                            <td>12-48 mois</td>
+                            <td>12-14%</td>
+                            <td>12-56%</td>
+                        </tr>
+                        <tr>
+                            <td>PME établies</td>
+                            <td>24-72 mois</td>
+                            <td>10-12%</td>
+                            <td>20-86%</td>
+                        </tr>
+                        <tr>
+                            <td>PME nouvelles</td>
+                            <td>12-48 mois</td>
+                            <td>14-16%</td>
+                            <td>14-64%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 Frais Applicables</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type de Frais</th>
+                            <th>Montant</th>
+                            <th>Perception</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Frais de dossier</td>
+                            <td>1% du montant (max 100 000 FCFA)</td>
+                            <td>À l'acceptation</td>
+                        </tr>
+                        <tr>
+                            <td>Frais visite/expertise bien (>10M)</td>
+                            <td>25 000 - 75 000 FCFA</td>
+                            <td>Avant acquisition</td>
+                        </tr>
+                        <tr>
+                            <td>Frais assurance vie/invalidité</td>
+                            <td>0,5% montant annuel</td>
+                            <td>Mensuel</td>
+                        </tr>
+                        <tr>
+                            <td>Assurance bien (véhicule, équipement)</td>
+                            <td>Selon valeur + risque</td>
+                            <td>Annuel/Mensuel</td>
+                        </tr>
+                        <tr>
+                            <td>Frais enregistrement garanties</td>
+                            <td>10 000 - 50 000 FCFA</td>
+                            <td>À la signature</td>
+                        </tr>
+                        <tr>
+                            <td>Frais mainlevée (fin contrat)</td>
+                            <td>15 000 FCFA</td>
+                            <td>Clôture</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>Intérêts de retard</strong></td>
+                            <td><strong>0 FCFA</strong></td>
+                            <td><strong>ZÉRO</strong></td>
+                        </tr>
+                        <tr style="background: #fff3e0;">
+                            <td><strong>Pénalités → HumaniWAQF</strong></td>
+                            <td>1% / mois</td>
+                            <td>100% Charité</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.3 Synthèse Produit</h3>
+                <table class="comparison-table">
+                    <tbody>
+                        <tr>
+                            <td>Montant Financement</td>
+                            <td>500 000 à 200 000 000 FCFA</td>
+                        </tr>
+                        <tr>
+                            <td>Durée</td>
+                            <td>12 à 84 mois (selon bien)</td>
+                        </tr>
+                        <tr>
+                            <td>Apport Personnel</td>
+                            <td>20% particuliers / 15% PME</td>
+                        </tr>
+                        <tr>
+                            <td>Marge Bénéficiaire</td>
+                            <td>8% à 16% annuel (fixe)</td>
+                        </tr>
+                        <tr>
+                            <td>Frais Dossier</td>
+                            <td>1% (max 100 000 FCFA)</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>Intérêts de Retard</strong></td>
+                            <td><strong>ZÉRO</strong></td>
+                        </tr>
+                        <tr style="background: #fff3e0;">
+                            <td><strong>Pénalités → HumaniWAQF</strong></td>
+                            <td>100% Charité</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Règles Charia -->
+            <section id="charia" class="section">
+                <h2>☪️ Règles de Conformité Charia</h2>
+                
+                <h3>7.1 Marge vs Intérêt (Riba)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Marge Mourabaha (✓)</th>
+                            <th>Intérêt/Riba (✗)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nature</strong></td>
+                            <td>Profit sur vente de bien</td>
+                            <td>Profit sur argent prêté</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Montant</strong></td>
+                            <td>FIXE dès le départ</td>
+                            <td>Variable, évolutif</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fondement</strong></td>
+                            <td>Transaction commerciale réelle</td>
+                            <td>Création monétaire</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Risque</strong></td>
+                            <td>Banque assume risque du bien</td>
+                            <td>Banque sans risque</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Retard</strong></td>
+                            <td>Pas d'intérêt supplémentaire</td>
+                            <td>Intérêts composés</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>7.2 Principes Fondamentaux</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>1. Propriété Effective</h4>
+                        <p>La banque doit réellement posséder le bien avant de le revendre. Facture au nom d'AL NAMAA obligatoire.</p>
+                    </div>
+                    <div class="card">
+                        <h4>2. Bien Licite (Halal)</h4>
+                        <p>Exclusion : alcool, porc, armements, jeux de hasard, cigarettes, activités illicites.</p>
+                    </div>
+                    <div class="card">
+                        <h4>3. Transparence Totale</h4>
+                        <p>Prix d'achat + Marge clairement communiqués au client avant signature.</p>
+                    </div>
+                    <div class="card">
+                        <h4>4. Prix Fixe</h4>
+                        <p>Aucune modification du prix après signature du contrat Mourabaha.</p>
+                    </div>
+                    <div class="card">
+                        <h4>5. Absence de Riba</h4>
+                        <p>Pas d'intérêts de retard. Pénalités reversées à HumaniWAQF (œuvres caritatives).</p>
+                    </div>
+                    <div class="card">
+                        <h4>6. Risque Assumé</h4>
+                        <p>Banque assume tous les risques entre achat et revente du bien.</p>
+                    </div>
+                </div>
+
+                <h3>7.3 Validation du Comité Charia</h3>
+                <div class="highlight">
+                    <p>Chaque opération Mourabaha est soumise au <strong>Comité de Conformité Islamique (CCI)</strong> qui vérifie :</p>
+                    <ul>
+                        <li>La licéité du bien financé</li>
+                        <li>Le respect de la propriété effective par AL NAMAA</li>
+                        <li>La transparence de la marge</li>
+                        <li>L'absence de clauses contraires à la Charia</li>
+                        <li>Le reversement des pénalités à HumaniWAQF</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section Technique -->
+            <section id="technique" class="section">
+                <h2>⚙️ Exigences Techniques</h2>
+                
+                <h3>8.1 Architecture Système</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>🖥️ Core Banking</h4>
+                        <p><strong>Odoo 16+ Enterprise</strong></p>
+                        <p>Modules : Accounting, Sales, CRM, Inventory</p>
+                    </div>
+                    <div class="card">
+                        <h4>📱 Front-End</h4>
+                        <p><strong>Application Mobile</strong> (iOS/Android)</p>
+                        <p>Interface web responsive</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔒 Sécurité</h4>
+                        <p>SSL/TLS, Authentification 2FA</p>
+                        <p>Chiffrement données sensibles</p>
+                    </div>
+                    <div class="card">
+                        <h4>☁️ Infrastructure</h4>
+                        <p>Cloud AWS ou Azure</p>
+                        <p>Backup quotidien automatique</p>
+                    </div>
+                </div>
+
+                <h3>8.2 Modules Odoo Requis</h3>
+                <div class="highlight">
+                    <h4>Modules Spécifiques Finance Islamique</h4>
+                    <ul>
+                        <li><strong>Module Mourabaha :</strong> Gestion cycle complet (Wa'ad, Wakala, contrats)</li>
+                        <li><strong>Module Comité Charia :</strong> Workflow validation CCI</li>
+                        <li><strong>Module HumaniWAQF :</strong> Gestion automatique reversement pénalités</li>
+                        <li><strong>Comptabilité AAOIFI :</strong> Écritures conformes standards islamiques</li>
+                        <li><strong>Reporting BCEAO :</strong> États réglementaires automatisés</li>
+                    </ul>
+                </div>
+
+                <h3>8.3 Intégrations</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Système</th>
+                            <th>Type</th>
+                            <th>Objectif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Centrale des Risques BCEAO</td>
+                            <td>API</td>
+                            <td>Consultation historique client</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile Money (Orange, Moov)</td>
+                            <td>API</td>
+                            <td>Encaissement mensualités</td>
+                        </tr>
+                        <tr>
+                            <td>SMS Gateway</td>
+                            <td>API</td>
+                            <td>Notifications et relances</td>
+                        </tr>
+                        <tr>
+                            <td>Signature Électronique</td>
+                            <td>API</td>
+                            <td>Signature contrats en ligne</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Comptabilisation - Vue d'ensemble -->
+            <section id="comptabilite" class="section">
+                <h2>💰 9. Comptabilisation (Référence AAOIFI & BCEAO)</h2>
+                
+                <div class="info-box">
+                    <p>La comptabilisation de la Mourabaha suit les <strong>normes AAOIFI</strong> (Accounting and Auditing Organization for Islamic Financial Institutions) adaptées au <strong>plan comptable BCEAO</strong> pour les institutions de microfinance au Mali. Cette section détaille l'ensemble des écritures comptables du cycle de vie complet d'un financement Mourabaha.</p>
+                </div>
+
+                <h3>Architecture Comptable</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📋 Cadre Comptable</h4>
+                        <p>Normes AAOIFI FAS 28, BCEAO, SYSCOHADA</p>
+                        <p><strong>Plan comptable :</strong> 15 comptes spécifiques</p>
+                    </div>
+                    <div class="card">
+                        <h4>1️⃣ Phase Acquisition</h4>
+                        <p>Réception apport client (Urboun 20%)</p>
+                        <p>Achat bien par AL NAMAA (Stock 241)</p>
+                    </div>
+                    <div class="card">
+                        <h4>2️⃣ Phase Revente</h4>
+                        <p>Signature contrat Mourabaha</p>
+                        <p>Comptabilisation marge différée (471)</p>
+                    </div>
+                    <div class="card">
+                        <h4>3️⃣ Phase Remboursement</h4>
+                        <p>Encaissement mensualités</p>
+                        <p>Constatation marge prorata temporis</p>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h4>📌 Navigation</h4>
+                    <p>Utilisez le menu latéral pour accéder au détail de chaque phase comptable</p>
+                </div>
+            </section>
+
+            <!-- Section 9.1 - Cadre Comptable -->
+            <section id="cadre-comptable" class="section">
+                <h2>📋 9.1 Cadre Comptable de Référence</h2>
+                
+                <h3>9.1.1 Normes Applicables</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Norme</th>
+                            <th>Description</th>
+                            <th>Référence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AAOIFI</strong></td>
+                            <td>Normes comptables finance islamique</td>
+                            <td>FAS 28</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BCEAO</strong></td>
+                            <td>Plan comptable institutions microfinance</td>
+                            <td>PCSFD 2018</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SYSCOHADA</strong></td>
+                            <td>Système comptable harmonisé OHADA</td>
+                            <td>Révisé 2017</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.1.2 Plan Comptable Spécifique Mourabaha</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Libellé</th>
+                            <th>Nature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>241</strong></td>
+                            <td>Stock Mourabaha (Biens acquis)</td>
+                            <td>ACTIF - Stock en attente revente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>301</strong></td>
+                            <td>Créances Mourabaha</td>
+                            <td>ACTIF - Créances clients</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3011</strong></td>
+                            <td>Créances Mourabaha saines</td>
+                            <td>Sans impayé</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3012</strong></td>
+                            <td>Créances Mourabaha en souffrance</td>
+                            <td>&gt;90 jours impayés</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3013</strong></td>
+                            <td>Créances Mourabaha douteuses</td>
+                            <td>&gt;180 jours impayés</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3014</strong></td>
+                            <td>Créances Mourabaha compromises</td>
+                            <td>&gt;365 jours impayés</td>
+                        </tr>
+                        <tr>
+                            <td><strong>399</strong></td>
+                            <td>Provisions Mourabaha</td>
+                            <td>ACTIF (compte correcteur)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>419</strong></td>
+                            <td>Acomptes clients (Urboun)</td>
+                            <td>PASSIF - Apports reçus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>471</strong></td>
+                            <td>Marge Différée Mourabaha</td>
+                            <td>PASSIF - Marge non réalisée</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>488</strong></td>
+                            <td>Pénalités HumaniWAQF</td>
+                            <td>PASSIF - Pénalités à reverser</td>
+                        </tr>
+                        <tr>
+                            <td><strong>521</strong></td>
+                            <td>Banque</td>
+                            <td>ACTIF - Trésorerie</td>
+                        </tr>
+                        <tr>
+                            <td><strong>701</strong></td>
+                            <td>Marge Réalisée Mourabaha</td>
+                            <td>PRODUIT - Revenu finance islamique</td>
+                        </tr>
+                        <tr>
+                            <td><strong>659</strong></td>
+                            <td>Dotations provisions</td>
+                            <td>CHARGE - Provisions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>759</strong></td>
+                            <td>Reprises provisions</td>
+                            <td>PRODUIT - Reprises</td>
+                        </tr>
+                        <tr>
+                            <td><strong>678</strong></td>
+                            <td>Remises Ibra (remboursement anticipé)</td>
+                            <td>CHARGE - Remise gracieuse</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 9.2 - Phase Acquisition -->
+            <section id="phase-acquisition" class="section">
+                <h2>1️⃣ 9.2 Phase 1 : Acquisition du Bien par AL NAMAA</h2>
+                
+                <div class="highlight">
+                    <h4>📋 Conformément à AAOIFI FAS 28</h4>
+                </div>
+
+                <h3>9.2.1 Réception de l'Apport Client (Urboun)</h3>
+                
+                <div class="card">
+                    <p><strong>Moment :</strong> Signature du Wa'ad (promesse d'achat)</p>
+                    <p><strong>Montant :</strong> 20% du prix du bien (15% pour PME)</p>
+                    <p><strong>Nature :</strong> Acompte non remboursable si désistement client</p>
+                    <p><strong>Exemple :</strong> Bien de 15M FCFA, apport 20% = 3M FCFA</p>
+                </div>
+
+                <h4>Écriture Comptable</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>521 - Banque</strong></td>
+                            <td>3 000 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>419 - Acomptes clients</strong></td>
+                            <td>-</td>
+                            <td>3 000 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.2.2 Achat du Bien par AL NAMAA</h3>
+                
+                <div class="warning">
+                    <h4>⚠️ Point Critique AAOIFI</h4>
+                    <p><strong>Moment :</strong> Réception facture fournisseur AU NOM AL NAMAA</p>
+                    <p><strong>Principe AAOIFI :</strong> Le bien devient PROPRIÉTÉ D'AL NAMAA et est inscrit à l'actif du bilan (Stock)</p>
+                </div>
+
+                <h4>ÉCRITURE CONFORME AAOIFI</h4>
+                <p><strong>Libellé :</strong> Acquisition bien Mourabaha - Dossier MURB-2025-00123 - Facture F-XXX</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>241 - Stock Mourabaha</strong></td>
+                            <td>15 000 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>521 - Banque</strong></td>
+                            <td>-</td>
+                            <td>15 000 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>Impact bilan :</h4>
+                    <ul>
+                        <li><strong>ACTIF :</strong> +15M FCFA en Stock (compte 241)</li>
+                        <li><strong>ACTIF :</strong> -15M FCFA en Banque (compte 521)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 9.3 - Phase Revente -->
+            <section id="phase-revente" class="section">
+                <h2>2️⃣ 9.3 Phase 2 : Revente au Client (Contrat Mourabaha)</h2>
+                
+                <div class="highlight">
+                    <h4>📋 Conformément à AAOIFI FAS 28</h4>
+                </div>
+
+                <h3>9.3.1 Signature du Contrat de Vente Mourabaha</h3>
+                
+                <div class="card">
+                    <p><strong>Moment :</strong> Après acquisition et validation CCI</p>
+                    <p><strong>Nature :</strong> Vente à crédit avec marge fixe transparente</p>
+                    <p><strong>Calcul :</strong> Prix Achat + Marge = Prix Vente Total</p>
+                </div>
+
+                <h4>Exemple de calcul :</h4>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Prix acquisition AL NAMAA</td>
+                            <td><strong>15 000 000 FCFA</strong></td>
+                        </tr>
+                        <tr>
+                            <td>+ Marge AL NAMAA (10% sur 60 mois)</td>
+                            <td><strong>+ 3 000 000 FCFA</strong></td>
+                        </tr>
+                        <tr style="background: #e3f2fd;">
+                            <td><strong>= PRIX DE VENTE TOTAL</strong></td>
+                            <td><strong>18 000 000 FCFA</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.3.2 Écriture Comptable de Vente</h3>
+                
+                <h4>ÉCRITURE CONFORME AAOIFI</h4>
+                <p><strong>Libellé :</strong> Vente Mourabaha Client M. Traoré - Contrat MURB-2025-00123</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>301 - Créances Mourabaha</strong></td>
+                            <td>18 000 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>241 - Stock Mourabaha</strong></td>
+                            <td>-</td>
+                            <td>15 000 000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>471 - Marge Différée</strong></td>
+                            <td>-</td>
+                            <td>3 000 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>Explications :</h4>
+                    <ul>
+                        <li><strong>Débit 301 (18M) :</strong> Créance totale sur client (prix vente)</li>
+                        <li><strong>Crédit 241 (15M) :</strong> Sortie du bien du stock (coût acquisition)</li>
+                        <li><strong>Crédit 471 (3M) :</strong> Marge NON ENCORE RÉALISÉE (constatée progressivement)</li>
+                    </ul>
+                </div>
+
+                <h3>9.3.3 Imputation de l'Apport (Urboun)</h3>
+                
+                <p>L'apport initial de 3M FCFA est maintenant imputé sur la créance totale.</p>
+                <p><strong>Créance nette après apport :</strong> 18M - 3M = 15M FCFA à recouvrer</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>419 - Acomptes clients</strong></td>
+                            <td>3 000 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>301 - Créances Mourabaha</strong></td>
+                            <td>-</td>
+                            <td>3 000 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 9.4 - Phase Remboursement -->
+            <section id="phase-remboursement" class="section">
+                <h2>3️⃣ 9.4 Phase 3 : Remboursements Mensuels</h2>
+                
+                <div class="highlight">
+                    <h4>📋 Conformément à AAOIFI FAS 28</h4>
+                </div>
+
+                <h3>9.4.1 Encaissement Échéance Mensuelle</h3>
+                
+                <p><strong>Calcul mensualité :</strong> 15M FCFA / 60 mois = 250 000 FCFA / mois</p>
+
+                <h4>ÉCRITURE CONFORME AAOIFI</h4>
+                <p><strong>Libellé :</strong> Encaissement échéance M01 - MURB-2025-00123 - M. Traoré</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>521 - Banque</strong></td>
+                            <td>250 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>301 - Créances Mourabaha</strong></td>
+                            <td>-</td>
+                            <td>250 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.4.2 Constatation de la Marge (Prorata Temporis)</h3>
+                
+                <div class="info-box">
+                    <p>Selon AAOIFI, la marge est constatée <strong>progressivement</strong> au fur et à mesure des encaissements (méthode prorata temporis).</p>
+                    <p><strong>Calcul marge mensuelle :</strong> 3M FCFA / 60 mois = 50 000 FCFA / mois</p>
+                </div>
+
+                <p><strong>Libellé :</strong> Constatation marge M01 - MURB-2025-00123</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>471 - Marge Différée</strong></td>
+                            <td>50 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>701 - Marge Réalisée</strong></td>
+                            <td>-</td>
+                            <td>50 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>Impact compte de résultat :</h4>
+                    <ul>
+                        <li><strong>Produit :</strong> +50 000 FCFA (compte 701)</li>
+                        <li><strong>Résultat :</strong> Contribution au bénéfice mensuel</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 9.5 - Cas Particuliers -->
+            <section id="cas-particuliers" class="section">
+                <h2>⚠️ 9.5 Cas Particuliers</h2>
+
+                <h3>9.5.1 Pénalités de Retard → HumaniWAQF</h3>
+                
+                <div class="warning">
+                    <h4>☪️ Principe Charia</h4>
+                    <p>AL NAMAA ne tire <strong>AUCUN profit</strong> des pénalités. 100% reversé à des œuvres caritatives (HumaniWAQF).</p>
+                    <p><strong>Calcul :</strong> 1% du montant échéance par mois de retard</p>
+                    <p><strong>Exemple :</strong> Échéance 250K FCFA, 2 mois retard = 5K FCFA pénalité</p>
+                </div>
+
+                <h4>A) Collecte pénalité :</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>301 - Créances Mourabaha</strong></td>
+                            <td>5 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>488 - Pénalités HumaniWAQF</strong></td>
+                            <td>-</td>
+                            <td>5 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>B) Reversement mensuel HumaniWAQF :</h4>
+                <p><strong>Libellé :</strong> Reversement pénalités HumaniWAQF - Mois XX/2025</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>488 - Pénalités HumaniWAQF</strong></td>
+                            <td>5 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>521 - Banque</strong></td>
+                            <td>-</td>
+                            <td>5 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.5.2 Provisions pour Créances Douteuses</h3>
+                
+                <div class="info-box">
+                    <p>Selon normes BCEAO, provisions obligatoires selon ancienneté impayés.</p>
+                </div>
+
+                <h4>Barème de provisionnement BCEAO :</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ancienneté</th>
+                            <th>Classification</th>
+                            <th>Taux Provision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>&lt; 90 jours</td>
+                            <td>Créances saines (3011)</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr style="background: #fff3e0;">
+                            <td>90-180 jours</td>
+                            <td>En souffrance (3012)</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr style="background: #ffebee;">
+                            <td>180-365 jours</td>
+                            <td>Douteuses (3013)</td>
+                            <td>50%</td>
+                        </tr>
+                        <tr style="background: #f44336; color: white;">
+                            <td>&gt; 365 jours</td>
+                            <td>Compromises (3014)</td>
+                            <td>100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Exemple :</strong> Créance 5M FCFA, 150 jours impayés → Provision 20% = 1M FCFA</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>659 - Dotations provisions</strong></td>
+                            <td>1 000 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>399 - Provisions</strong></td>
+                            <td>-</td>
+                            <td>1 000 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>9.5.3 Remboursement Anticipé (Ibra)</h3>
+                
+                <div class="highlight">
+                    <p>Client souhaite solder avant terme. AL NAMAA accorde <strong>remise gracieuse (Ibra)</strong> de 25% marge restante.</p>
+                </div>
+
+                <p><strong>Situation :</strong> Après 30 mois, reste 5M créance + 1,5M marge différée</p>
+                <p><strong>Remise :</strong> 25% × 1,5M = 375K FCFA</p>
+                <p><strong>Client paie :</strong> 5M - 375K = 4,625M FCFA</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Compte</th>
+                            <th>Débit</th>
+                            <th>Crédit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>521 - Banque</strong></td>
+                            <td>4 625 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>471 - Marge Différée</strong></td>
+                            <td>1 125 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>678 - Remises Ibra</strong></td>
+                            <td>375 000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>301 - Créances</strong></td>
+                            <td>-</td>
+                            <td>5 000 000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>701 - Marge Réalisée</strong></td>
+                            <td>-</td>
+                            <td>1 125 000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>SYNTHÈSE DES ÉCRITURES AAOIFI</h3>
+                
+                <div class="highlight">
+                    <h4>📊 Récapitulatif complet des trois phases</h4>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Écriture</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. ACQUISITION</strong></td>
+                            <td>D: 241 Stock<br>C: 521 Banque</td>
+                            <td>15 000 000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. REVENTE</strong></td>
+                            <td>D: 301 Créances<br>C: 241 Stock<br>C: 471 Marge Diff.</td>
+                            <td>18 000 000<br>15 000 000<br>3 000 000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. REMBOURSEMENT</strong></td>
+                            <td>D: 521 Banque<br>C: 301 Créances</td>
+                            <td>250 000/mois</td>
+                        </tr>
+                        <tr>
+                            <td><strong>+ Marge réalisée</strong></td>
+                            <td>D: 471 Marge Diff.<br>C: 701 Marge Réal.</td>
+                            <td>50 000/mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section Reporting - Vue d'ensemble -->
+            <section id="reporting" class="section">
+                <h2>📈 Reporting & Suivi</h2>
+                
+                <div class="info-box">
+                    <p>Le système de reporting d'AL NAMAA FINANCE pour le produit Mourabaha constitue un <strong>pilier essentiel du pilotage opérationnel et de la gouvernance</strong>. Il s'articule autour de trois volets complémentaires qui garantissent une vision à 360° de la performance :</p>
+                    <ul>
+                        <li><strong>Reporting interne</strong> pour le management quotidien</li>
+                        <li><strong>Reporting prudentiel BCEAO</strong> pour la conformité réglementaire</li>
+                        <li><strong>Contrôles Charia périodiques</strong> pour la validité religieuse des opérations</li>
+                    </ul>
+                </div>
+
+                <h3>Architecture du Système</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📊 Reporting Interne</h4>
+                        <p>Suivi encours, retards et rentabilité pour le management</p>
+                        <p><strong>Fréquence:</strong> Quotidien à Trimestriel</p>
+                    </div>
+                    <div class="card">
+                        <h4>🏦 Reporting BCEAO</h4>
+                        <p>États réglementaires et ratios prudentiels</p>
+                        <p><strong>Fréquence:</strong> Mensuel et Trimestriel</p>
+                    </div>
+                    <div class="card">
+                        <h4>☪️ Contrôle Charia</h4>
+                        <p>Audits du Comité de Conformité Islamique</p>
+                        <p><strong>Fréquence:</strong> Mensuel à Annuel</p>
+                    </div>
+                    <div class="card">
+                        <h4>📱 Dashboard DG</h4>
+                        <p>Tableau de bord temps réel intégré Odoo</p>
+                        <p><strong>Mise à jour:</strong> Temps réel</p>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h4>📌 Navigation</h4>
+                    <p>Utilisez le menu latéral pour accéder au détail de chaque volet du reporting</p>
+                </div>
+            </section>
+
+            <!-- Section 10.1 - Reporting Interne -->
+            <section id="reporting-interne" class="section">
+                <h2>📊 10.1 Reporting Interne</h2>
+                
+                <div class="highlight">
+                    <p>Le reporting interne permet au management d'AL NAMAA FINANCE de suivre en temps réel la performance du portefeuille Mourabaha, d'anticiper les risques et de prendre des décisions stratégiques éclairées basées sur des données fiables et actualisées.</p>
+                </div>
+
+                <h3>10.1.1 Suivi des Encours</h3>
+                
+                <div class="info-box">
+                    <h4>🎯 Objectif stratégique</h4>
+                    <p>Monitorer l'évolution quantitative et qualitative du portefeuille pour optimiser la capacité de financement, identifier les opportunités de croissance et assurer une allocation efficace des ressources.</p>
+                </div>
+
+                <h4>A) Organisation du Reporting Encours</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fréquence</th>
+                            <th>Rapport</th>
+                            <th>Destinataires</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Quotidien</strong></td>
+                            <td>Flash production (nouveaux dossiers, décaissements)</td>
+                            <td>Direction Commerciale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hebdomadaire</strong></td>
+                            <td>Tableau de bord encours par agence</td>
+                            <td>Directeurs Agences + Direction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mensuel</strong></td>
+                            <td>Rapport détaillé avec segmentation multi-critères</td>
+                            <td>Direction Générale + Conseil</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trimestriel</strong></td>
+                            <td>Analyse tendances et projections</td>
+                            <td>Conseil d'Administration</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>B) Indicateurs Clés de Performance (KPI)</h4>
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Encours Total</div>
+                        <div class="kpi-value">2.5 Mds</div>
+                        <div class="kpi-label">FCFA</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Production Mensuelle</div>
+                        <div class="kpi-value">450 M</div>
+                        <div class="kpi-label">FCFA</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Nombre Dossiers Actifs</div>
+                        <div class="kpi-value">320</div>
+                        <div class="kpi-label">dossiers</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Ticket Moyen</div>
+                        <div class="kpi-value">7.8 M</div>
+                        <div class="kpi-label">FCFA</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Durée Moyenne</div>
+                        <div class="kpi-value">42</div>
+                        <div class="kpi-label">mois</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Taux de Croissance</div>
+                        <div class="kpi-value">+17.7%</div>
+                        <div class="kpi-label">mensuel</div>
+                    </div>
+                </div>
+
+                <h4>C) Segmentation Multi-Critères du Portefeuille</h4>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📊 Par Type de Client</h4>
+                        <ul>
+                            <li>Particuliers salariés: 45%</li>
+                            <li>Indépendants: 30%</li>
+                            <li>PME: 20%</li>
+                            <li>Micro-entreprises: 5%</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🚗 Par Type de Bien</h4>
+                        <ul>
+                            <li>Véhicules: 60%</li>
+                            <li>Équipements pro: 25%</li>
+                            <li>Électroménager: 10%</li>
+                            <li>Autres: 5%</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📍 Par Zone Géographique</h4>
+                        <ul>
+                            <li>Bamako: 55%</li>
+                            <li>Sikasso: 20%</li>
+                            <li>Ségou: 15%</li>
+                            <li>Autres: 10%</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>⏱️ Par Ancienneté</h4>
+                        <ul>
+                            <li>&lt; 12 mois: 35%</li>
+                            <li>12-24 mois: 30%</li>
+                            <li>24-48 mois: 25%</li>
+                            <li>&gt; 48 mois: 10%</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>10.1.2 Suivi des Retards</h3>
+                
+                <div class="highlight">
+                    <h4>Objectifs stratégiques</h4>
+                    <ul>
+                        <li><strong>Réactivité :</strong> Détecter les impayés dès J+1 pour intervention rapide</li>
+                        <li><strong>Prévention :</strong> Anticiper les défauts par analyse prédictive des comportements</li>
+                        <li><strong>Recouvrement :</strong> Maximiser le taux de recouvrement amiable (&lt;90 jours)</li>
+                        <li><strong>Conformité :</strong> Respecter les seuils prudentiels BCEAO (PAR 90 &lt;5%)</li>
+                    </ul>
+                </div>
+
+                <h4>A) Indicateurs PAR (Portfolio at Risk)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Définition</th>
+                            <th>Objectif</th>
+                            <th>Seuil Alerte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PAR 1</strong></td>
+                            <td>Retard 1-30 jours</td>
+                            <td>&lt; 5%</td>
+                            <td>&gt; 8%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PAR 30</strong></td>
+                            <td>Retard 31-90 jours</td>
+                            <td>&lt; 3%</td>
+                            <td>&gt; 5%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PAR 90</strong></td>
+                            <td>Retard &gt; 90 jours</td>
+                            <td>&lt; 2%</td>
+                            <td>&gt; 3%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taux de Recouvrement</strong></td>
+                            <td>Encaissement / Exigible</td>
+                            <td>&gt; 95%</td>
+                            <td>&lt; 90%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>B) Provisionnement Prudentiel BCEAO</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Délai Impayé</th>
+                            <th>Taux Provision</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Créance Saine</td>
+                            <td>0-30 jours</td>
+                            <td>0%</td>
+                            <td>Suivi normal</td>
+                        </tr>
+                        <tr style="background: #fff3e0;">
+                            <td>À Surveiller</td>
+                            <td>31-90 jours</td>
+                            <td>10%</td>
+                            <td>Relances intensives</td>
+                        </tr>
+                        <tr style="background: #ffebee;">
+                            <td>Douteuse</td>
+                            <td>91-180 jours</td>
+                            <td>50%</td>
+                            <td>Mise en demeure</td>
+                        </tr>
+                        <tr style="background: #f44336; color: white;">
+                            <td>Compromise</td>
+                            <td>&gt; 180 jours</td>
+                            <td>100%</td>
+                            <td>Contentieux</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.1.3 Suivi Profits vs Prévisions</h3>
+                
+                <div class="info-box">
+                    <h4>🎯 A) Objectif Stratégique</h4>
+                    <p>Mesurer la profitabilité réelle du produit Mourabaha par rapport aux objectifs budgétaires et identifier les leviers d'amélioration de la marge nette.</p>
+                </div>
+
+                <h4>B) Indicateurs Clés de Profitabilité</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicateur</th>
+                            <th>Formule</th>
+                            <th>Cible 2025</th>
+                            <th>Nov 2025</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Marge brute réalisée</strong></td>
+                            <td>Somme marges contrats</td>
+                            <td>280M FCFA</td>
+                            <td>245M</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Charges opérationnelles</strong></td>
+                            <td>Salaires + Admin + IT</td>
+                            <td>85M FCFA</td>
+                            <td>78M</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dotations provisions</strong></td>
+                            <td>Provisions PAR 90</td>
+                            <td>12M FCFA</td>
+                            <td>9.5M</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Résultat net Mourabaha</strong></td>
+                            <td>Marge - Charges - Provisions</td>
+                            <td>183M FCFA</td>
+                            <td>157.5M</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROA (Return on Assets)</strong></td>
+                            <td>Résultat / Encours moyen</td>
+                            <td>&gt; 8%</td>
+                            <td>7.4%</td>
+                            <td style="background: #fff3e0;">⚠</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ROE (Return on Equity)</strong></td>
+                            <td>Résultat / Fonds propres</td>
+                            <td>&gt; 15%</td>
+                            <td>18.2%</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taux marge moyen</strong></td>
+                            <td>Marge / Prix acquisition</td>
+                            <td>12-16%</td>
+                            <td>14.3%</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost-to-Income</strong></td>
+                            <td>Charges / Revenus</td>
+                            <td>&lt; 35%</td>
+                            <td>31.8%</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>C) Dashboard P&L Novembre 2025</h4>
+                
+                <div class="highlight">
+                    <h4>📊 Compte de Résultat Mensuel - Comparatif Budget vs Réalisé</h4>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ligne P&L</th>
+                            <th>Budget</th>
+                            <th>Réalisé</th>
+                            <th>Écart</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total Revenus</strong></td>
+                            <td>23.65M FCFA</td>
+                            <td>21.94M FCFA</td>
+                            <td>-1.71M (-7.2%)</td>
+                            <td style="background: #fff3e0;">⚠</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Charges</strong></td>
+                            <td>6.8M FCFA</td>
+                            <td>6.35M FCFA</td>
+                            <td>-0.45M (-6.6%)</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Provisions</strong></td>
+                            <td>1.1M FCFA</td>
+                            <td>0.95M FCFA</td>
+                            <td>-0.15M (-13.6%)</td>
+                            <td style="background: #e8f5e9;">✓</td>
+                        </tr>
+                        <tr style="background: #e3f2fd;">
+                            <td><strong>RÉSULTAT NET</strong></td>
+                            <td><strong>15.75M FCFA</strong></td>
+                            <td><strong>14.64M FCFA</strong></td>
+                            <td><strong>-1.11M (-7.0%)</strong></td>
+                            <td style="background: #fff3e0;">⚠</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <h4>📌 Analyse de l'écart budgétaire</h4>
+                    <p><strong>Revenus inférieurs au budget (-7.2%) :</strong></p>
+                    <ul>
+                        <li>Production mensuelle légèrement en dessous de l'objectif</li>
+                        <li>Mix produit avec plus de particuliers (marges plus faibles) que prévu</li>
+                    </ul>
+                    <p><strong>Charges maîtrisées (-6.6%) :</strong></p>
+                    <ul>
+                        <li>Efficacité opérationnelle maintenue</li>
+                        <li>Automatisation Odoo a réduit les coûts de traitement</li>
+                    </ul>
+                    <p><strong>Actions correctives recommandées :</strong></p>
+                    <ul>
+                        <li>Intensifier prospection segments PME (marges plus élevées)</li>
+                        <li>Réviser objectifs production pour Q4</li>
+                        <li>Maintenir rigueur sur les charges opérationnelles</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 10.2 - Reporting BCEAO -->
+            <section id="reporting-bceao" class="section">
+                <h2>🏦 10.2 Reporting Prudentiel BCEAO</h2>
+                
+                <div class="info-box">
+                    <p>Conformément à l'<strong>Instruction N° 002-03-2018</strong>, AL NAMAA FINANCE transmet mensuellement à la BCEAO quatre états prudentiels (F01, F02, F03, F04) ainsi que les déclarations au Centre des Risques.</p>
+                </div>
+
+                <h3>A) États Prudentiels BCEAO</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>État</th>
+                            <th>Description</th>
+                            <th>Fréquence</th>
+                            <th>Délai</th>
+                            <th>Source Odoo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>F01</strong></td>
+                            <td>Bilan patrimonial</td>
+                            <td>Mensuel</td>
+                            <td>M+15j</td>
+                            <td>Comptabilité générale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F02</strong></td>
+                            <td>Compte de résultat</td>
+                            <td>Mensuel</td>
+                            <td>M+15j</td>
+                            <td>P&L produit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F03</strong></td>
+                            <td>Encours crédit par catégorie</td>
+                            <td>Mensuel</td>
+                            <td>M+15j</td>
+                            <td>Portefeuille</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F04</strong></td>
+                            <td>Créances impayées et provisions</td>
+                            <td>Mensuel</td>
+                            <td>M+15j</td>
+                            <td>Recouvrement</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>Centre Risques</strong></td>
+                            <td>Engagements &gt; 500K FCFA</td>
+                            <td>Mensuel</td>
+                            <td>M+10j</td>
+                            <td>Grands risques</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>B) Processus de Transmission BCEAO</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>J+1 : Génération automatique</h4>
+                        <p>Batch mensuel Odoo - Extraction des données comptables</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+2 à J+5 : Contrôles cohérence</h4>
+                        <p>Validation croisée des états (réconciliations)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+6 à J+10 : Validation interne</h4>
+                        <p>Revue par CFO + Comité Charia</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+11 : Export format BCEAO</h4>
+                        <p>Conversion en fichiers XML normalisés</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>J+12 à J+15 : Transmission sécurisée</h4>
+                        <p>Upload portail BCEAO via SFTP + signature électronique</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Archivage : Conservation 10 ans</h4>
+                        <p>Obligation réglementaire - stockage sécurisé</p>
+                    </div>
+                </div>
+
+                <h3>C) Contrôles Qualité</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>✓ Contrôle 1</h4>
+                        <p><strong>Réconciliation</strong></p>
+                        <p>Balance générale / états prudentiels</p>
+                    </div>
+                    <div class="card">
+                        <h4>✓ Contrôle 2</h4>
+                        <p><strong>Équilibre F01</strong></p>
+                        <p>Validation cohérence (Actif = Passif)</p>
+                    </div>
+                    <div class="card">
+                        <h4>✓ Contrôle 3</h4>
+                        <p><strong>Encours F03</strong></p>
+                        <p>Vérification F03 = Total encours Mourabaha</p>
+                    </div>
+                    <div class="card">
+                        <h4>✓ Contrôle 4</h4>
+                        <p><strong>Provisions F04</strong></p>
+                        <p>Contrôle F04 = PAR 90 × Taux provisionnement</p>
+                    </div>
+                </div>
+
+                <h3>10.2.2 Ratios Prudentiels à Respecter</h3>
+                
+                <div class="warning">
+                    <h4>⚠️ Ratios Réglementaires Obligatoires</h4>
+                    <p>Le non-respect de ces ratios peut entraîner des sanctions de la BCEAO allant jusqu'à la suspension des activités.</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ratio</th>
+                            <th>Calcul</th>
+                            <th>Norme BCEAO</th>
+                            <th>Cible AL NAMAA</th>
+                            <th>Valeur Actuelle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Taux de couverture</strong></td>
+                            <td>Provisions / Créances douteuses</td>
+                            <td>≥ 100%</td>
+                            <td>≥ 120%</td>
+                            <td style="background: #e8f5e9;"><strong>128%</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Concentration risques</strong></td>
+                            <td>Plus gros client / Fonds propres</td>
+                            <td>≤ 25%</td>
+                            <td>≤ 15%</td>
+                            <td style="background: #e8f5e9;"><strong>12%</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Liquidité</strong></td>
+                            <td>Actifs liquides / Passifs court terme</td>
+                            <td>≥ 100%</td>
+                            <td>≥ 110%</td>
+                            <td style="background: #e8f5e9;"><strong>115%</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Solvabilité</strong></td>
+                            <td>Fonds propres / Risques pondérés</td>
+                            <td>≥ 8%</td>
+                            <td>≥ 12%</td>
+                            <td style="background: #e8f5e9;"><strong>14.5%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>📊 Séparation Finance Islamique / Conventionnelle</h4>
+                    <p>Les opérations Mourabaha sont comptabilisées et reportées <strong>séparément</strong> des opérations conventionnelles, conformément aux instructions BCEAO sur les fenêtres islamiques.</p>
+                </div>
+            </section>
+
+            <!-- Section 10.3 - Contrôle Charia -->
+            <section id="controle-charia" class="section">
+                <h2>☪️ 10.3 Contrôles Charia Périodiques</h2>
+                
+                <div class="highlight">
+                    <p>Les contrôles Charia garantissent la conformité permanente du produit Mourabaha aux principes islamiques et aux standards AAOIFI.</p>
+                </div>
+
+                <h3>10.3.1 Comité Charia Interne (CCI) - Contrôles Trimestriels</h3>
+                
+                <div class="info-box">
+                    <p><strong>Fréquence :</strong> Trimestriel minimum + extraordinaire si besoin</p>
+                    <p><strong>Participants :</strong> Président CCI (Ouléma), 2-3 membres, Secrétaire conformité, Directeur Général (invité)</p>
+                </div>
+
+                <h4>Points de Contrôle Trimestriels</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Point de Contrôle</th>
+                            <th>Méthode Vérification</th>
+                            <th>Critère Conformité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Propriété effective bien</strong></td>
+                            <td>Échantillon 20 dossiers : factures AL NAMAA nom, rapports réception</td>
+                            <td>Facture + Propriété légale avant Mourabaha</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Interdiction Riba</strong></td>
+                            <td>Vérifier prix fixe, aucun intérêt retard</td>
+                            <td>Prix ferme non révisable</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Transparence prix</strong></td>
+                            <td>Échantillon contrats : prix achat + marge détaillés</td>
+                            <td>Séparation claire prix/marge</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Licéité actifs</strong></td>
+                            <td>Revue nouveaux dossiers : pas biens Haram</td>
+                            <td>Actifs licites uniquement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Wakala &lt; 20%</strong></td>
+                            <td>Ratio mandats / total dossiers</td>
+                            <td>Contrôle renforcé si &gt;20%</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>6. Pénalités HumaniWAQF</strong></td>
+                            <td>Preuve 100% reversement œuvre caritative</td>
+                            <td>Justificatifs paiements</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Suivi HumaniWAQF - Reversement des Pénalités</h4>
+                
+                <div class="highlight">
+                    <h4>💚 Principe HumaniWAQF</h4>
+                    <p>AL NAMAA FINANCE reverse <strong>100% des pénalités de retard</strong> à des œuvres caritatives. Aucun revenu n'est conservé par la banque sur les pénalités, conformément aux principes de la finance islamique.</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Trimestre</th>
+                            <th>Pénalités Collectées</th>
+                            <th>Reversées HumaniWAQF</th>
+                            <th>Date Virement</th>
+                            <th>Reçu N°</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Q1 2025</strong></td>
+                            <td>2,450,000 FCFA</td>
+                            <td>2,450,000 FCFA</td>
+                            <td>05/04/2025</td>
+                            <td>HW-2025-Q1-001</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Q2 2025</strong></td>
+                            <td>1,890,000 FCFA</td>
+                            <td>1,890,000 FCFA</td>
+                            <td>08/07/2025</td>
+                            <td>HW-2025-Q2-001</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Q3 2025</strong></td>
+                            <td>1,620,000 FCFA</td>
+                            <td>1,620,000 FCFA</td>
+                            <td>10/10/2025</td>
+                            <td>HW-2025-Q3-001</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Q4 2025*</strong></td>
+                            <td>1,420,000 FCFA</td>
+                            <td>1,420,000 FCFA</td>
+                            <td>À venir</td>
+                            <td>À venir</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>TOTAL 2025</strong></td>
+                            <td><strong>7,380,000 FCFA</strong></td>
+                            <td><strong>7,380,000 FCFA</strong></td>
+                            <td>-</td>
+                            <td><strong>100%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.3.2 Audit Charia Annuel</h3>
+                
+                <div class="card">
+                    <h4>📋 Audit Externe Complet</h4>
+                    <p><strong>Fréquence :</strong> Annuel (avant AGM)</p>
+                    <p><strong>Auditeur :</strong> Cabinet externe spécialisé finance islamique (AAOIFI recommandé)</p>
+                    
+                    <h4 style="margin-top: 20px;">Périmètre d'audit</h4>
+                    <ul>
+                        <li><strong>Revue exhaustive processus :</strong> De la demande à la clôture du dossier</li>
+                        <li><strong>Échantillonnage statistique :</strong> Minimum 30% des dossiers de l'année</li>
+                        <li><strong>Tests de conformité :</strong> Propriété effective, prix fixes, biens licites</li>
+                        <li><strong>Revue contrats :</strong> Wa'ad, Wakala, Mourabaha</li>
+                        <li><strong>Vérification HumaniWAQF :</strong> Traçabilité complète des reversements</li>
+                        <li><strong>Formation équipes :</strong> Évaluation des connaissances Charia</li>
+                    </ul>
+                </div>
+
+                <h4>Livrables de l'Audit Annuel</h4>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📄 Rapport d'Audit</h4>
+                        <p>Analyse détaillée de la conformité avec recommandations</p>
+                    </div>
+                    <div class="card">
+                        <h4>✅ Certificat Charia</h4>
+                        <p>Attestation de conformité aux principes islamiques</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Plan d'Action</h4>
+                        <p>Recommandations d'amélioration pour l'année suivante</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎓 Programme Formation</h4>
+                        <p>Plan de formation continue des équipes</p>
+                    </div>
+                </div>
+
+                <h3>10.3.3 Composition du CCI</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Membre</th>
+                            <th>Qualification</th>
+                            <th>Rôle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Président CCI</strong></td>
+                            <td>Docteur en droit islamique (Fiqh Muamalat)</td>
+                            <td>Supervision générale, validation finale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Membre Charia 1</strong></td>
+                            <td>Imam reconnu, expert finance islamique</td>
+                            <td>Avis religieux (Fatwa)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Membre Charia 2</strong></td>
+                            <td>Juriste spécialisé droit islamique</td>
+                            <td>Analyse contrats et conformité légale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Expert Finance</strong></td>
+                            <td>Banquier certifié AAOIFI (CIFA)</td>
+                            <td>Revue technique opérations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secrétaire CCI</strong></td>
+                            <td>Comptable Charia</td>
+                            <td>Documentation, rapports, suivi</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.3.4 Indicateurs de Conformité Charia</h3>
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="kpi-label">Taux Conformité</div>
+                        <div class="kpi-value">100%</div>
+                        <div class="kpi-label">objectif absolu</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Wakala Utilisé</div>
+                        <div class="kpi-value">&lt; 20%</div>
+                        <div class="kpi-label">des dossiers</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Pénalités Reversées</div>
+                        <div class="kpi-value">100%</div>
+                        <div class="kpi-label">à HumaniWAQF</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Biens Non-Conformes</div>
+                        <div class="kpi-value">0%</div>
+                        <div class="kpi-label">tolérance zéro</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Dossiers Audités</div>
+                        <div class="kpi-value">&gt; 30%</div>
+                        <div class="kpi-label">annuellement</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Recommandations Suivies</div>
+                        <div class="kpi-value">&gt; 95%</div>
+                        <div class="kpi-label">sous 30 jours</div>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ Procédure en cas de Non-Conformité</h4>
+                    <p>En cas de détection de non-conformité Charia :</p>
+                    <ol>
+                        <li><strong>Arrêt immédiat</strong> du processus ou de l'opération</li>
+                        <li><strong>Investigation</strong> par le CCI (rapport sous 48h)</li>
+                        <li><strong>Correction</strong> ou annulation de l'opération</li>
+                        <li><strong>Compensation</strong> au client si nécessaire</li>
+                        <li><strong>Formation</strong> des équipes concernées</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Section 10.4 - Dashboard DG -->
+            <section id="dashboard" class="section">
+                <h2>📱 10.4 Tableau de Bord Direction Générale</h2>
+                
+                <div class="info-box">
+                    <h4>📊 Dashboard Synthétique (Mise à jour temps réel)</h4>
+                    <p>Un tableau de bord intégré dans Odoo permet au management de suivre en temps réel tous les indicateurs clés sur un seul écran. Accessible sur web et mobile.</p>
+                </div>
+
+                <h3>10.4.1 Vue d'Ensemble Temps Réel</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📈 Production</h4>
+                        <ul>
+                            <li><strong>Nouveaux dossiers:</strong> 85/mois</li>
+                            <li><strong>Décaissements:</strong> 450M FCFA</li>
+                            <li><strong>Pipeline:</strong> 1.2 Mds</li>
+                            <li><strong>Taux transformation:</strong> 68%</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Encours</h4>
+                        <ul>
+                            <li><strong>Total:</strong> 2.5 Mds FCFA</li>
+                            <li><strong>Croissance:</strong> +17.7%</li>
+                            <li><strong>Nombre contrats:</strong> 320</li>
+                            <li><strong>Ticket moyen:</strong> 7.8M</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>⚠️ Risques</h4>
+                        <ul>
+                            <li><strong>PAR 30:</strong> 2.1% ✓</li>
+                            <li><strong>PAR 90:</strong> 1.3% ✓</li>
+                            <li><strong>Provisions:</strong> 45M FCFA</li>
+                            <li><strong>Recouvrement:</strong> 96.5%</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Rentabilité</h4>
+                        <ul>
+                            <li><strong>ROE:</strong> 16.2% ✓</li>
+                            <li><strong>ROA:</strong> 2.8% ✓</li>
+                            <li><strong>Marge nette:</strong> 10.5%</li>
+                            <li><strong>Coût du risque:</strong> 1.8%</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>10.4.2 Alertes et Notifications</h3>
+                
+                <div class="warning">
+                    <h4>🔔 Système d'Alertes Automatiques</h4>
+                    <p>Le dashboard génère automatiquement des alertes push et email en cas de :</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type d'Alerte</th>
+                            <th>Déclencheur</th>
+                            <th>Destinataire</th>
+                            <th>Priorité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PAR 30 élevé</strong></td>
+                            <td>PAR 30 &gt; 5%</td>
+                            <td>Directeur Risques + DG</td>
+                            <td style="background: #ff9800; color: white;">HAUTE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ratio prudentiel</strong></td>
+                            <td>Ratio proche seuil BCEAO</td>
+                            <td>Direction Financière + DG</td>
+                            <td style="background: #f44336; color: white;">CRITIQUE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Non-conformité Charia</strong></td>
+                            <td>Détection par CCI</td>
+                            <td>CCI + DG + Conformité</td>
+                            <td style="background: #f44336; color: white;">CRITIQUE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Production faible</strong></td>
+                            <td>Production &lt; 70% objectif</td>
+                            <td>Direction Commerciale</td>
+                            <td style="background: #ffc107;">MOYENNE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gros impayé</strong></td>
+                            <td>Impayé &gt; 5M FCFA</td>
+                            <td>Recouvrement + DG</td>
+                            <td style="background: #ff9800; color: white;">HAUTE</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>10.4.3 Graphiques et Tendances</h3>
+                
+                <div class="highlight">
+                    <h4>📊 Visualisations Intégrées</h4>
+                    <p>Le dashboard inclut des graphiques interactifs permettant d'analyser les tendances :</p>
+                    <ul>
+                        <li><strong>Évolution encours :</strong> Graphique linéaire 12 derniers mois</li>
+                        <li><strong>Production mensuelle :</strong> Histogramme avec objectifs vs réalisé</li>
+                        <li><strong>Répartition portefeuille :</strong> Pie charts par segment, zone, bien</li>
+                        <li><strong>Qualité crédit :</strong> Courbe PAR avec zones de seuil</li>
+                        <li><strong>Rentabilité :</strong> Évolution ROE/ROA comparée aux objectifs</li>
+                        <li><strong>Conformité Charia :</strong> Indicateurs CCI avec historique</li>
+                    </ul>
+                </div>
+
+                <h3>10.4.4 Accès et Sécurité</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Profil Utilisateur</th>
+                            <th>Accès Dashboard</th>
+                            <th>Vues Disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Direction Générale</strong></td>
+                            <td>Complet (toutes données)</td>
+                            <td>Vue 360° + Alertes + Export</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Directeurs Métier</strong></td>
+                            <td>Départementiel</td>
+                            <td>Leur périmètre + KPI globaux</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chefs d'Agence</strong></td>
+                            <td>Agence uniquement</td>
+                            <td>Production + Encours agence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comité Charia</strong></td>
+                            <td>Conformité + Audit</td>
+                            <td>Indicateurs Charia + Rapports</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conseil Administration</strong></td>
+                            <td>Synthèse stratégique</td>
+                            <td>KPI globaux + Ratios prudentiels</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4>📱 Applications Disponibles</h4>
+                    <ul>
+                        <li><strong>Web :</strong> Dashboard complet accessible via navigateur (Odoo 16)</li>
+                        <li><strong>Mobile :</strong> App iOS/Android avec notifications push</li>
+                        <li><strong>Email :</strong> Rapports automatiques quotidiens/hebdomadaires/mensuels</li>
+                        <li><strong>Export :</strong> Excel, PDF, PowerPoint pour présentations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section Avantages -->
+            <section id="avantages" class="section">
+                <h2>✨ Avantages</h2>
+                
+                <h3>11.1 Pour la Banque</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📈 Diversification</h4>
+                        <p>Nouvelle source de revenus, clientèle attachée aux principes islamiques</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Positionnement</h4>
+                        <p>Leader finance islamique au Mali, différenciation concurrentielle</p>
+                    </div>
+                    <div class="card">
+                        <h4>💰 Rentabilité</h4>
+                        <p>Marges attractives (8-16%), faible taux de sinistralité</p>
+                    </div>
+                    <div class="card">
+                        <h4>🤝 Fidélisation</h4>
+                        <p>Produit éthique créant une relation de confiance durable</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Conformité</h4>
+                        <p>Respect strict des normes BCEAO et standards AAOIFI</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Impact Social</h4>
+                        <p>Contribution via HumaniWAQF aux projets caritatifs</p>
+                    </div>
+                </div>
+
+                <h3>11.2 Pour les Clients</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>☪️ Conformité Religieuse</h4>
+                        <p>Financement halal, validé par le Comité Charia</p>
+                    </div>
+                    <div class="card">
+                        <h4>💎 Transparence</h4>
+                        <p>Prix fixe connu dès le départ, pas de surprises</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Accessibilité</h4>
+                        <p>Montants adaptés (500K à 200M), durées flexibles</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚡ Rapidité</h4>
+                        <p>Traitement en 7 jours, décision rapide</p>
+                    </div>
+                    <div class="card">
+                        <h4>🛡️ Protection</h4>
+                        <p>Assurance comprise, pas d'intérêts de retard</p>
+                    </div>
+                    <div class="card">
+                        <h4>💚 Éthique</h4>
+                        <p>Pénalités reversées à des œuvres caritatives</p>
+                    </div>
+                </div>
+
+                <div class="highlight" style="margin-top: 2rem;">
+                    <h3>🎉 Conclusion</h3>
+                    <p>La Mourabaha d'AL NAMAA FINANCE représente une <strong>solution gagnant-gagnant</strong> :</p>
+                    <ul>
+                        <li>Pour la banque : Diversification, rentabilité, positionnement</li>
+                        <li>Pour les clients : Conformité Charia, transparence, accessibilité</li>
+                        <li>Pour la communauté : Impact social via HumaniWAQF</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+                document.querySelector('.content').scrollTop = 0;
+            });
+        });
+    </script>
+</body>
+</html>
