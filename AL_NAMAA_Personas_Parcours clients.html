@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AL NAMAA FINANCE — Personas & Parcours Clients</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #1a5f2a;
+    --primary-light: #2d8a42;
+    --secondary: #c9a227;
+    --bg-light: #f8f9fa;
+    --text-dark: #2c3e50;
+    --border: #dee2e6;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --info: #17a2b8;
+    --accent: #e8960e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+}
+
+.logo-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 2px;
+}
+.logo-sub {
+    font-size: 0.75rem;
+    color: var(--secondary);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.nav-menu { list-style: none; }
+
+.nav-link {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 0.82rem;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    background: var(--bg-light);
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.header .version { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; }
+
+.section {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--secondary);
+}
+
+h3 {
+    color: var(--primary-light);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+}
+
+h4 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1rem 0 0.5rem;
+}
+
+p { margin-bottom: 1rem; }
+ul, ol { margin: 15px 0 15px 25px; }
+li { margin-bottom: 0.5rem; }
+
+/* Persona Profile Card */
+.persona-card {
+    display: flex;
+    gap: 30px;
+    background: linear-gradient(135deg, #f0f7f0, #e8f5e9);
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+.persona-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(26,95,42,0.3);
+}
+
+.persona-info { flex: 1; }
+
+.persona-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.persona-title {
+    font-size: 1rem;
+    color: var(--secondary);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.persona-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.detail-item {
+    display: flex;
+    gap: 8px;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--primary);
+    min-width: 100px;
+    font-size: 0.9rem;
+}
+
+.detail-value {
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+/* Journey Section */
+.journey-title {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 30px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Step Cards */
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.step-card {
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 5px solid;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.step-card.awareness { border-color: #e91e63; background: #fce4ec; }
+.step-card.discovery { border-color: var(--info); background: #e3f2fd; }
+.step-card.contact { border-color: var(--success); background: #e8f5e9; }
+.step-card.evaluation { border-color: var(--accent); background: #fff3e0; }
+.step-card.preparation { border-color: #9c27b0; background: #f3e5f5; }
+.step-card.validation { border-color: #00796b; background: #e0f2f1; }
+.step-card.signature { border-color: var(--primary); background: linear-gradient(135deg, #f0f7f0, #e8f5e9); }
+.step-card.execution { border-color: #1565c0; background: #e3f2fd; }
+.step-card.followup { border-color: #f57c00; background: #fff3e0; }
+.step-card.impact { border-color: var(--secondary); background: #fffde7; }
+.step-card.fidelisation { border-color: #c62828; background: #ffebee; }
+.step-card.digital { border-color: #0277bd; background: #e1f5fe; }
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.step-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0,0,0,0.08);
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.step-details {
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+
+.step-details li {
+    margin-bottom: 4px;
+}
+
+.actors-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(0,0,0,0.15);
+}
+
+.actor-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: white;
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+}
+
+.actor-badge.highlight {
+    background: var(--primary);
+    color: white;
+}
+
+/* Info boxes */
+.info-box {
+    background: #e3f2fd;
+    border-left: 4px solid var(--info);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.warning-box {
+    background: #fff3e0;
+    border-left: 4px solid var(--accent);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.success-box {
+    background: #d4edda;
+    border-left: 4px solid var(--success);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.sharia-box {
+    background: linear-gradient(135deg, #f0f7f0, #e8f5e9);
+    border: 2px solid var(--primary);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid var(--border);
+}
+
+th {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) { background: var(--bg-light); }
+tbody tr:hover { background: #e8f5e9; }
+
+/* Step number */
+.step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Full-width step card */
+.step-card.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Emotion tag */
+.emotion-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.emotion-tag.positive { background: #d4edda; color: var(--success); }
+.emotion-tag.negative { background: #f8d7da; color: var(--danger); }
+.emotion-tag.neutral { background: #fff3cd; color: #856404; }
+.emotion-tag.excited { background: #d1ecf1; color: var(--info); }
+
+@media (max-width: 900px) {
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; max-height: 50vh; }
+    .persona-card { flex-direction: column; align-items: center; text-align: center; }
+    .persona-details { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+}
+
+footer {
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+footer p { margin: 5px 0; text-align: center; color: white; }
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+<div class="logo">
+    <img src="data:image/png;base64,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" alt="AL NAMAA Finances" style="max-width:180px; height:auto; background:white; padding:4px 8px; border-radius:6px;"/>
+</div>
+<ul class="nav-menu">
+<li><a class="nav-link active" onclick="showSection('s0')">📋 Vue d'ensemble</a></li>
+<li><a class="nav-link" onclick="showSection('s1')">👩🏾 1. Commerçante</a></li>
+<li><a class="nav-link" onclick="showSection('s2')">💻 2. Autoentrepreneur</a></li>
+<li><a class="nav-link" onclick="showSection('s3')">🚕 3. Chauffeur de taxi</a></li>
+<li><a class="nav-link" onclick="showSection('s4')">🌾 4. Agriculteur</a></li>
+<li><a class="nav-link" onclick="showSection('s5')">✈️ 5. Diaspora</a></li>
+<li><a class="nav-link" onclick="showSection('s6')">🪚 6. Artisan</a></li>
+<li><a class="nav-link" onclick="showSection('s7')">🏛️ 7. Fonctionnaire</a></li>
+<li><a class="nav-link" onclick="showSection('s8')">🏢 8. ONG</a></li>
+</ul>
+</nav>
+
+<main class="content">
+
+<!-- HEADER -->
+<div class="header">
+    <h1>📐 Personas & Parcours Clients</h1>
+    <div class="version">Version 1.0 — Janvier 2026 </div>
+</div>
+
+<!-- ======================== SECTION 0 : VUE D'ENSEMBLE ======================== -->
+<section class="section active" id="s0">
+<h2>📋 Vue d'ensemble des Personas</h2>
+<p>Ce document présente les <strong>8 personas types</strong> d'AL NAMAA Finance et leurs parcours clients détaillés. Chaque persona représente un segment clé de la clientèle cible, avec des parcours réalistes ancrés dans le contexte malien.</p>
+
+<table>
+<thead>
+<tr><th>#</th><th>Persona</th><th>Nom</th><th>Âge</th><th>Localisation</th><th>Revenus</th><th>Produit Principal</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>👩🏾 Commerçante</td><td>Mariam COULIBALY</td><td>32 ans</td><td>Bamako, Médina</td><td>300-400K FCFA/mois</td><td>Épargne + Mourabaha Stock</td></tr>
+<tr><td>2</td><td>💻 Autoentrepreneur</td><td>Seydou KEITA</td><td>27 ans</td><td>Bamako, ACI 2000</td><td>600K-1M FCFA/mois</td><td>Salam Freelance (digital)</td></tr>
+<tr><td>3</td><td>🚕 Chauffeur de taxi</td><td>Amadou TRAORÉ</td><td>38 ans</td><td>Bamako, Kalaban Coura</td><td>250K FCFA/mois</td><td>Ijara Taxi</td></tr>
+<tr><td>4</td><td>🌾 Agriculteur</td><td>Mamadou Touré</td><td>45 ans</td><td>Kafouzéla, Sikasso</td><td>250K FCFA/mois</td><td>Mourabaha Tracteur</td></tr>
+<tr><td>5</td><td>✈️ Diaspora</td><td>Fatoumata Diarra</td><td>32 ans</td><td>Paris 18ème, France</td><td>2 400€/mois</td><td>Moucharaka Investissement</td></tr>
+<tr><td>6</td><td>🪚 Artisan</td><td>Ibrahim Diarra</td><td>35 ans</td><td>Sotuba, Bamako</td><td>150K FCFA/mois</td><td>Mourabaha Équipement</td></tr>
+<tr><td>7</td><td>🏛️ Fonctionnaire</td><td>Ibrahim TOURÉ</td><td>38 ans</td><td>Bamako</td><td>350K FCFA/mois</td><td>Mourabaha Immobilier</td></tr>
+<tr><td>8</td><td>🏢 ONG</td><td>ONG Solidarité Mali</td><td>—</td><td>Bamako + régions</td><td>50M-2Mds FCFA/an</td><td>Salam + Wadia</td></tr>
+</tbody>
+</table>
+
+<div class="sharia-box">
+<h4>☪️ Points Communs — Conformité Charia</h4>
+<p>Tous les parcours intègrent une <strong>dimension religieuse authentique</strong> : consultation de l'Imam, validation par le Comité Charia, certificat de conformité, et produits 100% halal (pas d'intérêt/Riba). La confiance religieuse constitue le premier levier de fidélisation pour tous les segments.</p>
+</div>
+</section>
+
+<!-- ======================== SECTION 1 : COMMERÇANTE ======================== -->
+<section class="section" id="s1">
+<h2>👩🏾 Persona 1 : Commerçante</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar" style="background: #c9a227; padding: 0; overflow: hidden;">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" width="140" height="140">
+            <!-- Headwrap / Foulard -->
+            <ellipse cx="70" cy="52" rx="42" ry="38" fill="#e8960e"/>
+            <path d="M28 52 Q30 20 70 15 Q110 20 112 52 Q112 35 70 28 Q28 35 28 52Z" fill="#c0392b"/>
+            <path d="M35 48 Q38 25 70 20 Q102 25 105 48 Q105 32 70 25 Q35 32 35 48Z" fill="#e74c3c"/>
+            <!-- Knot on top -->
+            <ellipse cx="70" cy="18" rx="10" ry="7" fill="#c0392b"/>
+            <ellipse cx="64" cy="16" rx="6" ry="5" fill="#e74c3c"/>
+            <ellipse cx="76" cy="16" rx="6" ry="5" fill="#e74c3c"/>
+            <!-- Face -->
+            <ellipse cx="70" cy="62" rx="30" ry="32" fill="#8B6914"/>
+            <!-- Eyes -->
+            <ellipse cx="58" cy="58" rx="4" ry="3.5" fill="white"/>
+            <ellipse cx="82" cy="58" rx="4" ry="3.5" fill="white"/>
+            <circle cx="59" cy="58" r="2.2" fill="#2c1810"/>
+            <circle cx="83" cy="58" r="2.2" fill="#2c1810"/>
+            <!-- Eyebrows -->
+            <path d="M52 52 Q58 48 64 52" stroke="#2c1810" stroke-width="1.5" fill="none"/>
+            <path d="M76 52 Q82 48 88 52" stroke="#2c1810" stroke-width="1.5" fill="none"/>
+            <!-- Nose -->
+            <path d="M67 63 Q70 68 73 63" stroke="#6B4F10" stroke-width="1.2" fill="none"/>
+            <!-- Smile -->
+            <path d="M58 73 Q70 82 82 73" stroke="#2c1810" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Lips -->
+            <path d="M60 73 Q70 78 80 73 Q70 80 60 73Z" fill="#c0392b" opacity="0.5"/>
+            <!-- Earrings -->
+            <circle cx="39" cy="68" r="4" fill="#c9a227"/>
+            <circle cx="39" cy="68" r="2" fill="#e8960e"/>
+            <circle cx="101" cy="68" r="4" fill="#c9a227"/>
+            <circle cx="101" cy="68" r="2" fill="#e8960e"/>
+            <!-- Neck -->
+            <rect x="58" y="90" width="24" height="12" rx="4" fill="#8B6914"/>
+            <!-- Shoulders / Boubou -->
+            <path d="M30 140 Q30 105 58 100 L82 100 Q110 105 110 140Z" fill="#1a5f2a"/>
+            <path d="M40 140 Q40 112 60 106 L80 106 Q100 112 100 140Z" fill="#2d8a42"/>
+            <!-- Necklace -->
+            <path d="M52 100 Q70 108 88 100" stroke="#c9a227" stroke-width="2.5" fill="none"/>
+            <circle cx="70" cy="107" r="3" fill="#c9a227"/>
+        </svg>
+    </div>
+    <div class="persona-info">
+        <div class="persona-name">Mariam COULIBALY</div>
+        <div class="persona-title">Commerçante — Vente de tissus & pagnes</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">32 ans</span></div>
+            <div class="detail-item"><span class="detail-label">👤 Sexe</span><span class="detail-value">Féminin</span></div>
+            <div class="detail-item"><span class="detail-label">💍 Situation</span><span class="detail-value">Mariée, 3 enfants (8, 5, 2 ans)</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Bamako, Médina (marché)</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">300 000 - 400 000 FCFA/mois (irréguliers)</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">Primaire (certificat d'études)</span></div>
+            <div class="detail-item"><span class="detail-label">🗣️ Langues</span><span class="detail-value">Bambara (principale), Français basique</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- PARCOURS 1 -->
+<div class="journey-title">🗺️ PARCOURS 1 : Ouverture Compte Épargne</div>
+
+<div class="steps-grid">
+
+<div class="step-card awareness">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">1</span> Le vol et le choc émotionnel</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1 jour (traumatisme)</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Domicile, Médina, Bamako</span>
+    </div>
+    <ul class="step-details">
+        <li>Mariam, 42 ans, vend tissus wax au marché de Médina depuis 15 ans</li>
+        <li>Nuit du 12 mars : cambriolage à son domicile pendant qu'elle dort</li>
+        <li>Voleurs emportent 800 000 FCFA cachés sous son matelas (économies de 2 ans)</li>
+        <li>Traumatisme profond : sentiment de violation, perte de confiance, pleurs</li>
+        <li>Le lendemain, incapable d'aller au marché, reste prostrée à la maison</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Voleurs</span>
+        <span class="actor-badge">Famille</span>
+    </div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">2</span> Soutien communautaire et conseil</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 2-3 jours</span>
+        <span class="meta-badge">👥 4 acteurs</span>
+        <span class="meta-badge">📍 Domicile, marché</span>
+    </div>
+    <ul class="step-details">
+        <li>Voisines et collègues commerçantes viennent la réconforter</li>
+        <li>Sa meilleure amie Fatoumata : « Tu vois ? Je t'avais dit de mettre à la banque ! »</li>
+        <li>Mariam : « Les banques c'est pour les riches, pas pour nous » (croyance limitante)</li>
+        <li>Fatoumata : « Non ! Moi j'ai un compte à Al Namaa, c'est pas cher, c'est facile »</li>
+        <li>Discussion groupe WhatsApp 'Femmes Commerçantes Médina' (120 membres) : 30 femmes racontent leurs expériences</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Amie Fatoumata</span>
+        <span class="actor-badge">Communauté femmes</span>
+        <span class="actor-badge">Groupe WhatsApp</span>
+    </div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">3</span> Décision et mobilisation</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1 jour</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Domicile</span>
+    </div>
+    <ul class="step-details">
+        <li>Mariam décide : « Plus jamais ça ! Je vais ouvrir un compte »</li>
+        <li>Recherche sur son smartphone : 'Al Namaa microfinance Bamako'</li>
+        <li>Consulte Google Maps : agence la plus proche = Médina (15 min à pied)</li>
+        <li>Lit avis Google : 4,3★ (320 avis) – rassurée</li>
+        <li>Appelle Fatoumata : « Demain on y va ensemble, tu m'accompagnes ? »</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Amie</span>
+        <span class="actor-badge">Google</span>
+    </div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">4</span> Visite à l'agence et accueil</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1h30</span>
+        <span class="meta-badge">👥 4 acteurs</span>
+        <span class="meta-badge">📍 Agence Al Namaa Médina</span>
+    </div>
+    <ul class="step-details">
+        <li>Mariam et Fatoumata se rendent à l'agence Al Namaa Médina un jeudi matin</li>
+        <li>Agent d'accueil Salimata : « Bonjour ma sœur, comment puis-je t'aider ? »</li>
+        <li>Mariam explique le vol, pleure en racontant (émotion encore vive)</li>
+        <li>Salimata empathique : « Que Dieu te rende ce que tu as perdu. Tu as bien fait de venir »</li>
+        <li>Ambiance agence : décor sobre, images femmes entrepreneures, musique douce, thé offert</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Amie accompagnatrice</span>
+        <span class="actor-badge">Agent accueil</span>
+        <span class="actor-badge">Conseillère</span>
+    </div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">5</span> Découverte des produits d'épargne</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 30 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Bureau conseillère</span>
+    </div>
+    <ul class="step-details">
+        <li>Conseillère Aïssata présente 3 produits adaptés aux commerçantes :</li>
+        <li><strong>1. Compte Épargne Classique</strong> : dépôt minimum 5000 FCFA, retraits libres, frais 0 FCFA</li>
+        <li><strong>2. Dépôt à Terme 6 mois</strong> : taux 5%, idéal pour stock de haute saison</li>
+        <li><strong>3. Épargne Projet</strong> : objectif ciblé (pèlerinage, maison), bonus motivation 2%</li>
+        <li>Mariam intéressée par Compte Classique (besoin liquidité) + Épargne Projet (hajj dans 3 ans)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+        <span class="actor-badge">Amie (rassure)</span>
+    </div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">6</span> Ouverture du compte classique</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 20 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Agence</span>
+    </div>
+    <ul class="step-details">
+        <li>Documents requis : CNI, photo, justificatif domicile (attestation chef de quartier)</li>
+        <li>Mariam a tout avec elle (Fatoumata l'avait prévenue)</li>
+        <li>Formulaire rempli : conseillère aide (Mariam lit lentement le français)</li>
+        <li>Signature + empreinte digitale (procédure biométrique simple)</li>
+        <li>Premier dépôt : 50 000 FCFA (ce qui lui reste après le vol)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+        <span class="actor-badge">Système informatique</span>
+    </div>
+</div>
+
+</div><!-- end steps-grid -->
+
+<!-- PARCOURS 2 -->
+<div class="journey-title">🗺️ PARCOURS 2 : Ouverture Compte Épargne (suite) & Financement</div>
+
+<div class="steps-grid">
+
+<div class="step-card evaluation">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">7</span> Formation sécurité et bonnes pratiques</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 10 minutes</span>
+        <span class="meta-badge">👥 2 acteurs</span>
+        <span class="meta-badge">📍 Agence</span>
+    </div>
+    <ul class="step-details">
+        <li>Conseillère donne mini-formation sécurité (10 min) :</li>
+        <li>Ne jamais donner son code PIN à personne (même famille)</li>
+        <li>Vérifier SMS après chaque opération</li>
+        <li>Signaler immédiatement si carte perdue</li>
+        <li>Diversifier épargne (pas tout au même endroit)</li>
+        <li>Mariam prend notes dans petit cahier, pose beaucoup de questions (veut comprendre)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+    </div>
+</div>
+
+<div class="step-card digital">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">8</span> Adhésion tontine digitale (bonus)</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 10 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Agence</span>
+    </div>
+    <ul class="step-details">
+        <li>Conseillère : « Tu es dans une tontine ? » — Mariam : « Oui, 25 femmes, on cotise 10K/mois »</li>
+        <li>Présentation 'Tontine Digitale Al Namaa' : gestion en ligne, sécurisée, transparente</li>
+        <li>Avantages : fini les disputes sur l'argent, tour automatique, pas de vol possible</li>
+        <li>Mariam intéressée : « Je vais en parler à mon groupe. On en a marre des problèmes »</li>
+        <li>Conseillère donne flyers pour les 24 autres membres</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+        <span class="actor-badge">Tontine (future)</span>
+    </div>
+</div>
+
+<div class="step-card digital">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">9</span> Activation mobile money et carte</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 15 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Agence</span>
+    </div>
+    <ul class="step-details">
+        <li>Conseillère : « Tu as Orange Money ? » — Mariam : « Oui, tous mes clients paient comme ça »</li>
+        <li>Activation service 'Al Namaa Mobile' : lien compte bancaire ↔ Orange Money</li>
+        <li>Avantages expliqués : dépôt instantané, retraits sans venir agence, notifications SMS</li>
+        <li>Carte de retrait remise (code PIN choisi : date naissance fils aîné)</li>
+        <li>Test immédiat : Mariam dépose 10 000 FCFA via Orange Money → SMS de confirmation reçu</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+        <span class="actor-badge">Orange Money</span>
+    </div>
+</div>
+
+<div class="step-card followup">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">10</span> Premiers jours d'utilisation</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1ère semaine</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Marché Médina, domicile</span>
+    </div>
+    <ul class="step-details">
+        <li>Jour 1 : Mariam retourne au marché, tête haute (sécurité retrouvée)</li>
+        <li>Chaque soir : au lieu de ramener cash à la maison, dépôt via Orange Money</li>
+        <li>Notification SMS : « Dépôt 15 000 FCFA reçu. Solde: 65 000 FCFA »</li>
+        <li>Sentiment de contrôle et sécurité : « Mon argent est protégé »</li>
+        <li>En parle à 5 collègues commerçantes : 3 décident d'ouvrir un compte aussi</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Clients</span>
+        <span class="actor-badge">Collègues marché</span>
+    </div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">11</span> Accumulation et confiance</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 3 mois</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Marché, domicile</span>
+    </div>
+    <ul class="step-details">
+        <li>Mois 1-3 : Mariam dépose 40-60K FCFA/mois religieusement</li>
+        <li>Solde atteint 200 000 FCFA (jamais eu autant en sécurité)</li>
+        <li>Consulte solde 2-3 fois/jour via SMS (*144*2#) : satisfaction psychologique</li>
+        <li>Commence à dormir tranquille (plus de stress vol)</li>
+        <li>Fierté : montre relevé bancaire à son mari (reconnaissance statut)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Al Namaa</span>
+        <span class="actor-badge">Famille</span>
+    </div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">12</span> Ouverture Épargne Projet 'Hajj'</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1h</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Agence</span>
+    </div>
+    <ul class="step-details">
+        <li>Mois 4 : Mariam retourne agence pour ouvrir 2e compte 'Épargne Projet'</li>
+        <li>Objectif : 3 millions FCFA en 36 mois pour pèlerinage à La Mecque (rêve de vie)</li>
+        <li>Dépôt automatique mensuel : 80 000 FCFA bloqués (épargne contrainte)</li>
+        <li>Bonus Al Namaa : +2% taux + certification halal (important pour elle)</li>
+        <li>Conseillère calcule : dans 3 ans, elle aura 3,1M FCFA (objectif atteint !)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+        <span class="actor-badge">Famille (mari soutient projet)</span>
+    </div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">13</span> Besoin de financement stock</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 30 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Agence</span>
+    </div>
+    <ul class="step-details">
+        <li>Mois 8 : Haute saison approche (fêtes, mariages) = opportunité acheter stock en gros</li>
+        <li>Besoin : 1,5 million FCFA pour acheter tissus wax auprès d'un grossiste</li>
+        <li>Mariam hésite à retirer son épargne (peur de revenir à zéro)</li>
+        <li>Conseillère propose : « Crédit Stock Mourabaha' 1,5M sur 6 mois, marge 8% »</li>
+        <li>Conditions : compte épargne depuis 6 mois (✓), historique dépôts réguliers (✓), caution (tontine)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Conseillère</span>
+        <span class="actor-badge">Al Namaa</span>
+    </div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">14</span> Financement et impact business</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 6 mois</span>
+        <span class="meta-badge">👥 4 acteurs</span>
+        <span class="meta-badge">📍 Marché, grossiste</span>
+    </div>
+    <ul class="step-details">
+        <li>Crédit approuvé en 5 jours, décaissement 1,5M FCFA</li>
+        <li>Mariam achète 200 pagnes wax haute qualité (7500 FCFA/pièce au lieu de 10 000)</li>
+        <li>Revente : 12 000 FCFA/pièce (marge 60% vs 20% habituellement)</li>
+        <li>En 4 mois : tout le stock écoulé, bénéfice net 900 000 FCFA</li>
+        <li>Remboursement crédit : 270K/mois x 6 = 1,62M (facile avec les ventes)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Grossiste</span>
+        <span class="actor-badge">Clients</span>
+        <span class="actor-badge">Al Namaa</span>
+    </div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header">
+        <div class="step-title"><span class="step-num">15</span> Fidélisation et ambassadrice</div>
+    </div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ Après 12 mois</span>
+        <span class="meta-badge">👥 4 acteurs</span>
+        <span class="meta-badge">📍 Agence, événement</span>
+    </div>
+    <ul class="step-details">
+        <li>Mariam devient cliente VIP : compte épargne + projet + crédit remboursé</li>
+        <li>Elle a parrainé 8 commerçantes (bonus 5K FCFA/parrainage = 40K reçus)</li>
+        <li>Sa tontine de 25 femmes a migré vers 'Tontine Digitale Al Namaa'</li>
+        <li>Al Namaa l'invite à témoigner lors d'un événement 'Femmes Entrepreneures'</li>
+        <li>Mariam pleure de joie devant 200 personnes : « Ce vol a changé ma vie. Merci Al Namaa »</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Commerçante</span>
+        <span class="actor-badge">Al Namaa</span>
+        <span class="actor-badge">Communauté femmes</span>
+        <span class="actor-badge">Médias</span>
+    </div>
+</div>
+
+</div>
+</section>
+
+<!-- ======================== SECTION 2 : AUTOENTREPRENEUR ======================== -->
+<section class="section" id="s2">
+<h2>💻 Persona 2 : Autoentrepreneur</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">💻</div>
+    <div class="persona-info">
+        <div class="persona-name">Seydou KEITA</div>
+        <div class="persona-title">Développeur web freelance</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">27 ans</span></div>
+            <div class="detail-item"><span class="detail-label">💼 Profession</span><span class="detail-value">Développeur web freelance</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Bamako, ACI 2000</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">600 000 - 1 000 000 FCFA/mois</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">Licence Informatique</span></div>
+            <div class="detail-item"><span class="detail-label">📱 Tech-Savvy</span><span class="detail-value">Expert digital, smartphone haut gamme</span></div>
+            <div class="detail-item"><span class="detail-label">🎯 Besoins</span><span class="detail-value">Rapidité, autonomie, 24/7</span></div>
+            <div class="detail-item"><span class="detail-label">☪️ Valeurs</span><span class="detail-value">Conformité Charia + Innovation</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 3 : Parcours Digital — Financement Freelance</div>
+
+<div class="steps-grid">
+
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1</span> Opportunité et besoin urgent</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 2-3 jours</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Messagerie client, WhatsApp</span>
+    </div>
+    <ul class="step-details">
+        <li>Seydou, développeur freelance à Bamako, reçoit une commande d'un client nigérien</li>
+        <li>Projet : Site e-commerce complet pour une boutique de mode à Niamey</li>
+        <li>Budget client : 1,5 million FCFA — Délai : 45 jours</li>
+        <li>Seydou doit sous-traiter le design (300K) et acheter licences logicielles (200K)</li>
+        <li>Problème : il n'a que 150K FCFA de trésorerie disponible, il lui manque 350K</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Client</span>
+        <span class="actor-badge">Sous-traitants potentiels</span>
+    </div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2</span> Découverte de l'app mobile IMF</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1 jour</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 WhatsApp, Google Play Store</span>
+    </div>
+    <ul class="step-details">
+        <li>En discutant dans le groupe WhatsApp 'Dev Mali' (150 membres), un collègue mentionne 'Al Namaa Digital'</li>
+        <li>Al Namaa Digital = app mobile de microfinance islamique spécialisée freelances/entrepreneurs digitaux</li>
+        <li>Seydou télécharge l'app sur le Play Store (4,2★ — 5000+ téléchargements)</li>
+        <li>Interface en français, onboarding clair : « Obtenez un financement en 48h »</li>
+        <li>Il découvre le produit 'Salam Freelance' : préfinancement halal pour projets digitaux</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Communauté dev</span>
+        <span class="actor-badge">App mobile IMF</span>
+    </div>
+</div>
+
+<div class="step-card digital">
+    <div class="step-header"><div class="step-title"><span class="step-num">3</span> Exploration et simulation</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 30 minutes</span>
+        <span class="meta-badge">👥 2 acteurs</span>
+        <span class="meta-badge">📍 App mobile uniquement</span>
+    </div>
+    <ul class="step-details">
+        <li>Seydou explore l'app : section 'Salam Freelance' explique le principe du contrat Salam</li>
+        <li>Salam = contrat islamique de préfinancement pour livraison future (halal car adossé à un service réel)</li>
+        <li>Simulateur intégré : il entre 350K → Marge IMF 12% → Remboursement 392K sur 3 mois</li>
+        <li>Calculatrice montre : 3 mensualités de 130 667 FCFA (après réception paiement client)</li>
+        <li>Vidéo tuto 2min explique : « Pas d'intérêt, mais marge fixe sur la valeur du service livré »</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">App mobile (IA chatbot)</span>
+    </div>
+</div>
+
+<div class="step-card digital">
+    <div class="step-header"><div class="step-title"><span class="step-num">4</span> Inscription et vérification KYC digitale</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 15 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 App mobile (caméra, galerie photo)</span>
+    </div>
+    <ul class="step-details">
+        <li>Inscription en 5 minutes : numéro téléphone, OTP de vérification</li>
+        <li>Selfie vidéo avec CNI (vérification biométrique automatique via IA)</li>
+        <li>Upload documents : CNI recto-verso, justificatif domicile (facture Orange Money)</li>
+        <li>Justification activité freelance : portfolio en ligne, contrat client (PDF), factures précédentes</li>
+        <li>Vérification instantanée : algorithme analyse documents + check fichier bancaire central</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Système KYC automatisé</span>
+        <span class="actor-badge">IA de vérification</span>
+    </div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5</span> Soumission demande et scoring</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 10 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 App mobile</span>
+    </div>
+    <ul class="step-details">
+        <li>Formulaire de demande dans l'app : montant (350K), usage (licences + sous-traitance), durée projet</li>
+        <li>Upload contrat client signé électroniquement (proof of work future)</li>
+        <li>Scoring automatique en temps réel basé sur : historique Orange Money, portfolio, avis clients</li>
+        <li>Score Seydou : 720/850 → « BON » → Pré-approbation instantanée affichée</li>
+        <li>Message : « Votre dossier est pré-approuvé ! Validation finale sous 24h »</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Moteur de scoring IA</span>
+        <span class="actor-badge">Système de décision</span>
+    </div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">6</span> Validation humaine et appel téléphonique</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 30 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Appel téléphonique + WhatsApp</span>
+    </div>
+    <ul class="step-details">
+        <li>Dans les 4h, Seydou reçoit un appel de Mariam, agent de crédit dédiée freelances</li>
+        <li>Mariam confirme les détails : projet, timeline, sous-traitants, expérience de Seydou</li>
+        <li>Vérification du contrat client : elle appelle le client nigérien pour confirmation (5 min)</li>
+        <li>Questions complémentaires : « Vous avez déjà livré combien de sites ? Vos revenus moyens ? »</li>
+        <li>Validation : « OK Seydou, c'est approuvé. Contrat Salam prêt dans 2h sur l'app »</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Agent de crédit</span>
+        <span class="actor-badge">Client final</span>
+    </div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">7</span> Signature électronique du contrat Salam</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 10 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 App mobile</span>
+    </div>
+    <ul class="step-details">
+        <li>Notification push : « Votre contrat Salam est disponible »</li>
+        <li>Seydou lit le contrat dans l'app (version française simplifiée + version juridique complète)</li>
+        <li>Contrat Salam précise : IMF avance 350K, Seydou livre le site, remboursement 392K en 3 mois</li>
+        <li>Clause : remboursement commence après réception du paiement client (période de grâce flexible)</li>
+        <li>Signature électronique biométrique (empreinte digitale sur smartphone) – Valeur légale Mali</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">IMF</span>
+        <span class="actor-badge">Système signature électronique</span>
+    </div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header"><div class="step-title"><span class="step-num">8</span> Décaissement instantané</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 2 minutes</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Orange Money, App mobile</span>
+    </div>
+    <ul class="step-details">
+        <li>Dès signature, décaissement automatique vers Orange Money de Seydou</li>
+        <li>Transfert : 350 000 FCFA reçus en moins de 2 minutes</li>
+        <li>Notification SMS + push : « Votre financement Salam de 350K est disponible sur votre compte »</li>
+        <li>Frais de transfert : 0 FCFA (inclus dans la marge IMF)</li>
+        <li>Seydou peut immédiatement payer ses sous-traitants et acheter les licences</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">IMF</span>
+        <span class="actor-badge">Orange Money</span>
+        <span class="actor-badge">Freelance</span>
+    </div>
+</div>
+
+<div class="step-card followup">
+    <div class="step-header"><div class="step-title"><span class="step-num">9</span> Réalisation du projet et suivi</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 35 jours</span>
+        <span class="meta-badge">👥 4 acteurs</span>
+        <span class="meta-badge">📍 App mobile (updates), WhatsApp (coordination équipe)</span>
+    </div>
+    <ul class="step-details">
+        <li>Seydou engage le designer (300K payés via Orange Money) et achète licences Adobe (200K)</li>
+        <li>Il développe le site e-commerce en 35 jours (utilise Laravel + Vue.js)</li>
+        <li>Suivi via l'app : il met à jour le statut du projet (20%, 50%, 80%, 100%)</li>
+        <li>L'IMF envoie des rappels push bienveillants : « Comment avance votre projet ? »</li>
+        <li>Pas de pression de remboursement avant livraison du site au client</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Sous-traitants</span>
+        <span class="actor-badge">Client final</span>
+        <span class="actor-badge">IMF (suivi passif)</span>
+    </div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header"><div class="step-title"><span class="step-num">10</span> Livraison et paiement client</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 1 jour</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Orange Money, App mobile</span>
+    </div>
+    <ul class="step-details">
+        <li>Jour 35 : Seydou livre le site complet au client nigérien</li>
+        <li>Client valide et transfère 1,5 million FCFA vers le compte Orange Money de Seydou</li>
+        <li>Seydou notifie la réception dans l'app : upload de la preuve de paiement (screenshot)</li>
+        <li>L'app calcule automatiquement l'échéancier : 3 mensualités de 130 667 FCFA</li>
+        <li>Premier prélèvement prévu dans 30 jours (période de grâce post-livraison)</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">Client final</span>
+        <span class="actor-badge">IMF</span>
+    </div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">11</span> Remboursement automatique</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ 3 mois</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 Orange Money (prélèvement auto), App mobile (notifs)</span>
+    </div>
+    <ul class="step-details">
+        <li>Seydou active le prélèvement automatique depuis son compte Orange Money</li>
+        <li>Mois 1 : prélèvement automatique de 130 667 FCFA → notification « Paiement effectué ✓ »</li>
+        <li>Mois 2 : idem, solde restant affiché dans l'app : 130 667 FCFA</li>
+        <li>Mois 3 : dernier prélèvement, notification « Félicitations ! Contrat Salam terminé 🎉 »</li>
+        <li>Badge 'Client fidèle' débloqué + limite de crédit augmentée à 500K pour prochain projet</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">Freelance</span>
+        <span class="actor-badge">IMF</span>
+        <span class="actor-badge">Orange Money</span>
+    </div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">12</span> Fidélisation et upsell</div></div>
+    <div class="step-meta">
+        <span class="meta-badge">⏱️ Après 3 mois</span>
+        <span class="meta-badge">👥 3 acteurs</span>
+        <span class="meta-badge">📍 App mobile, WhatsApp</span>
+    </div>
+    <ul class="step-details">
+        <li>Seydou reçoit une offre personnalisée : « Votre prochain Salam à 10% de marge (vs 12%) »</li>
+        <li>L'app lui propose d'autres produits : 'Mourabaha Laptop' (financement équipement pro)</li>
+        <li>Invitation à rejoindre 'Al Namaa Pro Club' : communauté de 200 freelances financés</li>
+        <li>Seydou laisse un avis 5★ : « Process ultra-rapide, enfin du financement adapté aux freelances ! »</li>
+        <li>Il recommande l'app à 3 collègues développeurs → Parrainage : 10K FCFA de bonus</li>
+    </ul>
+    <div class="actors-row">
+        <span class="actor-badge highlight">IMF</span>
+        <span class="actor-badge">Freelance</span>
+        <span class="actor-badge">Communauté freelances</span>
+    </div>
+</div>
+
+</div>
+</section>
+
+<!-- ======================== SECTION 3 : CHAUFFEUR DE TAXI ======================== -->
+<section class="section" id="s3">
+<h2>🚕 Persona 3 : Chauffeur de taxi</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">🚕</div>
+    <div class="persona-info">
+        <div class="persona-name">Amadou TRAORÉ</div>
+        <div class="persona-title">Chauffeur taxi — Véhicule en location</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">38 ans</span></div>
+            <div class="detail-item"><span class="detail-label">👤 Sexe</span><span class="detail-value">Masculin</span></div>
+            <div class="detail-item"><span class="detail-label">💍 Situation</span><span class="detail-value">Marié, 4 enfants (12, 9, 6, 3 ans)</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Bamako, Kalaban Coura</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">250 000 FCFA/mois (après location véhicule)</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">Collège (BEPC)</span></div>
+            <div class="detail-item"><span class="detail-label">🗣️ Langues</span><span class="detail-value">Bambara, Français correct</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 4 : Financement Taxi via Ijara</div>
+
+<div class="steps-grid">
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1</span> Prise de conscience et frustration</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 mois</span><span class="meta-badge">📍 Kalaban Coura, Bamako</span></div>
+    <ul class="step-details">
+        <li>Amadou, 38 ans, chauffeur taxi depuis 12 ans, loue son véhicule à 5 000 FCFA/jour</li>
+        <li>Sur 250K de recette mensuelle, il paie 150K au propriétaire → reste 100K pour lui</li>
+        <li>Avec 100K/mois, difficile de nourrir 6 personnes et payer les frais de scolarité</li>
+        <li>Il constate : ses collègues propriétaires gagnent 2-3 fois plus que lui</li>
+        <li>Déclic : Son ami Boubacar vient d'acheter son propre taxi et gagne maintenant 300K/mois net</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Propriétaire véhicule</span><span class="actor-badge">Collègues chauffeurs</span></div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2</span> Recherche d'information et découverte</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 semaines</span><span class="meta-badge">📍 Garages, gares routières, mosquée</span></div>
+    <ul class="step-details">
+        <li>Amadou en discute avec Boubacar pendant une pause au garage Total ACI 2000</li>
+        <li>Boubacar lui parle de Kafo Jiginew, IMF qui finance les taxis via 'Ijara' (location-vente islamique)</li>
+        <li>Principe : l'IMF achète le taxi, Amadou le loue puis devient propriétaire après 36 mois</li>
+        <li>Boubacar montre son contrat : loyer mensuel 180K pendant 3 ans, puis le taxi est à lui</li>
+        <li>Amadou consulte 3 autres chauffeurs financés : tous confirment que ça marche bien</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Ami Boubacar</span><span class="actor-badge">Syndicat chauffeurs</span><span class="actor-badge">Autres bénéficiaires</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">3</span> Visite à l'agence et conseil</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour</span><span class="meta-badge">📍 Agence Kafo Jiginew Kalaban Coura</span></div>
+    <ul class="step-details">
+        <li>Amadou se rend à l'agence Kafo Jiginew de Kalaban Coura (10 min de chez lui)</li>
+        <li>Il rencontre Fatouma, conseillère spécialisée 'Transport et Mobilité'</li>
+        <li>Fatouma explique le produit 'Ijara Taxi' : location évolutive vers propriété</li>
+        <li>Simulation : taxi Toyota Corolla 2015 à 7 millions FCFA</li>
+        <li>Conditions : apport 20% (1,4M), loyer 180K/mois x 36 mois, puis transfert propriété</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Conseillère IMF</span><span class="actor-badge">Responsable agence</span></div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header"><div class="step-title"><span class="step-num">4</span> Évaluation de la capacité et préparation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1-5 jours</span><span class="meta-badge">📍 Agence + domicile</span></div>
+    <ul class="step-details">
+        <li>Fatouma calcule avec Amadou : il gagne actuellement 100K net après location</li>
+        <li>Avec son propre taxi : 250K recette - 50K essence - 20K entretien - 180K Ijara = 0 FCFA</li>
+        <li>MAIS : il ne paie plus les 150K au propriétaire actuel !</li>
+        <li>Gain réel : 250K recette - 50K essence - 20K entretien - 180K Ijara = 0… mais libéré des 150K !</li>
+        <li>Amadou comprend : même si loyer Ijara = 180K, c'est POUR LUI, pas pour un propriétaire externe</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Conseillère IMF</span><span class="actor-badge">Épouse (consultée le soir)</span></div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5</span> Constitution du dossier</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 semaines</span><span class="meta-badge">📍 Domicile, syndicat, agence</span></div>
+    <ul class="step-details">
+        <li>Documents requis : CNI, attestation de résidence, certificat de mariage</li>
+        <li>Justificatifs activité : carte professionnelle chauffeur taxi (DNTT), patente</li>
+        <li>Preuves revenus : relevés Orange Money 6 derniers mois (reçoit paiements clients)</li>
+        <li>Apport personnel : Amadou a économisé 800K, sa tontine lui prête 600K (total 1,4M)</li>
+        <li>Cautions solidaires : 2 collègues chauffeurs propriétaires se portent garants</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Syndicat chauffeurs</span><span class="actor-badge">Tontine</span><span class="actor-badge">Cautions</span></div>
+</div>
+
+<div class="step-card validation">
+    <div class="step-header"><div class="step-title"><span class="step-num">6</span> Sélection et inspection du véhicule</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Garage Auto Mali, Badalabougou</span></div>
+    <ul class="step-details">
+        <li>L'IMF a un partenariat avec 3 concessionnaires agréés à Bamako</li>
+        <li>Amadou visite le garage 'Auto Mali' : 15 taxis d'occasion disponibles</li>
+        <li>Il choisit une Toyota Corolla 2015, 120 000 km, bon état : 7 millions FCFA</li>
+        <li>Expert mécanique mandaté par l'IMF inspecte le véhicule (rapport technique)</li>
+        <li>Validation : véhicule conforme, prix du marché correct, dossier peut avancer</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Concessionnaire</span><span class="actor-badge">Expert mécanique IMF</span></div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">7</span> Validation comité et signature Ijara</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Agence + étude notariale</span></div>
+    <ul class="step-details">
+        <li>Le dossier d'Amadou passe en comité de crédit : APPROUVÉ</li>
+        <li>Signature du contrat Ijara (location-vente islamique) à l'agence</li>
+        <li>Termes du contrat : IMF achète le taxi 7M, Amadou verse apport 1,4M</li>
+        <li>Mensuelle : 180 000 FCFA x 36 mois = 6,48M (marge IMF = 28% sur 3 ans)</li>
+        <li>Clause : à la fin des 36 mois, transfert de propriété automatique pour 1 FCFA symbolique</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">IMF</span><span class="actor-badge">Notaire</span><span class="actor-badge">Épouse (co-signataire)</span></div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header"><div class="step-title"><span class="step-num">8</span> Achat du véhicule et remise des clés</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3-5 jours</span><span class="meta-badge">📍 Garage Auto Mali</span></div>
+    <ul class="step-details">
+        <li>L'IMF transfère 7 millions FCFA au garage Auto Mali</li>
+        <li>Amadou paie son apport de 1,4M FCFA (800K épargne + 600K tontine)</li>
+        <li>Immatriculation du taxi au nom de l'IMF (propriétaire légal pendant 36 mois)</li>
+        <li>Assurance tous risques souscrite (obligatoire, 80K FCFA/an inclus dans loyer)</li>
+        <li>Remise des clés à Amadou : « C'est votre taxi, prenez-en soin ! »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">IMF</span><span class="actor-badge">Concessionnaire</span><span class="actor-badge">Assurance</span></div>
+</div>
+
+<div class="step-card followup">
+    <div class="step-header"><div class="step-title"><span class="step-num">9</span> Premiers mois d'exploitation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3 premiers mois</span><span class="meta-badge">📍 Bamako, toutes zones</span></div>
+    <ul class="step-details">
+        <li>Mois 1 : Amadou découvre la liberté d'être son propre patron</li>
+        <li>Il travaille plus (12h/jour au lieu de 10h) car 100% des gains sont pour lui</li>
+        <li>Recettes moyennes : 300K/mois (au lieu de 250K quand il était locataire)</li>
+        <li>Charges : 60K essence, 25K entretien, 180K loyer Ijara = 265K → Net = 35K</li>
+        <li>Comparaison ancien modèle : 250K recette - 150K propriétaire - 50K essence = 50K net</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Clients</span><span class="actor-badge">Garagiste</span><span class="actor-badge">IMF (suivi)</span></div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header"><div class="step-title"><span class="step-num">10</span> Fin de l'Ijara et transfert de propriété</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour</span><span class="meta-badge">📍 Agence Kafo Jiginew</span></div>
+    <ul class="step-details">
+        <li>Mois 36 : Dernier loyer de 180K FCFA payé → Total payé = 6,48M + 1,4M apport = 7,88M</li>
+        <li>Cérémonie à l'agence : transfert officiel de propriété du taxi à Amadou</li>
+        <li>Nouvelle carte grise établie au nom d'Amadou Traoré</li>
+        <li>Il reçoit un certificat 'Ijara Accompli' + cadeau (kit entretien, gilet Al Namaa)</li>
+        <li>À partir du mois 37 : Amadou ne paie plus les 180K → revenu net passe à 280K/mois !</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">IMF</span><span class="actor-badge">Notaire</span><span class="actor-badge">Famille (présente à la cérémonie)</span></div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">11</span> Impact et projection future</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ Après 3 ans</span><span class="meta-badge">📍 Bamako</span></div>
+    <ul class="step-details">
+        <li>Après 3 ans : Amadou possède un taxi valant 4-5M FCFA (patrimoine)</li>
+        <li>Revenus mensuels nets : 280K (vs 100K avant) = +180% d'augmentation</li>
+        <li>Il peut scolariser ses 4 enfants dans de meilleures écoles</li>
+        <li>Projet : lancer son 2e Ijara pour acheter un 2e taxi qu'il fera conduire par un employé</li>
+        <li>Vision 5 ans : flotte de 3-4 taxis, revenu passif 500K/mois, construire une maison</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Chauffeur</span><span class="actor-badge">Famille</span><span class="actor-badge">Employé futur</span><span class="actor-badge">IMF</span></div>
+</div>
+</div>
+</section>
+
+<!-- ======================== SECTION 4 : AGRICULTEUR ======================== -->
+<section class="section" id="s4">
+<h2>🌾 Persona 4 : Agriculteur</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">🌾</div>
+    <div class="persona-info">
+        <div class="persona-name">Mamadou Touré</div>
+        <div class="persona-title">Agriculteur exploitant</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">45 ans</span></div>
+            <div class="detail-item"><span class="detail-label">👤 Sexe</span><span class="detail-value">Masculin</span></div>
+            <div class="detail-item"><span class="detail-label">💍 Situation</span><span class="detail-value">Marié, 5 enfants (12, 9, 8, 6, 3 ans)</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Village de Kafouzéla, cercle de Sikasso</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">250 000 FCFA/mois</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">École coranique + 3 années d'école primaire</span></div>
+            <div class="detail-item"><span class="detail-label">🗣️ Langues</span><span class="detail-value">Bambara, Français basique</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 5 : Demande Crédit Mourabaha</div>
+
+<div class="steps-grid">
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1</span> Prise de conscience du besoin</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1-2 semaines</span><span class="meta-badge">👥 2 acteurs</span></div>
+    <ul class="step-details">
+        <li>Mamadou, agriculteur de 45 ans à Sikasso, cultive du coton et du maïs sur 8 hectares</li>
+        <li>Il laboure actuellement avec des bœufs, ce qui limite sa productivité</li>
+        <li>Il entend parler d'autres agriculteurs qui ont augmenté leurs rendements avec un tracteur</li>
+        <li>Il calcule qu'un tracteur lui permettrait de cultiver 5 hectares supplémentaires</li>
+        <li>Coût estimé du tracteur : 15 millions FCFA</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">Coopérative agricole</span></div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2</span> Recherche d'information</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 semaines</span><span class="meta-badge">👥 3 acteurs</span></div>
+    <ul class="step-details">
+        <li>Mamadou se renseigne auprès de sa coopérative agricole locale</li>
+        <li>Il découvre l'existence de Kafo Jiginew, une institution de microfinance islamique</li>
+        <li>Il apprend que les prêts conventionnels avec intérêts (riba) sont interdits dans sa religion</li>
+        <li>Il identifie deux produits compatibles : Mourabaha (vente à marge) ou Ijara (location-vente)</li>
+        <li>Il consulte le bouche-à-oreille : 3 agriculteurs de son village ont déjà été financés</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">Coopérative</span><span class="actor-badge">Autres agriculteurs</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">3</span> Premier contact avec l'IMF</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour</span><span class="meta-badge">👥 2 acteurs</span></div>
+    <ul class="step-details">
+        <li>Mamadou se rend à l'agence Kafo Jiginew la plus proche (15 km de son village)</li>
+        <li>Un conseiller lui explique le principe du financement Mourabaha</li>
+        <li>L'IMF achète le tracteur et le revend à Mamadou avec une marge bénéficiaire claire</li>
+        <li>Marge proposée : 20% sur 3 ans (pas d'intérêt, mais une marge connue d'avance)</li>
+        <li>Le conseiller lui remet la liste des documents requis</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">Conseiller IMF</span></div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header"><div class="step-title"><span class="step-num">4</span> Constitution du dossier</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-4 semaines</span><span class="meta-badge">👥 3 acteurs</span></div>
+    <ul class="step-details">
+        <li>Documents requis : CNI, attestation de résidence, titre foncier ou attestation villageoise</li>
+        <li>Justificatifs d'activité : carte de membre de la coopérative, preuves de récoltes antérieures</li>
+        <li>Plan d'exploitation : surfaces cultivées, cultures pratiquées, revenus estimés</li>
+        <li>Caution solidaire : 2 membres de sa coopérative se portent garants</li>
+        <li>Apport personnel : Mamadou doit contribuer 10% (1,5 million FCFA) qu'il a économisé</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">Coopérative</span><span class="actor-badge">Cautions solidaires</span></div>
+</div>
+
+<div class="step-card validation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5</span> Analyse et comité de crédit</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1-2 semaines</span><span class="meta-badge">👥 3 acteurs</span></div>
+    <ul class="step-details">
+        <li>L'agent de crédit visite l'exploitation de Mamadou pour vérifier les informations</li>
+        <li>Évaluation de la capacité de remboursement : revenus agricoles vs mensualités</li>
+        <li>Vérification auprès du fichier bancaire central (pas d'impayés antérieurs)</li>
+        <li>Présentation du dossier au comité de crédit hebdomadaire</li>
+        <li>Décision : APPROUVÉ avec financement de 13,5 millions FCFA</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agent de crédit</span><span class="actor-badge">Comité de crédit</span><span class="actor-badge">Responsable agence</span></div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">6</span> Signature du contrat Mourabaha</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3-5 jours</span><span class="meta-badge">👥 4 acteurs</span></div>
+    <ul class="step-details">
+        <li>L'IMF achète le tracteur auprès du concessionnaire agréé : 13,5 millions FCFA</li>
+        <li>Contrat Mourabaha signé : prix de revente = 16,2 millions FCFA (marge 20%)</li>
+        <li>Échéancier : 36 mensualités de 450 000 FCFA</li>
+        <li>Clause : le tracteur reste propriété de l'IMF jusqu'au paiement complet</li>
+        <li>Assurance tracteur souscrite (incluse dans les mensualités)</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">IMF</span><span class="actor-badge">Concessionnaire</span><span class="actor-badge">Notaire</span></div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header"><div class="step-title"><span class="step-num">7</span> Acquisition du tracteur</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 jours</span><span class="meta-badge">👥 3 acteurs</span></div>
+    <ul class="step-details">
+        <li>Mamadou récupère son tracteur neuf chez le concessionnaire</li>
+        <li>Formation de 2 jours sur l'utilisation et l'entretien du tracteur</li>
+        <li>Immatriculation du véhicule au nom de l'IMF (propriétaire temporaire)</li>
+        <li>Remise des documents : carte grise, certificat de conformité, manuel d'utilisation</li>
+        <li>Mamadou commence immédiatement à labourer ses champs</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">Concessionnaire</span><span class="actor-badge">IMF</span></div>
+</div>
+
+<div class="step-card followup">
+    <div class="step-header"><div class="step-title"><span class="step-num">8</span> Phase de remboursement</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 36 mois</span><span class="meta-badge">👥 3 acteurs</span></div>
+    <ul class="step-details">
+        <li>Remboursement mensuel : 450 000 FCFA pendant 36 mois</li>
+        <li>Période de grâce : 3 mois après l'achat (saison de préparation)</li>
+        <li>Mamadou paie via mobile money (Orange Money) ou directement à l'agence</li>
+        <li>Suivi trimestriel par l'agent de crédit (visite de l'exploitation)</li>
+        <li>Rappels SMS 5 jours avant chaque échéance</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">IMF</span><span class="actor-badge">Agent de suivi</span></div>
+</div>
+
+<div class="step-card impact full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">9</span> Résultats et fidélisation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ Après 3 ans</span><span class="meta-badge">👥 3 acteurs</span></div>
+    <ul class="step-details">
+        <li>Grâce au tracteur, Mamadou cultive maintenant 13 hectares (au lieu de 8)</li>
+        <li>Ses revenus annuels augmentent de 60%</li>
+        <li>Il rembourse sans difficulté et devient client fidèle</li>
+        <li>À la fin du contrat, le tracteur devient sa propriété complète</li>
+        <li>L'IMF lui propose un nouveau financement pour une batteuse</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agriculteur</span><span class="actor-badge">IMF</span><span class="actor-badge">Famille</span></div>
+</div>
+</div>
+</section>
+
+<!-- ======================== SECTION 5 : DIASPORA ======================== -->
+<section class="section" id="s5">
+<h2>✈️ Persona 5 : Personne issue de la diaspora</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">✈️</div>
+    <div class="persona-info">
+        <div class="persona-name">Fatoumata Diarra</div>
+        <div class="persona-title">Infirmière en service de gériatrie — Paris, France</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">32 ans</span></div>
+            <div class="detail-item"><span class="detail-label">👤 Sexe</span><span class="detail-value">Féminin</span></div>
+            <div class="detail-item"><span class="detail-label">💍 Situation</span><span class="detail-value">Célibataire, sans enfant</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Paris 18ème, France</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">2 400€ / mois</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">Diplôme d'État d'Infirmière (DEI) obtenu en France</span></div>
+            <div class="detail-item"><span class="detail-label">🗣️ Langues</span><span class="detail-value">Bambara (maternelle), Français (courant), Anglais (basique)</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 6 : Parcours Diaspora — Investissement Moucharaka</div>
+
+<div class="steps-grid">
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1</span> Éveil du projet d'investissement</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-4 semaines</span><span class="meta-badge">📍 Paris, France</span></div>
+    <ul class="step-details">
+        <li>Fatoumata, 32 ans, infirmière à Paris depuis 8 ans, envoie 200-300€/mois à sa famille</li>
+        <li>Elle constate que cet argent est souvent dépensé sans créer de revenus pérennes</li>
+        <li>Lors d'une visite au Mali, elle voit des opportunités dans le petit commerce à Bamako</li>
+        <li>Sa tante voudrait ouvrir une boutique de tissus mais manque de capital (2 millions FCFA)</li>
+        <li>Fatoumata veut investir de façon halal et générer un revenu pour sa famille</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">Famille au Mali</span></div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2</span> Recherche et découverte digitale</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1-2 semaines</span><span class="meta-badge">📍 Paris (100% digital)</span></div>
+    <ul class="step-details">
+        <li>Recherche Google : « investir au Mali halal », « microfinance islamique Mali »</li>
+        <li>Découvre Soro Yiriwaso (IMF islamique malienne) via publicité Facebook</li>
+        <li>Consulte le site web : produit Moucharaka (partenariat investisseur-entrepreneur)</li>
+        <li>Regarde des témoignages vidéo d'autres membres de la diaspora sur YouTube</li>
+        <li>Rejoint un groupe WhatsApp 'Diaspora Mali Investissement' avec 250 membres</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">Community managers IMF</span><span class="actor-badge">Autres investisseurs diaspora</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">3</span> Premier contact digital</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour</span><span class="meta-badge">📍 Paris - Bamako (vidéo)</span></div>
+    <ul class="step-details">
+        <li>Prend rendez-vous via le site web pour une visioconférence (WhatsApp Video)</li>
+        <li>Échange avec Aminata, conseillère diaspora dédiée, parlant français et bambara</li>
+        <li>Explication du produit Moucharaka : partenariat 60% Fatoumata / 40% sa tante</li>
+        <li>L'IMF supervise le projet, distribue les bénéfices selon les parts</li>
+        <li>Montant : 2 millions FCFA (≈3000€), retour attendu : 15-20% par an</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">Conseillère diaspora IMF</span></div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header"><div class="step-title"><span class="step-num">4</span> Évaluation et due diligence</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Paris - Bamako</span></div>
+    <ul class="step-details">
+        <li>Fatoumata pose des questions : « Comment je suis protégée si ça ne marche pas ? »</li>
+        <li>L'IMF explique : visite de l'emplacement, business plan validé, formation de la tante, caution solidaire locale</li>
+        <li>Demande de garanties : stock comme collatéral, caution solidaire locale</li>
+        <li>Vérification Sharia : certification par le comité Sharia de l'IMF (document PDF envoyé)</li>
+        <li>Fatoumata demande à parler directement avec sa tante par visio à 3</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">IMF</span><span class="actor-badge">Bénéficiaire (tante)</span><span class="actor-badge">Comité Sharia</span></div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5</span> Constitution du dossier à distance</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 semaines</span><span class="meta-badge">📍 Paris - Bamako (100% digital)</span></div>
+    <ul class="step-details">
+        <li>Documents Fatoumata : passeport scanné, titre de séjour, 3 derniers bulletins de salaire</li>
+        <li>Preuve de fonds : relevés bancaires montrant l'épargne de 3500€</li>
+        <li>Documents bénéficiaire (tante) : CNI, plan d'affaires, bail commercial du local</li>
+        <li>Tout envoyé par email + WhatsApp (photos haute résolution)</li>
+        <li>KYC renforcé : justificatif de domicile en France, attestation d'emploi</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">IMF</span><span class="actor-badge">Bénéficiaire</span><span class="actor-badge">Service compliance</span></div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">6</span> Transfert de fonds et signature</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3-5 jours</span><span class="meta-badge">📍 Paris - Bamako</span></div>
+    <ul class="step-details">
+        <li>Fatoumata transfère 3000€ depuis sa banque française (BNP Paribas)</li>
+        <li>Transfert via WorldRemit vers le compte de l'IMF au Mali (frais 15€, 24h)</li>
+        <li>Signature électronique du contrat via DocuSign (valeur légale au Mali)</li>
+        <li>Procuration notariée : la tante gère au quotidien, reporting mensuel obligatoire</li>
+        <li>Certificat Moucharaka émis avec numéro de suivi</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">IMF</span><span class="actor-badge">Services transfert</span><span class="actor-badge">Notaire</span></div>
+</div>
+
+<div class="step-card validation">
+    <div class="step-header"><div class="step-title"><span class="step-num">7</span> Validation et structuration Moucharaka</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1-2 semaines</span><span class="meta-badge">📍 Bamako - Paris</span></div>
+    <ul class="step-details">
+        <li>Agent de l'IMF visite le local commercial à Bamako (photos/vidéo envoyées à Fatoumata)</li>
+        <li>Validation du business plan : vente de tissus wax, marge 30%, rotation stock rapide</li>
+        <li>Structuration : Fatoumata 60% (1,2M FCFA), Tante 40% en apport travail/expertise</li>
+        <li>Contrat Moucharaka : partage 60/40 des profits nets mensuels</li>
+        <li>Comité d'investissement approuve le dossier</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Agent IMF</span><span class="actor-badge">Comité d'investissement</span><span class="actor-badge">Diaspora</span><span class="actor-badge">Bénéficiaire</span></div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header"><div class="step-title"><span class="step-num">8</span> Lancement du projet commercial</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 semaines</span><span class="meta-badge">📍 Bamako</span></div>
+    <ul class="step-details">
+        <li>L'IMF achète le stock initial : 1,8M FCFA de tissus wax auprès de fournisseurs agréés</li>
+        <li>Aménagement de la boutique : 200 000 FCFA (étagères, comptoir, enseigne)</li>
+        <li>Formation de 3 jours pour la tante : gestion de stock, comptabilité, service client</li>
+        <li>Ouverture officielle de 'Tissu d'Or' au marché de Médina</li>
+        <li>Photos et vidéo de l'inauguration envoyées à Fatoumata sur WhatsApp</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">IMF</span><span class="actor-badge">Bénéficiaire</span><span class="actor-badge">Fournisseurs</span><span class="actor-badge">Diaspora</span></div>
+</div>
+
+<div class="step-card followup">
+    <div class="step-header"><div class="step-title"><span class="step-num">9</span> Suivi et reporting à distance</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ Continu (2 ans minimum)</span><span class="meta-badge">📍 Paris - Bamako</span></div>
+    <ul class="step-details">
+        <li>Reporting mensuel automatique : chiffre d'affaires, charges, bénéfice net via email</li>
+        <li>Dashboard en ligne : Fatoumata consulte les indicateurs 24/7 depuis Paris</li>
+        <li>Visite mensuelle de l'agent IMF : vérification stock, conseil, photos de la boutique</li>
+        <li>Appel vidéo trimestriel à 3 : Fatoumata, la tante, conseillère IMF</li>
+        <li>Transfert mensuel des profits : virement vers compte français (60% des profits nets)</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">IMF</span><span class="actor-badge">Diaspora</span><span class="actor-badge">Bénéficiaire</span><span class="actor-badge">Plateforme digitale</span></div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header"><div class="step-title"><span class="step-num">10</span> Distribution des profits et réinvestissement</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2 ans+</span><span class="meta-badge">📍 Paris - Bamako</span></div>
+    <ul class="step-details">
+        <li>Mois 1-6 : Période de lancement, profits réinvestis pour consolider le stock</li>
+        <li>Mois 7-12 : Bénéfice net moyen 150 000 FCFA/mois = 90K pour Fatoumata (≈137€)</li>
+        <li>Année 2 : Activité stabilisée, retour annuel de 18% sur investissement initial</li>
+        <li>Au bout de 2 ans : capital initial remboursé + 1,08M FCFA de profits (≈1645€)</li>
+        <li>Options : sortie du Moucharaka OU réinvestissement dans un 2e projet</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">IMF</span><span class="actor-badge">Diaspora</span><span class="actor-badge">Bénéficiaire</span></div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">11</span> Impact et fidélisation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ Après 2 ans</span><span class="meta-badge">📍 Paris - Bamako</span></div>
+    <ul class="step-details">
+        <li>Impact familial : La tante a un revenu stable, peut scolariser ses 3 enfants</li>
+        <li>Impact personnel : Fatoumata reçoit des dividendes régulières, satisfaction d'impact</li>
+        <li>Évolution : La boutique emploie maintenant 1 vendeuse, le stock a doublé</li>
+        <li>Fidélisation : Fatoumata lance un 2e Moucharaka (ferme avicole, 5 millions FCFA)</li>
+        <li>Prescription : Elle recommande l'IMF à 5 amies de la diaspora parisienne</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Diaspora</span><span class="actor-badge">Bénéficiaire</span><span class="actor-badge">IMF</span><span class="actor-badge">Communauté</span></div>
+</div>
+</div>
+</section>
+
+<!-- ======================== SECTION 6 : ARTISAN ======================== -->
+<section class="section" id="s6">
+<h2>🪚 Persona 6 : Artisan</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">🪚</div>
+    <div class="persona-info">
+        <div class="persona-name">Ibrahim Diarra</div>
+        <div class="persona-title">Menuisier-ébéniste artisan</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">35 ans</span></div>
+            <div class="detail-item"><span class="detail-label">👤 Sexe</span><span class="detail-value">Masculin</span></div>
+            <div class="detail-item"><span class="detail-label">💍 Situation</span><span class="detail-value">Marié, 3 enfants</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Sotuba, Bamako, Mali</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">150 000 FCFA/mois</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">Primaire (CM2), puis apprentissage métier (6 ans)</span></div>
+            <div class="detail-item"><span class="detail-label">🗣️ Langues</span><span class="detail-value">Bambara (maternelle), Français (moyen), Peul (comprend)</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 6 : Financement Artisan — Mourabaha Équipement</div>
+
+<div class="steps-grid">
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1</span> Saturation et opportunité manquée</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Atelier Sotuba, Bamako</span></div>
+    <ul class="step-details">
+        <li>Ibrahim, 35 ans, menuisier-ébéniste à Bamako depuis 12 ans, atelier à Sotuba</li>
+        <li>Commande importante : 50 tables d'école pour une ONG (4 millions FCFA)</li>
+        <li>Problème : avec ses 3 machines actuelles, production ≈ 5 tables/semaine (10 semaines nécessaires)</li>
+        <li>L'ONG veut livraison en 6 semaines maximum, sinon commande annulée</li>
+        <li>Ibrahim frustré : « J'ai les compétences, pas l'équipement. Je perds des opportunités chaque mois »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">ONG cliente</span><span class="actor-badge">Apprentis (2)</span></div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2</span> Découverte via corporation artisans</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour</span><span class="meta-badge">📍 Chambre des Métiers, Bamako</span></div>
+    <ul class="step-details">
+        <li>Réunion mensuelle de la Chambre des Métiers du Mali (section menuisiers)</li>
+        <li>Un confrère Youssouf parle de son financement Al Namaa pour acheter une scie circulaire</li>
+        <li>Youssouf témoigne : « Mourabaha halal, pas d'intérêt, j'ai acheté ma machine, je rembourse sur 18 mois »</li>
+        <li>Ibrahim intéressé : il a besoin d'une dégauchisseuse (2,5M) et d'une raboteuse (1,5M) = 4M FCFA</li>
+        <li>Le président de la corporation donne contact agent Al Namaa spécialisé artisans</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Confrère Youssouf</span><span class="actor-badge">Corporation</span><span class="actor-badge">Président chambre</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">3</span> Recherche et validation religieuse</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3-4 jours</span><span class="meta-badge">📍 Atelier, mosquée, domicile</span></div>
+    <ul class="step-details">
+        <li>Ibrahim fait ses recherches : appelle Youssouf pour détails, visite atelier (voir machines)</li>
+        <li>Consulte Google : « Al Namaa microfinance artisan », lit témoignages sur le site</li>
+        <li>Question religieuse cruciale : est-ce vraiment halal ? (il est pratiquant strict)</li>
+        <li>Va voir l'Imam de sa mosquée avec la brochure Mourabaha Al Namaa</li>
+        <li>Imam valide : « C'est une vente avec marge, pas un prêt avec intérêt. C'est permis inch'Allah »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Confrère</span><span class="actor-badge">Imam</span><span class="actor-badge">Google</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">4</span> Premier contact agence</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2 heures</span><span class="meta-badge">📍 Agence Al Namaa Lafiabougou</span></div>
+    <ul class="step-details">
+        <li>Ibrahim se rend à l'agence Al Namaa la plus proche (Lafiabougou, 15 min de son atelier)</li>
+        <li>Accueilli par Moussa, conseiller spécialisé 'Artisans & Métiers'</li>
+        <li>Moussa connaît bien le secteur : « Menuisier ? Je comprends, vous avez besoin d'équipement moderne »</li>
+        <li>Explication Mourabaha : Al Namaa achète les machines, les revend à Ibrahim avec marge claire 18%</li>
+        <li>Simulation : 4M équipement → 4,72M remboursement sur 18 mois ≈ 262K FCFA/mois</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Conseiller Moussa</span><span class="actor-badge">Responsable crédit</span></div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5</span> Évaluation capacité et visite atelier</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 journée</span><span class="meta-badge">📍 Agence + Atelier Sotuba</span></div>
+    <ul class="step-details">
+        <li>Moussa pose questions détaillées : revenus mensuels, charges, commandes en cours, clients réguliers</li>
+        <li>Ibrahim montre carnet commandes : 3-4 clients réguliers (écoles, bureaux, particuliers)</li>
+        <li>Revenus moyens : 600K-800K/mois, charges atelier 200K → capacité remboursement 300K/mois</li>
+        <li>Visite terrain : Moussa vient à l'atelier (20 min de l'agence) pour constater activité</li>
+        <li>Constat : atelier sérieux, 2 apprentis, machines anciennes mais entretenues, stock bois, carnets bien tenus</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Conseiller</span><span class="actor-badge">Apprentis (témoins activité)</span></div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header"><div class="step-title"><span class="step-num">6</span> Choix équipement avec expert</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2 jours</span><span class="meta-badge">📍 Showroom Matériel Pro, Zone Industrielle</span></div>
+    <ul class="step-details">
+        <li>Al Namaa a partenariat avec 3 fournisseurs équipement industriel à Bamako</li>
+        <li>Ibrahim accompagné par technicien Al Namaa visite showroom 'Matériel Pro'</li>
+        <li>Choix machines : Dégauchisseuse Makita Pro (2,6M), Raboteuse DeWalt (1,4M) = 4M total</li>
+        <li>Technicien négocie : remise 5% fournisseur (client Al Namaa) → économie 200K</li>
+        <li>Test machines sur place, vérification garanties (2 ans), formation utilisation incluse</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Technicien Al Namaa</span><span class="actor-badge">Fournisseur</span><span class="actor-badge">Vendeur showroom</span></div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">7</span> Validation comité et signature contrat</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Agence</span></div>
+    <ul class="step-details">
+        <li>Dossier présenté au comité de crédit d'Al Namaa : APPROUVÉ</li>
+        <li>Signature contrat Mourabaha à l'agence (Ibrahim + épouse co-signataire)</li>
+        <li>Détail contrat : Al Namaa achète équipement 4M, revend à Ibrahim 4,72M (marge 18% sur 18 mois)</li>
+        <li>Échéancier : 262 222 FCFA x 18 mois, début remboursement mois 2 (1 mois de grâce livraison/installation)</li>
+        <li>Assurance bris de machine incluse (60K/an) dans les mensualités</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Épouse</span><span class="actor-badge">Al Namaa</span><span class="actor-badge">Notaire</span></div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header"><div class="step-title"><span class="step-num">8</span> Achat et installation équipement</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3 jours</span><span class="meta-badge">📍 Atelier Sotuba</span></div>
+    <ul class="step-details">
+        <li>Al Namaa transfère 4M au fournisseur Matériel Pro</li>
+        <li>Ibrahim paie son apport 800K à Al Namaa</li>
+        <li>Livraison machines à l'atelier Sotuba (camion, grue, 2 livreurs)</li>
+        <li>Installation par technicien : branchement électrique triphasé, mise à niveau, calibrage</li>
+        <li>Formation 1 journée : Ibrahim + 2 apprentis apprennent à utiliser et entretenir les machines</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Apprentis</span><span class="actor-badge">Livreurs</span><span class="actor-badge">Technicien</span><span class="actor-badge">Électricien</span></div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header"><div class="step-title"><span class="step-num">9</span> Production et livraison commande ONG</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 5 semaines</span><span class="meta-badge">📍 Atelier + Écoles (livraison)</span></div>
+    <ul class="step-details">
+        <li>Avec nouvelles machines : production passe de 5 à 12 tables/semaine (x2,4)</li>
+        <li>Semaine 1-2 : 24 tables produites, Semaine 3-4 : 26 tables → Total 50 tables en 4 semaines !</li>
+        <li>Livraison ONG 2 semaines avant deadline → client très satisfait</li>
+        <li>Paiement ONG : 4 millions FCFA reçus sur compte Orange Money d'Ibrahim</li>
+        <li>Bénéfice net sur commande : 4M - 1,8M (bois/fournitures) - 0,5M (salaires) = 1,7M profit</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Apprentis</span><span class="actor-badge">ONG</span><span class="actor-badge">Livreurs</span></div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">10</span> Fin Mourabaha et expansion</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour (cérémonie)</span><span class="meta-badge">📍 Agence Al Namaa</span></div>
+    <ul class="step-details">
+        <li>Mois 18 : dernière mensualité payée, contrat Mourabaha terminé → machines 100% propriété Ibrahim</li>
+        <li>Cérémonie agence : certificat 'Mourabaha Accompli', cadeau (kit entretien machines, gilet Al Namaa)</li>
+        <li>Bilan 18 mois : CA passé de 7M/an à 14M/an (+100%), bénéfice net +120%</li>
+        <li>Projet expansion : Ibrahim embauche 3e apprenti, veut acheter tour à bois (2M) via 2e Mourabaha</li>
+        <li>Devient ambassadeur : recommande Al Namaa à 6 confrères menuisiers de la corporation</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Artisan</span><span class="actor-badge">Al Namaa</span><span class="actor-badge">Famille</span><span class="actor-badge">Corporation (nouveaux clients)</span></div>
+</div>
+</div>
+</section>
+
+<!-- ======================== SECTION 7 : FONCTIONNAIRE ======================== -->
+<section class="section" id="s7">
+<h2>🏛️ Persona 7 : Fonctionnaire</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">🏛️</div>
+    <div class="persona-info">
+        <div class="persona-name">Ibrahim TOURÉ</div>
+        <div class="persona-title">Cadre administratif — Ministère de l'Éducation nationale</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">📅 Âge</span><span class="detail-value">38 ans</span></div>
+            <div class="detail-item"><span class="detail-label">👤 Sexe</span><span class="detail-value">Masculin</span></div>
+            <div class="detail-item"><span class="detail-label">💍 Situation</span><span class="detail-value">Marié, 3 enfants (8, 5 et 2 ans)</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Localisation</span><span class="detail-value">Bamako, Mali</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Revenus</span><span class="detail-value">350 000 FCFA/mois</span></div>
+            <div class="detail-item"><span class="detail-label">🎓 Éducation</span><span class="detail-value">Licence en Administration</span></div>
+            <div class="detail-item"><span class="detail-label">🗣️ Langues</span><span class="detail-value">Bambara (maternelle), Français (courant), notions d'Arabe coranique</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 7 : Financement Fonctionnaire — Mourabaha Immobilier</div>
+
+<div class="steps-grid">
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1/13</span> Prise de conscience et frustration</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 3 semaines</span><span class="meta-badge">📍 Magnambougou, Bamako</span></div>
+    <span class="emotion-tag negative">😤 Frustration et sentiment d'urgence</span>
+    <ul class="step-details">
+        <li>Ibrahim, 38 ans, cadre administratif au Ministère de l'Éducation, salaire 350K FCFA/mois</li>
+        <li>Locataire depuis 6 ans à Magnambougou : 75 000 FCFA/mois de loyer</li>
+        <li>Le propriétaire annonce une augmentation à 90 000 (+20%) – ça le frustre profondément</li>
+        <li>Calcul choc : 6 ans x 75K x 12 mois = 5,4 millions FCFA payés sans rien construire</li>
+        <li>Son collègue Amadou vient d'acheter sa maison via microfinance islamique – ça l'interpelle</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Propriétaire</span><span class="actor-badge">Collègue Amadou</span></div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2/13</span> Recherche d'information et découverte</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2-3 semaines</span><span class="meta-badge">📍 Ministère, mosquée, domicile</span></div>
+    <span class="emotion-tag neutral">🤔 Sceptique mais intéressé</span>
+    <ul class="step-details">
+        <li>Discussion approfondie avec Amadou qui explique la Mourabaha (achat-revente islamique)</li>
+        <li>Recherche Google : « financement islamique maison Mali » depuis son smartphone</li>
+        <li>Demande d'infos dans le groupe WhatsApp des fonctionnaires du ministère (150 membres)</li>
+        <li>5 collègues répondent positivement, 2 ont déjà utilisé une IMF islamique</li>
+        <li>Consultation informelle avec l'imam de la mosquée de Magnambougou pour validation religieuse</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Collègues</span><span class="actor-badge">Imam</span><span class="actor-badge">Groupe WhatsApp</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">3/13</span> Premier contact téléphonique</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 18 minutes</span><span class="meta-badge">📍 Bureau ministère (appel)</span></div>
+    <span class="emotion-tag positive">😌 Nerveux mais rassuré par l'accueil</span>
+    <ul class="step-details">
+        <li>Mercredi 10h30 : Ibrahim appelle l'IMF depuis son bureau pendant la pause</li>
+        <li>Durée de l'appel : 18 minutes avec une conseillère patiente et pédagogue</li>
+        <li>Il pose 12 questions (avait préparé une liste de 8 questions sur papier)</li>
+        <li>La conseillère mentionne « 47 fonctionnaires du Ministère de l'Éducation déjà clients »</li>
+        <li>Proposition de RDV le samedi matin 9h (son moment préféré) – sans pression</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Conseillère IMF</span></div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header"><div class="step-title"><span class="step-num">4/13</span> Consultation et simulation détaillée</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 rendez-vous (2h15)</span><span class="meta-badge">📍 Agence IMF</span></div>
+    <span class="emotion-tag excited">🤩 Enthousiasme croissant – le projet devient concret</span>
+    <ul class="step-details">
+        <li>Samedi 9h : Ibrahim arrive à l'agence avec sa femme Fatoumata et 3 bulletins de salaire</li>
+        <li>RDV de 2h15 : analyse du projet, explication Mourabaha, 3 simulations</li>
+        <li>Projet : terrain 8M + construction 17M = 25M FCFA total</li>
+        <li>Simulation retenue : financement 20M sur 15 ans = 115 000 FCFA/mois (dans son budget !)</li>
+        <li>Le conseiller utilise un tableau blanc pour expliquer visuellement – Ibrahim apprécie</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Épouse</span><span class="actor-badge">Conseiller IMF spécialisé</span></div>
+</div>
+
+<div class="step-card validation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5/13</span> Validation religieuse et décision</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Mosquée, domicile</span></div>
+    <span class="emotion-tag positive">😇 Confiant après validation religieuse</span>
+    <ul class="step-details">
+        <li>Lundi après la prière : Ibrahim consulte l'imam avec le document explicatif</li>
+        <li>L'imam valide : « C'est bien de la Mourabaha, c'est halal. Le Conseil Charia est reconnu »</li>
+        <li>Discussion approfondie avec sa femme le soir : budget, projet, avenir des enfants</li>
+        <li>Appel à son père pour demander son avis (tradition familiale) – il encourage</li>
+        <li>Décision finale prise après 1 semaine de réflexion : « On y va ! »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Imam</span><span class="actor-badge">Épouse</span><span class="actor-badge">Père</span></div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header"><div class="step-title"><span class="step-num">6/13</span> Constitution du dossier</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 10 jours</span><span class="meta-badge">📍 Domicile, Banque Centrale, Conservation Foncière</span></div>
+    <span class="emotion-tag neutral">😰 Frustration administrative mais accompagnement rassurant</span>
+    <ul class="step-details">
+        <li>Mardi : Appel au gestionnaire Mme Konaté, réception checklist par WhatsApp en 10 min</li>
+        <li>Documents J1-2 : CNI, bulletins salaire (6 mois), acte naissance, certificat mariage</li>
+        <li>Documents J3-4 : Visite Banque Centrale (4h d'attente !) pour attestation non-engagement</li>
+        <li>Documents J5-8 : Attestation travail, titre foncier terrain, devis construction</li>
+        <li>J10 : Dépôt du dossier complet – Mme Konaté vérifie en direct, tout est conforme ✓</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Gestionnaire Mme Konaté</span><span class="actor-badge">Services publics</span></div>
+</div>
+
+<div class="step-card followup">
+    <div class="step-header"><div class="step-title"><span class="step-num">7/13</span> Analyse du dossier et validation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 21 jours</span><span class="meta-badge">📍 Attente domicile/bureau</span></div>
+    <span class="emotion-tag negative">😰 Anxiété maximale puis soulagement explosif</span>
+    <ul class="step-details">
+        <li>Phase la plus stressante pour Ibrahim : 21 jours d'attente et d'anxiété</li>
+        <li>Il appelle 6 fois Mme Konaté pour avoir des nouvelles (elle répond patiemment)</li>
+        <li>4 SMS automatiques reçus : vérification, solvabilité, évaluation bien, Conseil Charia</li>
+        <li>Difficulté à dormir, vérifie son téléphone toutes les 30 min, prières intensifiées</li>
+        <li>J21, 11h35 : L'APPEL ! « Félicitations M. Touré, votre dossier est approuvé ! »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Gestionnaire</span><span class="actor-badge">Comité crédit</span><span class="actor-badge">Conseil Charia</span></div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">8/13</span> Signature du contrat Mourabaha</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine (préparation + signature)</span><span class="meta-badge">📍 Agence IMF + Étude notariale</span></div>
+    <span class="emotion-tag positive">🥹 Fierté immense et paix intérieure</span>
+    <ul class="step-details">
+        <li>Ibrahim relit le contrat 3 fois sur 2 jours, note 12 questions</li>
+        <li>Jeudi : Visite à l'imam avec le contrat pour validation finale (2e fois)</li>
+        <li>Samedi 10h : Cérémonie de signature (2h45) avec responsable crédit, conseiller Charia, juriste</li>
+        <li>Lecture clause par clause, explication détaillée, réponses à toutes les questions</li>
+        <li>Moment émouvant : remise du certificat de conformité Charia – Ibrahim prend une photo</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Épouse</span><span class="actor-badge">Responsable crédit</span><span class="actor-badge">Conseiller Charia</span><span class="actor-badge">Juriste</span></div>
+</div>
+
+<div class="step-card execution">
+    <div class="step-header"><div class="step-title"><span class="step-num">9-10/13</span> Achat terrain et construction</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 18 mois</span><span class="meta-badge">📍 Kalaban-Coro (terrain 320m²)</span></div>
+    <span class="emotion-tag excited">💪 Stress du chantier mais accompagné</span>
+    <ul class="step-details">
+        <li>Vérification titre foncier par expert IMF, déblocage tranche 1 (8M terrain)</li>
+        <li>Signature chez notaire, paiement au vendeur, transfert de propriété en 1 semaine</li>
+        <li>Choix Entreprise Bâ & Fils (16,5M – liste recommandée IMF) : R+1, 4 chambres, 15 mois</li>
+        <li>Mois 1-6 : Fondations et gros œuvre (déblocage 5M – 30%)</li>
+        <li>Mois 7-18 : Élévation, toiture, finitions — Ibrahim visite chaque samedi matin</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Expert IMF</span><span class="actor-badge">Notaire</span><span class="actor-badge">Entrepreneur</span><span class="actor-badge">Famille</span></div>
+</div>
+
+<div class="step-card impact">
+    <div class="step-header"><div class="step-title"><span class="step-num">11/13</span> Réception et emménagement</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2 semaines</span><span class="meta-badge">📍 Nouvelle maison Kalaban-Coro</span></div>
+    <span class="emotion-tag positive">😭🎉 Pleurs de joie, fierté absolue</span>
+    <ul class="step-details">
+        <li>Visite finale avec expert : liste de réserves (petits détails), levée en 1 semaine</li>
+        <li>PV de réception signé, remise des clés : moment très émouvant</li>
+        <li>Préparation : ménage, achat mobilier, branchements EDM et Somagep</li>
+        <li>Jour J : Récitation Coran par imam, cérémonie religieuse avec 50 invités</li>
+        <li>Première nuit : Ibrahim rassemble sa famille, pleure de joie « C'est NOTRE maison ! »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">Famille</span><span class="actor-badge">Expert IMF</span><span class="actor-badge">Imam</span><span class="actor-badge">Invités</span></div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">12-13/13</span> Remboursement, satisfaction et ambassadeur</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ En cours (15 ans) + An 2+</span><span class="meta-badge">📍 Domicile, Ministère, agence IMF</span></div>
+    <span class="emotion-tag positive">😌 Satisfaction et sérénité + Fierté et reconnaissance</span>
+    <ul class="step-details">
+        <li>Prélèvement automatique 115K FCFA/mois fonctionne parfaitement</li>
+        <li>Net mensuel : 350K salaire – 115K Mourabaha – 120K autres charges = 115K disponible</li>
+        <li>Comparaison : avant il payait 75K loyer + 120K charges = 195K, reste 155K</li>
+        <li>Différence : avant 155K pour vivre sans patrimoine, maintenant 115K MAIS maison à lui !</li>
+        <li>Ibrahim devient ambassadeur informel : recommande activement l'IMF à 8 collègues</li>
+        <li>Dans 5-7 ans : envisage un 2e financement pour acheter un terrain à louer</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Fonctionnaire</span><span class="actor-badge">IMF</span><span class="actor-badge">Collègues</span><span class="actor-badge">Communauté</span></div>
+</div>
+</div>
+</section>
+
+<!-- ======================== SECTION 8 : ONG ======================== -->
+<section class="section" id="s8">
+<h2>🏢 Persona 8 : ONG</h2>
+
+<div class="persona-card">
+    <div class="persona-avatar">🏢</div>
+    <div class="persona-info">
+        <div class="persona-name">ONG Solidarité Mali</div>
+        <div class="persona-title">ONG nationale — Développement rural, éducation, santé</div>
+        <div class="persona-details">
+            <div class="detail-item"><span class="detail-label">⚖️ Statut juridique</span><span class="detail-value">ONG nationale ou internationale, association reconnue d'utilité publique</span></div>
+            <div class="detail-item"><span class="detail-label">🌍 Domaines</span><span class="detail-value">Développement rural, éducation, santé, microfinance, environnement, urgence humanitaire</span></div>
+            <div class="detail-item"><span class="detail-label">📍 Zone géographique</span><span class="detail-value">Bamako, régions de Kayes, Koulikoro, Sikasso, Ségou, Mopti</span></div>
+            <div class="detail-item"><span class="detail-label">💰 Budget annuel</span><span class="detail-value">50 millions à 2 milliards FCFA selon la taille</span></div>
+            <div class="detail-item"><span class="detail-label">👥 Effectif</span><span class="detail-value">10 à 200 employés permanents et temporaires</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="journey-title">🗺️ PARCOURS 8 : Financement d'une ONG — Salam + Compte Wadia</div>
+
+<div class="steps-grid">
+<div class="step-card awareness">
+    <div class="step-header"><div class="step-title"><span class="step-num">1/8</span> Identification du besoin</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1-2 semaines</span><span class="meta-badge">📍 Bamako, terrain</span></div>
+    <span class="emotion-tag negative">😤 Frustration face aux contraintes bancaires conventionnelles</span>
+    <ul class="step-details">
+        <li>ONG Solidarité Mali, 45 employés, budget 350M FCFA, financée par UE/USAID/AFD</li>
+        <li>Décaissement bailleur UE retardé de 3 mois — besoin urgent de préfinancement 80M FCFA</li>
+        <li>Banque conventionnelle propose crédit avec intérêts (Riba) — incompatible avec valeurs de l'ONG</li>
+        <li>Le Directeur Exécutif M. Diallo consulte le RAF sur des alternatives éthiques</li>
+        <li>Une ONG partenaire (Action Développement) recommande l'IMF islamique — « ils ont financé notre projet agricole »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">RAF</span><span class="actor-badge">ONG partenaire</span><span class="actor-badge">Bailleur UE</span></div>
+</div>
+
+<div class="step-card discovery">
+    <div class="step-header"><div class="step-title"><span class="step-num">2/8</span> Recherche et découverte</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 semaine</span><span class="meta-badge">📍 Bureau, mosquée, internet</span></div>
+    <span class="emotion-tag neutral">🤔 Curiosité prudente mais intérêt croissant</span>
+    <ul class="step-details">
+        <li>Discussion approfondie avec ONG Action Développement sur leur expérience avec la Mourabaha</li>
+        <li>Recherche Google : « financement islamique ONG Mali » — découverte du site de l'IMF</li>
+        <li>Consultation du groupe WhatsApp FECONG (80 ONG membres) — 4 témoignages positifs</li>
+        <li>Le RAF télécharge la brochure produits et le guide « Finance islamique pour ONG »</li>
+        <li>Consultation informelle avec l'imam de la mosquée du quartier pour validation religieuse</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">RAF</span><span class="actor-badge">ONG partenaires</span><span class="actor-badge">Imam</span><span class="actor-badge">Groupe FECONG</span></div>
+</div>
+
+<div class="step-card contact">
+    <div class="step-header"><div class="step-title"><span class="step-num">3/8</span> Premier contact téléphonique</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 25 minutes</span><span class="meta-badge">📍 Bureau ONG (appel)</span></div>
+    <span class="emotion-tag positive">😊 Nervosité initiale puis rassurance par l'accueil chaleureux</span>
+    <ul class="step-details">
+        <li>Mardi 9h30 : M. Diallo appelle l'IMF depuis son bureau — numéro vert gratuit</li>
+        <li>Durée de l'appel : 25 minutes avec Mme Konaté, Conseillère Clientèle Institutionnelle</li>
+        <li>Il expose le besoin : préfinancement 80M en attendant décaissement UE + compte courant islamique</li>
+        <li>La conseillère mentionne « nous accompagnons déjà 23 ONG dont 5 financées par l'UE »</li>
+        <li>Proposition de RDV le jeudi 14h à l'agence principale — envoi confirmation WhatsApp</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">Conseillère IMF</span></div>
+</div>
+
+<div class="step-card evaluation">
+    <div class="step-header"><div class="step-title"><span class="step-num">4/8</span> Consultation et analyse des besoins</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 2h30</span><span class="meta-badge">📍 Agence IMF Bamako</span></div>
+    <span class="emotion-tag excited">🤩 Enthousiasme croissant — le projet devient concret</span>
+    <ul class="step-details">
+        <li>Jeudi 14h : M. Diallo et le RAF arrivent à l'agence avec les 3 derniers rapports financiers</li>
+        <li>RDV de 2h30 : présentation de l'ONG, analyse des flux de trésorerie, explication des produits islamiques</li>
+        <li>Solution proposée : Salam (préfinancement 80M sur 6 mois) + Compte courant Wadia</li>
+        <li>Simulation détaillée : marge de 4% = 3,2M FCFA — remboursement à réception fonds UE</li>
+        <li>La conseillère utilise un tableau blanc pour expliquer le mécanisme Salam — très apprécié</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">RAF</span><span class="actor-badge">Conseillère IMF</span><span class="actor-badge">Responsable Crédit</span></div>
+</div>
+
+<div class="step-card preparation">
+    <div class="step-header"><div class="step-title"><span class="step-num">5/8</span> Constitution du dossier</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 10 jours</span><span class="meta-badge">📍 Bureau ONG, administrations</span></div>
+    <span class="emotion-tag neutral">😤 Charge administrative intense mais accompagnement rassurant</span>
+    <ul class="step-details">
+        <li>Vendredi : réception checklist par WhatsApp — 10 documents requis avec modèles</li>
+        <li>J1-3 : Statuts, récépissé, PV AG, pièces d'identité des 3 signataires — déjà disponibles</li>
+        <li>J4-6 : États financiers certifiés par le cabinet comptable AFEX (derniers 3 exercices ABN)</li>
+        <li>J7-8 : Convention UE + lettre de confirmation du montant et délai de décaissement</li>
+        <li>J10 : Dépôt du dossier complet – Mme Konaté vérifie en direct, tout est conforme ✓</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">RAF</span><span class="actor-badge">Gestionnaire IMF</span><span class="actor-badge">Cabinet comptable</span><span class="actor-badge">Bailleur UE</span></div>
+</div>
+
+<div class="step-card validation">
+    <div class="step-header"><div class="step-title"><span class="step-num">6/8</span> Validation et approbation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 7 jours</span><span class="meta-badge">📍 IMF (back-office)</span></div>
+    <span class="emotion-tag negative">😰 Anxiété de l'attente puis soulagement immense</span>
+    <ul class="step-details">
+        <li>Phase la plus stressante : 7 jours d'attente — M. Diallo vérifie son téléphone souvent</li>
+        <li>J2 : SMS automatique « Dossier en cours d'analyse financière » — premier soulagement</li>
+        <li>J4 : SMS « Dossier transmis au Comité de Conformité Charia » — ça avance</li>
+        <li>J6 : SMS « Dossier en Comité de Crédit » — nuit difficile, prières à la mosquée</li>
+        <li>J7, 16h45 : APPEL ! « Félicitations M. Diallo, votre financement Salam de 80M est approuvé ! »</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">Gestionnaire IMF</span><span class="actor-badge">Comité Crédit</span><span class="actor-badge">Conseil Charia</span><span class="actor-badge">Dept. Risques</span></div>
+</div>
+
+<div class="step-card signature">
+    <div class="step-header"><div class="step-title"><span class="step-num">7/8</span> Signature et décaissement</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 1 jour</span><span class="meta-badge">📍 Agence IMF</span></div>
+    <span class="emotion-tag positive">🥹 Fierté et reconnaissance — moment solennel</span>
+    <ul class="step-details">
+        <li>Lundi 10h : Cérémonie de signature — M. Diallo, RAF et Président du CA présents</li>
+        <li>Lecture clause par clause du contrat Salam avec le conseiller Charia (45 min)</li>
+        <li>Signature des 3 documents : Convention compte, Contrat Salam, Conditions générales</li>
+        <li>Remise du certificat de conformité Charia — moment émouvant, photo souvenir</li>
+        <li>14h : Virement de 80M FCFA sur le nouveau compte — SMS de confirmation reçu</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">RAF</span><span class="actor-badge">Président CA</span><span class="actor-badge">Responsable Crédit</span><span class="actor-badge">Conseiller Charia</span></div>
+</div>
+
+<div class="step-card fidelisation full-width">
+    <div class="step-header"><div class="step-title"><span class="step-num">8/8</span> Accompagnement et fidélisation</div></div>
+    <div class="step-meta"><span class="meta-badge">⏱️ 6 mois+</span><span class="meta-badge">📍 Terrain, agence, digital</span></div>
+    <span class="emotion-tag positive">💚 Confiance établie — partenariat durable</span>
+    <ul class="step-details">
+        <li>Suivi mensuel : point téléphonique avec Mme Konaté sur l'avancement du projet terrain</li>
+        <li>Mois 5 : Décaissement UE reçu — remboursement Salam 83,2M effectué sans incident</li>
+        <li>L'ONG recommande l'IMF à 3 autres ONG partenaires — devient ambassadrice informelle</li>
+        <li>Invitation au forum annuel « Finance Islamique et Développement » organisé par l'IMF</li>
+        <li>An 2 : Nouveau financement Moucharaka 150M pour projet coopérative agricole femmes</li>
+    </ul>
+    <div class="actors-row"><span class="actor-badge highlight">Directeur Exécutif</span><span class="actor-badge">Conseillère IMF</span><span class="actor-badge">Communauté ONG</span></div>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+
+<footer>
+<p><strong>AL NAMAA FINANCE</strong> — Institution de Microfinance Islamique — Mali</p>
+<p>Personas & Parcours Clients — ASCANE Consulting — Version 1.0</p>
+<p><em>Document Confidentiel — Usage Interne</em></p>
+</footer>
+
+<script>
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelector('.content').scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Al-NAMAA Finances - Procédures Pré-Opérationnelles</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #1a5f2a;
+    --secondary: #c9a227;
+    --accent: #e8960e;
+    --dark: #2c3e50;
+    --light: #f5f5f5;
+    --blue: #17a2b8;
+    --primary-light: #2d8a42;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+}
+
+.logo img { max-width: 180px; height: auto; margin-bottom: 10px; }
+.logo p { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
+
+.nav-menu { list-style: none; }
+
+.nav-link {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    background: var(--light);
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+.nav-subitem {
+    padding-left: 1.5rem;
+    font-size: 0.8rem;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.header .version { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; }
+
+.section {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--secondary);
+}
+
+h3 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+}
+
+h4 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1rem 0 0.5rem;
+}
+
+p { margin-bottom: 1rem; }
+ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+li { margin-bottom: 0.5rem; }
+
+.highlight, .sharia-box, .compliance-highlight {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+    border-left: 4px solid var(--primary);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.info-box, .bceao-box {
+    background: #e3f2fd;
+    border-left: 4px solid var(--blue);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.warning, .warning-box {
+    background: #fff3e0;
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.risk-box {
+    background: #fce4ec;
+    border-left: 4px solid var(--danger);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) { background: #f9f9f9; }
+tbody tr:hover { background: #e8f5e9; }
+
+.islamic-term {
+    color: var(--primary);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.status-mandatory { color: var(--danger); font-weight: bold; }
+.status-recommended { color: var(--warning); font-weight: bold; }
+.status-optional { color: var(--blue); font-weight: bold; }
+
+/* Mobile */
+@media (max-width: 900px) {
+    .container { flex-direction: column; }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        max-height: 50vh;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+<div class="logo">
+<img src="data:image/png;base64,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" alt="AL NAMAA Finances" style="max-width:180px; height:auto; background:white; padding:4px 8px; border-radius:6px;"/>
+</div>
+<ul class="nav-menu">
+<li><a class="nav-link active" onclick="showSection('intro')">📖 Introduction</a></li>
+<li><a class="nav-link" onclick="showSection('partie1')">🏛️ Partie I — BCEAO</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie1', 'proc1-1')">→ 1.1 Agrément & autorisations</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie1', 'proc1-2')">→ 1.2 Ratios prudentiels</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie1', 'proc1-3')">→ 1.3 Identification client (KYC)</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie1', 'proc1-4')">→ 1.4 Profil de risque</a></li>
+<li><a class="nav-link" onclick="showSection('partie2')">☪️ Partie II — Charia</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie2', 'proc2-1')">→ 2.1 Licéité de l'activité</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie2', 'proc2-2')">→ 2.2 Validation fatwa produit</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie2', 'proc2-3')">→ 2.3 Éléments contractuels</a></li>
+<li><a class="nav-link" onclick="showSection('partie3')">📦 Partie III — Produits</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie3', 'proc3-1')">→ 3.1 Mourabaha</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie3', 'proc3-2')">→ 3.2 Moucharaka</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie3', 'proc3-3')">→ 3.3 Wadi'a</a></li>
+<li><a class="nav-link" onclick="showSection('partie4')">✅ Partie IV — Validation</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie4', 'proc4-1')">→ 4.1 Check-list (8 points)</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie4', 'proc4-2')">→ 4.2 Circuit de validation</a></li>
+<li class="nav-subitem"><a class="nav-link" onclick="showSection('partie4', 'proc4-3')">→ 4.3 Récapitulatif</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="header">
+<h1>📋 Procédures Pré-Opérationnelles</h1>
+<div class="subtitle">Vérification de Conformité BCEAO et Charia</div>
+<div class="version">Version 1.0 — Janvier 2026 </div>
+</div>
+<section class="section active" id="intro">
+<h2>📖 Introduction</h2>
+            
+            <p>Ce document présente l'ensemble des procédures de vérification de conformité qui doivent être exécutées <strong>avant toute opération de financement</strong>.</p>
+            
+            <p>Ces procédures garantissent la <strong>double conformité</strong> aux exigences réglementaires de la BCEAO et aux principes de la Charia.</p>
+            
+            <p>Chaque procédure est détaillée avec ses étapes, les acteurs responsables, les documents requis et les points de contrôle essentiels.</p>
+            
+            <div class="info-box">
+                <h5>📌 Structure du document</h5>
+                <ul>
+                    <li><strong>Partie I</strong> — Procédures de Conformité BCEAO (réglementaire)</li>
+                    <li><strong>Partie II</strong> — Procédures de Conformité Charia (islamique)</li>
+                    <li><strong>Partie III</strong> — Procédures Spécifiques par Produit (Mourabaha, Moucharaka, Wadi'a)</li>
+                    <li><strong>Partie IV</strong> — Validation Finale Pré-Opérationnelle (check-list &amp; circuit)</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <h5>⚠️ Obligation</h5>
+                <p><strong>Aucune opération ne peut être initiée</strong> sans la validation complète de l'ensemble des procédures décrites dans ce document. Tout manquement expose l'institution à des sanctions réglementaires et à une invalidation de la conformité Charia.</p>
+            </div>
+</section>
+<section class="section" id="partie1">
+<h2>🏛️ Partie I — Procédures de Conformité BCEAO</h2>
+            
+            <!-- ===== Procédure 1 : Agrément ===== -->
+            <h3 id="proc1-1">1.1 Vérification de l'Agrément et des Autorisations</h3>
+            
+            <h4>Objectif :</h4>
+            <p>S'assurer que l'institution dispose de toutes les autorisations requises pour exercer l'activité de microfinance islamique au Mali.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Vérification de la validité de l'agrément</span>
+                <p style="margin-top:10px;">Le responsable juridique vérifie la validité de l'agrément délivré par le Ministère des Finances. Il contrôle la date d'expiration et les conditions particulières mentionnées.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Confirmation de l'avis technique BCEAO</span>
+                <p style="margin-top:10px;">Il confirme que l'avis technique de la BCEAO est favorable et archivé dans le dossier institutionnel.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Couverture des activités de finance islamique</span>
+                <p style="margin-top:10px;">Il vérifie que les activités de finance islamique sont explicitement couvertes par l'agrément ou font l'objet d'une autorisation complémentaire.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Vérification des dirigeants déclarés</span>
+                <p style="margin-top:10px;">Il contrôle que les dirigeants actuels correspondent à ceux déclarés lors de l'agrément ou que les modifications ont été notifiées à l'autorité de tutelle.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Attestation de conformité</span>
+                <p style="margin-top:10px;">Il établit une attestation de conformité de l'agrément, datée et signée, conservée dans le dossier de contrôle.</p>
+            </div>
+            
+            <h4>Documents requis :</h4>
+            <ul class="checklist">
+                <li>Arrêté ministériel d'agrément original</li>
+                <li>Avis technique de la BCEAO</li>
+                <li>Liste actualisée des dirigeants</li>
+                <li>Notifications de modifications éventuelles</li>
+            </ul>
+            
+            <!-- ===== Procédure 2 : Ratios prudentiels ===== -->
+            <h3 id="proc1-2">1.2 Contrôle des Ratios Prudentiels</h3>
+            
+            <h4>Objectif :</h4>
+            <p>Vérifier que l'institution respecte les normes prudentielles de la BCEAO avant d'engager de nouvelles opérations.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Calcul du ratio de liquidité</span>
+                <p style="margin-top:10px;">Le service comptable calcule le ratio de liquidité en divisant les actifs disponibles et réalisables à court terme par les passifs exigibles à court terme. Le ratio doit être <strong>supérieur ou égal à 80%</strong>.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Ratio de couverture des emplois</span>
+                <p style="margin-top:10px;">Il calcule le ratio de couverture des emplois par les ressources stables. Les ressources stables divisées par les emplois à moyen et long terme doivent donner un résultat <strong>supérieur à 100%</strong>.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Coefficient de transformation</span>
+                <p style="margin-top:10px;">Il vérifie le coefficient de transformation qui limite les engagements à terme par rapport aux ressources permanentes.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Division des risques</span>
+                <p style="margin-top:10px;">Il contrôle que l'encours prévu sur le bénéficiaire ne dépassera pas <strong>10% des fonds propres</strong> après l'opération envisagée.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Alerte en cas de non-respect</span>
+                <p style="margin-top:10px;">En cas de non-respect d'un ratio, le directeur financier est immédiatement alerté. Un plan de redressement doit être élaboré sous <strong>48 heures</strong> avant toute nouvelle opération.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Validation et signature du rapport</span>
+                <p style="margin-top:10px;">Le rapport des ratios est daté, signé par le responsable comptable et validé par le directeur financier.</p>
+            </div>
+            
+            <h4>Tableau récapitulatif des ratios :</h4>
+            <table>
+                <tr>
+                    <th>Ratio</th>
+                    <th>Norme minimale</th>
+                    <th>Fréquence de calcul</th>
+                </tr>
+                <tr>
+                    <td><strong>Ratio de liquidité</strong></td>
+                    <td>≥ 80%</td>
+                    <td>Mensuel</td>
+                </tr>
+                <tr>
+                    <td><strong>Couverture des emplois</strong></td>
+                    <td>&gt; 100%</td>
+                    <td>Mensuel</td>
+                </tr>
+                <tr>
+                    <td><strong>Division des risques</strong></td>
+                    <td>≤ 10% des FP</td>
+                    <td>Avant chaque opération</td>
+                </tr>
+            </table>
+            
+            <div class="danger-box">
+                <h5>🚨 Alerte critique</h5>
+                <p>En cas de non-respect d'un ratio prudentiel, <strong>aucune nouvelle opération de financement ne peut être engagée</strong> tant qu'un plan de redressement n'a pas été validé par le directeur financier dans un délai de 48 heures.</p>
+            </div>
+            
+            <!-- ===== Procédure 3 : KYC ===== -->
+            <h3 id="proc1-3">1.3 Identification et Connaissance du Client (KYC)</h3>
+            
+            <h4>Objectif :</h4>
+            <p>Collecter et vérifier toutes les informations nécessaires à l'identification du client conformément aux exigences de la CENTIF et de la réglementation anti-blanchiment.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Collecte des pièces d'identité</span>
+                <p style="margin-top:10px;">L'agent de crédit collecte une pièce d'identité valide du client :</p>
+                <ul>
+                    <li><strong>Personne physique :</strong> Carte nationale d'identité, passeport ou carte NINA</li>
+                    <li><strong>Personne morale :</strong> RCCM, NIF et statuts</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Justificatif de domicile</span>
+                <p style="margin-top:10px;">Il collecte un justificatif de domicile de <strong>moins de trois mois</strong> : facture d'eau, d'électricité ou attestation de résidence délivrée par les autorités locales.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Documents d'activité professionnelle</span>
+                <p style="margin-top:10px;">Pour les professionnels et entreprises, il collecte les documents d'enregistrement de l'activité : registre de commerce, licence professionnelle, agrément sectoriel le cas échéant.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Archivage des copies</span>
+                <p style="margin-top:10px;">Il photocopie tous les documents et les conserve dans le dossier client. Les originaux sont restitués au client après vérification.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Vérification PPE et listes de sanctions</span>
+                <p style="margin-top:10px;">Il vérifie l'identité du client dans la base des <strong>Personnes Politiquement Exposées (PPE)</strong> et dans les listes de sanctions internationales.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Source des revenus et origine des fonds</span>
+                <p style="margin-top:10px;">Il documente la source des revenus et l'origine des fonds destinés au remboursement du financement.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <span class="step-title">Fiche KYC signée et archivée</span>
+                <p style="margin-top:10px;">Il complète la fiche KYC standardisée et la fait signer par le client. Cette fiche est datée et archivée dans le dossier.</p>
+            </div>
+            
+            <h4>Points de contrôle critiques :</h4>
+            <ul class="checklist">
+                <li>Authenticité des documents d'identité</li>
+                <li>Cohérence entre l'adresse déclarée et le justificatif</li>
+                <li>Absence du client sur les listes de sanctions</li>
+                <li>Plausibilité des revenus déclarés par rapport à l'opération envisagée</li>
+            </ul>
+            
+            <!-- ===== Procédure 4 : Profil de risque ===== -->
+            <h3 id="proc1-4">1.4 Analyse du Profil de Risque du Client</h3>
+            
+            <h4>Objectif :</h4>
+            <p>Évaluer le niveau de risque associé au client et déterminer les mesures de vigilance appropriées.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Analyse selon la matrice de risque</span>
+                <p style="margin-top:10px;">L'agent de crédit analyse le profil du client selon les critères de la matrice de risque : nature de l'activité, montant de l'opération, zone géographique, antécédents avec l'institution.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Attribution du score de risque</span>
+                <p style="margin-top:10px;">Il attribue un score de risque : <strong>faible</strong>, <strong>modéré</strong> ou <strong>élevé</strong>. Ce score détermine le niveau de vigilance à appliquer.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Vigilance renforcée (risque élevé)</span>
+                <p style="margin-top:10px;">Pour les clients à risque élevé, il applique les mesures de vigilance renforcée : validation par la hiérarchie, collecte d'informations complémentaires, suivi rapproché.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Vérification de l'historique client</span>
+                <p style="margin-top:10px;">Il vérifie l'historique du client avec l'institution : régularité des remboursements antérieurs, incidents de paiement, comportement transactionnel.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Fiche d'évaluation signée</span>
+                <p style="margin-top:10px;">Il documente son analyse dans une fiche d'évaluation du risque client, signée et datée.</p>
+            </div>
+            
+            <h4>Matrice de scoring du risque client :</h4>
+            <table>
+                <tr>
+                    <th>Critère</th>
+                    <th style="background:#28a745;">Risque Faible</th>
+                    <th style="background:#ffc107;color:#333;">Risque Modéré</th>
+                    <th style="background:#dc3545;">Risque Élevé</th>
+                </tr>
+                <tr>
+                    <td><strong>Activité</strong></td>
+                    <td>Salarié / Fonctionnaire</td>
+                    <td>Commerçant établi</td>
+                    <td>Activité informelle / Nouvelle</td>
+                </tr>
+                <tr>
+                    <td><strong>Montant</strong></td>
+                    <td>&lt; 500 000 FCFA</td>
+                    <td>500K - 5M FCFA</td>
+                    <td>&gt; 5M FCFA</td>
+                </tr>
+                <tr>
+                    <td><strong>Antécédents</strong></td>
+                    <td>Client fidèle sans incident</td>
+                    <td>Nouveau client / 1 incident mineur</td>
+                    <td>Incidents multiples / Inconnu</td>
+                </tr>
+                <tr>
+                    <td><strong>Vigilance</strong></td>
+                    <td>Standard</td>
+                    <td>Renforcée (validation N+1)</td>
+                    <td>Renforcée + Comité de crédit</td>
+                </tr>
+            </table>
+</section>
+<section class="section" id="partie2">
+<h2>☪️ Partie II — Procédures de Conformité Charia</h2>
+            
+            <!-- ===== Procédure 1 : Licéité ===== -->
+            <h3 id="proc2-1">2.1 Vérification de la Licéité de l'Activité Financée</h3>
+            
+            <h4>Objectif :</h4>
+            <p>S'assurer que l'activité du client et l'objet du financement sont conformes aux principes de la Charia.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Identification de l'activité et de l'objet du financement</span>
+                <p style="margin-top:10px;">L'agent de crédit identifie précisément l'activité principale du client et l'objet spécifique du financement demandé.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Consultation de la liste des activités prohibées</span>
+                <p style="margin-top:10px;">Il consulte la liste des activités prohibées établie par le Comité de conformité Charia. Cette liste inclut : production ou commerce d'alcool, tabac, porc et dérivés, jeux de hasard, armement, divertissement illicite, institutions financières conventionnelles à intérêt.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Refus si activité prohibée</span>
+                <p style="margin-top:10px;">Si l'activité figure sur la liste, le financement est <strong>refusé immédiatement</strong>. L'agent documente le refus avec le motif.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Transmission pour activités mixtes</span>
+                <p style="margin-top:10px;">Pour les activités mixtes ou ambiguës, l'agent transmet le dossier au responsable Charia pour analyse approfondie.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Analyse des revenus licites/illicites</span>
+                <p style="margin-top:10px;">Le responsable Charia analyse la proportion des revenus licites et illicites du client. Si les revenus illicites dépassent <strong>5% du chiffre d'affaires total</strong>, le financement est refusé.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Attestation de licéité</span>
+                <p style="margin-top:10px;">L'agent complète une attestation de licéité de l'activité, signée et conservée dans le dossier.</p>
+            </div>
+            
+            <h4>Liste des activités prohibées :</h4>
+            <table>
+                <tr>
+                    <th>Catégorie</th>
+                    <th>Exemples</th>
+                </tr>
+                <tr style="background:#ffebee;">
+                    <td><strong>Substances illicites</strong></td>
+                    <td>Alcool, tabac, drogues</td>
+                </tr>
+                <tr style="background:#ffebee;">
+                    <td><strong>Alimentation prohibée</strong></td>
+                    <td>Porc, viande non halal</td>
+                </tr>
+                <tr style="background:#ffebee;">
+                    <td><strong>Jeux et spéculation</strong></td>
+                    <td>Casinos, paris, loteries</td>
+                </tr>
+                <tr style="background:#ffebee;">
+                    <td><strong>Finance conventionnelle</strong></td>
+                    <td>Banques à intérêt, assurances classiques</td>
+                </tr>
+                <tr style="background:#ffebee;">
+                    <td><strong>Divertissement illicite</strong></td>
+                    <td>Discothèques, contenus pornographiques</td>
+                </tr>
+            </table>
+            
+            <div class="sharia-box">
+                <h5>📜 Fondement Charia</h5>
+                <p>L'interdiction de financer des activités <span class="islamic-term">haram</span> (illicites) est un principe fondamental de la finance islamique. Le seuil de tolérance de 5% pour les activités mixtes est conforme aux recommandations de l'AAOIFI et validé par le Comité de conformité Charia d'Al-NAMAA.</p>
+            </div>
+            
+            <!-- ===== Procédure 2 : Fatwa ===== -->
+            <h3 id="proc2-2">2.2 Validation du Produit par le Comité de Conformité Charia</h3>
+            
+            <h4>Objectif :</h4>
+            <p>S'assurer que le produit de financement utilisé a été validé par le Comité Charia et que la <span class="islamic-term">fatwa</span> correspondante est applicable à l'opération.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Identification du produit approprié</span>
+                <p style="margin-top:10px;">L'agent de crédit identifie le produit de financement approprié à la demande du client : <span class="islamic-term">Mourabaha</span>, <span class="islamic-term">Ijara</span>, <span class="islamic-term">Moucharaka</span>, <span class="islamic-term">Salam</span> ou <span class="islamic-term">Qard Hassan</span>.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Vérification de la fatwa valide</span>
+                <p style="margin-top:10px;">Il vérifie dans le registre des fatwas que le produit dispose d'une <span class="islamic-term">fatwa</span> valide émise par le Comité de conformité Charia.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Vérification des conditions spécifiques</span>
+                <p style="margin-top:10px;">Il s'assure que les conditions spécifiques de la fatwa sont applicables à l'opération envisagée. Si des conditions particulières sont mentionnées, il vérifie qu'elles seront respectées.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Demande d'avis pour produit nouveau</span>
+                <p style="margin-top:10px;">Pour tout produit nouveau ou toute variation non couverte par une fatwa existante, il soumet une demande d'avis au Comité Charia via le responsable conformité.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Documentation de la référence fatwa</span>
+                <p style="margin-top:10px;">Il documente la référence de la fatwa applicable dans le dossier de financement.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Confirmation avant initiation</span>
+                <p style="margin-top:10px;">L'opération <strong>ne peut être initiée</strong> qu'après confirmation de la validité de la fatwa applicable.</p>
+            </div>
+            
+            <div class="warning-box">
+                <h5>⚠️ Règle impérative</h5>
+                <p>Aucun produit de financement ne peut être proposé à un client sans qu'une <span class="islamic-term">fatwa</span> valide ne soit en vigueur pour ce produit. Toute nouvelle variante doit faire l'objet d'un avis préalable du Comité Charia.</p>
+            </div>
+            
+            <!-- ===== Procédure 3 : Éléments contractuels ===== -->
+            <h3 id="proc2-3">2.3 Vérification des Éléments Contractuels Charia</h3>
+            
+            <h4>Objectif :</h4>
+            <p>S'assurer que le contrat de financement respecte tous les principes islamiques et ne contient aucune clause prohibée.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Utilisation exclusive des modèles validés</span>
+                <p style="margin-top:10px;">L'agent de crédit utilise exclusivement les modèles de contrats validés par le Comité Charia. <strong>Aucune modification substantielle</strong> ne peut être apportée sans validation préalable.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Absence de <span class="islamic-term">Riba</span> (intérêt)</span>
+                <p style="margin-top:10px;">Il vérifie l'absence de toute clause d'intérêt (<span class="islamic-term">riba</span>). Le contrat ne doit contenir aucune référence à un taux d'intérêt ni à une majoration liée au temps de remboursement.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Absence de <span class="islamic-term">Gharar</span> (incertitude)</span>
+                <p style="margin-top:10px;">Il vérifie l'absence d'incertitude excessive (<span class="islamic-term">gharar</span>). L'objet du financement, le prix, les délais et toutes les conditions doivent être clairement définis.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Absence de <span class="islamic-term">Maysir</span> (spéculation)</span>
+                <p style="margin-top:10px;">Il vérifie que le contrat ne contient aucune clause spéculative (<span class="islamic-term">maysir</span>) ni conditionnalité aléatoire.</p>
+            </div>
+            
+            <h4>Vérifications spécifiques par produit :</h4>
+            
+            <table>
+                <tr>
+                    <th>Produit</th>
+                    <th>Vérifications spécifiques</th>
+                </tr>
+                <tr>
+                    <td><strong><span class="islamic-term">Mourabaha</span></strong></td>
+                    <td>Le coût d'acquisition et la marge bénéficiaire sont mentionnés <strong>distinctement</strong>. La marge n'est pas indexée sur la durée de remboursement.</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="islamic-term">Ijara</span></strong></td>
+                    <td>Les responsabilités du propriétaire-bailleur sont clairement établies, notamment pour les grosses réparations.</td>
+                </tr>
+                <tr>
+                    <td><strong><span class="islamic-term">Moucharaka</span></strong></td>
+                    <td>Le partage des profits et des pertes est conforme aux apports et clairement documenté.</td>
+                </tr>
+            </table>
+            
+            <div class="step">
+                <span class="step-number">8</span>
+                <span class="step-title">Pénalités de retard caritatives</span>
+                <p style="margin-top:10px;">Il vérifie que les clauses de pénalité de retard prévoient le reversement intégral à des <strong>œuvres caritatives</strong> et non à l'institution.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">9</span>
+                <span class="step-title">Validation finale par le responsable Charia</span>
+                <p style="margin-top:10px;">Le responsable Charia valide le contrat avant signature. Sa validation est documentée par un <strong>visa daté</strong> sur le dossier.</p>
+            </div>
+            
+            <div class="sharia-box">
+                <h5>📜 Les trois interdictions fondamentales</h5>
+                <table style="margin:10px 0;">
+                    <tr>
+                        <th>Principe</th>
+                        <th>Terme arabe</th>
+                        <th>Signification</th>
+                        <th>Vérification</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Interdiction de l'intérêt</strong></td>
+                        <td><span class="islamic-term">Riba</span></td>
+                        <td>Toute rémunération liée au temps</td>
+                        <td>Aucun taux d'intérêt dans le contrat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interdiction de l'incertitude</strong></td>
+                        <td><span class="islamic-term">Gharar</span></td>
+                        <td>Ambiguïté excessive dans les termes</td>
+                        <td>Prix, objet et conditions clairement définis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interdiction de la spéculation</strong></td>
+                        <td><span class="islamic-term">Maysir</span></td>
+                        <td>Gain basé sur le hasard</td>
+                        <td>Aucune conditionnalité aléatoire</td>
+                    </tr>
+                </table>
+            </div>
+</section>
+<section class="section" id="partie3">
+<h2>📦 Partie III — Procédures Spécifiques par Produit</h2>
+            
+            <!-- ===== Mourabaha ===== -->
+            <h3 id="proc3-1">3.1 Procédures Pré-Opérationnelles pour la <span class="islamic-term">Mourabaha</span></h3>
+            
+            <h4>Objectif :</h4>
+            <p>Préparer l'opération de <span class="islamic-term">Mourabaha</span> en garantissant que l'institution sera effectivement propriétaire du bien avant sa revente au client.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Recueil de la demande client</span>
+                <p style="margin-top:10px;">L'agent de crédit recueille la demande écrite du client précisant le bien souhaité avec ses spécifications exactes : nature, marque, modèle, quantité, caractéristiques techniques.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Obtention de devis fournisseurs</span>
+                <p style="margin-top:10px;">Il obtient au minimum <strong>trois devis</strong> de fournisseurs agréés par l'institution. Les fournisseurs doivent figurer sur la liste validée ou faire l'objet d'une procédure d'agrément.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Analyse et sélection du fournisseur</span>
+                <p style="margin-top:10px;">Il analyse les devis et sélectionne le fournisseur selon les critères établis : prix, qualité, délai de livraison, conditions de garantie.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Calcul du prix de revente</span>
+                <p style="margin-top:10px;">Il calcule le prix de revente en ajoutant la marge bénéficiaire au coût d'acquisition. La marge doit être conforme à la grille tarifaire validée par le Comité Charia.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Préparation de la promesse d'achat</span>
+                <p style="margin-top:10px;">Il prépare la promesse d'achat que le client signera. Cette promesse engage le client à acquérir le bien une fois que l'institution en sera propriétaire.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Bon de commande au nom de l'institution</span>
+                <p style="margin-top:10px;">Il vérifie que le bon de commande au fournisseur sera émis <strong>au nom de l'institution</strong> et non du client.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <span class="step-title">Préparation du contrat de Mourabaha</span>
+                <p style="margin-top:10px;">Il prépare le contrat de Mourabaha mentionnant distinctement le coût d'acquisition, la marge et le prix total de vente.</p>
+            </div>
+            
+            <h4>Points de contrôle critiques :</h4>
+            <ul class="checklist">
+                <li>Le bien doit être licite et clairement identifié</li>
+                <li>L'institution doit devenir propriétaire avant la revente</li>
+                <li>La marge ne doit pas varier selon la durée de remboursement</li>
+                <li>Le client doit être informé du coût d'acquisition et de la marge</li>
+            </ul>
+            
+            <div class="sharia-box">
+                <h5>📜 Principe Charia essentiel — Mourabaha</h5>
+                <p>La <span class="islamic-term">Mourabaha</span> exige que l'institution assume un <strong>risque réel de propriété</strong>, même temporaire, sur le bien. La vente directe du fournisseur au client (sans passage de propriété par l'institution) invaliderait la conformité Charia et transformerait l'opération en prêt à intérêt déguisé.</p>
+            </div>
+            
+            <!-- ===== Moucharaka ===== -->
+            <h3 id="proc3-2">3.2 Procédures Pré-Opérationnelles pour la <span class="islamic-term">Moucharaka</span></h3>
+            
+            <h4>Objectif :</h4>
+            <p>Préparer le partenariat (<span class="islamic-term">Moucharaka</span>) en définissant clairement les apports, la gouvernance et le partage des résultats.</p>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Analyse du projet</span>
+                <p style="margin-top:10px;">L'agent de crédit analyse le projet présenté par le client : nature de l'activité, plan d'affaires, projections financières, expérience du porteur de projet.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Détermination des apports respectifs</span>
+                <p style="margin-top:10px;">Il détermine les apports respectifs de l'institution et du client. Ces apports peuvent être en numéraire, en nature ou en industrie (travail).</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Répartition des profits</span>
+                <p style="margin-top:10px;">Il définit la répartition des profits. Cette répartition peut différer des apports mais doit être <strong>convenue à l'avance</strong> et clairement documentée.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Répartition des pertes</span>
+                <p style="margin-top:10px;">Il vérifie que la répartition des pertes sera <strong>strictement proportionnelle aux apports en capital</strong>, conformément aux principes de la Charia.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Modalités de gouvernance</span>
+                <p style="margin-top:10px;">Il définit les modalités de gouvernance du partenariat : pouvoir de décision, signataires, reporting, conditions de sortie.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Moucharaka dégressive — Calendrier de rachat</span>
+                <p style="margin-top:10px;">Pour une <span class="islamic-term">Moucharaka dégressive</span>, il établit le calendrier de rachat progressif des parts par le client et les modalités d'évaluation des parts à chaque étape.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <span class="step-title">Préparation du contrat</span>
+                <p style="margin-top:10px;">Il prépare le contrat de Moucharaka selon le modèle validé par le Comité Charia, incluant toutes les clauses relatives aux apports, profits, pertes et gouvernance.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">8</span>
+                <span class="step-title">Soumission au comité d'investissement</span>
+                <p style="margin-top:10px;">Il soumet le dossier au comité d'investissement pour validation de l'opportunité et des conditions du partenariat.</p>
+            </div>
+            
+            <h4>Points de contrôle critiques :</h4>
+            <ul class="checklist">
+                <li>Les apports de chaque partie sont clairement définis et documentés</li>
+                <li>La répartition des profits est convenue à l'avance</li>
+                <li>Les pertes sont réparties au prorata des apports en capital</li>
+                <li>Les modalités de sortie sont clairement établies</li>
+            </ul>
+            
+            <div class="sharia-box">
+                <h5>📜 Principe Charia essentiel — Moucharaka</h5>
+                <p>La <span class="islamic-term">Moucharaka</span> repose sur le principe du <strong>partage des profits ET des pertes</strong>. Si les profits peuvent être répartis librement (par accord des parties), les pertes doivent impérativement être proportionnelles aux apports en capital. Toute clause dérogeant à ce principe invalide le contrat.</p>
+            </div>
+            
+            <!-- ===== Wadi'a ===== -->
+            <h3 id="proc3-3">3.3 Procédures Pré-Opérationnelles pour la <span class="islamic-term">Wadi'a</span></h3>
+            
+            <h4>Objectif :</h4>
+            <p>Préparer l'ouverture d'un compte de dépôt (<span class="islamic-term">Wadi'a</span>) en s'assurant que le déposant comprend la nature du produit et que l'institution respecte ses obligations fiduciaires.</p>
+            
+            <h4>Principes fondamentaux :</h4>
+            <div class="info-box">
+                <p>La <span class="islamic-term">Wadi'a</span> est un contrat de dépôt fiduciaire qui peut prendre deux formes :</p>
+                <ul>
+                    <li><strong><span class="islamic-term">Wadi'a Yad Amanah</span></strong> — Dépôt pur de garde où l'institution ne peut pas utiliser les fonds. Sa responsabilité se limite aux cas de négligence.</li>
+                    <li><strong><span class="islamic-term">Wadi'a Yad Dhamanah</span></strong> — Dépôt avec garantie où l'institution peut utiliser les fonds avec l'autorisation du déposant et garantit leur restitution intégrale.</li>
+                </ul>
+            </div>
+            
+            <h4>Étapes de la procédure :</h4>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <span class="step-title">Procédures KYC standard</span>
+                <p style="margin-top:10px;">L'agent complète les procédures KYC standard : collecte des pièces d'identité, justificatif de domicile, profession et source des fonds.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Vérification de la provenance licite des fonds</span>
+                <p style="margin-top:10px;">Il vérifie la provenance licite des fonds à déposer conformément aux exigences de la CENTIF.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Choix du type de Wadi'a</span>
+                <p style="margin-top:10px;">Il détermine avec le client le type de Wadi'a souhaité : <span class="islamic-term">Yad Amanah</span> (garde pure) ou <span class="islamic-term">Yad Dhamanah</span> (avec utilisation autorisée).</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <span class="step-title">Explication au déposant</span>
+                <p style="margin-top:10px;">Il explique clairement au déposant les caractéristiques du produit, notamment l'<strong>absence de toute rémunération garantie</strong>.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <span class="step-title">Autorisation d'utilisation des fonds</span>
+                <p style="margin-top:10px;">Pour la Wadi'a Yad Dhamanah, il obtient l'<strong>autorisation écrite</strong> du déposant permettant à l'institution d'utiliser les fonds.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <span class="step-title">Préparation du contrat</span>
+                <p style="margin-top:10px;">Il prépare le contrat de Wadi'a selon le modèle validé par le Comité Charia, détaillant les droits et obligations de chaque partie.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <span class="step-title">Configuration du système informatique</span>
+                <p style="margin-top:10px;">Il configure le compte dans le système informatique avec les paramètres appropriés au type de Wadi'a choisi.</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">8</span>
+                <span class="step-title">Information sur les modalités de retrait</span>
+                <p style="margin-top:10px;">Il informe le déposant des modalités de retrait et des conditions éventuelles de préavis.</p>
+            </div>
+            
+            <h4>Vérifications de conformité Charia spécifiques :</h4>
+            <ul class="checklist">
+                <li>Confirmer qu'aucune rémunération fixe ou taux de rendement n'est promis au déposant</li>
+                <li>Vérifier que tout don (<span class="islamic-term">hibah</span>) reste à la discrétion de l'institution et n'est pas contractuellement engagé</li>
+                <li>S'assurer que le contrat précise clairement la nature du dépôt (amanah ou dhamanah)</li>
+                <li>Vérifier la séparation comptable entre les fonds Wadi'a et les autres ressources de l'institution</li>
+                <li>Confirmer que les fonds Wadi'a Yad Dhamanah seront utilisés uniquement dans des activités licites</li>
+            </ul>
+            
+            <h4>Obligations de l'institution :</h4>
+            <ul>
+                <li>Garantir la restitution intégrale du montant déposé à tout moment (Wadi'a Yad Dhamanah)</li>
+                <li>Maintenir une liquidité suffisante pour honorer les demandes de retrait</li>
+                <li>Tenir une comptabilité séparée des fonds Wadi'a</li>
+                <li>Informer le Comité Charia de la politique de distribution des dons (<span class="islamic-term">hibah</span>)</li>
+            </ul>
+            
+            <h4>Points de contrôle critiques :</h4>
+            <ul class="checklist">
+                <li>Aucune rémunération prédéterminée ne doit être promise</li>
+                <li>Les dons (<span class="islamic-term">hibah</span>) doivent rester volontaires et non contractuels</li>
+                <li>L'autorisation d'utilisation des fonds doit être explicite et documentée</li>
+                <li>La distinction entre les deux types de Wadi'a doit être claire pour le déposant</li>
+            </ul>
+            
+            <div class="sharia-box">
+                <h5>📜 Principe Charia essentiel — Wadi'a</h5>
+                <p>La <span class="islamic-term">Wadi'a</span> se distingue fondamentalement d'un dépôt bancaire conventionnel : aucune rémunération n'est promise ni due. Tout don (<span class="islamic-term">hibah</span>) accordé par l'institution au déposant est un acte discrétionnaire et volontaire. Promettre un rendement transformerait le dépôt en prêt à intérêt (<span class="islamic-term">riba</span>).</p>
+            </div>
+</section>
+<section class="section" id="partie4">
+<h2>✅ Partie IV — Validation Finale Pré-Opérationnelle</h2>
+            
+            <h3 id="proc4-1">4.1 Check-list de Validation Pré-Opérationnelle</h3>
+            
+            <p>Avant toute opération, le responsable de conformité vérifie que <strong>tous les éléments suivants</strong> sont réunis et documentés dans le dossier :</p>
+            
+            <table>
+                <tr>
+                    <th>Élément de contrôle</th>
+                    <th style="text-align:center;">BCEAO</th>
+                    <th style="text-align:center;">Charia</th>
+                    <th style="text-align:center;">Statut</th>
+                </tr>
+                <tr>
+                    <td>Agrément institutionnel valide</td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Ratios prudentiels respectés</td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Dossier KYC complet et vérifié</td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Profil de risque client évalué</td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Activité licite confirmée</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Fatwa du produit valide</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Contrat conforme aux principes islamiques</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+                <tr>
+                    <td>Visa du responsable Charia obtenu</td>
+                    <td style="text-align:center;"></td>
+                    <td style="text-align:center;font-size:1.3rem;color:var(--primary);">✓</td>
+                    <td style="text-align:center;">☐</td>
+                </tr>
+            </table>
+            
+            <h3 id="proc4-2">4.2 Circuit de Validation</h3>
+            
+            <p>Le dossier complet suit le circuit de validation suivant avant autorisation de l'opération :</p>
+            
+            <div class="circuit-flow">
+                <div class="circuit-step">
+                    <div class="role">👤 Agent de Crédit</div>
+                    <div class="desc">Constitution du dossier et vérifications initiales</div>
+                </div>
+                <span class="circuit-arrow">➜</span>
+                <div class="circuit-step">
+                    <div class="role">🏛️ Responsable Conformité BCEAO</div>
+                    <div class="desc">Validation des aspects réglementaires</div>
+                </div>
+                <span class="circuit-arrow">➜</span>
+                <div class="circuit-step">
+                    <div class="role">☪️ Responsable Conformité Charia</div>
+                    <div class="desc">Validation des aspects islamiques</div>
+                </div>
+                <span class="circuit-arrow">➜</span>
+                <div class="circuit-step" style="background:linear-gradient(135deg,var(--secondary),#d4a817);">
+                    <div class="role">⚖️ Comité de Crédit</div>
+                    <div class="desc">Décision finale d'octroi</div>
+                </div>
+            </div>
+            
+            <div class="danger-box">
+                <h5>🚨 Règle absolue</h5>
+                <p><strong>Aucune opération ne peut être initiée sans la validation complète de ce circuit.</strong> Tout manquement expose l'institution à des sanctions réglementaires et à une invalidation de la conformité Charia.</p>
+            </div>
+            
+            <h3 id="proc4-3">4.3 Récapitulatif — Double Conformité</h3>
+            
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="value">4</div>
+                    <div class="label">Procédures BCEAO</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">3</div>
+                    <div class="label">Procédures Charia</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">3</div>
+                    <div class="label">Produits Spécifiques</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">8</div>
+                    <div class="label">Points de Check-list</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="value">4</div>
+                    <div class="label">Niveaux de Validation</div>
+                </div>
+            </div>
+            
+            <div class="success-box">
+                <h5>✅ Conditions de démarrage de l'opération</h5>
+                <p>L'opération peut être initiée uniquement lorsque les <strong>trois conditions cumulatives</strong> suivantes sont réunies :</p>
+                <ol>
+                    <li>L'ensemble des 8 points de la check-list sont validés (☑) et documentés</li>
+                    <li>Le circuit de validation à 4 niveaux est complété (visa de chaque acteur)</li>
+                    <li>Le comité de crédit a rendu une décision favorable formalisée par un procès-verbal signé</li>
+                </ol>
+            </div>
+</section>
+</main>
+</div>
+<footer>
+        <p><strong>Al-NAMAA Finances</strong> - Programme de Microfinance Islamique</p>
+        <p>Procédures Pré-Opérationnelles - Vérification de Conformité BCEAO et Charia - Version 1.0</p>
+        <p>Décembre 2025 | Préparé par ASCANE / Gestion des Produits & Finance Islamique</p>
+        <p><em>Document Confidentiel - Usage Interne Uniquement</em></p>
+    </footer>
+<script>
+function showSection(sectionId, anchorId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+    if (anchorId) {
+        setTimeout(function() {
+            var el = document.getElementById(anchorId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    } else {
+        document.querySelector('.content').scrollTo(0, 0);
+    }
+}
+</script>
+</body>
+</html>

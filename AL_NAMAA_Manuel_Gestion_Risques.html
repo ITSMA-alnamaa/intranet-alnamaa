@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AL NAMAA FINANCE - Manuel de Gestion des Risques</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #1a5f2a;
+    --primary-light: #2d8a42;
+    --secondary: #c9a227;
+    --bg-light: #f8f9fa;
+    --text-dark: #2c3e50;
+    --border: #dee2e6;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --info: #17a2b8;
+    --accent: #e8960e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+}
+
+.logo h2 { color: var(--primary); font-size: 1.3rem; }
+.logo p { color: var(--secondary); font-size: 0.8rem; font-weight: 600; }
+
+.nav-menu { list-style: none; }
+
+.nav-link {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 0.78rem;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    background: var(--bg-light);
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.header .version { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; }
+
+.section {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--secondary);
+}
+
+h3 {
+    color: var(--primary-light);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+}
+
+h4 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1rem 0 0.5rem;
+}
+
+p { margin-bottom: 1rem; }
+ul, ol { margin: 15px 0 15px 25px; }
+li { margin-bottom: 0.5rem; }
+
+.formula-box {
+    background: #1e1e1e;
+    color: #4ec9b0;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+}
+
+.norm-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 8px 0;
+}
+
+.norm-badge.max { background: var(--danger); }
+.norm-badge.min { background: var(--success); }
+.norm-badge.target { background: var(--info); }
+.norm-badge.moderate { background: var(--accent); }
+
+.info-box {
+    background: #e3f2fd;
+    border-left: 4px solid var(--info);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.warning-box {
+    background: #fff3e0;
+    border-left: 4px solid var(--accent);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.danger-box {
+    background: #f8d7da;
+    border-left: 4px solid var(--danger);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.success-box {
+    background: #d4edda;
+    border-left: 4px solid var(--success);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.sharia-box {
+    background: linear-gradient(135deg, #f0f7f0, #e8f5e9);
+    border: 2px solid var(--primary);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+.orgchart-box {
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.82rem;
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.4;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid var(--border);
+}
+
+th {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) { background: var(--bg-light); }
+tbody tr:hover { background: #e8f5e9; }
+
+.checklist { list-style: none; margin-left: 0; padding-left: 0; }
+.checklist li { padding: 8px 0 8px 35px; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 0; color: var(--primary); font-size: 1.2rem; }
+
+.level-card {
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 12px 0;
+    border-left: 5px solid;
+}
+.level-1 { background: #e3f2fd; border-color: var(--info); }
+.level-2 { background: #fff3e0; border-color: var(--warning); }
+.level-3 { background: #fce4ec; border-color: #e91e63; }
+.level-4 { background: #f8d7da; border-color: var(--danger); }
+.level-5 { background: #4a0e0e; border-color: #000; color: white; }
+.level-5 strong { color: #ff8a80; }
+
+.risk-green { color: var(--success); font-weight: 600; }
+.risk-yellow { color: var(--warning); font-weight: 600; }
+.risk-orange { color: var(--accent); font-weight: 600; }
+.risk-red { color: var(--danger); font-weight: 600; }
+
+.scoring-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.scoring-card {
+    background: var(--bg-light);
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 4px solid var(--primary);
+}
+
+.scoring-card h4 { margin-top: 0; }
+
+@media (max-width: 900px) {
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; max-height: 50vh; }
+    .scoring-grid { grid-template-columns: 1fr; }
+}
+
+footer {
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+footer p { margin: 5px 0; text-align: center; color: white; }
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+<div class="logo">
+<img src="data:image/png;base64,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" alt="AL NAMAA Finances" style="max-width:180px; height:auto; background:white; padding:4px 8px; border-radius:6px;"/>
+<p>Manuel de Gestion des Risques</p>
+</div>
+<ul class="nav-menu">
+<li><a class="nav-link active" onclick="showSection('s1')">📘 1. Cadre Général</a></li>
+<li><a class="nav-link" onclick="showSection('s2')">🏢 2. Gouvernance</a></li>
+<li><a class="nav-link" onclick="showSection('s3')">🗺️ 3. Cartographie</a></li>
+<li><a class="nav-link" onclick="showSection('s4')">💳 4. Risque de Crédit</a></li>
+<li><a class="nav-link" onclick="showSection('s5')">💧 5. Risque de Liquidité</a></li>
+<li><a class="nav-link" onclick="showSection('s6')">⚙️ 6. Risque Opérationnel</a></li>
+<li><a class="nav-link" onclick="showSection('s7')">📜 7. Non-Conformité</a></li>
+<li><a class="nav-link" onclick="showSection('s8')">📈 8. Risque de Marché</a></li>
+<li><a class="nav-link" onclick="showSection('s9')">🎯 9. Risque Stratégique</a></li>
+<li><a class="nav-link" onclick="showSection('s10')">🛡️ 10. Risque Réputation</a></li>
+<li><a class="nav-link" onclick="showSection('s11')">☪️ 11. Risques Islamiques</a></li>
+<li><a class="nav-link" onclick="showSection('s12')">🚨 12. Système d'Alerte</a></li>
+<li><a class="nav-link" onclick="showSection('s13')">🆘 13. Plans de Contingence</a></li>
+<li><a class="nav-link" onclick="showSection('s14')">📋 14. Reporting & Monitoring</a></li>
+<li><a class="nav-link" onclick="showSection('s15')">📎 Annexes</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="header">
+<h1>📊 Manuel de Gestion des Risques</h1>
+<div class="version">Version 1.0 — Janvier 2026 </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 1: CADRE GÉNÉRAL                   -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section active" id="s1">
+<h2>📘 1. Cadre Général</h2>
+
+<h3>1.1 Définition &amp; Objectifs</h3>
+<p><strong>Définition Risque :</strong> Probabilité de survenance d'un événement ayant un impact négatif sur :</p>
+<ul>
+<li>Les résultats financiers</li>
+<li>Le capital (fonds propres)</li>
+<li>La conformité réglementaire/Charia</li>
+<li>La réputation</li>
+<li>La continuité d'activité</li>
+</ul>
+
+<h4>Objectifs de la Gestion des Risques</h4>
+<ol>
+<li>Protéger l'institution contre pertes excessives</li>
+<li>Assurer conformité réglementaire BCEAO + Charia</li>
+<li>Optimiser rendement ajusté au risque</li>
+<li>Garantir pérennité de l'institution</li>
+<li>Protéger intérêts déposants/clients</li>
+</ol>
+
+<h3>1.2 Principes Directeurs</h3>
+
+<h4>1. Appétit au Risque Défini</h4>
+<p>L'institution accepte un niveau de risque <strong>MESURÉ et CONTRÔLÉ</strong> pour atteindre ses objectifs stratégiques, dans le respect absolu de la Charia et des normes BCEAO.</p>
+<div class="formula-box">Appétit Risque = MODÉRÉ-CONSERVATEUR
+(Préservation capital > Croissance aggressive)</div>
+
+<h4>2. Culture du Risque</h4>
+<ul>
+<li>Chaque employé = gestionnaire de risque</li>
+<li>« Trois lignes de défense » (opérations, contrôle, audit)</li>
+<li>Transparence et remontée d'information</li>
+</ul>
+
+<h4>3. Conformité Charia Prioritaire</h4>
+<div class="sharia-box">
+<strong>☪️ Principe Islamique :</strong>
+<p>« La préservation du capital (Hifz al-Mal) est un des 5 objectifs supérieurs de la Charia (Maqasid al-Shariah) »</p>
+<p>→ Gestion prudente des risques = <strong>OBLIGATION religieuse</strong></p>
+</div>
+
+<h4>4. Approche Holistique</h4>
+<ul>
+<li>Vision 360° (tous risques interconnectés)</li>
+<li>Stress tests réguliers</li>
+<li>Plans de contingence préparés</li>
+</ul>
+
+<h3>1.3 Référentiel Réglementaire</h3>
+<h4>Niveau International</h4>
+<ul class="checklist">
+<li>Recommandations GAFI (LBC/FT)</li>
+<li>Principes Bâle II/III (adaptés microfinance)</li>
+<li>Standards AAOIFI (finance islamique)</li>
+<li>Standards IFSB (Islamic Financial Services Board)</li>
+</ul>
+
+<h4>Niveau Régional UMOA</h4>
+<ul class="checklist">
+<li>Loi Parmec (2019-012 du 23/04/2019)</li>
+<li>Instruction BCEAO n°010-08-2010 (ratios prudentiels)</li>
+<li>Directive BCEAO LBC/FT</li>
+<li>Normes SYSCOA (comptabilité)</li>
+</ul>
+
+<h4>Niveau National Mali</h4>
+<ul class="checklist">
+<li>Loi n°2016-008 (LBC/FT Mali)</li>
+<li>Décisions CENTIF</li>
+<li>Réglementation Ministère des Finances</li>
+</ul>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 2: GOUVERNANCE                     -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s2">
+<h2>🏢 2. Gouvernance des Risques</h2>
+
+<h3>2.1 Organigramme Gestion des Risques</h3>
+<div class="orgchart-box">┌─────────────────────────────────────────┐
+│       CONSEIL D'ADMINISTRATION          │
+│  (Surveillance &amp; Approbation Politiques)│
+└────────────────┬────────────────────────┘
+                 │
+    ┌────────────┴────────────┐
+    │                         │
+┌───▼──────────────┐  ┌──────▼────────────┐
+│  COMITÉ AUDIT    │  │  COMITÉ RISQUES   │
+│  &amp; RISQUES (CA)  │  │  (CA)             │
+└───┬──────────────┘  └──────┬────────────┘
+    │                        │
+    │        ┌───────────────┴──────────────┐
+    │        │                              │
+┌───▼────────▼───┐              ┌──────────▼────────┐
+│ DIRECTION      │              │ COMITÉ CHARIA     │
+│ GÉNÉRALE       │◄─────────────┤ (Risque Charia)   │
+└───┬────────────┘              └───────────────────┘
+    │
+┌───▼─────────────────────────────────────────────┐
+│         COMITÉ DE GESTION DES RISQUES           │
+│  (DG + Dir. Risques + Dir. Financière + etc.)   │
+└───┬─────────────────────────────────────────────┘
+    │
+    ├──────────────┬──────────────┬──────────────┐
+    │              │              │              │
+┌───▼──────┐  ┌───▼──────┐  ┌───▼──────┐  ┌───▼──────┐
+│Direction │  │Direction │  │Direction │  │Direction │
+│Risques   │  │Conformité│  │Opérations│  │Financière│
+│(Ligne 2) │  │&amp; Audit   │  │(Ligne 1) │  │          │
+│          │  │(Ligne 2/3│  │          │  │          │
+└──────────┘  └──────────┘  └──────────┘  └──────────┘</div>
+
+<h3>2.2 Rôles &amp; Responsabilités</h3>
+
+<h4>A. Conseil d'Administration</h4>
+<p><em>Fréquence Réunions Risques : Trimestrielle (minimum)</em></p>
+<ul class="checklist">
+<li>Approuve Politique Globale Gestion Risques (annuelle)</li>
+<li>Définit Appétit au Risque (limites maximales)</li>
+<li>Valide Plan Continuité Activité (BCP)</li>
+<li>Supervise performance risques (trimestriel)</li>
+<li>Nomme/révoque Directeur Risques</li>
+<li>Approuve stress tests majeurs</li>
+</ul>
+
+<h4>B. Comité Audit &amp; Risques (CA)</h4>
+<p><strong>Composition :</strong> 3 Administrateurs (dont 1 indépendant, Président), Directeur Risques, Auditeur Interne, Représentant Comité Charia (invités permanents)</p>
+<ul class="checklist">
+<li>Revue trimestrielle cartographie risques</li>
+<li>Validation méthodologies mesure risques</li>
+<li>Suivi recommandations audits (interne/externe)</li>
+<li>Examen incidents majeurs (Niveau 3-4)</li>
+<li>Évaluation indépendance fonction Risques</li>
+</ul>
+
+<h4>C. Direction Générale</h4>
+<ul class="checklist">
+<li>Responsabilité ULTIME gestion risques</li>
+<li>Préside Comité Gestion Risques (hebdomadaire)</li>
+<li>Alloue ressources fonction Risques</li>
+<li>Valide limites opérationnelles (délégation CA)</li>
+<li>Décide actions correctrices majeures</li>
+<li>Communique culture risque (top-down)</li>
+</ul>
+
+<h4>D. Comité Gestion des Risques (Direction)</h4>
+<p><strong>Composition :</strong> DG (Président), Dir. Risques (Secrétaire), Dir. Financier, Dir. Opérations, Dir. Conformité, Resp. Audit Interne, Représentant Comité Charia</p>
+<p><em>Réunions : Hebdomadaires (lundi 9h00)</em></p>
+<ul class="checklist">
+<li>Analyse risques émergents (veille)</li>
+<li>Validation limites opérationnelles</li>
+<li>Suivi indicateurs clés risques (KRI)</li>
+<li>Décisions actions correctrices</li>
+<li>Coordination réponse incidents</li>
+<li>Préparation rapports CA</li>
+</ul>
+
+<h4>E. Direction des Risques</h4>
+<p><strong>Rattachement :</strong> Direction Générale (indépendance opérations)</p>
+<p><strong>Équipe :</strong> 1 Dir. Risques, 2 Analystes Risque Crédit, 1 Analyste Risques Opérationnels/Conformité, 1 Analyste ALM</p>
+<div class="info-box">
+<strong>📌 KPI Direction Risques :</strong>
+<ul>
+<li>0 dépassement limite non détecté</li>
+<li>100% ratios calculés dans délais</li>
+<li>Taux couverture stress tests : 100%</li>
+<li>Satisfaction directions métiers : > 4/5</li>
+</ul>
+</div>
+
+<h4>F. Direction Conformité &amp; Audit</h4>
+<p><strong>Conformité (Ligne 2) :</strong> Risque réglementaire (BCEAO, CENTIF), Risque Charia, LBC/FT, Protection client, Reporting réglementaire</p>
+<p><strong>Audit Interne (Ligne 3) :</strong> Audit indépendant, Tests efficacité contrôles, Missions thématiques, Reporting direct CA</p>
+
+<h4>G. Comité Charia</h4>
+<ul class="checklist">
+<li>Validation conformité produits (risque Charia)</li>
+<li>Avis sur litiges clients (risque réputation)</li>
+<li>Supervision purification revenus (risque conformité)</li>
+<li>Audit annuel Charia (risque non-conformité)</li>
+<li><strong>VETO sur opérations douteuses (autorité absolue)</strong></li>
+</ul>
+
+<h3>2.3 Trois Lignes de Défense</h3>
+
+<div class="level-card level-1">
+<strong>LIGNE 1 : Gestion Opérationnelle (Propriétaires)</strong>
+<p>Directions métiers, Agents de terrain, Responsables agences</p>
+<p><em>Rôle : IDENTIFIER, GÉRER, CONTRÔLER risques au quotidien (contrôles embarqués)</em></p>
+</div>
+
+<div class="level-card level-2">
+<strong>LIGNE 2 : Surveillance (Monitoring)</strong>
+<p>Direction Risques, Direction Conformité, Comité Charia</p>
+<p><em>Rôle : MESURER, SURVEILLER, ALERTER (contrôles indépendants a posteriori)</em></p>
+</div>
+
+<div class="level-card level-3">
+<strong>LIGNE 3 : Assurance (Audit)</strong>
+<p>Audit Interne, Audit Externe (CAC), Audit Charia Externe</p>
+<p><em>Rôle : ÉVALUER efficacité lignes 1 &amp; 2 (contrôles périodiques ex-post)</em></p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 3: CARTOGRAPHIE                    -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s3">
+<h2>🗺️ 3. Cartographie des Risques</h2>
+
+<h3>3.1 Inventaire des Risques — Taxonomie</h3>
+
+<div class="info-box">
+<strong>A. RISQUES FINANCIERS :</strong> A1. Risque de Crédit | A2. Risque de Liquidité | A3. Risque de Marché<br/>
+<strong>B. RISQUES NON-FINANCIERS :</strong> B1. Opérationnel | B2. Non-Conformité | B3. Stratégique | B4. Réputation<br/>
+<strong>C. RISQUES SPÉCIFIQUES ISLAMIQUES :</strong> C1. Non-Conformité Charia | C2. Risque Déplacé (DCR) | C3. Risque Fiduciaire (Moudaraba)
+</div>
+
+<h3>3.2 Matrice Risques (Impact × Probabilité)</h3>
+
+<h4>Probabilité (5 niveaux)</h4>
+<table>
+<thead><tr><th>Niveau</th><th>Description</th><th>Fréquence</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Très Rare</td><td>&lt; 1% par an</td></tr>
+<tr><td>2</td><td>Rare</td><td>1-5% par an</td></tr>
+<tr><td>3</td><td>Possible</td><td>5-20% par an</td></tr>
+<tr><td>4</td><td>Probable</td><td>20-50% par an</td></tr>
+<tr><td>5</td><td>Très Probable</td><td>> 50% par an</td></tr>
+</tbody>
+</table>
+
+<h4>Impact (5 niveaux)</h4>
+<table>
+<thead><tr><th>Niveau</th><th>Description</th><th>Seuil</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Négligeable</td><td>&lt; 5 M FCFA ou &lt; 1% FP</td></tr>
+<tr><td>2</td><td>Faible</td><td>5-25 M ou 1-5% FP</td></tr>
+<tr><td>3</td><td>Modéré</td><td>25-100 M ou 5-15% FP</td></tr>
+<tr><td>4</td><td>Élevé</td><td>100-500 M ou 15-30% FP</td></tr>
+<tr><td>5</td><td>Catastrophique</td><td>> 500 M ou > 30% FP</td></tr>
+</tbody>
+</table>
+
+<div class="formula-box">Score Risque = Probabilité × Impact
+
+🟢 FAIBLE (1-5)    : Acceptable, surveillance standard
+🟡 MODÉRÉ (6-12)   : Attention, contrôles renforcés
+🔴 ÉLEVÉ (15-25)   : Inacceptable, actions immédiates</div>
+
+<h3>3.3 Cartographie Actuelle</h3>
+<table>
+<thead><tr><th>ID</th><th>Risque</th><th>Prob.</th><th>Impact</th><th>Score</th><th>Niveau</th><th>Tend.</th></tr></thead>
+<tbody>
+<tr><td><strong>A1</strong></td><td>Crédit (PAR élevé)</td><td>4</td><td>4</td><td>16</td><td class="risk-red">🔴 Élevé</td><td>↗️</td></tr>
+<tr><td>A1.1</td><td>Concentration géographique (Mopti)</td><td>4</td><td>3</td><td>12</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td>A1.2</td><td>Concentration produit (Salam 40%)</td><td>3</td><td>3</td><td>9</td><td class="risk-yellow">🟡 Modéré</td><td>↘️</td></tr>
+<tr><td>A1.3</td><td>Surendettement clients</td><td>3</td><td>2</td><td>6</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td><strong>A2</strong></td><td>Liquidité</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td>A2.1</td><td>Run bancaire (perte confiance)</td><td>1</td><td>5</td><td>5</td><td class="risk-green">🟢 Faible</td><td>→</td></tr>
+<tr><td>A2.2</td><td>Difficultés refinancement</td><td>2</td><td>3</td><td>6</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td><strong>A3</strong></td><td>Marché</td><td>2</td><td>2</td><td>4</td><td class="risk-green">🟢 Faible</td><td>→</td></tr>
+<tr><td><strong>B1</strong></td><td>Opérationnel</td><td>3</td><td>3</td><td>9</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td>B1.1</td><td>Fraude interne</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td>B1.2</td><td>Cyber-attaque / Panne SI</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>↗️</td></tr>
+<tr><td><strong>B2</strong></td><td>Non-Conformité Réglementaire</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td>B2.2</td><td>Défaillance LBC/FT</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td><strong>B3</strong></td><td>Stratégique</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td><strong>B4</strong></td><td>Réputation</td><td>2</td><td>4</td><td>8</td><td class="risk-yellow">🟡 Modéré</td><td>→</td></tr>
+<tr><td><strong>C1</strong></td><td>Non-Conformité Charia</td><td>1</td><td>5</td><td>5</td><td class="risk-green">🟢 Faible</td><td>→</td></tr>
+<tr><td>C1.1</td><td>Revenus Riba non détectés</td><td>1</td><td>4</td><td>4</td><td class="risk-green">🟢 Faible</td><td>→</td></tr>
+<tr><td>C1.2</td><td>Fatwa contestée publiquement</td><td>1</td><td>5</td><td>5</td><td class="risk-green">🟢 Faible</td><td>→</td></tr>
+</tbody>
+</table>
+
+<div class="danger-box">
+<strong>⚠️ Risques Prioritaires (Score ≥ 12) :</strong>
+<ol>
+<li>🔴 A1 — Risque Crédit (PAR élevé) : Score 16</li>
+<li>🟡 A1.1 — Concentration géographique : Score 12</li>
+</ol>
+<p>→ Plans d'action détaillés en sections 4 &amp; 9</p>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 4: RISQUE DE CRÉDIT                -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s4">
+<h2>💳 4. Risque de Crédit</h2>
+
+<h3>4.1 Définition &amp; Sources</h3>
+<p><strong>Définition :</strong> Risque de perte financière résultant de l'incapacité d'un emprunteur à rembourser son crédit (capital + marge) selon les termes contractuels.</p>
+
+<h4>Sources Principales</h4>
+<ol>
+<li><strong>Défaillance client</strong> — Baisse revenus, sur-endettement, mauvaise foi</li>
+<li><strong>Détérioration portefeuille</strong> — Concentration excessive, analyse crédit défaillante</li>
+<li><strong>Dégradation garanties</strong> — Dépréciation actifs nantis, insolvabilité cautions</li>
+<li><strong>Risques spécifiques produits islamiques</strong></li>
+</ol>
+
+<div class="sharia-box">
+<strong>☪️ Risques par Produit Islamique :</strong>
+<ul>
+<li><strong>Mourabaha :</strong> Dépréciation bien avant revente</li>
+<li><strong>Ijara :</strong> Panne actif loué (perte loyers)</li>
+<li><strong>Mousharaka :</strong> Pertes partenaire (partage)</li>
+<li><strong>Salam :</strong> Non-livraison marchandises (agricole)</li>
+</ul>
+</div>
+
+<h3>4.2 Mesure du Risque Crédit</h3>
+
+<h4>A. Indicateurs Quantitatifs</h4>
+
+<p><strong>1. Portefeuille à Risque (PAR)</strong></p>
+<div class="formula-box">PAR 30 jours = (Encours créances > 30j retard / Encours brut total) × 100</div>
+<table>
+<thead><tr><th>Niveau</th><th>PAR 30</th></tr></thead>
+<tbody>
+<tr><td>Excellent</td><td>&lt; 3%</td></tr>
+<tr><td>Bon</td><td>3-5%</td></tr>
+<tr><td>Acceptable</td><td>5-10%</td></tr>
+<tr><td>Préoccupant</td><td>10-20%</td></tr>
+<tr><td>Critique</td><td>> 20%</td></tr>
+</tbody>
+</table>
+
+<p><strong>2. Taux de Perte (Write-Off Ratio)</strong></p>
+<div class="formula-box">Taux Perte = (Créances passées pertes / Encours moyen) × 100
+Norme : < 2% annuel</div>
+
+<p><strong>3. Taux de Couverture Provisions</strong></p>
+<div class="formula-box">Couverture = (Provisions constituées / Créances en souffrance) × 100
+Norme BCEAO : ≥ 100%  |  Best Practice : ≥ 120%</div>
+
+<p><strong>4. Concentration Risques</strong></p>
+<table>
+<thead><tr><th>Type</th><th>Limite</th></tr></thead>
+<tbody>
+<tr><td>Concentration géographique</td><td>Max 30% portefeuille dans une région</td></tr>
+<tr><td>Concentration sectorielle</td><td>Max 40% dans un secteur économique</td></tr>
+<tr><td>Concentration produits</td><td>Max 50% sur un produit islamique</td></tr>
+<tr><td>Grand risque individuel</td><td>Max 10% FP par client</td></tr>
+<tr><td>Groupe clients liés</td><td>Max 15% FP</td></tr>
+<tr><td>Total grands risques</td><td>&lt; 800% FP (BCEAO)</td></tr>
+</tbody>
+</table>
+
+<h4>B. Scoring Crédit — Modèle Interne (100 points)</h4>
+<div class="scoring-grid">
+<div class="scoring-card">
+<h4>Capacité de Remboursement (40 pts)</h4>
+<ul>
+<li>Revenus nets mensuels (15 pts)</li>
+<li>Taux endettement (15 pts)</li>
+<li>Reste à vivre (10 pts)</li>
+</ul>
+</div>
+<div class="scoring-card">
+<h4>Stabilité Activité (25 pts)</h4>
+<ul>
+<li>Ancienneté activité (10 pts)</li>
+<li>Type activité (10 pts)</li>
+<li>Diversification revenus (5 pts)</li>
+</ul>
+</div>
+<div class="scoring-card">
+<h4>Historique Client (20 pts)</h4>
+<ul>
+<li>Ancienneté relation (7 pts)</li>
+<li>Crédits antérieurs (8 pts)</li>
+<li>Comportement épargne (5 pts)</li>
+</ul>
+</div>
+<div class="scoring-card">
+<h4>Garanties &amp; Charia (15 pts)</h4>
+<ul>
+<li>Apport personnel (5 pts)</li>
+<li>Caution / Nantissement (5 pts)</li>
+<li>Activité halal vérifiée (5 pts)</li>
+</ul>
+</div>
+</div>
+
+<div class="info-box">
+<strong>📌 Décision automatique :</strong><br/>
+✅ 80-100 pts : ACCORD (risque faible) | ✅ 60-79 pts : ACCORD (risque moyen) | ⚠️ 40-59 pts : RÉSERVE (comité) | ❌ &lt; 40 pts : REFUS
+</div>
+
+<h3>4.3 Limites &amp; Plafonds</h3>
+<h4>Limites Globales (CA)</h4>
+<table>
+<thead><tr><th>Limite</th><th>Seuil</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Croissance portefeuille</td><td>Max +30% annuel</td><td>Recapitalisation si dépassement</td></tr>
+<tr><td>PAR global — Alerte</td><td>5%</td><td>Revue politique crédit</td></tr>
+<tr><td>PAR global — Critique</td><td>10%</td><td>Gel nouveaux crédits jusqu'à &lt; 7%</td></tr>
+<tr><td>Secteur agricole (Salam)</td><td>Max 25%</td><td>Plafond strict (volatilité)</td></tr>
+<tr><td>Zones à risque (sécurité)</td><td>Max 15%</td><td>Revue trimestrielle classification</td></tr>
+<tr><td>Durée moyenne crédits</td><td>Max 36 mois</td><td>Exception Ijara immobilier : 120 mois</td></tr>
+</tbody>
+</table>
+
+<h4>Limites Opérationnelles (DG)</h4>
+<table>
+<thead><tr><th>Niveau Décision</th><th>Montant Max</th></tr></thead>
+<tbody>
+<tr><td>Agent Crédit</td><td>500K FCFA</td></tr>
+<tr><td>Chef Agence</td><td>2M FCFA</td></tr>
+<tr><td>Comité Agence</td><td>5M FCFA</td></tr>
+<tr><td>Comité Direction</td><td>20M FCFA</td></tr>
+<tr><td>Comité DG</td><td>> 20M FCFA</td></tr>
+</tbody>
+</table>
+
+<h3>4.4 Atténuation du Risque Crédit</h3>
+
+<h4>1. Diversification — Politique « 30-20-15 »</h4>
+<ul class="checklist">
+<li>Max 30% portefeuille dans 1 produit</li>
+<li>Max 20% portefeuille dans 1 zone géographique</li>
+<li>Max 15% portefeuille dans 1 secteur économique</li>
+</ul>
+
+<h4>2. Hiérarchie des Garanties</h4>
+<div class="level-card level-1">
+<strong>NIVEAU 1 — Garanties Réelles (Rahn islamique)</strong>
+<p>Hypothèque immobilière, Nantissement véhicule, Nantissement stocks/équipements, Nantissement dépôts/épargne</p>
+</div>
+<div class="level-card level-2">
+<strong>NIVEAU 2 — Garanties Personnelles</strong>
+<p>Caution solidaire solvable, Aval dirigeant, Garantie groupe solidaire (tontine)</p>
+</div>
+<div class="level-card level-3">
+<strong>NIVEAU 3 — Garanties Opérationnelles</strong>
+<p>Domiciliation revenus, Prélèvement automatique, Assurance crédit (Takaful Kafalah)</p>
+</div>
+
+<h4>3. Provisionnement Conservateur</h4>
+<table>
+<thead><tr><th>Retard</th><th>BCEAO</th><th>Institution</th><th>Excédent</th></tr></thead>
+<tbody>
+<tr><td>1-30 jours</td><td>0%</td><td>5%</td><td>+5%</td></tr>
+<tr><td>31-90 jours</td><td>25%</td><td>35%</td><td>+10%</td></tr>
+<tr><td>91-180 jours</td><td>50%</td><td>60%</td><td>+10%</td></tr>
+<tr><td>181-365 jours</td><td>75%</td><td>85%</td><td>+10%</td></tr>
+<tr><td>> 365 jours</td><td>100%</td><td>100%</td><td>0%</td></tr>
+</tbody>
+</table>
+<div class="info-box"><strong>📌 Objectif :</strong> Couverture provisions ≥ 130% créances en souffrance</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 5: RISQUE DE LIQUIDITÉ             -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s5">
+<h2>💧 5. Risque de Liquidité</h2>
+
+<h3>5.1 Définition &amp; Sources</h3>
+<p><strong>Définition :</strong> Risque de ne pas pouvoir honorer ses engagements (retraits dépôts, échéances emprunts) par manque de liquidités disponibles.</p>
+
+<h4>Deux Dimensions</h4>
+<ol>
+<li><strong>Liquidité de Financement</strong> — Capacité mobiliser fonds au bon moment</li>
+<li><strong>Liquidité de Marché</strong> — Capacité vendre actifs sans perte excessive</li>
+</ol>
+
+<h4>Sources de Risque</h4>
+<table>
+<thead><tr><th>Source</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Décalage maturités</td><td>Emplois longs (crédits 36 mois) vs ressources courtes (dépôts à vue)</td></tr>
+<tr><td>Retraits massifs</td><td>Perte confiance, choc externe, contagion</td></tr>
+<tr><td>Non-remboursement crédits</td><td>Encaissements prévus n'arrivent pas</td></tr>
+<tr><td>Difficultés refinancement</td><td>Tarissement sources externes, perte accès interbancaire</td></tr>
+</tbody>
+</table>
+
+<div class="sharia-box">
+<strong>☪️ Spécifiques Finance Islamique :</strong>
+<ul>
+<li>Comptes Moudaraba : Partage pertes → Retraits massifs si mauvais résultat</li>
+<li>Ijara : Panne actif → Pas de loyers encaissés</li>
+<li>Salam : Non-livraison récolte → Perte avance versée</li>
+</ul>
+</div>
+
+<h3>5.2 Mesure du Risque Liquidité</h3>
+
+<h4>A. Ratios Réglementaires BCEAO</h4>
+<p><strong>1. Coefficient de Liquidité Générale</strong></p>
+<div class="formula-box">Ratio = (Actifs Réalisables CT / Passifs Exigibles CT) × 100
+Norme BCEAO : ≥ 80%  |  Best Practice : ≥ 100%</div>
+
+<p><strong>2. Ratio de Couverture des Emplois MLT</strong></p>
+<div class="formula-box">Ratio = (Ressources Stables / Emplois MLT) × 100
+Norme BCEAO : ≥ 75%  |  Best Practice : ≥ 100%
+Principe : « Emplois longs financés par ressources longues »</div>
+
+<h4>B. Indicateurs Gestion ALM</h4>
+<p><strong>1. Gap de Liquidité</strong></p>
+<div class="formula-box">Gap = Actifs Maturité X − Passifs Maturité X</div>
+<table>
+<thead><tr><th>Tranche</th><th>Actifs</th><th>Passifs</th><th>Gap</th><th>Gap Cumulé</th></tr></thead>
+<tbody>
+<tr><td>0-7 jours</td><td>150 M</td><td>200 M</td><td>-50 M</td><td>-50 M ⚠️</td></tr>
+<tr><td>8-30 jours</td><td>280 M</td><td>180 M</td><td>+100 M</td><td>+50 M ✅</td></tr>
+<tr><td>31-90 jours</td><td>420 M</td><td>320 M</td><td>+100 M</td><td>+150 M ✅</td></tr>
+<tr><td>91-180 jours</td><td>380 M</td><td>250 M</td><td>+130 M</td><td>+280 M ✅</td></tr>
+</tbody>
+</table>
+
+<p><strong>2. Jours de Liquidité</strong></p>
+<div class="formula-box">Jours Liquidité = Disponibilités / Sorties Cash Moyennes Quotidiennes
+Minimum : 30 jours  |  Cible : 60-90 jours  |  Maximum : 120 jours</div>
+
+<p><strong>3. Ratio Prêts / Dépôts (LDR)</strong></p>
+<table>
+<thead><tr><th>Niveau LDR</th><th>Interprétation</th></tr></thead>
+<tbody>
+<tr><td>&lt; 80%</td><td>Confortable (excès liquidité)</td></tr>
+<tr><td>80-100%</td><td>Équilibré (idéal)</td></tr>
+<tr><td>100-120%</td><td>Tendu (dépendance refinancement externe)</td></tr>
+<tr><td>> 120%</td><td>Risqué (transformation excessive)</td></tr>
+</tbody>
+</table>
+
+<h3>5.3 Gestion Active de la Liquidité</h3>
+
+<h4>Réserves &amp; Tampons</h4>
+<table>
+<thead><tr><th>Type</th><th>Montant</th><th>Composition</th></tr></thead>
+<tbody>
+<tr><td>Réserves BCEAO</td><td>3% dépôts (91,2 M)</td><td>Compte BCEAO (immobilisé)</td></tr>
+<tr><td>Buffer prudentiel</td><td>15% dépôts à vue (123,75 M)</td><td>Caisse 50M + Banques 60M + Sukuk CT 13,75M</td></tr>
+<tr><td>Lignes backup</td><td>450 M total</td><td>BOAD 200M + BOA Mali 150M + IsDB 100M</td></tr>
+</tbody>
+</table>
+
+<h4>Prévisions Trésorerie (3 niveaux)</h4>
+<table>
+<thead><tr><th>Horizon</th><th>Fréquence</th><th>Responsable</th></tr></thead>
+<tbody>
+<tr><td>Court Terme (7 jours)</td><td>Quotidienne (17h00)</td><td>Trésorier</td></tr>
+<tr><td>Moyen Terme (3 mois)</td><td>Hebdomadaire</td><td>Dir. Financière + Dir. Risques</td></tr>
+<tr><td>Long Terme (12-36 mois)</td><td>Trimestrielle</td><td>Comité ALM</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 6: RISQUE OPÉRATIONNEL             -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s6">
+<h2>⚙️ 6. Risque Opérationnel</h2>
+
+<h3>6.1 Définition et Cadre Conceptuel</h3>
+<p>Risque de pertes résultant de l'inadéquation ou de la défaillance de processus internes, de personnes, de systèmes ou d'événements externes (Bâle II adapté microfinance islamique).</p>
+
+<h4>Les 4 Piliers du Risque Opérationnel</h4>
+<div class="scoring-grid">
+<div class="scoring-card">
+<h4>1. Processus Défaillants</h4>
+<ul>
+<li>Procédure inadéquate</li>
+<li>Contrôle absent</li>
+<li>Documentation manquante</li>
+</ul>
+</div>
+<div class="scoring-card">
+<h4>2. Personnes en Erreur</h4>
+<ul>
+<li>Erreur humaine</li>
+<li>Fraude interne</li>
+<li>Incompétence / Négligence</li>
+</ul>
+</div>
+<div class="scoring-card">
+<h4>3. Systèmes en Panne</h4>
+<ul>
+<li>Panne IT / Bug logiciel</li>
+<li>Cyberattaque</li>
+<li>Perte données</li>
+</ul>
+</div>
+<div class="scoring-card">
+<h4>4. Événements Externes</h4>
+<ul>
+<li>Catastrophe naturelle</li>
+<li>Fraude externe</li>
+<li>Défaillance fournisseur</li>
+</ul>
+</div>
+</div>
+
+<h4>Estimation des Pertes Opérationnelles</h4>
+<div class="warning-box">
+<strong>⚠️ Pertes attendues :</strong> 5 à 20 millions FCFA/an (0,5-2% du PNB projeté de 1 milliard FCFA)
+<br/><br/>
+<strong>Répartition typique :</strong> Fraude externe 35% | Erreurs d'exécution 25% | Fraude interne 20% | Dysfonctionnements IT 10% | Dommages actifs 5% | Autres 5%
+</div>
+
+<h3>6.1.3 Spécificités Microfinance Islamique</h3>
+
+<h4>Double conformité — Exemple processus Mourabaha</h4>
+<table>
+<thead><tr><th>IMF Conventionnelle (4 étapes, 3j)</th><th>AL NAMAA (10 étapes, 5-7j)</th></tr></thead>
+<tbody>
+<tr><td>1. Réception demande</td><td>1. Réception demande</td></tr>
+<tr><td>2. Analyse crédit</td><td>2. Vérification licéité objet (Halal?)</td></tr>
+<tr><td>3. Décision</td><td>3. Analyse crédit</td></tr>
+<tr><td>4. Déblocage</td><td>4. Validation conformité Charia</td></tr>
+<tr><td></td><td>5. Décision comité</td></tr>
+<tr><td></td><td>6. Acquisition bien par AL NAMAA</td></tr>
+<tr><td></td><td>7. Vérification possession effective</td></tr>
+<tr><td></td><td>8. Revente au client avec marge</td></tr>
+<tr><td></td><td>9. Validation post-opération CSS</td></tr>
+<tr><td></td><td>10. Déblocage</td></tr>
+</tbody>
+</table>
+
+<h4>Table des Matières Complète — Section 6</h4>
+<ul>
+<li>6.1 Définition et Cadre Conceptuel</li>
+<li>6.2 Cartographie Détaillée des Risques Opérationnels</li>
+<li>6.3 Identification et Évaluation des Risques</li>
+<li>6.4 Processus Critiques et Dispositifs de Contrôle</li>
+<li>6.5 Gestion des RH et Risques Associés</li>
+<li>6.6 Sécurité des Systèmes d'Information</li>
+<li>6.7 Prévention et Détection de la Fraude</li>
+<li>6.8 Gestion de la Conformité</li>
+<li>6.9 Continuité d'Activité et Gestion de Crise</li>
+<li>6.10 Gestion des Incidents Opérationnels</li>
+<li>6.11 Assurances et Transfert de Risques</li>
+<li>6.12 Indicateurs et Reporting</li>
+<li>6.13 Audit et Contrôle</li>
+<li>6.14 Risques Spécifiques au Contexte Malien</li>
+<li>6.15 Cas Pratiques et Scénarios</li>
+</ul>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 7: NON-CONFORMITÉ                  -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s7">
+<h2>📜 7. Risque de Non-Conformité</h2>
+
+<h3>7.1 Définition et Enjeux</h3>
+<p><strong>Définition BCEAO :</strong> Risque de sanctions judiciaires, administratives ou disciplinaires, de pertes financières significatives ou d'atteinte à la réputation, résultant du non-respect des lois, réglementations et normes applicables.</p>
+
+<h4>Triple Conformité IFI</h4>
+<div class="level-card level-1">
+<strong>1. CONFORMITÉ RÉGLEMENTAIRE (BCEAO/État)</strong>
+<p>Lois, règlements, instructions BCEAO — <em>Sanctions : Amendes, retrait agrément, prison</em></p>
+</div>
+<div class="level-card level-2">
+<strong>2. CONFORMITÉ CHARIA (Religieuse)</strong>
+<p>Principes islamiques, Fatwas, Ijma — <em>Sanctions : Perte légitimité, clients fuient</em></p>
+</div>
+<div class="level-card level-3">
+<strong>3. CONFORMITÉ ÉTHIQUE (Normes professionnelles)</strong>
+<p>Code déontologie, best practices secteur — <em>Sanctions : Réputation, exclusion réseaux</em></p>
+</div>
+
+<div class="warning-box">
+<strong>⚠️ PARTICULARITÉ :</strong> Parfois contradictions possibles entre droit malien (français) et Charia sur certains aspects (succession, garanties, etc.)
+</div>
+
+<h4>Impact — Conséquences Potentielles</h4>
+<table>
+<thead><tr><th>Type</th><th>Exemples</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td>Sanctions Financières</td><td>Amendes BCEAO (millions FCFA), astreintes</td><td>Direct sur rentabilité</td></tr>
+<tr><td>Sanctions Administratives</td><td>Suspension activités, retrait agrément</td><td>Existentiel</td></tr>
+<tr><td>Sanctions Pénales</td><td>Prison dirigeants, interdiction gérer</td><td>Personnel + Réputation</td></tr>
+<tr><td>Atteinte Réputation</td><td>Médiatisation, perte confiance, fuite clients</td><td>Dévastateur long terme</td></tr>
+<tr><td>Coûts Mise en Conformité</td><td>Audits forcés, recrutement, systèmes IT</td><td>Investissements non planifiés</td></tr>
+</tbody>
+</table>
+
+<div class="danger-box">
+<strong>Exemple Chiffré IFI Mali :</strong> Non-déclaration opérations suspectes (LBC/FT)<br/>
+Amende 50M + Audit externe 15M + IT 30M + Réputation 80M = <strong>TOTAL : 175M FCFA (22% fonds propres)</strong>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 8: RISQUE DE MARCHÉ                -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s8">
+<h2>📈 8. Risque de Marché</h2>
+
+<h3>8.1 Définition et Enjeux</h3>
+<p>Risque de perte résultant des variations défavorables des prix et taux sur les marchés financiers.</p>
+
+<div class="success-box">
+<strong>✅ Exposition Limitée pour IFI Microfinance Mali :</strong>
+<ul>
+<li>Pas de Trading Book (pas de portefeuille actions/obligations/dérivés)</li>
+<li>90%+ activité = Financement clientèle (prix fixés au départ)</li>
+<li>Zone monétaire stable : FCFA arrimé à l'Euro (parité fixe)</li>
+<li>Pas d'investissements complexes (Sukuk internationaux, fonds structurés)</li>
+</ul>
+</div>
+
+<h4>Différences Finance Conventionnelle vs Islamique</h4>
+<table>
+<thead><tr><th>Finance Conventionnelle</th><th>Finance Islamique</th></tr></thead>
+<tbody>
+<tr><td>Taux d'intérêt fixes (dette)</td><td>Pas de taux fixe (Riba interdit)</td></tr>
+<tr><td>Hedging via dérivés</td><td>Dérivés limités (controversés Charia)</td></tr>
+<tr><td>Trading actif (spéculation OK)</td><td>Buy &amp; hold (spéculation Haram)</td></tr>
+<tr><td>Titrisation libre</td><td>Sukuk (contraintes)</td></tr>
+</tbody>
+</table>
+
+<h3>8.2 Risques Résiduels</h3>
+<ol>
+<li><strong>Risque Taux Benchmark</strong> — Pricing Mourabaha benchmarké sur taux conventionnels</li>
+<li><strong>Risque Change Résiduel</strong> — Importations, partenaires étrangers</li>
+<li><strong>Risque Prix Actifs</strong> — Ijara : valeur résiduelle des biens</li>
+<li><strong>Risque Liquidité Marchés</strong> — Besoin cession actifs en urgence</li>
+</ol>
+
+<div class="info-box">
+<strong>📌 Pricing Mourabaha :</strong> Coût financement (benchmark 5%) + Prime risque crédit (3%) + Marge opérationnelle (2%) = Marge totale 10%/an
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 9: RISQUE STRATÉGIQUE              -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s9">
+<h2>🎯 9. Risque Stratégique</h2>
+
+<h3>9.1 Définition et Enjeux</h3>
+<p>Risque de perte découlant de décisions stratégiques inadéquates, d'une mauvaise mise en œuvre ou d'un manque de réactivité aux évolutions de l'environnement.</p>
+
+<div class="danger-box">
+<strong>Différence fondamentale :</strong><br/>
+Risque Opérationnel : « Nous faisons MAL ce que nous faisons » → Impact court terme, localisé, réparable<br/>
+Risque Stratégique : « Nous faisons BIEN... la mauvaise chose » → Impact long terme, systémique, <strong>FATAL</strong>
+</div>
+
+<h4>Dimensions Spécifiques IFI</h4>
+<table>
+<thead><tr><th>Dimension</th><th>Enjeu</th><th>Risque</th></tr></thead>
+<tbody>
+<tr><td>Positionnement Islamique</td><td>Purisme vs Pragmatisme commercial</td><td>Perte d'identité ou marginalisation</td></tr>
+<tr><td>Double Conformité</td><td>BCEAO + Charia</td><td>Conflits normatifs, coûts duplication</td></tr>
+<tr><td>Marché Dual</td><td>Coexistence banques conv./islamiques</td><td>Désavantage concurrentiel structurel</td></tr>
+<tr><td>Sensibilité Culturelle</td><td>Acceptation sociale (Mali)</td><td>Incompréhension, rejet, amalgames</td></tr>
+<tr><td>Dépendance Expertise</td><td>Scholars Charia qualifiés (pénurie)</td><td>Recrutement difficile, coûts élevés</td></tr>
+</tbody>
+</table>
+
+<div class="warning-box">
+<strong>⚠️ Coût de l'Échec Stratégique (Exemple IFI Mali) :</strong><br/>
+Investissements (100M) + Pivot (50M) + Coût d'opportunité (300M sur 7 ans) = <strong>TOTAL : 450M FCFA + 7 années perdues</strong>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 10: RISQUE RÉPUTATION              -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s10">
+<h2>🛡️ 10. Risque de Réputation</h2>
+
+<h3>10.1 Définition et Enjeux</h3>
+<p>Risque de détérioration de l'image auprès des clients, partenaires ou du public, susceptible d'affecter la viabilité financière.</p>
+
+<h4>Piliers du Capital Réputation IFI</h4>
+<table>
+<thead><tr><th>Pilier</th><th>Poids</th><th>Fragilité</th></tr></thead>
+<tbody>
+<tr><td><strong>Authenticité Charia</strong> — « Est-ce VRAIMENT islamique ? »</td><td>60%</td><td>Très élevée (1 non-conformité = crise totale)</td></tr>
+<tr><td><strong>Solidité Financière</strong> — « Est-ce fiable et sûr ? »</td><td>30%</td><td>Moyenne (réparable si transparence)</td></tr>
+<tr><td><strong>Qualité Service</strong> — « Est-ce professionnel ? »</td><td>10%</td><td>Faible (améliorable rapidement)</td></tr>
+</tbody>
+</table>
+
+<h4>Cascade d'Effets d'un Incident</h4>
+<div class="level-card level-1">
+<strong>PHASE 1 (J+0 à J+7) : Impact Immédiat</strong>
+<p>Buzz médias/réseaux sociaux • Retraits dépôts (panique) • Annulations demandes crédit</p>
+</div>
+<div class="level-card level-2">
+<strong>PHASE 2 (Semaine 2-4) : Contagion</strong>
+<p>Crise liquidité (retraits ↑↑) • Fuite personnel • Méfiance partenaires</p>
+</div>
+<div class="level-card level-4">
+<strong>PHASE 3 (Mois+) : Dommages Durables</strong>
+<p>Part de marché perdue • Coût capital ↑ • Difficultés recrutement</p>
+</div>
+
+<div class="danger-box">
+<strong>Exemple : Scandale non-conformité Charia médiatisé</strong><br/>
+Coûts directs : 115M FCFA (purification 50M + juridique 30M + communication 15M + audit 20M)<br/>
+Coûts indirects (12 mois) : 350M FCFA (fuite dépôts, baisse crédits, turnover, décote)<br/>
+<strong>TOTAL : 465M FCFA (≈10% actifs) — Récupération : 24-36 mois</strong>
+</div>
+
+<h3>10.2 Sources — Événements Déclencheurs</h3>
+<table>
+<thead><tr><th>Catégorie</th><th>Exemples</th><th>Gravité</th></tr></thead>
+<tbody>
+<tr><td>Non-Conformité Charia</td><td>Mourabaha sans possession réelle, revenus Haram, Comité fictif</td><td class="risk-red">CRITIQUE</td></tr>
+<tr><td>Défaillances Opérationnelles</td><td>Fraude interne, perte données, erreurs massives</td><td class="risk-orange">IMPORTANTE</td></tr>
+<tr><td>Traitement Clients</td><td>Surfacturation, pratiques abusives, discrimination</td><td class="risk-yellow">MODÉRÉE</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 11: RISQUES ISLAMIQUES             -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s11">
+<h2>☪️ 11. Risques Spécifiques Islamiques</h2>
+
+<h3>11.1 Sources des Risques Spécifiques</h3>
+<table>
+<thead><tr><th>Source</th><th>Conséquence</th></tr></thead>
+<tbody>
+<tr><td>Interdiction du Riba (Intérêt)</td><td>Impossibilité pénalités retard, difficulté pricing</td></tr>
+<tr><td>Partage Profits et Pertes (PPP)</td><td>Volatilité revenus (Moudaraba, Mousharaka)</td></tr>
+<tr><td>Adossement à un actif réel</td><td>Nécessité posséder bien avant vente, gestion actifs physiques</td></tr>
+<tr><td>Gouvernance Charia</td><td>Dépendance avis Comité, divergences interprétations</td></tr>
+<tr><td>Contraintes juridiques</td><td>Cadre légal Mali = droit français (conventionnel)</td></tr>
+</tbody>
+</table>
+
+<h3>11.2 Risque de Non-Conformité Charia</h3>
+<p>Risque que les opérations ne respectent pas les principes de la Charia, entraînant perte de légitimité, sanctions du Comité, fuite clients et nécessité de purification des revenus.</p>
+
+<h4>Sources de Non-Conformité</h4>
+<table>
+<thead><tr><th>Catégorie</th><th>Exemples</th><th>Gravité</th></tr></thead>
+<tbody>
+<tr><td>Conception Produit</td><td>Mourabaha sans possession réelle (Tawarruq déguisé), pénalités reversées à l'institution</td><td class="risk-red">CRITIQUE</td></tr>
+<tr><td>Exécution Contractuelle</td><td>Vente au client avant achat par banque, factures réparations locatives au locataire</td><td class="risk-red">MAJEURE</td></tr>
+<tr><td>Documentation</td><td>Contrats non signés, absence preuves possession, clauses Gharar</td><td class="risk-yellow">MOYENNE</td></tr>
+<tr><td>Gouvernance</td><td>Lancement produit sans Fatwa, non-application recommandations audit</td><td class="risk-red">MAJEURE</td></tr>
+<tr><td>Mixité Revenus</td><td>Pénalités non séparées, intérêts transitoires non purifiés</td><td class="risk-orange">IMPORTANTE</td></tr>
+</tbody>
+</table>
+
+<h3>11.1.2 Classification des Risques</h3>
+<div class="level-card level-4">
+<strong>1. Risques de Non-Conformité Charia (Sharia Non-Compliance Risk)</strong>
+</div>
+<div class="level-card level-2">
+<strong>2. Risque Commercial Déplacé (Displaced Commercial Risk)</strong>
+</div>
+<div class="level-card level-3">
+<strong>3. Risques Spécifiques par Produit Islamique</strong>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 12: SYSTÈME D'ALERTE              -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s12">
+<h2>🚨 12. Système d'Alerte Précoce</h2>
+
+<h3>12.1 Objectifs</h3>
+<ol>
+<li><strong>ANTICIPER</strong> — Détecter signaux faibles 3-6 mois avant crise</li>
+<li><strong>QUANTIFIER</strong> — Mesures objectives via KRI</li>
+<li><strong>PRIORISER</strong> — Focaliser ressources sur risques critiques</li>
+<li><strong>DÉCLENCHER</strong> — Alertes automatiques dès dépassement seuils</li>
+<li><strong>DOCUMENTER</strong> — Historique alertes → amélioration continue</li>
+</ol>
+
+<h3>12.2 Architecture en Pyramide</h3>
+<table>
+<thead><tr><th>Niveau</th><th>Description</th><th>KRI</th><th>Fréquence</th></tr></thead>
+<tbody>
+<tr><td><strong>Niveau 1</strong></td><td>Tableau de bord consolidé (DG/CA)</td><td>10-15</td><td>Mensuelle</td></tr>
+<tr><td><strong>Niveau 2</strong></td><td>Dashboards Directeurs</td><td>25-30 par domaine</td><td>Hebdomadaire</td></tr>
+<tr><td><strong>Niveau 3</strong></td><td>Indicateurs opérationnels détaillés</td><td>50-100+</td><td>Quotidien / Temps réel</td></tr>
+</tbody>
+</table>
+
+<h3>12.3 KRI Risque de Crédit (10 indicateurs)</h3>
+<table>
+<thead><tr><th>#</th><th>KRI</th><th>Fréq.</th><th style="background:#28a745!important">✅ Vert</th><th style="background:#ffc107!important;color:#333">🟡 Jaune</th><th style="background:#e8960e!important">🟠 Orange</th><th style="background:#dc3545!important">🔴 Rouge</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>PAR 30 jours</td><td>Hebdo</td><td>&lt;5%</td><td>5-7%</td><td>7-10%</td><td>>10%</td></tr>
+<tr><td>C2</td><td>PAR 90 jours</td><td>Hebdo</td><td>&lt;2%</td><td>2-3%</td><td>3-5%</td><td>>5%</td></tr>
+<tr><td>C3</td><td>Taux provisionnement</td><td>Mensuel</td><td>>120%</td><td>100-120%</td><td>80-100%</td><td>&lt;80%</td></tr>
+<tr><td>C4</td><td>Taux de perte net</td><td>Trim.</td><td>&lt;0,5%</td><td>0,5-1%</td><td>1-2%</td><td>>2%</td></tr>
+<tr><td>C5</td><td>Concentration Top 10</td><td>Mensuel</td><td>&lt;40%</td><td>40-50%</td><td>50-60%</td><td>>60%</td></tr>
+<tr><td>C6</td><td>Concentration sectorielle</td><td>Mensuel</td><td>&lt;30%</td><td>30-40%</td><td>40-50%</td><td>>50%</td></tr>
+<tr><td>C7</td><td>Concentration géographique</td><td>Mensuel</td><td>&lt;35%</td><td>35-45%</td><td>45-55%</td><td>>55%</td></tr>
+<tr><td>C8</td><td>Taux d'approbation</td><td>Mensuel</td><td>60-75%</td><td>50-60%/75-85%</td><td>40-50%/85-90%</td><td>&lt;40%/>90%</td></tr>
+<tr><td>C9</td><td>Croissance encours</td><td>Mensuel</td><td>15-25%</td><td>10-15%/25-35%</td><td>5-10%/35-45%</td><td>&lt;5%/>45%</td></tr>
+<tr><td>C10</td><td>Taux renouvellement</td><td>Trim.</td><td>>70%</td><td>60-70%</td><td>50-60%</td><td>&lt;50%</td></tr>
+</tbody>
+</table>
+
+<h3>12.3.2 KRI Risque de Liquidité (8 indicateurs)</h3>
+<table>
+<thead><tr><th>#</th><th>KRI</th><th>Fréq.</th><th style="background:#28a745!important">✅ Vert</th><th style="background:#ffc107!important;color:#333">🟡 Jaune</th><th style="background:#e8960e!important">🟠 Orange</th><th style="background:#dc3545!important">🔴 Rouge</th></tr></thead>
+<tbody>
+<tr><td>L1</td><td>Ratio liquidité BCEAO</td><td>Quotid.</td><td>>100%</td><td>85-100%</td><td>75-85%</td><td>&lt;75%</td></tr>
+<tr><td>L2</td><td>Gap liquidité 7 jours</td><td>Quotid.</td><td>>+20M</td><td>+10 à +20M</td><td>0 à +10M</td><td>&lt;0M</td></tr>
+<tr><td>L3</td><td>Gap liquidité 30 jours</td><td>Hebdo</td><td>>+50M</td><td>+25 à +50M</td><td>0 à +25M</td><td>&lt;0M</td></tr>
+<tr><td>L4</td><td>Utilisation lignes crédit</td><td>Hebdo</td><td>&lt;30%</td><td>30-50%</td><td>50-75%</td><td>>75%</td></tr>
+<tr><td>L5</td><td>Concentration dépôts Top 10</td><td>Mensuel</td><td>&lt;15%</td><td>15-20%</td><td>20-30%</td><td>>30%</td></tr>
+<tr><td>L6</td><td>Ratio crédits/dépôts</td><td>Mensuel</td><td>80-100%</td><td>70-80%/100-110%</td><td>60-70%/110-120%</td><td>&lt;60%/>120%</td></tr>
+<tr><td>L7</td><td>Réserves de précaution</td><td>Hebdo</td><td>>15%</td><td>12-15%</td><td>10-12%</td><td>&lt;10%</td></tr>
+<tr><td>L8</td><td>Taux retrait net quotidien</td><td>Quotid.</td><td>&lt;2%</td><td>2-3%</td><td>3-5%</td><td>>5%</td></tr>
+</tbody>
+</table>
+
+<h4>Alertes Composites</h4>
+<div class="warning-box">
+<strong>🟡 Alerte Tension Liquidité :</strong> SI (L1 &lt; 85%) OU (L2 &lt; +10M) → Revue projections 30j + Préparation activation lignes crédit
+</div>
+<div class="danger-box">
+<strong>🔴 Alerte Crise Liquidité Imminente :</strong> SI (L1 &lt; 75%) OU (L2 &lt; 0M) OU (L8 > 5% pendant 2j) → Activation Plan Contingence Liquidité
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 13: PLANS DE CONTINGENCE           -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s13">
+<h2>🆘 13. Plans de Contingence</h2>
+
+<h3>13.1 Objectifs</h3>
+<div class="scoring-grid">
+<div class="scoring-card">
+<h4>1. PROTÉGER</h4>
+<p>Personnes (sécurité personnel), Actifs (financiers, matériels, données), Réputation institutionnelle</p>
+</div>
+<div class="scoring-card">
+<h4>2. ASSURER LA CONTINUITÉ</h4>
+<p>Fonctions critiques maintenues, Services clients préservés, Conformité continue</p>
+</div>
+<div class="scoring-card">
+<h4>3. RÉCUPÉRER RAPIDEMENT</h4>
+<p>Minimiser temps d'arrêt, Restaurer opérations normales, Retour à la rentabilité</p>
+</div>
+<div class="scoring-card">
+<h4>4. COMMUNIQUER</h4>
+<p>Information transparente parties prenantes, Préservation confiance clients, Coordination autorités</p>
+</div>
+</div>
+
+<h3>13.1.2 Principes Directeurs</h3>
+<table>
+<thead><tr><th>Principe</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Proportionnalité</td><td>Réponse adaptée à la gravité, escalade progressive</td></tr>
+<tr><td>Réactivité</td><td>Activation rapide (heures, pas jours), chaîne de commandement claire</td></tr>
+<tr><td>Flexibilité</td><td>Plans adaptables aux circonstances, révision continue</td></tr>
+<tr><td>Conformité Charia</td><td>Mesures d'urgence respectent principes islamiques, pas de recours Haram même en crise</td></tr>
+<tr><td>Communication</td><td>Transparence BCEAO, information proactive clients</td></tr>
+</tbody>
+</table>
+
+<h3>13.2 Cellule de Gestion de Crise (CGC)</h3>
+<h4>Commandement</h4>
+<ul>
+<li><strong>Président CGC :</strong> Directeur Général</li>
+<li><strong>Suppléant :</strong> DGA</li>
+<li><strong>Secrétaire :</strong> Responsable Conformité</li>
+</ul>
+
+<h4>Membres Permanents</h4>
+<ul>
+<li>Directeur des Risques</li>
+<li>Directeur Financier</li>
+<li>Directeur des Opérations</li>
+<li>Responsable Sécurité</li>
+<li>Responsable IT</li>
+<li>Responsable Communication</li>
+</ul>
+
+<h4>Membres Consultatifs</h4>
+<ul>
+<li>Président Comité Charia (observateur)</li>
+<li>Conseiller Juridique</li>
+<li>Représentant Conseil d'Administration</li>
+</ul>
+
+<div class="info-box">
+<strong>📌 15+ scénarios de contingence détaillés</strong> couvrant : crise de liquidité, fraude majeure, cyberattaque, catastrophe naturelle, crise sécuritaire, scandale Charia, pandémie, défaillance partenaire, et plus.
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 14: REPORTING & MONITORING         -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s14">
+<h2>📋 14. Reporting &amp; Monitoring</h2>
+
+<h3>14.1 Philosophie du Reporting</h3>
+<h4>Objectifs</h4>
+<ul>
+<li><strong>Transparence :</strong> Information claire, précise, en temps réel</li>
+<li><strong>Prise de Décision :</strong> Indicateurs synthétiques, alertes automatiques</li>
+<li><strong>Obligations Réglementaires :</strong> Déclarations BCEAO, documentation audits Charia, standards AAOIFI/IFSB</li>
+<li><strong>Gouvernance :</strong> Responsabilisation, suivi plans d'action, culture du risque</li>
+</ul>
+
+<h4>7 Principes du Reporting Efficace</h4>
+<ol>
+<li><strong>PERTINENCE</strong> → Information utile à la décision</li>
+<li><strong>FIABILITÉ</strong> → Données vérifiées et auditables</li>
+<li><strong>EXHAUSTIVITÉ</strong> → Couverture de tous les risques</li>
+<li><strong>PONCTUALITÉ</strong> → Respect strict des échéances</li>
+<li><strong>COMPARABILITÉ</strong> → Séries historiques cohérentes</li>
+<li><strong>COMPRÉHENSION</strong> → Présentation claire et accessible</li>
+<li><strong>SÉCURITÉ</strong> → Confidentialité des données</li>
+</ol>
+
+<h3>14.2 Niveaux de Reporting</h3>
+<table>
+<thead><tr><th>Niveau</th><th>Destinataire</th><th>Fréquence</th><th>Contenu Principal</th><th>Horizon</th></tr></thead>
+<tbody>
+<tr><td><strong>STRATÉGIQUE</strong></td><td>Conseil d'Administration</td><td>Trimestriel</td><td>Synthèse globale risques, Ratios BCEAO, Conformité Charia, Risques émergents</td><td>3-5 ans</td></tr>
+<tr><td><strong>TACTIQUE</strong></td><td>Comité Risques / DG</td><td>Mensuel</td><td>Évolution KRI, Plans d'action, Incidents significatifs</td><td>1 an</td></tr>
+<tr><td><strong>OPÉRATIONNEL</strong></td><td>Directeurs / Managers</td><td>Hebdomadaire</td><td>Indicateurs métiers, Alertes actives, PAR, Actions correctrices</td><td>1-3 mois</td></tr>
+<tr><td><strong>TERRAIN</strong></td><td>Agents / Superviseurs</td><td>Quotidien</td><td>Transactions suspectes, Retards paiement, Incidents, Plaintes</td><td>Temps réel</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 15: ANNEXES                        -->
+<!-- ══════════════════════════════════════════ -->
+<section class="section" id="s15">
+<h2>📎 Annexes</h2>
+
+<h3>Annexe A — Glossaire des Termes</h3>
+
+<h4>A.1 Termes Généraux de Gestion des Risques</h4>
+<table>
+<thead><tr><th>Terme</th><th>Définition</th></tr></thead>
+<tbody>
+<tr><td><strong>Appétit pour le Risque</strong></td><td>Niveau de risque qu'une organisation accepte dans la poursuite de ses objectifs stratégiques</td></tr>
+<tr><td><strong>Cartographie des Risques</strong></td><td>Représentation visuelle des risques selon probabilité d'occurrence et impact potentiel</td></tr>
+<tr><td><strong>KRI</strong></td><td>Key Risk Indicator — Métrique signalant l'augmentation de l'exposition à un risque</td></tr>
+<tr><td><strong>PAR</strong></td><td>Portfolio at Risk — Encours total crédits en retard, en % du portefeuille brut</td></tr>
+<tr><td><strong>PCA</strong></td><td>Plan de Continuité d'Activité — Procédures pour maintenir les activités critiques</td></tr>
+<tr><td><strong>Stress Test</strong></td><td>Simulation de scénarios extrêmes pour évaluer la résilience de l'institution</td></tr>
+<tr><td><strong>VaR</strong></td><td>Value at Risk — Perte potentielle maximale avec un niveau de confiance donné</td></tr>
+</tbody>
+</table>
+
+<h4>A.2 Termes Spécifiques Finance Islamique</h4>
+<table>
+<thead><tr><th>Terme (Arabe)</th><th>Définition</th></tr></thead>
+<tbody>
+<tr><td><strong>Amanah</strong> (أمانة)</td><td>Fiducie, confiance. Obligation de gérer les biens d'autrui avec intégrité</td></tr>
+<tr><td><strong>Bay' al-Salam</strong> (بيع السلم)</td><td>Vente Salam — Paiement immédiat, livraison différée (financement agricole)</td></tr>
+<tr><td><strong>Gharar</strong> (غرر)</td><td>Incertitude excessive, spéculation — Interdite en finance islamique</td></tr>
+<tr><td><strong>Hifz al-Mal</strong> (حفظ المال)</td><td>Préservation du capital — Un des 5 objectifs (Maqasid) de la Charia</td></tr>
+<tr><td><strong>Ijara</strong> (إجارة)</td><td>Location/leasing — Contrat de location avec option d'achat (Ijara wa Iqtina)</td></tr>
+<tr><td><strong>Moudaraba</strong> (مضاربة)</td><td>Partenariat capital (Rab al-Mal) + expertise (Mudarib), profits partagés</td></tr>
+<tr><td><strong>Mourabaha</strong> (مرابحة)</td><td>Vente avec marge connue — Achat puis revente avec marge transparente</td></tr>
+<tr><td><strong>Mousharaka</strong> (مشاركة)</td><td>Partenariat — Toutes parties contribuent capital et/ou travail</td></tr>
+<tr><td><strong>Qard Hassan</strong> (قرض حسن)</td><td>Prêt bienveillant, sans intérêt — Seuls frais administratifs autorisés</td></tr>
+<tr><td><strong>Riba</strong> (ربا)</td><td>Intérêt, usure — Strictement interdit (Riba al-Nasiah et Riba al-Fadl)</td></tr>
+<tr><td><strong>Takaful</strong> (تكافل)</td><td>Assurance islamique — Solidarité mutuelle et partage des risques</td></tr>
+<tr><td><strong>Wadiah</strong> (وديعة)</td><td>Dépôt en garde — Banque simple dépositaire des fonds</td></tr>
+<tr><td><strong>Zakah</strong> (زكاة)</td><td>Aumône obligatoire — 2,5% des actifs nets annuels redistribués</td></tr>
+</tbody>
+</table>
+
+<h4>A.3 Termes Réglementaires BCEAO</h4>
+<table>
+<thead><tr><th>Sigle</th><th>Définition</th></tr></thead>
+<tbody>
+<tr><td><strong>BCEAO</strong></td><td>Banque Centrale des États de l'Afrique de l'Ouest (Dakar, 8 pays UMOA)</td></tr>
+<tr><td><strong>AAOIFI</strong></td><td>Accounting and Auditing Organization for Islamic Financial Institutions</td></tr>
+<tr><td><strong>IFSB</strong></td><td>Islamic Financial Services Board — Normes prudentielles finance islamique</td></tr>
+<tr><td><strong>SFD</strong></td><td>Système Financier Décentralisé — Terme BCEAO pour microfinance</td></tr>
+<tr><td><strong>UMOA</strong></td><td>Union Monétaire Ouest-Africaine (8 pays, FCFA)</td></tr>
+<tr><td><strong>FCFA</strong></td><td>Franc CFA — Monnaie commune arrimée à l'Euro (1€ = 655,957 FCFA)</td></tr>
+<tr><td><strong>SYSCOHADA</strong></td><td>Système Comptable Ouest-Africain Harmonisé</td></tr>
+</tbody>
+</table>
+
+<h4>A.4 Acronymes Courants</h4>
+<div class="scoring-grid">
+<div class="scoring-card">
+<h4>Gestion</h4>
+<p>ALM · BCP · CA · CGC · DG · KPI · KRI · RACI · RH · SLA</p>
+</div>
+<div class="scoring-card">
+<h4>Risques &amp; Finance</h4>
+<p>PAR · ROA · ROE · RPO · RTO · VaR · LBC/FT · KYC · AML · CFT</p>
+</div>
+<div class="scoring-card">
+<h4>Réglementaire</h4>
+<p>CAC · ETF · RAP · SFD · FNAM · IsDB · CENTIF</p>
+</div>
+<div class="scoring-card">
+<h4>Technologie</h4>
+<p>CBS · CERT · EDR · IT · SMS</p>
+</div>
+</div>
+
+<h3>Annexe B — Formulaires et Check-lists</h3>
+<div class="info-box"><strong>📌</strong> Voir le fichier Excel source pour les formulaires détaillés et check-lists opérationnelles.</div>
+
+<h3>Annexe C — Contacts d'Urgence</h3>
+<div class="info-box"><strong>📌</strong> Liste des contacts d'urgence disponible dans le fichier source Excel.</div>
+
+<h3>Annexe D — Bibliographie et Références</h3>
+<div class="info-box"><strong>📌</strong> Références complètes disponibles dans le fichier source Excel.</div>
+
+<h3>Annexe E — Matrices et Tableaux de Référence</h3>
+<div class="info-box"><strong>📌</strong> Matrices détaillées disponibles dans le fichier source Excel.</div>
+</section>
+
+</main>
+</div>
+
+<footer>
+<p><strong>AL NAMAA FINANCE</strong> — Institution de Microfinance Islamique — Mali</p>
+<p>Manuel de Gestion des Risques — Cadre BCEAO / AAOIFI / IFSB — Version 1.1</p>
+<p><em>Document Confidentiel — Usage Interne</em></p>
+</footer>
+
+<script>
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelector('.content').scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
