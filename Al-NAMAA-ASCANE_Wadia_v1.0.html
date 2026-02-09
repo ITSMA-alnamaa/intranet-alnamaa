@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spécifications Fonctionnelles Wadi'a - AL NAMAA FINANCE</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #2c5f2d;
+    --secondary: #97c05c;
+    --accent: #e8960e;
+    --dark: #1a1a1a;
+    --light: #f5f5f5;
+    --blue: #1e88e5;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+}
+
+.logo img { max-width: 180px; height: auto; margin-bottom: 10px; }
+
+.nav-menu { list-style: none; }
+
+.nav-link {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-link:hover {
+    background: var(--light);
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+.nav-subitem {
+    padding-left: 1.5rem;
+    font-size: 0.8rem;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.header .version { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; }
+
+.section {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.section.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--secondary);
+}
+
+h3 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+}
+
+h4 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1rem 0 0.5rem;
+}
+
+p { margin-bottom: 1rem; }
+ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+li { margin-bottom: 0.5rem; }
+
+.highlight {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+    border-left: 4px solid var(--primary);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.info-box {
+    background: #e3f2fd;
+    border-left: 4px solid var(--blue);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.warning {
+    background: #fff3e0;
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) { background: #f9f9f9; }
+tbody tr:hover { background: #e8f5e9; }
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-success { background: #c8e6c9; color: #2e7d32; }
+.badge-warning { background: #fff3e0; color: #e65100; }
+.badge-info { background: #e3f2fd; color: #1565c0; }
+
+.flow-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.flow-step {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.flow-arrow { color: var(--accent); font-size: 1.5rem; }
+
+@media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+<div class="logo">
+<img src="data:image/png;base64,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" alt="AL NAMAA FINANCE">
+<p style="font-family: 'Amiri', serif; color: #e8960e; font-size: 1rem; font-weight: 600;">الوديعة - Wadi'a</p>
+</div>
+<ul class="nav-menu">
+<li><a class="nav-link active" href="#intro" onclick="showSection('intro')">📖 1. Introduction</a></li>
+<li><a class="nav-link" href="#objectif" onclick="showSection('objectif')">🎯 2. Objectif</a></li>
+<li><a class="nav-link" href="#population" onclick="showSection('population')">👥 3. Population Cible</a></li>
+<li><a class="nav-link" href="#description" onclick="showSection('description')">📋 4. Description</a></li>
+<li><a class="nav-link" href="#cycle" onclick="showSection('cycle')">🔄 5. Cycle Opérationnel</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#phase1" onclick="showSection('phase1')">→ 5.2 Accueil Client</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#phase2" onclick="showSection('phase2')">→ 5.3 Vérification KYC</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#phase3" onclick="showSection('phase3')">→ 5.4 Ouverture Compte</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#phase4" onclick="showSection('phase4')">→ 5.5 Gestion Courante</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#phase5" onclick="showSection('phase5')">→ 5.6 Clôture Compte</a></li>
+<li><a class="nav-link" href="#caracteristiques" onclick="showSection('caracteristiques')">💰 6. Caractéristiques</a></li>
+<li><a class="nav-link" href="#charia" onclick="showSection('charia')">☪️ 7. Conformité Charia</a></li>
+<li><a class="nav-link" href="#exigences" onclick="showSection('exigences')">💻 8. Exigences Techniques</a></li>
+<li><a class="nav-link" href="#comptable" onclick="showSection('comptable')">📊 9. Comptabilisation</a></li>
+<li><a class="nav-link" href="#reporting" onclick="showSection('reporting')">📈 10. Reporting</a></li>
+<li><a class="nav-link" href="#avantages" onclick="showSection('avantages')">⭐ 11. Avantages</a></li>
+<li><a class="nav-link" href="#annexes" onclick="showSection('annexes')">📎 12. Annexes</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#annexe-a" onclick="scrollToAnnexe('annexe-a')">→ A: Glossaire</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#annexe-b" onclick="scrollToAnnexe('annexe-b')">→ B: AAOIFI</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#annexe-c" onclick="scrollToAnnexe('annexe-c')">→ C: BCEAO</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#annexe-d" onclick="scrollToAnnexe('annexe-d')">→ D: Contrats</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#annexe-e" onclick="scrollToAnnexe('annexe-e')">→ E: Contrôles</a></li>
+<li class="nav-subitem"><a class="nav-link" href="#annexe-f" onclick="scrollToAnnexe('annexe-f')">→ F: Contacts</a></li>
+</ul>
+</nav>
+<main class="content">
+<div class="header">
+<h1>📋 Spécifications Fonctionnelles</h1>
+<div class="subtitle">Produit WADI'A (الوديعة) - Compte de Dépôt à Vue Islamique</div>
+<div class="version">Version 1.1 - AL NAMAA FINANCE - Institution de Microfinance Islamique - Mali</div>
+</div>
+<section class="section active" id="intro">
+<h2>📖 1. INTRODUCTION</h2>
+<p>La <strong>Wadi'a</strong> (<span style="font-family: 'Amiri', serif; font-size: 1.2rem;">الوديعة</span>) est un contrat de dépôt islamique où le client confie ses fonds à l'institution financière pour conservation. C'est le fondement des comptes courants et d'épargne dans la finance islamique.</p>
+<div class="highlight">
+<strong>📌 Principe fondamental :</strong> Dans la Wadi'a, l'institution agit comme gardien (Amin) des fonds déposés. Elle s'engage à restituer le capital à la demande du déposant, tout en pouvant utiliser ces fonds avec sa permission implicite (Wadi'a Yad Dhamanah).
+</div>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Terme</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Arabe</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Signification</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Wadi'a</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الوديعة</td><td>Dépôt confié pour garde</td></tr>
+<tr><td><strong>Muwaddi'</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">المودِع</td><td>Le déposant (client)</td></tr>
+<tr><td><strong>Wadi'</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الودِيع</td><td>Le dépositaire (AL NAMAA)</td></tr>
+<tr><td><strong>Hiba</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الهبة</td><td>Don discrétionnaire (non obligatoire)</td></tr>
+<tr><td><strong>Amin</strong></td><td style="font-family:'Amiri',serif; font-size:1.1rem;">الأمين</td><td>Le gardien fiduciaire</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="objectif">
+<h2>🎯 2. Objectif du Produit</h2>
+<div class="info-box"><strong>🎯 Vision :</strong> Offrir aux membres d'AL NAMAA FINANCE un compte de dépôt sécurisé, conforme à la Charia, avec des services bancaires de base accessibles à tous.</div>
+<h3>2.1 Objectif Principal</h3>
+<p>La Wadi’a vise à offrir aux clients d’AL NAMAA FINANCE un service de dépôt sécurisé et conforme à la Charia, leur permettant de conserver leurs fonds en toute sûreté tout en bénéficiant d’un accès immédiat à leurs avoirs. L’institution agit en tant que gardien de confiance (Amîn) des fonds déposés.</p>
+<h3>2.2 Objectifs Spécifiques</h3>
+<ul>
+<li>Offrir une alternative halal aux comptes d’épargne conventionnels rémunérés par l’intérêt</li>
+<li>Mobiliser l’épargne locale pour financer les opérations de finance islamique d’AL NAMAA</li>
+<li>Fournir un service de dépôt à vue avec restitution garantie du capital</li>
+<li>Proposer une épargne avec possibilité de don volontaire (Hiba) de la part de l’institution</li>
+<li>Contribuer à l’inclusion financière des populations non bancarisées au Mali</li>
+<li>Diversifier les sources de financement de l’institution</li>
+</ul>
+</section>
+<section class="section" id="population">
+<h2>👥 3. Population Cible</h2>
+<div class="highlight"><strong>👥 Cible :</strong> Tous les résidents maliens (personnes physiques et morales), y compris les personnes non bancarisées, les petits commerçants, les fonctionnaires et les associations.</div>
+<h3>3.1 Segments Principaux</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Segment</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Profil</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Besoins Typiques</th></tr>
+</thead>
+<tbody>
+<tr><td>Fonctionnaires</td><td>Employés du secteur public avec revenus stables</td><td>Sécurisation du salaire, épargne de précaution</td></tr>
+<tr><td>Commerçants</td><td>Petits et moyens commerçants urbains et péri-urbains</td><td>Dépôt de recettes quotidiennes, gestion de trésorerie</td></tr>
+<tr><td>Artisans</td><td>Professionnels indépendants avec activité régulière</td><td>Épargne progressive, sécurisation des revenus</td></tr>
+<tr><td>Diaspora</td><td>Maliens résidant à l’étranger</td><td>Compte de réception des transferts, épargne projet</td></tr>
+<tr><td>ONG / Associations</td><td>Organisations à but non lucratif</td><td>Gestion de fonds, comptes de projet</td></tr>
+<tr><td>Ménages</td><td>Foyers cherchant une épargne conforme</td><td>Épargne familiale, constitution de patrimoine</td></tr>
+</tbody>
+</table>
+<h3>3.2 Critères d’Éligibilité</h3>
+<ul>
+<li>Être personne physique majeure (18 ans minimum) ou personne morale légalement constituée</li>
+<li>Fournir une pièce d’identité valide (NINA, CNI, Passeport) et un justificatif de domicile</li>
+<li>Remplir les conditions d’adhésion à AL NAMAA FINANCE (formulaire KYC complet)</li>
+<li>S’acquitter des droits d’adhésion et de la part sociale le cas échéant</li>
+<li>Effectuer un dépôt initial minimum selon le type de compte choisi</li>
+</ul>
+</section>
+<section class="section" id="description">
+<h2>📋 4. Description Fonctionnelle du Produit</h2>
+<div class="info-box"><strong>📋 Principe :</strong> Le compte Wadi'a permet au client de déposer ses fonds en toute sécurité. L'institution garantit la restitution du capital à tout moment, sans intérêt mais avec possibilité de Hiba (don discrétionnaire).</div>
+<h3>4.1 Mécanisme de la Wadi’a</h3>
+<p>La Wadi’a dans sa forme Wadi’a Yad Dhamanah (الوديعة يد الضمانة) est un contrat de dépôt avec garantie. Le dépositaire (AL NAMAA) assume la responsabilité de la conservation des fonds et garantit leur restitution intégrale sur demande du déposant. L’institution peut utiliser les fonds déposés dans ses opérations licites, à condition de restituer le montant équivalent à tout moment.</p>
+<p>Wadi’a Yad Amanah (الوديعة يد الأمانة) : Dépôt de garde pure où le dépositaire agit comme simple gardien (Amîn). Il ne peut pas utiliser les fonds et n’est responsable qu’en cas de négligence ou de faute.</p>
+<p>Wadi’a Yad Dhamanah (الوديعة يد الضمانة) : Dépôt avec garantie où le dépositaire peut utiliser les fonds dans ses activités licites, en garantissant la restitution complète. C’est le modèle adopté par AL NAMAA FINANCE.</p>
+<h3>4.2 Types de Comptes Wadi’a</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type de Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Caractéristiques</th></tr>
+</thead>
+<tbody>
+<tr><td>Wadi’a Courant</td><td>Compte à vue pour opérations quotidiennes</td><td>Dépôts/retraits illimités, pas de durée minimale</td></tr>
+<tr><td>Wadi’a Épargne</td><td>Compte d’épargne avec possibilité de Hiba</td><td>Solde minimum requis, Hiba discrétionnaire</td></tr>
+<tr><td>Wadi’a Bloquée (DAT)</td><td>Dépôt à terme fixe avec engagement de durée</td><td>Durée définie, Hiba plus élevée possible</td></tr>
+<tr><td>Wadi’a Projet</td><td>Compte d’épargne dédié à un objectif spécifique</td><td>Versements programmés, objectif défini</td></tr>
+</tbody>
+</table>
+<h3>4.3 Schéma Opérationnel</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Étape</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Acteurs</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Demande d’ouverture de compte par le client</td><td>Client, Chargé de clientèle</td></tr>
+<tr><td>2</td><td>Vérification KYC et collecte des documents</td><td>Chargé de clientèle</td></tr>
+<tr><td>3</td><td>Ouverture du compte dans le système</td><td>Back-Office</td></tr>
+<tr><td>4</td><td>Dépôt initial et activation du compte</td><td>Caissier, Client</td></tr>
+<tr><td>5</td><td>Opérations courantes (dépôts, retraits, virements)</td><td>Client, Caissier</td></tr>
+<tr><td>6</td><td>Attribution éventuelle de Hiba (don discrétionnaire)</td><td>Direction, Comité Charia</td></tr>
+<tr><td>7</td><td>Clôture du compte (sur demande)</td><td>Client, Back-Office</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="cycle">
+<h2>🔄 5. Cycle Opérationnel – AL NAMAA</h2>
+<div class="info-box"><strong>🔄 Processus :</strong> Le cycle opérationnel couvre l'ouverture du compte, la gestion courante (dépôts, retraits, virements) et la clôture éventuelle.</div>
+<div class="flow-diagram">
+<span class="flow-step">ACCUEIL</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">KYC</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">OUVERTURE</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">GESTION</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">CLÔTURE</span>
+</div>
+<p>Le cycle opérationnel du produit Wadi’a se décompose en cinq phases principales, chacune comportant des étapes spécifiques, des acteurs définis, des délais cibles et des points de contrôle. Ce chapitre détaille l’ensemble du processus de bout en bout.</p>
+<h3>5.1 Vue d’Ensemble du Cycle</h3>
+<h4>5.1.1 Synoptique des Phases</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Phase</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Désignation</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Responsable Principal</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Délai Cible</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Statut</th></tr>
+</thead>
+<tbody>
+<tr><td>Phase 1</td><td>Accueil &amp; Identification Client</td><td>Chargé de Clientèle</td><td>J+0</td><td>Demande</td></tr>
+<tr><td>Phase 2</td><td>Vérification &amp; Conformité KYC</td><td>Agent Conformité</td><td>J+0 à J+1</td><td>En vérification</td></tr>
+<tr><td>Phase 3</td><td>Ouverture &amp; Activation du Compte</td><td>Back-Office</td><td>J+0 à J+1</td><td>Actif</td></tr>
+<tr><td>Phase 4</td><td>Gestion Courante du Compte</td><td>Caissier / Client</td><td>Continu</td><td>En cours</td></tr>
+<tr><td>Phase 5</td><td>Clôture du Compte</td><td>Back-Office</td><td>J+0 à J+3</td><td>Clôturé</td></tr>
+</tbody>
+</table>
+<h4>5.1.2 Diagramme de Flux Simplifié</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">[DEMANDE CLIENT] → [VÉRIFICATION KYC] → [OUVERTURE COMPTE] → [DÉPÔT INITIAL] → [COMPTE ACTIF] → [OPÉRATIONS COURANTES] → [CLÔTURE]</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h4>5.1.3 Matrice RACI Globale</h4>
+<p>Légende : R = Responsable (exécute) | A = Approbateur (valide) | C = Consulté | I = Informé</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Activité</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Chargé Client.</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Conformité</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Back-Off.</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Caissier</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Comité Charia</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Direction</th></tr>
+</thead>
+<tbody>
+<tr><td>Accueil et conseil client</td><td>R</td><td></td><td></td><td></td><td></td><td>I</td></tr>
+<tr><td>Collecte des documents KYC</td><td>R</td><td>C</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Vérification conformité</td><td>C</td><td>R</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Ouverture du compte</td><td>I</td><td>A</td><td>R</td><td></td><td></td><td></td></tr>
+<tr><td>Dépôts et retraits</td><td></td><td></td><td></td><td>R</td><td></td><td>I</td></tr>
+<tr><td>Attribution Hiba</td><td></td><td></td><td>C</td><td></td><td>A</td><td>R</td></tr>
+<tr><td>Clôture du compte</td><td>I</td><td></td><td>R</td><td>C</td><td></td><td>A</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="phase1">
+<h2>🔄 5.2 Phase 1 : Accueil &amp; Identification Client</h2>
+<div class="info-box"><strong>👋 Phase 1 :</strong> Accueil du client, identification de ses besoins et collecte des informations de base pour l'ouverture du compte Wadi'a.</div>
+<p>Objectif : Accueillir le client, identifier son besoin en matière de dépôt/épargne, présenter les différents types de comptes Wadi’a et collecter les informations préliminaires.</p>
+<p>Durée cible : Immédiat (même jour)</p>
+<h4>5.2.1 Étape 1.1 : Premier Contact et Identification du Besoin</h4>
+<p>Acteur responsable : Chargé de Clientèle</p>
+<p>Actions à réaliser :</p>
+<ul>
+<li>Accueillir le client et vérifier s’il est déjà membre d’AL NAMAA</li>
+<li>Si nouveau client : initier le processus d’adhésion (formulaire KYC, pièce d’identité)</li>
+<li>Conduire un entretien d’identification des besoins : type de dépôt souhaité, fréquence des opérations, objectif d’épargne</li>
+<li>Vérifier l’éligibilité préliminaire du client (âge, documents d’identité)</li>
+<li>Consulter l’historique client dans le système (si applicable)</li>
+</ul>
+<h4>5.2.2 Étape 1.2 : Présentation des Produits Wadi’a</h4>
+<p>Acteur responsable : Chargé de Clientèle</p>
+<p>Éléments à expliquer au client :</p>
+<ul>
+<li>Mécanisme de la Wadi’a : expliquer le principe du dépôt de garde avec garantie (Yad Dhamanah)</li>
+<li>Conformité Charia : rassurer sur le caractère halal du produit, validé par le Comité Charia</li>
+<li>Types de comptes : présenter les différentes options (courant, épargne, bloqué, projet)</li>
+<li>Gratuité / frais : présenter les frais de tenue de compte et conditions de gratuité</li>
+<li>Possibilité de Hiba : informer que l’institution peut verser un don discrétionnaire</li>
+<li>Documents requis : remettre la liste complète des pièces à fournir</li>
+</ul>
+<h4>5.2.3 Étape 1.3 : Collecte des Documents</h4>
+<p>Acteur responsable : Chargé de Clientèle</p>
+<p>Liste des documents requis pour les particuliers :</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Document</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Format accepté</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Obligatoire</th></tr>
+</thead>
+<tbody>
+<tr><td>Pièce d’identité valide</td><td>NINA, CNI, Passeport</td><td>Oui</td></tr>
+<tr><td>Justificatif de domicile &lt; 3 mois</td><td>Facture eau/électricité, attestation</td><td>Oui</td></tr>
+<tr><td>Photo d’identité récente</td><td>Format passeport</td><td>Oui</td></tr>
+<tr><td>Bulletin de salaire (si domiciliation)</td><td>Original ou copie certifiée</td><td>Si applicable</td></tr>
+<tr><td>Acte de naissance ou livret de famille</td><td>Copie</td><td>Si mineur représenté</td></tr>
+</tbody>
+</table>
+<p>Documents additionnels pour les personnes morales :</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Document</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Format accepté</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Obligatoire</th></tr>
+</thead>
+<tbody>
+<tr><td>Registre de commerce (RCCM)</td><td>Copie certifiée &lt; 6 mois</td><td>Oui</td></tr>
+<tr><td>Numéro d’Identification Fiscale (NIF)</td><td>Attestation originale</td><td>Oui</td></tr>
+<tr><td>Statuts de l’organisation</td><td>Copie certifiée</td><td>Oui</td></tr>
+<tr><td>PV d’AG autorisant l’ouverture</td><td>Original ou copie certifiée</td><td>Oui</td></tr>
+<tr><td>Liste des signataires autorisés</td><td>Original signé et cacheté</td><td>Oui</td></tr>
+</tbody>
+</table>
+<h4>5.2.4 Étape 1.4 : Création du Dossier dans le Système</h4>
+<p>Acteur responsable : Chargé de Clientèle</p>
+<p>Outil : Module Client / CRM</p>
+<p>Actions système :</p>
+<ul>
+<li>Créer une nouvelle demande d’ouverture de compte Wadi’a</li>
+<li>Renseigner les informations client et le type de compte souhaité</li>
+<li>Scanner et rattacher les documents collectés au dossier</li>
+<li>Compléter la checklist documentaire KYC</li>
+<li>Statut initial : «Demande»</li>
+</ul>
+<p>Point de contrôle Phase 1 : Le dossier ne peut passer à l’étape suivante que si tous les documents obligatoires sont collectés et la checklist KYC est complète à 100%.</p>
+</section>
+<section class="section" id="phase2">
+<h2>🔄 5.3 Phase 2 : Vérification &amp; Conformité KYC</h2>
+<div class="highlight"><strong>🔍 Phase 2 :</strong> Vérification de l'identité du client (KYC - Know Your Customer) conformément aux réglementations BCEAO et aux normes anti-blanchiment.</div>
+<p>Objectif : Vérifier la conformité des documents, effectuer les contrôles réglementaires (LBC/FT) et valider l’ouverture du compte.</p>
+<p>Durée cible : Immédiat à 1 jour ouvré</p>
+<h4>5.3.1 Étape 2.1 : Vérification de la Conformité Documentaire</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Élément à vérifier</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Critère</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Action si non conforme</th></tr>
+</thead>
+<tbody>
+<tr><td>Authenticité de la pièce d’identité</td><td>Document valide et lisible</td><td>Retour au CC pour correction</td></tr>
+<tr><td>Cohérence des informations</td><td>Nom, adresse concordants</td><td>Demande de clarification</td></tr>
+<tr><td>Justificatif de domicile</td><td>Document &lt; 3 mois</td><td>Demande de document récent</td></tr>
+<tr><td>Vérification listes LBC/FT</td><td>Absence des listes de sanctions</td><td>Rejet et signalement</td></tr>
+<tr><td>Personne Politiquement Exposée (PPE)</td><td>Vérification statut PPE</td><td>Procédure renforcée</td></tr>
+</tbody>
+</table>
+<h4>5.3.2 Étape 2.2 : Contrôles Anti-Blanchiment (LBC/FT)</h4>
+<p>Acteur responsable : Agent Conformité / Responsable LBC-FT</p>
+<ul>
+<li>Consultation des listes de sanctions internationales (ONU, UE, CEDEAO)</li>
+<li>Vérification de l’absence d’interdiction bancaire</li>
+<li>Identification des Personnes Politiquement Exposées (PPE) et application des mesures renforcées</li>
+<li>Classification du risque client (faible, moyen, élevé)</li>
+<li>Documentation de toutes les vérifications effectuées dans le système</li>
+</ul>
+<h4>5.3.3 Étape 2.3 : Validation de l’Ouverture</h4>
+<p>Résultat : Statut documentaire «Conforme» ou «Incomplet» dans le système. Si conforme, passage à la Phase 3.</p>
+</section>
+<section class="section" id="phase3">
+<h2>🔄 5.4 Phase 3 : Ouverture &amp; Activation du Compte</h2>
+<div class="info-box"><strong>📝 Phase 3 :</strong> Création du compte dans le système, signature des documents contractuels et activation du compte pour les opérations.</div>
+<p>Objectif : Ouvrir le compte dans le Core Banking System, procéder au dépôt initial et activer le compte pour les opérations courantes.</p>
+<p>Durée cible : Immédiat (même jour si documents complets)</p>
+<h4>5.4.1 Étape 3.1 : Création du Compte dans le CBS</h4>
+<p>Acteur responsable : Back-Office</p>
+<ul>
+<li>Génération du numéro de compte unique (format WAD/YYYY/XXXXX)</li>
+<li>Paramétrage du type de compte (courant, épargne, bloqué, projet)</li>
+<li>Définition des conditions spécifiques (solde minimum, durée le cas échéant)</li>
+<li>Rattachement des informations client et des documents scannés</li>
+<li>Attribution du RIB (Relevé d’Identité Bancaire)</li>
+</ul>
+<h4>5.4.2 Étape 3.2 : Dépôt Initial et Activation</h4>
+<p>Acteur responsable : Caissier</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type de Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Dépôt Initial Minimum</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Solde Minimum à Maintenir</th></tr>
+</thead>
+<tbody>
+<tr><td>Wadi’a Courant</td><td>5 000 FCFA</td><td>1 000 FCFA</td></tr>
+<tr><td>Wadi’a Épargne</td><td>10 000 FCFA</td><td>10 000 FCFA</td></tr>
+<tr><td>Wadi’a Bloquée (DAT)</td><td>100 000 FCFA</td><td>100 000 FCFA</td></tr>
+<tr><td>Wadi’a Projet</td><td>5 000 FCFA</td><td>5 000 FCFA</td></tr>
+</tbody>
+</table>
+<h4>5.4.3 Étape 3.3 : Remise des Supports au Client</h4>
+<ul>
+<li>Livret d’épargne (pour compte Wadi’a Épargne)</li>
+<li>Relevé d’Identité Bancaire (RIB)</li>
+<li>Conditions générales du compte (document signé par le client)</li>
+<li>Notice d’information sur les droits et obligations</li>
+<li>Carte de signature (specimen)</li>
+</ul>
+</section>
+<section class="section" id="phase4">
+<h2>🔄 5.5 Phase 4 : Gestion Courante du Compte</h2>
+<div class="highlight"><strong>💳 Phase 4 :</strong> Gestion quotidienne du compte : dépôts, retraits, virements, consultation de solde, et mise à jour des informations client.</div>
+<p>Objectif : Gérer les opérations quotidiennes sur le compte (dépôts, retraits, virements) et assurer le suivi régulier.</p>
+<p>Durée : Continue pendant toute la vie du compte</p>
+<h4>5.5.1 Étape 4.1 : Opérations de Dépôt</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Mode de Dépôt</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Conditions</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Délai de Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>Espèces au guichet</td><td>Montant minimum 1 000 FCFA</td><td>Immédiat</td></tr>
+<tr><td>Virement entrant</td><td>Depuis compte bancaire externe</td><td>J+1 à J+2</td></tr>
+<tr><td>Mobile Money</td><td>Orange Money, Moov Money</td><td>Immédiat</td></tr>
+<tr><td>Chèque</td><td>Après compensation</td><td>J+2 à J+5</td></tr>
+<tr><td>Transfert interne</td><td>Depuis un autre compte AL NAMAA</td><td>Immédiat</td></tr>
+</tbody>
+</table>
+<h4>5.5.2 Étape 4.2 : Opérations de Retrait</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Mode de Retrait</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Conditions</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Plafond</th></tr>
+</thead>
+<tbody>
+<tr><td>Espèces au guichet</td><td>Présentation pièce d’identité</td><td>500 000 FCFA/jour</td></tr>
+<tr><td>Virement sortant</td><td>Depuis interface ou agence</td><td>Selon plafond</td></tr>
+<tr><td>Mobile Money</td><td>Vers numéro enregistré</td><td>300 000 FCFA/jour</td></tr>
+<tr><td>Retrait exceptionnel</td><td>Montant &gt; 500 000 FCFA, préavis 24h</td><td>Selon disponibilité</td></tr>
+</tbody>
+</table>
+<h4>5.5.3 Étape 4.3 : Suivi et Relevés de Compte</h4>
+<ul>
+<li>Relevé de compte mensuel (envoyé par email ou disponible en agence)</li>
+<li>Consultation du solde en agence, par SMS ou via application mobile</li>
+<li>Notifications automatiques pour chaque opération (SMS/email)</li>
+<li>Mise à jour du livret d’épargne en agence</li>
+</ul>
+<h4>5.5.4 Étape 4.4 : Gestion des Dépôts à Terme (Wadi’a Bloquée)</h4>
+<p>Pour les comptes Wadi’a Bloquée (DAT) :</p>
+<ul>
+<li>Durée de blocage : 3, 6, 12 ou 24 mois</li>
+<li>Renouvellement automatique sauf instruction contraire du client</li>
+<li>Retrait anticipé possible avec préavis de 30 jours (perte éventuelle du Hiba)</li>
+<li>Certificat de dépôt remis au client</li>
+</ul>
+<h4>5.5.5 Étape 4.5 : Attribution du Hiba (Don Discrétionnaire)</h4>
+<p>Principe Charia : Le Hiba (هبة) est un don gracieux et volontaire de l’institution au déposant. Il ne constitue pas une rémunération contractuelle et ne peut en aucun cas être garanti, promis ou conditionné à l’avance.</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type de Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence Hiba</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Base de Calcul Indicative</th></tr>
+</thead>
+<tbody>
+<tr><td>Wadi’a Courant</td><td>Aucun Hiba</td><td>N/A</td></tr>
+<tr><td>Wadi’a Épargne</td><td>Semestriel</td><td>Solde moyen x taux indicatif (1-2%)</td></tr>
+<tr><td>Wadi’a Bloquée 3 mois</td><td>A l’échéance</td><td>Montant x taux indicatif (2-3%)</td></tr>
+<tr><td>Wadi’a Bloquée 6 mois</td><td>A l’échéance</td><td>Montant x taux indicatif (3-4%)</td></tr>
+<tr><td>Wadi’a Bloquée 12 mois</td><td>A l’échéance</td><td>Montant x taux indicatif (4-5%)</td></tr>
+<tr><td>Wadi’a Bloquée 24 mois</td><td>A l’échéance</td><td>Montant x taux indicatif (5-6%)</td></tr>
+<tr><td>Wadi’a Projet</td><td>Annuel</td><td>Solde moyen x taux indicatif (1-2%)</td></tr>
+</tbody>
+</table>
+<p>Note importante : Les taux indicatifs ne constituent en aucun cas un engagement contractuel d’AL NAMAA. Le montant du Hiba est décidé discrétionnairement par la Direction après avis du Comité Charia, en fonction des résultats de l’institution.</p>
+</section>
+<section class="section" id="phase5">
+<h2>🔄 5.6 Phase 5 : Clôture du Compte</h2>
+<div class="warning"><strong>🔒 Phase 5 :</strong> Procédure de clôture du compte à la demande du client ou en cas d'inactivité prolongée, avec restitution intégrale du solde.</div>
+<p>Objectif : Clôturer le compte sur demande du client ou d’office selon les conditions contractuelles.</p>
+<h4>5.6.1 Étape 5.1 : Demande de Clôture</h4>
+<ul>
+<li>Le client présente sa demande de clôture en agence (formulaire dédié)</li>
+<li>Vérification de l’identité du demandeur</li>
+<li>Vérification de l’absence d’opérations en cours ou de saisies</li>
+<li>Calcul du solde final (incluant Hiba acquis le cas échéant)</li>
+</ul>
+<h4>5.6.2 Étape 5.2 : Restitution des Fonds et Clôture</h4>
+<ul>
+<li>Versement du solde intégral au client (espèces, virement ou mobile money)</li>
+<li>Récupération du livret d’épargne et de la carte de signature</li>
+<li>Génération de l’attestation de clôture de compte</li>
+<li>Archivage définitif du dossier</li>
+<li>Statut final : «Clôturé»</li>
+</ul>
+<h3>5.7 Récapitulatif des Délais</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Phase</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Délai Standard</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Délai Maximum</th></tr>
+</thead>
+<tbody>
+<tr><td>Phase 1 : Accueil &amp; Identification</td><td>Immédiat</td><td>J+0</td></tr>
+<tr><td>Phase 2 : Vérification KYC</td><td>Immédiat</td><td>J+1</td></tr>
+<tr><td>Phase 3 : Ouverture &amp; Activation</td><td>Immédiat</td><td>J+1</td></tr>
+<tr><td>TOTAL : De la demande à l’activation</td><td>Même jour</td><td>1 jour ouvré</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="caracteristiques">
+<h2>💰 6. Caractéristiques Financières</h2>
+<div class="highlight"><strong>💰 Caractéristiques :</strong> Pas d'intérêt versé, pas de frais de tenue de compte (sous conditions), possibilité de Hiba discrétionnaire, accès aux services de paiement.</div>
+<p>Cette section détaille l’ensemble des paramètres financiers du produit Wadi’a, incluant les montants, frais, conditions du Hiba, et exemples chiffrés. Ces caractéristiques sont conformes à la réglementation BCEAO et aux principes de la finance islamique.</p>
+<h3>6.1 Paramètres Généraux des Comptes</h3>
+<h4>6.1.1 Conditions des Comptes par Type</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Paramètre</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Wadi’a Courant</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Wadi’a Épargne</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Wadi’a Bloquée</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Wadi’a Projet</th></tr>
+</thead>
+<tbody>
+<tr><td>Dépôt initial minimum</td><td>5 000 FCFA</td><td>10 000 FCFA</td><td>100 000 FCFA</td><td>5 000 FCFA</td></tr>
+<tr><td>Solde minimum</td><td>1 000 FCFA</td><td>10 000 FCFA</td><td>100 000 FCFA</td><td>5 000 FCFA</td></tr>
+<tr><td>Plafond de dépôt</td><td>Illimité</td><td>Illimité</td><td>50 000 000 FCFA</td><td>10 000 000 FCFA</td></tr>
+<tr><td>Durée minimale</td><td>Aucune</td><td>Aucune</td><td>3 mois</td><td>6 mois</td></tr>
+<tr><td>Retraits</td><td>Illimités</td><td>4/mois gratuits</td><td>A l’échéance</td><td>Selon objectif</td></tr>
+<tr><td>Hiba possible</td><td>Non</td><td>Oui</td><td>Oui</td><td>Oui</td></tr>
+<tr><td>Domiciliation salaire</td><td>Oui</td><td>Non</td><td>Non</td><td>Non</td></tr>
+</tbody>
+</table>
+<h3>6.2 Frais et Commissions</h3>
+<h4>6.2.1 Tableau Récapitulatif des Frais</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type de frais</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Montant / Taux</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Applicable à</th></tr>
+</thead>
+<tbody>
+<tr><td>Frais d’ouverture de compte</td><td>GRATUIT</td><td>Tous les comptes</td></tr>
+<tr><td>Frais de tenue de compte (annuel)</td><td>2 000 FCFA/an</td><td>Wadi’a Courant uniquement</td></tr>
+<tr><td>Frais de tenue de compte Épargne</td><td>GRATUIT</td><td>Wadi’a Épargne</td></tr>
+<tr><td>Frais de clôture</td><td>GRATUIT</td><td>Tous les comptes</td></tr>
+<tr><td>Retrait supplémentaire (Épargne)</td><td>500 FCFA/retrait au-delà de 4/mois</td><td>Wadi’a Épargne</td></tr>
+<tr><td>Relevé de compte (papier)</td><td>500 FCFA/relevé</td><td>Tous les comptes</td></tr>
+<tr><td>Relevé de compte (électronique)</td><td>GRATUIT</td><td>Tous les comptes</td></tr>
+<tr><td>Attestation de solde</td><td>1 000 FCFA</td><td>Sur demande</td></tr>
+<tr><td>Opposition / Blocage</td><td>2 000 FCFA</td><td>Tous les comptes</td></tr>
+<tr><td>Retrait anticipé DAT</td><td>Perte du Hiba de la période</td><td>Wadi’a Bloquée</td></tr>
+</tbody>
+</table>
+<h4>6.2.2 Frais Non Applicables (Exclusions)</h4>
+<p>Conformément aux principes de la finance islamique et à la politique d’AL NAMAA, les frais suivants ne sont JAMAIS appliqués :</p>
+<ul>
+<li>Intérêts créditeurs (Riba) : Interdits - Remplacés par le mécanisme de Hiba discrétionnaire</li>
+<li>Intérêts débiteurs sur découvert : Aucun découvert autorisé sur les comptes Wadi’a</li>
+<li>Frais d’inactivité (première année) : Pas de pénalisation la première année</li>
+<li>Capitalisation des intérêts (anatocisme) : Strictement interdit</li>
+</ul>
+<h3>6.3 Politique de Hiba (Don Discrétionnaire)</h3>
+<h4>6.3.1 Fondement Charia du Hiba</h4>
+<p>Le Hiba (هبة) est un don volontaire que l’institution peut accorder à ses déposants. Il se distingue fondamentalement de l’intérêt (Riba) par les caractéristiques suivantes :</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Caractéristique</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Hiba (Wadi’a Islamique)</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Intérêt (Banque Conventionnelle)</th></tr>
+</thead>
+<tbody>
+<tr><td>Nature juridique</td><td>Don volontaire et gracieux</td><td>Obligation contractuelle</td></tr>
+<tr><td>Garantie</td><td>Aucune garantie de versement</td><td>Taux garanti contractuellement</td></tr>
+<tr><td>Montant</td><td>Décidé discrétionnairement</td><td>Calculé automatiquement</td></tr>
+<tr><td>Périodicité</td><td>Variable selon décision</td><td>Fixe et prédéterminée</td></tr>
+<tr><td>Base légale</td><td>Liberté contractuelle</td><td>Contrat de prêt à intérêt</td></tr>
+<tr><td>Conformité Charia</td><td>Licite (Halal)</td><td>Interdit (Haram - Riba)</td></tr>
+</tbody>
+</table>
+<h4>6.3.2 Grille Indicative du Hiba</h4>
+<p>Les taux ci-dessous sont purement indicatifs et ne constituent aucun engagement d’AL NAMAA :</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type de Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Solde Moyen Minimum</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Taux Indicatif Annuel</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence</th></tr>
+</thead>
+<tbody>
+<tr><td>Wadi’a Épargne</td><td>50 000 FCFA</td><td>1,00% - 2,00%</td><td>Semestriel</td></tr>
+<tr><td>Wadi’a Bloquée 3 mois</td><td>100 000 FCFA</td><td>2,00% - 3,00%</td><td>Échéance</td></tr>
+<tr><td>Wadi’a Bloquée 6 mois</td><td>100 000 FCFA</td><td>3,00% - 4,00%</td><td>Échéance</td></tr>
+<tr><td>Wadi’a Bloquée 12 mois</td><td>100 000 FCFA</td><td>4,00% - 5,00%</td><td>Échéance</td></tr>
+<tr><td>Wadi’a Bloquée 24 mois</td><td>100 000 FCFA</td><td>5,00% - 6,00%</td><td>Échéance</td></tr>
+</tbody>
+</table>
+<h3>6.4 Exemples de Calcul Détaillés</h3>
+<h4>6.4.1 Exemple 1 : Wadi’a Épargne (6 mois)</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Rubrique</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Valeur</th></tr>
+</thead>
+<tbody>
+<tr><td>Solde moyen sur le semestre</td><td>500 000 FCFA</td></tr>
+<tr><td>Taux Hiba indicatif décidé</td><td>1,50% par an</td></tr>
+<tr><td>Calcul : 500 000 x 1,5% x (6/12)</td><td>3 750 FCFA</td></tr>
+<tr><td>Hiba versé au client</td><td>3 750 FCFA</td></tr>
+<tr><td>Coût pour le client</td><td>0 FCFA (gratuit)</td></tr>
+</tbody>
+</table>
+<h4>6.4.2 Exemple 2 : Wadi’a Bloquée 12 mois</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Rubrique</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Valeur</th></tr>
+</thead>
+<tbody>
+<tr><td>Montant déposé</td><td>2 000 000 FCFA</td></tr>
+<tr><td>Durée de blocage</td><td>12 mois</td></tr>
+<tr><td>Taux Hiba indicatif décidé</td><td>4,50% par an</td></tr>
+<tr><td>Calcul : 2 000 000 x 4,5% x (12/12)</td><td>90 000 FCFA</td></tr>
+<tr><td>Hiba versé au client à l’échéance</td><td>90 000 FCFA</td></tr>
+</tbody>
+</table>
+<h4>6.4.3 Exemple 3 : Retrait Anticipé DAT</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Rubrique</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Valeur</th></tr>
+</thead>
+<tbody>
+<tr><td>Montant déposé (DAT 12 mois)</td><td>1 000 000 FCFA</td></tr>
+<tr><td>Retrait anticipé après 8 mois</td><td>Demande de clôture anticipée</td></tr>
+<tr><td>Capital restitué</td><td>1 000 000 FCFA (garanti à 100%)</td></tr>
+<tr><td>Hiba de la période</td><td>Perdu (retrait avant échéance)</td></tr>
+<tr><td>Montant total versé au client</td><td>1 000 000 FCFA</td></tr>
+</tbody>
+</table>
+<h3>6.5 Tableau Récapitulatif des Caractéristiques Financières</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Caractéristique</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Valeur / Plage</th></tr>
+</thead>
+<tbody>
+<tr><td>Dépôt initial minimum</td><td>5 000 à 100 000 FCFA selon type</td></tr>
+<tr><td>Plafond de dépôt</td><td>Illimité (courant/épargne) / 50 M FCFA (DAT)</td></tr>
+<tr><td>Durée de blocage (DAT)</td><td>3, 6, 12 ou 24 mois</td></tr>
+<tr><td>Hiba indicatif annuel</td><td>1% à 6% selon type et durée</td></tr>
+<tr><td>Frais de tenue de compte</td><td>Gratuit (épargne) / 2 000 FCFA/an (courant)</td></tr>
+<tr><td>Frais d’ouverture et clôture</td><td>GRATUIT</td></tr>
+<tr><td>Garantie du capital</td><td>100% garanti</td></tr>
+<tr><td>Mode de versement Hiba</td><td>Crédit en compte</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="charia">
+<h2>☪️ 7. RÈGLES DE CONFORMITÉ CHARIA</h2>
+<p>La Wadi'a est un contrat de confiance (Amanah) reconnu par toutes les écoles juridiques islamiques. Elle permet la conservation des biens d'autrui dans le respect des principes islamiques.</p>
+<div class="highlight">
+<strong>☪️ Fondement :</strong> La Wadi'a (<span style="font-family: 'Amiri', serif;">الوديعة</span>) est mentionnée dans le Coran et la Sunna comme une forme de confiance (Amanah) que le dépositaire doit honorer en restituant le bien à son propriétaire.
+</div>
+
+<h3>7.1 Fondements Coraniques | <span style="font-family: 'Amiri', serif; color: #2c5f2d;">الأدلة من القرآن الكريم</span></h3>
+
+<div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; border-right: 5px solid #2c5f2d;">
+<p style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.8rem; color: #2c5f2d; line-height: 2.2; direction: rtl; text-align: center; margin-bottom: 0.5rem;">
+﴿ إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا ﴾
+</p>
+<p style="font-family: 'Amiri', serif; font-size: 1rem; color: #666; text-align: center; direction: rtl;">سورة النساء - الآية ٥٨</p>
+<p style="text-align: center; font-style: italic; color: #555; margin-top: 0.5rem;">« Certes, Allah vous commande de rendre les dépôts à leurs ayants droit »</p>
+</div>
+
+<div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; border-right: 5px solid #2c5f2d;">
+<p style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.8rem; color: #2c5f2d; line-height: 2.2; direction: rtl; text-align: center; margin-bottom: 0.5rem;">
+﴿ فَإِنْ أَمِنَ بَعْضُكُم بَعْضًا فَلْيُؤَدِّ الَّذِي اؤْتُمِنَ أَمَانَتَهُ ﴾
+</p>
+<p style="font-family: 'Amiri', serif; font-size: 1rem; color: #666; text-align: center; direction: rtl;">سورة البقرة - الآية ٢٨٣</p>
+<p style="text-align: center; font-style: italic; color: #555; margin-top: 0.5rem;">« Si l'un d'entre vous fait confiance à l'autre, que celui à qui on a fait confiance restitue le dépôt »</p>
+</div>
+
+<h3>7.2 Fondements Prophétiques | <span style="font-family: 'Amiri', serif; color: #2c5f2d;">الأدلة من السنة النبوية</span></h3>
+
+<div style="background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; border-right: 5px solid #f39c12;">
+<h5 style="color: #f39c12; margin-top: 0; font-family: 'Amiri', serif; text-align: center;">📜 حديث نبوي | Hadith</h5>
+<p style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.4rem; text-align: center; color: #2c5f2d; line-height: 2; direction: rtl;">
+« أَدِّ الْأَمَانَةَ إِلَى مَنِ ائْتَمَنَكَ وَلَا تَخُنْ مَنْ خَانَكَ »
+</p>
+<p style="text-align: center; font-style: italic; color: #555;">« Restitue le dépôt à celui qui te l'a confié, et ne trahis pas celui qui t'a trahi »</p>
+<p style="text-align: center; font-size: 0.9rem; color: #888;">Rapporté par Abu Dawud et Tirmidhi</p>
+</div>
+
+<h3>7.3 Types de Wadi'a | <span style="font-family: 'Amiri', serif; color: #2c5f2d;">أنواع الوديعة</span></h3>
+
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white;">Type</th><th style="background-color:#2c5f2d; color:white;">Arabe</th><th style="background-color:#2c5f2d; color:white;">Description</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Wadi'a Yad Amanah</strong></td><td style="font-family:'Amiri',serif;">وديعة يد أمانة</td><td>Dépôt de confiance pure - le gardien n'utilise pas les fonds</td></tr>
+<tr><td><strong>Wadi'a Yad Dhamanah</strong></td><td style="font-family:'Amiri',serif;">وديعة يد ضمانة</td><td>Dépôt avec garantie - le gardien peut utiliser les fonds et garantit leur restitution</td></tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<strong>💡 Note :</strong> AL NAMAA FINANCE utilise la <strong>Wadi'a Yad Dhamanah</strong> qui permet d'utiliser les fonds déposés dans des opérations conformes à la Charia, tout en garantissant la restitution intégrale du capital au déposant.
+</div>
+
+<h3>7.4 Règles sur la Hiba (Don) | <span style="font-family: 'Amiri', serif; color: #f39c12;">الهبة</span></h3>
+<div class="warning">
+<strong>⚠️ Règle importante :</strong> La Hiba est un don discrétionnaire que l'institution peut accorder aux déposants. Elle ne doit JAMAIS être :
+<ul>
+<li>Promise ou garantie à l'avance</li>
+<li>Liée au montant ou à la durée du dépôt</li>
+<li>Mentionnée comme incitation dans le contrat</li>
+</ul>
+La Hiba doit rester une décision unilatérale de l'institution, accordée après coup, sans aucune obligation.
+</div>
+
+<h2>☪️ 7. Règles de Conformité Charia</h2>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">الضوابط الشرعية للوديعة — Al-Dawābit Al-Shar’iyya Li-Al-Wadī’a — Les Règles Charia de la Wadi’a</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>Cette section définit l’ensemble des règles et principes de la Charia islamique (الشريعة الإسلامية - Al-Sharī’a Al-Islāmiyya) applicables au produit Wadi’a proposé par AL NAMAA FINANCE.</p>
+<h3>7.1 Fondements Juridiques Islamiques</h3>
+<h4>7.1.1 Sources du Droit Islamique (أصول الفقه - Uṣūl Al-Fiqh)</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Source (Arabe)</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Translittération</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Application à la Wadi’a</th></tr>
+</thead>
+<tbody>
+<tr><td>القرآن الكريم</td><td>Al-Qur’ān Al-Karīm</td><td>«إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الأَمَانَاتِ إِلَىٰ أَهْلِهَا» - Restitution des dépôts (4:58)</td></tr>
+<tr><td>السنة النبوية</td><td>Al-Sunna Al-Nabawiyya</td><td>Hadiths sur la fidélité dans les dépôts et la restitution des biens confiés</td></tr>
+<tr><td>الإجماع</td><td>Al-Ijmā’</td><td>Consensus des juristes sur la liceité de la Wadi’a</td></tr>
+<tr><td>القياس</td><td>Al-Qiyās</td><td>Analogie avec les contrats de confiance et de garde</td></tr>
+</tbody>
+</table>
+<h4>7.1.2 Définition Juridique de la Wadi’a (تعريف الوديعة)</h4>
+<p>الوَدِيعَة (Al-Wadī’a) : Terme dérivé de la racine arabe ودع (wada’a) signifiant «laisser», «déposer» ou «confier». La Wadi’a désigne le contrat par lequel une personne (le déposant / المُودِع) confie un bien ou des fonds à une autre personne (le dépositaire / الوَديع) pour qu’elle les conserve et les restitue sur demande.</p>
+<h4>7.1.3 Types de Wadi’a en Jurisprudence Islamique</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type (Arabe)</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Translittération</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description et Statut</th></tr>
+</thead>
+<tbody>
+<tr><td>الوديعة يد الأمانة</td><td>Al-Wadī’a Yad Al-Amānah</td><td>Dépôt de confiance : le gardien ne peut pas utiliser les fonds. Responsable uniquement en cas de négligence. LICITE par consensus.</td></tr>
+<tr><td>الوديعة يد الضمانة</td><td>Al-Wadī’a Yad Al-Dhamānah</td><td>Dépôt avec garantie : le dépositaire peut utiliser les fonds et garantit la restitution. LICITE - Modèle adopté par AL NAMAA.</td></tr>
+</tbody>
+</table>
+<h4>7.1.4 Positions des Écoles Juridiques (المذاهب الفقهية)</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">École (مذهب)</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Position</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Argumentation</th></tr>
+</thead>
+<tbody>
+<tr><td>الحنفية (Ḥanafiyya)</td><td>Licite (جائز)</td><td>La Wadi’a est un contrat de bienfaisance et de confiance, permis par le Coran et la Sunna</td></tr>
+<tr><td>المالكية (Mālikiyya)</td><td>Licite (جائز)</td><td>Le dépositaire est tenu de conserver le bien avec diligence et de le restituer sur demande</td></tr>
+<tr><td>الشافعية (Shāfi’iyya)</td><td>Licite (جائز)</td><td>Contrat valide fondé sur la confiance mutuelle et la responsabilité du dépositaire</td></tr>
+<tr><td>الحنابلة (Ḥanābila)</td><td>Licite (جائز)</td><td>Recommandé (Mustahabb) car c’est un acte de bienfaisance et d’entraide</td></tr>
+</tbody>
+</table>
+<h3>7.2 Conditions de Validité Charia (شروط الصحة الشرعية)</h3>
+<h4>7.2.1 Condition 1 : Garantie de Restitution (ضمان الرد)</h4>
+<p>Principe : AL NAMAA FINANCE garantit la restitution intégrale du capital déposé à tout moment sur demande du déposant. Le capital ne peut jamais subir de perte. Cette garantie est absolue et inconditionnelle.</p>
+<h4>7.2.2 Condition 2 : Absence de Rémunération Contractuelle (عدم اشتراط العائد)</h4>
+<p>Principe : Aucune rémunération ne peut être promise, garantie ou conditionnée contractuellement sur les dépôts Wadi’a. Tout rendement serait assimilé à du Riba. Seul le Hiba (don gracieux) est permis, à la discrétion totale de l’institution.</p>
+<h4>7.2.3 Condition 3 : Utilisation Licite des Fonds (استخدام مشروع)</h4>
+<p>Principe : Dans le modèle Yad Dhamanah, AL NAMAA peut utiliser les fonds déposés uniquement dans des activités licites (Halal) : financements Mourabaha, Ijara, Salam, etc. Les fonds ne peuvent jamais être investis dans des activités illicites (alcool, jeux de hasard, armes, etc.).</p>
+<h4>7.2.4 Condition 4 : Consentement du Déposant (رضا المودع)</h4>
+<p>Principe : Le déposant doit être pleinement informé que ses fonds pourront être utilisés par l’institution (Yad Dhamanah) et donner son consentement explicite lors de la signature du contrat d’ouverture.</p>
+<h3>7.3 Éléments Interdits (المحظورات الشرعية)</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Interdit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Arabe</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Intérêt contractuel (Riba)</td><td>الربا</td><td>Toute rémunération contractuelle sur le dépôt est strictement interdite</td></tr>
+<tr><td>Promesse de rendement</td><td>وعد بالعائد</td><td>Le Hiba ne peut jamais être promis, garanti ou annoncé comme certain</td></tr>
+<tr><td>Condition de dépôt liée au Hiba</td><td>اشتراط الهبة</td><td>Le Hiba ne peut pas être une condition d’ouverture ou de maintien du compte</td></tr>
+<tr><td>Investissement illicite</td><td>استثمار محرم</td><td>Les fonds ne peuvent être utilisés dans des secteurs Haram</td></tr>
+<tr><td>Découvert (Riba)</td><td>السحب على المكشوف</td><td>Aucun découvert rémunéré ne peut être autorisé</td></tr>
+</tbody>
+</table>
+<h3>7.4 Supervision du Comité Charia (هيئة الرقابة الشرعية)</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Attribution</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Validation des contrats</td><td>Approbation préalable de tous les modèles de contrats Wadi’a</td></tr>
+<tr><td>Validation du Hiba</td><td>Vérification que le Hiba n’est pas contractualisé ni garanti</td></tr>
+<tr><td>Audit des opérations</td><td>Vérification périodique que les fonds sont utilisés licitement</td></tr>
+<tr><td>Émission de Fatwas</td><td>Réponse aux questions juridiques sur des cas particuliers</td></tr>
+<tr><td>Formation du personnel</td><td>Sensibilisation aux principes de la Wadi’a islamique</td></tr>
+<tr><td>Rapport annuel</td><td>Publication d’un rapport de conformité Charia</td></tr>
+</tbody>
+</table>
+<h3>7.5 Références Normatives</h3>
+<ul>
+<li>Standard Charia AAOIFI n°27 : Wadi’a (Dépôt)</li>
+<li>Standard Charia AAOIFI n°40 : Distribution des profits dans les institutions financières islamiques</li>
+<li>FAS 1 : Présentation des états financiers</li>
+<li>Instruction BCEAO n°002-03-2018 : Gouvernance des IMF islamiques</li>
+</ul>
+</section>
+<section class="section" id="exigences">
+<h2>💻 8. Exigences Techniques (Core Banking)</h2>
+<div class="info-box"><strong>💻 Architecture :</strong> Intégration au Core Banking System avec gestion des comptes Wadi'a, historique des transactions, et interface client (mobile/web).</div>
+<p>Cette section définit l’ensemble des exigences techniques pour l’implémentation du produit Wadi’a dans le Core Banking System d’AL NAMAA FINANCE.</p>
+<h3>8.1 Architecture Technique Globale</h3>
+<h4>8.1.1 Stack Technologique</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Composant</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Technologie</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Version</th></tr>
+</thead>
+<tbody>
+<tr><td>ERP / Core Banking</td><td>CBS</td><td>16.0+ LTS</td></tr>
+<tr><td>Base de données</td><td>PostgreSQL</td><td>14.x / 15.x</td></tr>
+<tr><td>Serveur d’application</td><td>Python / Werkzeug</td><td>Python 3.10+</td></tr>
+<tr><td>Cache / Sessions</td><td>Redis</td><td>7.x</td></tr>
+<tr><td>Conteneurisation</td><td>Docker / Kubernetes</td><td>24.x / 1.28+</td></tr>
+</tbody>
+</table>
+<h4>8.1.2 Modules CBS Requis</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Module</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fonction</th></tr>
+</thead>
+<tbody>
+<tr><td>alnamaa_wadia</td><td>Custom - Nouveau</td><td>Module principal Wadi’a</td></tr>
+<tr><td>alnamaa_islamic_finance</td><td>Custom - Existant</td><td>Base finance islamique</td></tr>
+<tr><td>alnamaa_client</td><td>Custom - Existant</td><td>Gestion clientèle et KYC</td></tr>
+<tr><td>account</td><td>Standard</td><td>Comptabilité générale</td></tr>
+<tr><td>documents</td><td>Standard</td><td>Gestion électronique des documents</td></tr>
+<tr><td>alnamaa_reporting</td><td>Custom - Existant</td><td>Rapports BCEAO et tableaux de bord</td></tr>
+</tbody>
+</table>
+<h3>8.2 Modèle de Données</h3>
+<h4>8.2.1 Entité Principale : wadia.account</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Champ</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Requis</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td>Integer</td><td>Auto</td><td>Identifiant unique auto-incrémenté</td></tr>
+<tr><td>name</td><td>Char(32)</td><td>Auto</td><td>Numéro de compte (WAD/YYYY/XXXXX)</td></tr>
+<tr><td>partner_id</td><td>Many2one</td><td>Oui</td><td>Référence client (res.partner)</td></tr>
+<tr><td>account_type</td><td>Selection</td><td>Oui</td><td>Type : courant/epargne/dat/projet</td></tr>
+<tr><td>state</td><td>Selection</td><td>Oui</td><td>Statut du compte</td></tr>
+<tr><td>balance</td><td>Monetary</td><td>Calc</td><td>Solde actuel du compte</td></tr>
+<tr><td>min_balance</td><td>Monetary</td><td>Config</td><td>Solde minimum requis</td></tr>
+<tr><td>dat_amount</td><td>Monetary</td><td>Non</td><td>Montant bloqué (DAT)</td></tr>
+<tr><td>dat_duration</td><td>Integer</td><td>Non</td><td>Durée DAT en mois</td></tr>
+<tr><td>dat_maturity</td><td>Date</td><td>Non</td><td>Date d’échéance DAT</td></tr>
+<tr><td>hiba_rate</td><td>Float</td><td>Non</td><td>Taux Hiba indicatif appliqué</td></tr>
+<tr><td>hiba_total</td><td>Monetary</td><td>Calc</td><td>Hiba total versé depuis ouverture</td></tr>
+<tr><td>agent_id</td><td>Many2one</td><td>Oui</td><td>Chargé de clientèle</td></tr>
+<tr><td>agency_id</td><td>Many2one</td><td>Oui</td><td>Agence d’origine</td></tr>
+<tr><td>open_date</td><td>Date</td><td>Auto</td><td>Date d’ouverture</td></tr>
+<tr><td>close_date</td><td>Date</td><td>Non</td><td>Date de clôture</td></tr>
+</tbody>
+</table>
+<h4>8.2.2 Entité Mouvements : wadia.transaction</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Champ</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Requis</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th></tr>
+</thead>
+<tbody>
+<tr><td>account_id</td><td>Many2one</td><td>Oui</td><td>Référence compte Wadi’a</td></tr>
+<tr><td>transaction_type</td><td>Selection</td><td>Oui</td><td>Type : deposit/withdrawal/hiba/transfer/fee</td></tr>
+<tr><td>amount</td><td>Monetary</td><td>Oui</td><td>Montant de l’opération</td></tr>
+<tr><td>date</td><td>Datetime</td><td>Auto</td><td>Date et heure de l’opération</td></tr>
+<tr><td>channel</td><td>Selection</td><td>Oui</td><td>Canal : guichet/virement/mobile_money</td></tr>
+<tr><td>reference</td><td>Char(64)</td><td>Auto</td><td>Référence unique de la transaction</td></tr>
+<tr><td>balance_after</td><td>Monetary</td><td>Calc</td><td>Solde après opération</td></tr>
+<tr><td>agent_id</td><td>Many2one</td><td>Oui</td><td>Opérateur ayant effectué l’opération</td></tr>
+</tbody>
+</table>
+<h3>8.3 Workflow et Gestion des États</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Code État</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Description</th></tr>
+</thead>
+<tbody>
+<tr><td>draft</td><td>Demande</td><td>Dossier en cours de constitution KYC</td></tr>
+<tr><td>pending</td><td>En vérification</td><td>Vérification conformité en cours</td></tr>
+<tr><td>active</td><td>Actif</td><td>Compte ouvert et opérationnel</td></tr>
+<tr><td>blocked</td><td>Bloqué</td><td>Compte temporairement suspendu</td></tr>
+<tr><td>dormant</td><td>Dormant</td><td>Inactif depuis plus de 12 mois</td></tr>
+<tr><td>closed</td><td>Clôturé</td><td>Compte clôturé définitivement</td></tr>
+</tbody>
+</table>
+<h3>8.4 Intégrations Externes (API)</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Intégration</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Objectif</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type</th></tr>
+</thead>
+<tbody>
+<tr><td>Mobile Money (Orange / Moov / Wave)</td><td>Dépôts et retraits via mobile</td><td>REST API</td></tr>
+<tr><td>SMS Gateway (Infobip)</td><td>Notifications, confirmations</td><td>REST API</td></tr>
+<tr><td>BCEAO - Centrale des Risques</td><td>Vérifications KYC</td><td>SOAP / VPN</td></tr>
+<tr><td>CENTIF Mali</td><td>Déclarations de soupçon LBC/FT</td><td>Formulaire sécurisé</td></tr>
+</tbody>
+</table>
+<h3>8.5 Schéma Comptable Automatisé</h3>
+<h4>8.5.1 Plan Comptable Wadi’a</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type</th></tr>
+</thead>
+<tbody>
+<tr><td>302100</td><td>Dépôts Wadi’a Courant</td><td>Passif - Dépôts clientèle</td></tr>
+<tr><td>302200</td><td>Dépôts Wadi’a Épargne</td><td>Passif - Dépôts clientèle</td></tr>
+<tr><td>302300</td><td>Dépôts Wadi’a Bloquée (DAT)</td><td>Passif - Dépôts à terme</td></tr>
+<tr><td>302400</td><td>Dépôts Wadi’a Projet</td><td>Passif - Dépôts clientèle</td></tr>
+<tr><td>512100</td><td>Banque - Compte principal</td><td>Actif - Trésorerie</td></tr>
+<tr><td>531000</td><td>Caisse</td><td>Actif - Trésorerie</td></tr>
+<tr><td>671100</td><td>Charges - Hiba versé aux déposants</td><td>Charge - Charges d’exploitation</td></tr>
+<tr><td>706200</td><td>Produits - Frais de tenue de compte</td><td>Produit - Commissions</td></tr>
+</tbody>
+</table>
+<h4>8.5.2 Écritures Automatiques par Événement</h4>
+<p>Événement 1 : Dépôt du client (espèces)</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>531000</td><td>Caisse</td><td>X</td><td></td></tr>
+<tr><td>302xxx</td><td>Dépôts Wadi’a (selon type)</td><td></td><td>X</td></tr>
+</tbody>
+</table>
+<p>Événement 2 : Retrait du client</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>302xxx</td><td>Dépôts Wadi’a (selon type)</td><td>X</td><td></td></tr>
+<tr><td>531000</td><td>Caisse / Banque</td><td></td><td>X</td></tr>
+</tbody>
+</table>
+<p>Événement 3 : Attribution du Hiba</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>671100</td><td>Charges - Hiba versé aux déposants</td><td>H</td><td></td></tr>
+<tr><td>302xxx</td><td>Dépôts Wadi’a (crédit au compte client)</td><td></td><td>H</td></tr>
+</tbody>
+</table>
+<h3>8.6 Sécurité et Gestion des Habilitations</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fonction</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">CC</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Conformité</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Back-Off.</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Caissier</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Admin</th></tr>
+</thead>
+<tbody>
+<tr><td>Ouvrir un compte</td><td>✓</td><td></td><td></td><td></td><td>✓</td></tr>
+<tr><td>Vérifier KYC</td><td></td><td>✓</td><td></td><td></td><td>✓</td></tr>
+<tr><td>Activer un compte</td><td></td><td>✓</td><td>✓</td><td></td><td>✓</td></tr>
+<tr><td>Effectuer dépôt/retrait</td><td></td><td></td><td></td><td>✓</td><td>✓</td></tr>
+<tr><td>Attribuer Hiba</td><td></td><td></td><td></td><td></td><td>✓</td></tr>
+<tr><td>Clôturer un compte</td><td></td><td></td><td>✓</td><td></td><td>✓</td></tr>
+<tr><td>Configurer produit</td><td></td><td></td><td></td><td></td><td>✓</td></tr>
+</tbody>
+</table>
+<h3>8.7 Rapports et Tableaux de Bord</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Rapport</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Destinataires</th></tr>
+</thead>
+<tbody>
+<tr><td>Ouvertures du jour</td><td>Quotidien</td><td>Chef d’agence</td></tr>
+<tr><td>Mouvements du jour</td><td>Quotidien</td><td>Responsable opérations, Caissier principal</td></tr>
+<tr><td>Soldes globaux Wadi’a</td><td>Quotidien</td><td>Trésorerie, Direction</td></tr>
+<tr><td>DAT arrivant à échéance</td><td>Hebdomadaire</td><td>Back-Office, Trésorerie</td></tr>
+<tr><td>Comptes dormants</td><td>Mensuel</td><td>Direction, Conformité</td></tr>
+<tr><td>Hiba distribué</td><td>Semestriel</td><td>Direction, Comité Charia</td></tr>
+<tr><td>Portefeuille dépôts</td><td>Mensuel</td><td>Direction, CA</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="comptable">
+<h2>📊 9. Comptabilisation (Référence AAOIFI &amp; BCEAO)</h2>
+<div class="highlight"><strong>📊 Comptabilisation :</strong> Les dépôts Wadi'a sont enregistrés au passif comme obligations envers les déposants. Aucun produit financier n'est comptabilisé (pas d'intérêt).</div>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">CADRE NORMATIF COMPTABLE — AAOIFI FAS 1 (Présentation) • AAOIFI SS 27 (Wadi’a) • BCEAO PCEC-SFD</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h3>9.1 Cadre Normatif Applicable</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Norme</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Titre</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Application à la Wadi’a</th></tr>
+</thead>
+<tbody>
+<tr><td>FAS 1</td><td>Présentation des états financiers</td><td>Format de présentation, classification des dépôts au passif</td></tr>
+<tr><td>SS 27</td><td>Wadi’a</td><td>Standard Charia de référence pour les dépôts Wadi’a</td></tr>
+<tr><td>SS 40</td><td>Distribution des profits</td><td>Règles applicables au Hiba et à sa non-contractualisation</td></tr>
+<tr><td>FAS 11</td><td>Provisions et réserves</td><td>Constitution de réserves pour garantir les dépôts</td></tr>
+<tr><td>PCEC-SFD</td><td>Plan Comptable BCEAO</td><td>Référentiel obligatoire pour la comptabilisation</td></tr>
+</tbody>
+</table>
+<h3>9.2 Plan Comptable Détaillé de la Wadi’a</h3>
+<h4>9.2.1 Comptes de Bilan - Passif (Dépôts)</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">N° Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé du compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Nature</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Sens habituel</th></tr>
+</thead>
+<tbody>
+<tr><td>302100</td><td>Dépôts Wadi’a à vue - Courant</td><td>Passif</td><td>Créditeur</td></tr>
+<tr><td>302200</td><td>Dépôts Wadi’a Épargne</td><td>Passif</td><td>Créditeur</td></tr>
+<tr><td>302300</td><td>Dépôts Wadi’a à terme (DAT)</td><td>Passif</td><td>Créditeur</td></tr>
+<tr><td>302400</td><td>Dépôts Wadi’a Projet</td><td>Passif</td><td>Créditeur</td></tr>
+<tr><td>302900</td><td>Hiba à verser aux déposants</td><td>Passif</td><td>Créditeur</td></tr>
+</tbody>
+</table>
+<h4>9.2.2 Comptes de Résultat</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">N° Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé du compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Nature</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Sens habituel</th></tr>
+</thead>
+<tbody>
+<tr><td>671100</td><td>Charges - Hiba versé (Wadi’a Épargne)</td><td>Charge</td><td>Débiteur</td></tr>
+<tr><td>671200</td><td>Charges - Hiba versé (Wadi’a DAT)</td><td>Charge</td><td>Débiteur</td></tr>
+<tr><td>706200</td><td>Produits - Frais de tenue de compte Wadi’a</td><td>Produit</td><td>Créditeur</td></tr>
+<tr><td>706300</td><td>Produits - Frais d’attestation et relevés</td><td>Produit</td><td>Créditeur</td></tr>
+</tbody>
+</table>
+<h3>9.3 Schémas d’Écritures Comptables</h3>
+<p>Phase 1 : Dépôt initial (ouverture de compte) - Exemple : 500 000 FCFA en espèces</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>531000</td><td>Caisse</td><td>500 000</td><td></td></tr>
+<tr><td>302200</td><td>Dépôts Wadi’a Épargne</td><td></td><td>500 000</td></tr>
+</tbody>
+</table>
+<p>Phase 2 : Retrait du client - Exemple : 100 000 FCFA</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>302200</td><td>Dépôts Wadi’a Épargne</td><td>100 000</td><td></td></tr>
+<tr><td>531000</td><td>Caisse</td><td></td><td>100 000</td></tr>
+</tbody>
+</table>
+<p>Phase 3 : Attribution du Hiba - Exemple : 3 750 FCFA</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>671100</td><td>Charges - Hiba versé</td><td>3 750</td><td></td></tr>
+<tr><td>302200</td><td>Dépôts Wadi’a Épargne (crédit au client)</td><td></td><td>3 750</td></tr>
+</tbody>
+</table>
+<p>Phase 4 : Frais de tenue de compte annuels - Exemple : 2 000 FCFA</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Compte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Libellé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Débit</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Crédit</th></tr>
+</thead>
+<tbody>
+<tr><td>302100</td><td>Dépôts Wadi’a Courant (débit client)</td><td>2 000</td><td></td></tr>
+<tr><td>706200</td><td>Produits - Frais de tenue de compte</td><td></td><td>2 000</td></tr>
+</tbody>
+</table>
+<h3>9.4 Présentation dans les États Financiers</h3>
+<h4>9.4.1 Présentation au Bilan</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">PASSIF</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Montant N</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Montant N-1</th></tr>
+</thead>
+<tbody>
+<tr><td>OPÉRATIONS AVEC LA CLIENTÈLE</td><td></td><td></td></tr>
+<tr><td>Dépôts Wadi’a à vue</td><td>XXX</td><td>XXX</td></tr>
+<tr><td>Dépôts Wadi’a Épargne</td><td>XXX</td><td>XXX</td></tr>
+<tr><td>Dépôts Wadi’a à terme (DAT)</td><td>XXX</td><td>XXX</td></tr>
+<tr><td>Hiba à verser</td><td>XXX</td><td>XXX</td></tr>
+<tr><td>= Total Dépôts Wadi’a</td><td>XXX</td><td>XXX</td></tr>
+</tbody>
+</table>
+<h4>9.4.2 Notes Annexes Obligatoires</h4>
+<ul>
+<li>Politique comptable : Méthode de comptabilisation des dépôts et du Hiba</li>
+<li>Ventilation des dépôts : Par type de compte, par maturité, par segment client</li>
+<li>Hiba distribué : Montant total, base de calcul, validation Comité Charia</li>
+<li>Concentration des dépôts : Analyse des plus gros déposants</li>
+<li>Conformité Charia : Attestation du Comité Charia sur les produits Wadi’a</li>
+</ul>
+</section>
+<section class="section" id="reporting">
+<h2>📈 10. Reporting &amp; Suivi</h2>
+<div class="info-box"><strong>📈 Suivi :</strong> Tableaux de bord sur les dépôts collectés, nombre de comptes actifs, mouvements moyens, et indicateurs de fidélisation.</div>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">SYSTÈME DE PILOTAGE DU PORTEFEUILLE WADI’A — Tableaux de bord • Indicateurs clés • Rapports opérationnels • États réglementaires</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h3>10.1 Indicateurs Clés de Performance (KPIs)</h3>
+<h4>10.1.1 KPIs de Collecte</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Indicateur</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Formule</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Cible</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Seuil alerte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence</th></tr>
+</thead>
+<tbody>
+<tr><td>Nombre de comptes ouverts</td><td>Comptage nouveaux comptes</td><td>&gt; 100/mois</td><td>&lt; 50/mois</td><td>Mensuel</td></tr>
+<tr><td>Volume de dépôts collectés</td><td>Somme dépôts période</td><td>&gt; 100 M/mois</td><td>&lt; 50 M/mois</td><td>Mensuel</td></tr>
+<tr><td>Solde moyen par compte</td><td>Encours total / Nb comptes</td><td>&gt; 200 000 FCFA</td><td>&lt; 100 000 FCFA</td><td>Mensuel</td></tr>
+<tr><td>Taux de dormance</td><td>Comptes dormants / Total</td><td>&lt; 10%</td><td>&gt; 20%</td><td>Trimestriel</td></tr>
+<tr><td>Taux de clôture</td><td>Clôtures / Total</td><td>&lt; 5%</td><td>&gt; 10%</td><td>Mensuel</td></tr>
+</tbody>
+</table>
+<h4>10.1.2 KPIs de Stabilité des Ressources</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Indicateur</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Formule</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Cible</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence</th></tr>
+</thead>
+<tbody>
+<tr><td>Ratio DAT / Total dépôts</td><td>Encours DAT / Encours total</td><td>&gt; 30%</td><td>Mensuel</td></tr>
+<tr><td>Coût moyen des ressources</td><td>Hiba total / Encours moyen</td><td>&lt; 3%</td><td>Trimestriel</td></tr>
+<tr><td>Taux de renouvellement DAT</td><td>DAT renouvelés / DAT échus</td><td>&gt; 70%</td><td>Mensuel</td></tr>
+<tr><td>Concentration dépôts (Top 10)</td><td>Top 10 / Total dépôts</td><td>&lt; 30%</td><td>Mensuel</td></tr>
+</tbody>
+</table>
+<h3>10.2 Tableaux de Bord</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Tableau de Bord</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Contenu Principal</th></tr>
+</thead>
+<tbody>
+<tr><td>Quotidien (Opérationnel)</td><td>Quotidien</td><td>Mouvements du jour, ouvertures, soldes globaux, alertes</td></tr>
+<tr><td>Hebdomadaire (Tactique)</td><td>Hebdomadaire</td><td>Production, évolution encours, DAT à échéance, dormances</td></tr>
+<tr><td>Mensuel (Direction)</td><td>Mensuel</td><td>Performance globale, coût des ressources, Hiba, conformité</td></tr>
+<tr><td>Trimestriel (Stratégique)</td><td>Trimestriel</td><td>Portefeuille, ratios prudentiels, analyse de stabilité</td></tr>
+</tbody>
+</table>
+<h3>10.3 États Réglementaires BCEAO</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">État</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Intitulé</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Données Wadi’a</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Fréquence</th></tr>
+</thead>
+<tbody>
+<tr><td>État 1001</td><td>Situation de l’actif et du passif</td><td>Dépôts par type au passif</td><td>Mensuel</td></tr>
+<tr><td>État 1002</td><td>Compte de résultat</td><td>Hiba (charge), frais (produit)</td><td>Trimestriel</td></tr>
+<tr><td>État 3001</td><td>Ratios prudentiels</td><td>Contribution aux ratios de liquidité</td><td>Mensuel</td></tr>
+<tr><td>État 4001</td><td>Déclaration des conditions</td><td>Conditions des comptes Wadi’a</td><td>Mensuel</td></tr>
+</tbody>
+</table>
+<h3>10.4 Système d’Alertes</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Type d’alerte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Déclencheur</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Destinataire</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Action requise</th></tr>
+</thead>
+<tbody>
+<tr><td>Retrait important</td><td>Retrait &gt; 1 000 000 FCFA</td><td>Chef d’agence</td><td>Validation préalable</td></tr>
+<tr><td>Solde sous minimum</td><td>Solde &lt; minimum requis</td><td>Chargé de clientèle</td><td>Notification client</td></tr>
+<tr><td>Compte dormant</td><td>Inactif &gt; 12 mois</td><td>Back-Office</td><td>Relance client</td></tr>
+<tr><td>DAT à échéance</td><td>J-7 avant échéance DAT</td><td>Chargé de clientèle</td><td>Contact client</td></tr>
+<tr><td>Opération suspecte</td><td>Seuil LBC/FT dépassé</td><td>Conformité / RCLBC</td><td>Déclaration de soupçon</td></tr>
+<tr><td>Concentration dépôts</td><td>Top 10 &gt; 30% encours</td><td>Direction</td><td>Plan diversification</td></tr>
+</tbody>
+</table>
+</section>
+<section class="section" id="avantages">
+<h2>⭐ 11. Avantages pour AL NAMAA</h2>
+<div class="highlight"><strong>⭐ Valeur ajoutée :</strong> Collecte de ressources stables à coût nul, fidélisation des membres, inclusion financière, et base pour proposer d'autres produits islamiques.</div>
+<h3>11.1 Synthèse des Avantages Clés</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Dimension</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Avantages Principaux</th></tr>
+</thead>
+<tbody>
+<tr><td>Stratégique</td><td>Mobilisation des ressources • Base client solide • Positionnement islamique</td></tr>
+<tr><td>Commercial</td><td>Élargissement clientèle • Fidélisation • Cross-selling vers produits de financement</td></tr>
+<tr><td>Financier</td><td>Ressources stables • Coût maîtrisé • Levier pour les financements</td></tr>
+<tr><td>Opérationnel</td><td>Processus digitalisé • Automatisation • Traçabilité</td></tr>
+<tr><td>Conformité</td><td>Double conformité Charia/BCEAO • Transparence • Gouvernance renforcée</td></tr>
+<tr><td>Social</td><td>Inclusion financière • Épargne sécurisée • Finance éthique</td></tr>
+</tbody>
+</table>
+<h3>11.2 Avantages Stratégiques</h3>
+<p>La Wadi’a constitue le socle fondamental de l’activité d’AL NAMAA FINANCE. Les dépôts collectés permettent de financer les opérations de financement islamique (Mourabaha, Ijara, Tawarruq, Salam) sans recours à l’emprunt extérieur porteur d’intérêts. L’institution renforce ainsi son autonomie financière tout en proposant des solutions de dépôt conformes aux convictions religieuses de sa clientèle.</p>
+<h3>11.3 Avantages Financiers</h3>
+<p>Simulation de la structure de ressources Wadi’a - Année 1 :</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Rubrique</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Montant (FCFA)</th></tr>
+</thead>
+<tbody>
+<tr><td>HYPOTHÈSES</td><td></td></tr>
+<tr><td>Nombre de comptes actifs</td><td>2 000</td></tr>
+<tr><td>Encours moyen Wadi’a</td><td>800 000 000</td></tr>
+<tr><td>Dont DAT (40%)</td><td>320 000 000</td></tr>
+<tr><td>CHARGES</td><td></td></tr>
+<tr><td>Hiba distribué (coût moyen 2,5%)</td><td>(20 000 000)</td></tr>
+<tr><td>Charges d’exploitation allouées</td><td>(8 000 000)</td></tr>
+<tr><td>TOTAL CHARGES</td><td>(28 000 000)</td></tr>
+<tr><td>PRODUITS</td><td></td></tr>
+<tr><td>Frais de tenue de compte</td><td>1 500 000</td></tr>
+<tr><td>COÛT NET DES RESSOURCES WADI’A</td><td>(26 500 000)</td></tr>
+<tr><td>Coût moyen des ressources</td><td>3,3%</td></tr>
+</tbody>
+</table>
+<h3>11.4 Avantages Sociaux et Inclusion Financière</h3>
+<p>Au Mali, où plus de 90% de la population est musulmane, de nombreuses personnes s’auto-excluent du système financier par conviction religieuse. La Wadi’a leur offre un compte de dépôt et d’épargne pleinement conforme à leurs valeurs, contribuant ainsi directement à l’inclusion financière.</p>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">ODD</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Objectif</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Contribution de la Wadi’a</th></tr>
+</thead>
+<tbody>
+<tr><td>ODD 1</td><td>Pas de pauvreté</td><td>Sécurisation de l’épargne des ménages vulnérables</td></tr>
+<tr><td>ODD 5</td><td>Égalité des sexes</td><td>Épargne accessible aux femmes sans intermédiaire</td></tr>
+<tr><td>ODD 8</td><td>Travail décent et croissance</td><td>Mobilisation de l’épargne locale pour financer l’économie</td></tr>
+<tr><td>ODD 10</td><td>Réduction des inégalités</td><td>Inclusion des exclus volontaires du système conventionnel</td></tr>
+</tbody>
+</table>
+<h3>11.5 Facteurs Clés de Succès</h3>
+<ul>
+<li>Formation des équipes : Maîtrise parfaite des principes de la Wadi’a par tous les collaborateurs</li>
+<li>Communication client : Explication claire de la différence entre Hiba et intérêt conventionnel</li>
+<li>Qualité de service : Rapidité d’ouverture, accessibilité multicanale, disponibilité des fonds</li>
+<li>Gestion de la liquidité : Maintien d’un ratio de liquidité adéquat pour honorer les retraits</li>
+<li>Transparence Hiba : Communication périodique sur la politique de Hiba sans créer d’attente garantie</li>
+</ul>
+</section>
+<section class="section" id="annexes">
+<h2>📎 12. Annexes</h2>
+<div class="info-box"><strong>📎 Documents :</strong> Glossaire des termes arabes, références normatives AAOIFI et BCEAO, modèles de contrats, matrices de contrôle et contacts ressources.</div>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Annexe</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Titre</th></tr>
+</thead>
+<tbody>
+<tr><td>A</td><td>Glossaire des Termes Arabes et Techniques</td></tr>
+<tr><td>B</td><td>Références Normatives AAOIFI</td></tr>
+<tr><td>C</td><td>Références Réglementaires BCEAO</td></tr>
+<tr><td>D</td><td>Modèles de Contrats et Documents</td></tr>
+<tr><td>E</td><td>Matrices de Contrôle et Validation</td></tr>
+<tr><td>F</td><td>Contacts et Ressources</td></tr>
+</tbody>
+</table>
+<h3 id="annexe-a">Annexe A : Glossaire des Termes Arabes et Techniques</h3>
+<h4>A.1 Termes Arabes Fondamentaux liés à la Wadi’a</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Terme Arabe</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Translittération</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Définition</th></tr>
+</thead>
+<tbody>
+<tr><td>وديعة</td><td>Wadī’a</td><td>Dépôt de garde : contrat par lequel un déposant confie ses fonds à un dépositaire</td></tr>
+<tr><td>مُودِع</td><td>Muwaddi’</td><td>Déposant : personne qui confie ses fonds</td></tr>
+<tr><td>وَديع</td><td>Wadī’</td><td>Dépositaire : personne ou institution qui reçoit les fonds en dépôt</td></tr>
+<tr><td>أمين</td><td>Amīn</td><td>Gardien de confiance, fiduciaire</td></tr>
+<tr><td>ضمان</td><td>Dhamān</td><td>Garantie, responsabilité de restitution</td></tr>
+<tr><td>هبة</td><td>Hiba</td><td>Don gracieux et volontaire, sans contrepartie obligatoire</td></tr>
+<tr><td>ربا</td><td>Ribā</td><td>Usure, intérêt - strictement interdit en Islam</td></tr>
+<tr><td>حلال</td><td>Halāl</td><td>Licite, permis selon la loi islamique</td></tr>
+<tr><td>حرام</td><td>Harām</td><td>Illicite, interdit selon la loi islamique</td></tr>
+<tr><td>شريعة</td><td>Sharī’a</td><td>Loi islamique dérivée du Coran et de la Sunna</td></tr>
+<tr><td>فتوى</td><td>Fatwā</td><td>Avis juridique religieux émis par un savant qualifié</td></tr>
+</tbody>
+</table>
+<h3 id="annexe-b">Annexe B : Références Normatives AAOIFI</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Norme</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Titre</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Application à la Wadi’a</th></tr>
+</thead>
+<tbody>
+<tr><td>SS 27</td><td>Wadi’a (Dépôt)</td><td>Standard Charia de référence pour les dépôts Wadi’a</td></tr>
+<tr><td>SS 40</td><td>Distribution des profits</td><td>Règles applicables au Hiba</td></tr>
+<tr><td>FAS 1</td><td>Présentation des états financiers</td><td>Format de présentation des dépôts</td></tr>
+<tr><td>FAS 11</td><td>Provisions et réserves</td><td>Réserves pour garantir les dépôts</td></tr>
+<tr><td>GS 1</td><td>Comité Charia</td><td>Gouvernance et rôle du Comité Charia</td></tr>
+</tbody>
+</table>
+<h3 id="annexe-c">Annexe C : Références Réglementaires BCEAO</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Texte</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Objet</th></tr>
+</thead>
+<tbody>
+<tr><td>Loi-cadre PARMEC</td><td>Cadre général des SFD dans l’UMOA</td></tr>
+<tr><td>Instruction N°010-08/2010/RB</td><td>Règles prudentielles applicables aux SFD</td></tr>
+<tr><td>Instruction N°017-12/2010/RB</td><td>Plan comptable des établissements de crédit (PCEC-SFD)</td></tr>
+<tr><td>Instruction N°002-03-2018</td><td>Gouvernance des IMF offrant des produits islamiques</td></tr>
+<tr><td>Circulaire N°003-2011/CB/C</td><td>Lutte contre le blanchiment et le financement du terrorisme</td></tr>
+</tbody>
+</table>
+<h3 id="annexe-d">Annexe D : Modèles de Contrats et Documents</h3>
+<h4>D.1 Modèle - Convention de Compte Wadi’a</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">CONVENTION DE COMPTE WADI’A — N° [REFERENCE_CONTRAT]</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>ENTRE LES SOUSSIGNÉS :</p>
+<p>AL NAMAA FINANCE, Institution de Microfinance Islamique, immatriculée sous le numéro [NUMERO], dont le siège social est situé à [ADRESSE], représentée par [NOM], en sa qualité de [FONCTION], ci-après dénommée « Le Dépositaire »,</p>
+<p>D’UNE PART,</p>
+<p>M./Mme [NOM_CLIENT], [PROFESSION], demeurant à [ADRESSE], titulaire de la pièce d’identité n° [NUMERO], ci-après dénommé(e) « Le Déposant »,</p>
+<p>D’AUTRE PART,</p>
+<p>ARTICLE 1 - OBJET : Le Dépositaire ouvre au nom du Déposant un compte Wadi’a de type [TYPE] sous le numéro [NUMERO_COMPTE]. Le Dépositaire s’engage à conserver les fonds déposés et à les restituer intégralement sur demande du Déposant.</p>
+<p>ARTICLE 2 - NATURE DU DÉPÔT : Le présent compte fonctionne selon le principe de la Wadi’a Yad Dhamanah. Le Déposant autorise le Dépositaire à utiliser les fonds déposés dans ses activités licites conformes à la Charia. Le Dépositaire garantit la restitution intégrale du capital.</p>
+<p>ARTICLE 3 - HIBA : Le Dépositaire peut, à sa discrétion et sans aucune obligation, accorder un don (Hiba) au Déposant. Ce don ne constitue en aucun cas un intérêt et ne peut être garanti, promis ou conditionné.</p>
+<p>ARTICLE 4 - CONFORMITÉ CHARIA : La présente convention a été validée par le Comité Charia d’AL NAMAA FINANCE et est conforme au Standard AAOIFI SS 27 (Wadi’a).</p>
+<h3 id="annexe-e">Annexe E : Matrices de Contrôle et Validation</h3>
+<h4>E.1 Checklist de Conformité Charia - Par Compte</h4>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">N°</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Point de contrôle</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Obligatoire</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Vérifié</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Le contrat ne contient aucune clause de rémunération garantie</td><td>OUI</td><td>☐</td></tr>
+<tr><td>2</td><td>Le Hiba n’est pas mentionné comme obligation contractuelle</td><td>OUI</td><td>☐</td></tr>
+<tr><td>3</td><td>Le client a consenti à l’utilisation des fonds (Yad Dhamanah)</td><td>OUI</td><td>☐</td></tr>
+<tr><td>4</td><td>La garantie de restitution du capital est clairement stipulée</td><td>OUI</td><td>☐</td></tr>
+<tr><td>5</td><td>Les fonds sont investis dans des activités licites uniquement</td><td>OUI</td><td>☐</td></tr>
+<tr><td>6</td><td>Les frais appliqués sont transparents et non usuraires</td><td>OUI</td><td>☐</td></tr>
+<tr><td>7</td><td>Le Comité Charia a validé le modèle de convention</td><td>OUI</td><td>☐</td></tr>
+</tbody>
+</table>
+<h3 id="annexe-f">Annexe F : Contacts et Ressources</h3>
+<table>
+<thead>
+<tr><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Service</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Responsable</th><th style="background-color:#2c5f2d; color:white; font-weight:bold;">Contact</th></tr>
+</thead>
+<tbody>
+<tr><td>Direction Générale</td><td>[Nom DG]</td><td></td></tr>
+<tr><td>Direction des Opérations</td><td>[Nom DOp]</td><td></td></tr>
+<tr><td>Responsable Dépôts &amp; Épargne</td><td>[Nom RDE]</td><td></td></tr>
+<tr><td>Direction Comptable</td><td>[Nom DC]</td><td></td></tr>
+<tr><td>Conformité / LBC-FT</td><td>[Nom RCLBC]</td><td></td></tr>
+<tr><td>Direction Informatique</td><td>[Nom DSI]</td><td></td></tr>
+<tr><td>Secrétariat Comité Charia</td><td>[Nom Secrétaire]</td><td></td></tr>
+</tbody>
+</table>
+<p>— Fin du Document —</p>
+</section>
+</main>
+</div>
+<script>
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+function scrollToAnnexe(annexeId) {
+    var annexeElement = document.getElementById(annexeId);
+    if (annexeElement) {
+        var section = annexeElement.closest('.section');
+        if (section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            section.classList.add('active');
+        }
+        setTimeout(function() {
+            annexeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+}
+</script>
+</body>
+</html>
